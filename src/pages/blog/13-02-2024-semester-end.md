@@ -12,10 +12,10 @@ tags:
   - organization
   - Community Event
 ogImage: 
-  src: /posts/13-02-24-semester-end/banner.png
+  src: /posts/13-02-24-semester-end/banner.jpg
   alt: Paper Image
 banner: 
-  src: /posts/13-02-24-semester-end/banner.png
+  src: /posts/13-02-24-semester-end/banner.jpg
   alt: Paper Title
 published: 02/13/2024
 ---
