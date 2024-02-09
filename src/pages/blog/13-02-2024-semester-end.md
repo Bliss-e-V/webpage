@@ -6,7 +6,7 @@ description:
     Community Event - BLISS in SS24 - feedback phase and plans for the next semester
 authors:
   - Julian M Kleber
-format: paper
+format: event
 tags:
   - BLISS
   - organization
