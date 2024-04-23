@@ -32,7 +32,7 @@ export const SpeakerSeries = () => {
           </div>
 
           <div className="flex items-center">
-            <Image
+            <img
               src="/assets/clock.svg"
               className="w-6 h-6 mr-2 stroke-white fill-white"
               alt="clock"

@@ -2,7 +2,8 @@
 import Badge from "@components/Badge";
 import { Image } from 'astro:assets';
 const anchorLinks: string[] = ["speaker Series"];
-
+import type { ImageMetadata } from 'astro';
+const image = import.meta.glob<{ default: ImageMetadata }>('/public/assets/bliss-logo.png')
 const { headerTitle } = Astro.props;
 ---
 
@@ -15,7 +16,7 @@ const { headerTitle } = Astro.props;
       <a id="logo" href="/" class="relative group">
         <Image
           alt="bliss logo"
-          src="/assets/bliss-logo.png"
+          src={image['/public/assets/bliss-logo.png']()}
           height={80}
           width={80}
         />

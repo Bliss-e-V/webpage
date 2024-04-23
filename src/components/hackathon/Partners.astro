@@ -1,4 +1,8 @@
+---
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+const image = import.meta.glob<{ default: ImageMetadata }>('/public/assets/bliss-logo.png')
+---
 
 <div id="partners" class="sm:my-40 text-center">
   <strong
@@ -8,7 +12,7 @@ import { Image } from 'astro:assets';
   </strong>
   <div class="flex justify-center mt-20 space-x-10">
     <a href="https://google.de" class="partner-logo">
-      <Image src="/assets/partners/google.png" alt="Google" />
+      <Image src={image["/public/assets/bliss-logo.png"]()} alt="Google" />
     </a>
   </div>
 </div>
