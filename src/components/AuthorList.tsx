@@ -1,4 +1,3 @@
-import { Image } from 'astro:assets';
 import type { Author } from '@utils/types';
 
 type Props = {

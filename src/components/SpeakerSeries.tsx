@@ -1,5 +1,4 @@
 import { speakers } from './data/speakers';
-import { Image } from 'astro:assets';
 
 export const SpeakerSeries = () => {
   return (
