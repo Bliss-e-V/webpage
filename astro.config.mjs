@@ -14,12 +14,13 @@ import vercel from '@astrojs/vercel/static';
 // https://github.com/alextim/astro-lib/tree/main/packages/astro-robots-txt#readme
 import robotsTxt from 'astro-robots-txt';
 
-// https://astro.build/config
+// https://docs.astro.build/en/guides/integrations-guide/sitemap/
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://bliss.berlin",
-  integrations: [tailwind(), react(), robotsTxt()],
+  integrations: [tailwind(), react(), robotsTxt(), sitemap()],
   renderers: ['@astrojs/renderer-react'],
   markdown: {
     shikiConfig: {
