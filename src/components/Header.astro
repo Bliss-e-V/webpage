@@ -1,5 +1,6 @@
 ---
 import Badge from "@components/Badge";
+import { Image } from 'astro:assets';
 const anchorLinks: string[] = ["speaker Series"];
 
 const { headerTitle } = Astro.props;
@@ -12,7 +13,7 @@ const { headerTitle } = Astro.props;
   <div class="container flex justify-between">
     <div class="flex items-center justify-start space-x-[50px]">
       <a id="logo" href="/" class="relative group">
-        <img
+        <Image
           alt="bliss logo"
           src="/assets/bliss-logo.png"
           height={80}
