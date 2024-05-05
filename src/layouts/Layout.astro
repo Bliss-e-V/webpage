@@ -6,6 +6,7 @@ interface Props {
   ogImage?: string;
 }
 const { title, headerTitle, description, ogImage }: Props = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -17,6 +18,7 @@ import "../global.css";
 <html lang="en">
   <head>
     <title>{title}</title>
+    <link rel="canonical" href={canonicalURL} />
     <meta name="description" content={description} />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -35,7 +37,7 @@ import "../global.css";
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="keywords"
-      content="berlin, bliss, ai, speaker, reading group, machine learning, hackathon, networking events, tech events, ai student initiative"
+      content="ai, machine learning, student initiative, events, berlin, speaker series"
     />
     <meta name="theme-color" content="#000000" /><link
       rel="icon"

@@ -4,11 +4,11 @@ export const SpeakerSeries = () => {
 
     return <div className="flex items-center flex-wrap justify-center" >
         <div id="speaker Series" className="pt-32 sm:my-40 text-center">
-            <strong
-                className="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right"
+            <h2
+                className="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
             >
                 Speaker Series
-            </strong>
+            </h2>
             <p
                 className="mt-4 font-light leading-relaxed text-secondary text-md sm:text-xl"
             >

@@ -2,10 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import ThreeScence from "../components/ThreeScence.astro";
 import Landing from "../components/Landing.astro";
+import AboutUs from "@components/AboutUs.astro";
 import { SpeakerSeries } from "@components/SpeakerSeries";
 import Banner from "@components/Banner.astro";
-import Arrow from "@components/Arrow.astro";
 import Flinta from "@components/Flinta.astro";
+import Arrow from "@components/Arrow.astro";
 ---
 
 <Layout
@@ -16,6 +17,7 @@ import Flinta from "@components/Flinta.astro";
     <ThreeScence />
     <Banner />
     <Landing />
+    <AboutUs />
     <SpeakerSeries client:idle />
     <Flinta />
     <Arrow />
