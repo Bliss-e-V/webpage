@@ -29,17 +29,18 @@ const pastPaperList = Object.entries(pastPapers)
 ---
 
 <div>
-    <strong
-        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right"
-        >Reading Group
-    </strong>
+    <h1
+        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+    >
+        Reading Group
+    </h1>
     <div
         class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."
     >
     </div>
 
     <div class="mb-10">
-        This semester, the reading group will convene at 6pm every second
+        This semester, the BLISS reading group will convene at 6pm every second
         Tuesday in MAR 0.003, starting on the 23.04.2024. Our sessions will
         entail in-depth discussions on upcoming papers. Each gathering will
         involve an discussion of two papers, accompanied by a brief introductory
@@ -51,9 +52,9 @@ const pastPaperList = Object.entries(pastPapers)
     {
         futurePaperList.length > 0 && (
             <div class="my-2">
-                <strong class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right">
+                <h2 class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">
                     Upcoming
-                </strong>
+                </h2>
                 <div class="flex items-center justify-center flex-col mt-2 sm:mt-4">
                     {futurePaperList.map((papers) => {
                         return (
@@ -75,10 +76,10 @@ const pastPaperList = Object.entries(pastPapers)
     }
 
     <div class="my-2 mt-4">
-        <strong
-            class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right"
+        <h2
+            class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
             >Past
-        </strong>
+        </h2>
         <div class="flex items-center justify-center flex-col mt-2 sm:mt-4">
             {
                 pastPaperList.map((papers) => {
