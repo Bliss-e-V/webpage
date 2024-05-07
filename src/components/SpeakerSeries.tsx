@@ -103,7 +103,7 @@ export const SpeakerSeries = () => {
                                                 }`}
                                         >
                                             {speaker.name},{" "}
-                                            <strong>{speaker.affiliation}</strong>
+                                            <span className="font-bold">{speaker.affiliation}</span>
                                         </p>
                                     </div>
                                 </li>
