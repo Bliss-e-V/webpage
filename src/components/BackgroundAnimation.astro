@@ -13,8 +13,9 @@
 
   let windowHeight: number = window.innerHeight;
   let windowWidth: number = window.innerWidth;
+  const renderMobile = windowWidth < 630;
 
-  const canvasSize = windowWidth > 630 ? 1080 : 720;
+  const canvasSize = renderMobile ? 720 : 1080;
 
   function updatePosition() {
     windowHeight = window.innerHeight;
@@ -49,7 +50,7 @@
     }
   }
 
-  if (windowWidth > 630) {
+  if (!renderMobile) {
     addEventListener("scroll", updatePosition);
     addEventListener("resize", updatePosition);
   }
@@ -58,7 +59,7 @@
     // Adapted from https://www.youtube.com/watch?v=sZBfLgfsvSk
     let particles = [];
     let velocities = [];
-    const num = 500;
+    const num = renderMobile ? 300 : 500;
 
     const noiseScale = 2 / canvasSize;
     const velocityDecay = 7 / canvasSize;
@@ -71,13 +72,9 @@
       let canvas = p.createCanvas(canvasSize, canvasSize);
       canvas.parent("canvasContainer");
       canvas.style("color", "px solid red");
-      if (windowWidth > 630) {
-        canvas.style("margin-left", `calc(50% - ${canvasSize}px)`);
-        updatePosition();
-      } else {
-        // canvas.style("margin-left", `calc((100% - ${canvasSize}px) / 2)`);
-        canvas.style("opacity", "50%");
-      }
+
+      if (renderMobile) canvas.style("opacity", "50%");
+      else updatePosition();
 
       p.stroke(255);
       p.strokeWeight(2);
