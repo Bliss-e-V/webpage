@@ -15,7 +15,9 @@
   let windowWidth: number = window.innerWidth;
   const renderMobile = windowWidth < 630;
 
-  const canvasSize = renderMobile ? 720 : 1080;
+  const canvasSize = renderMobile
+    ? windowWidth
+    : 0.8 * Math.min(windowWidth / 2, windowHeight);
 
   function updatePosition() {
     windowHeight = window.innerHeight;
@@ -36,12 +38,14 @@
 
     if (fractionToRecent < 1) {
       let globalOffset = (1 - fractionToRecent) * windowWidth; // positioning on page
-      let localOffset = ((0.5 - fractionToRecent) * canvasSize) / 2; // offset canvas by +- 0.5 * canvasSize
+      let localOffset =
+        (0.5 - fractionToRecent) * (windowWidth / 2 - canvasSize); // offset canvas by +- 0.5 * canvasSize
       let margin = globalOffset + localOffset;
       canvas.style.opacity = "100%";
       canvas.style.marginLeft = `calc(${margin}px - 50%)`;
+      canvas.style.border = "5px solid red";
     } else {
-      let margin = ((0.5 - 1) * canvasSize) / 2; // ... = localOffset for fractionToRecent = 1
+      let margin = (0.5 - 1) * (windowWidth / 2 - canvasSize); // ... = localOffset for fractionToRecent = 1
       canvas.style.marginLeft = `calc(${margin}px - 50%)`;
       canvas.style.opacity = `${Math.max(
         20,
@@ -59,11 +63,11 @@
     // Adapted from https://www.youtube.com/watch?v=sZBfLgfsvSk
     let particles = [];
     let velocities = [];
-    const num = renderMobile ? 300 : 500;
+    const num = renderMobile ? 250 : 500;
 
     const noiseScale = 2 / canvasSize;
     const velocityDecay = 7 / canvasSize;
-    const maxVelocity = 100;
+    const maxVelocity = 130;
     const dt = 0.05;
     const gravityStrength = 1;
     const gravityEqualsOneAtDistance = 0.7;
