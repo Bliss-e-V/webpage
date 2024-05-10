@@ -1,8 +1,6 @@
 ---
 import Badge from "@components/Badge";
 const anchorLinks: string[] = ["speaker Series"];
-
-const { headerTitle } = Astro.props;
 ---
 
 <div
@@ -24,12 +22,6 @@ const { headerTitle } = Astro.props;
           Home
         </p>
       </a>
-      <h2
-        id="animatedTitle"
-        class="hidden truncate w-[400px] lg:block text-2xl translate-y-4 ml-6 opacity-0 transition-all"
-      >
-        {headerTitle}
-      </h2>
     </div>
     <div id="menu" class="flex items-center space-x-7">
       <a
