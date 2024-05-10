@@ -13,6 +13,38 @@
 
   const canvasSize = 720;
 
+  let windowHeight: number = window.innerHeight;
+  let windowWidth: number = window.innerWidth;
+
+  function handleScroll() {
+    // from right to left (on tablet, desktop)
+    let canvas: HTMLElement = document.querySelector(
+      '#canvasContainer > canvas',
+    )!;
+    let recent: HTMLElement = document.getElementById('speaker Series')!;
+    if (!canvas || !recent) {
+      return;
+    }
+
+    let scroll = window.scrollY;
+    let distanceToRecent = recent.getBoundingClientRect().top - windowHeight;
+    let fractionToRecent = scroll / (scroll + distanceToRecent);
+
+    if (fractionToRecent < 1) {
+      let margin = (1 - fractionToRecent) * (windowWidth - canvasSize);
+      canvas.style.marginLeft = `${margin}px`;
+    } else {
+      canvas.style.opacity = `${Math.max(
+        20,
+        100 - Math.abs(recent.getBoundingClientRect().top - windowHeight) / 8,
+      )}%`;
+    }
+  }
+
+  if (windowWidth > 630) {
+    addEventListener('scroll', handleScroll);
+  }
+
   function backgroundAnimation(p) {
     // Adapted from https://www.youtube.com/watch?v=sZBfLgfsvSk
     let particles = [];
@@ -28,8 +60,17 @@
 
     p.setup = function () {
       let canvas = p.createCanvas(canvasSize, canvasSize);
-      canvas.parent("canvasContainer");
-      canvas.style("margin-left", `calc(100% - ${canvasSize}px)`);
+      canvas.parent('canvasContainer');
+      if (windowWidth > 630) {
+        canvas.style('margin-left', `calc(100% - ${canvasSize}px)`);
+      } else {
+        canvas.style('margin-left', `calc(50% - ${canvasSize}px / 2)`);
+        canvas.style('opacity', '50%');
+      }
+
+      p.stroke(255);
+      p.strokeWeight(1.5);
+      p.clear();
 
       for (let i = 0; i < num; i++) {
         particles.push(
@@ -51,10 +92,6 @@
           ),
         );
       }
-
-      p.stroke(255);
-      p.strokeWeight(1.5);
-      p.clear();
     };
 
     p.draw = function () {
@@ -138,44 +175,5 @@
     };
   }
 
-  let sketch = new p5(backgroundAnimation, "background_animation");
-
-  let windowHeight: number = window.innerHeight;
-  let windowWidth: number = window.innerWidth;
-
-  function handleScroll() {
-    // from right to left (on tablet, desktop)
-    let canvas: HTMLElement = document.querySelector(
-      "#canvasContainer > canvas",
-    )!;
-    let recent: HTMLElement = document.getElementById("speaker Series")!;
-    if (!canvas || !recent) {
-      return;
-    }
-
-    let scroll = window.scrollY;
-    let distanceToRecent = recent.getBoundingClientRect().top - windowHeight;
-    let fractionToRecent = scroll / (scroll + distanceToRecent);
-
-    if (fractionToRecent < 1) {
-      let margin = (1 - fractionToRecent) * (windowWidth - canvasSize);
-      canvas.style.marginLeft = `${margin}px`;
-    } else {
-      canvas.style.opacity = `${Math.max(
-        20,
-        100 - Math.abs(recent.getBoundingClientRect().top - windowHeight) / 8,
-      )}%`;
-    }
-  }
-
-  if (windowWidth > 630) {
-    addEventListener("scroll", handleScroll);
-  } else {
-    addEventListener("appLoaded", () => {
-      let canvas: HTMLElement = document.querySelector(
-        "#canvasContainer > canvas",
-      )!;
-      canvas.style.opacity = "50%";
-    });
-  }
+  let sketch = new p5(backgroundAnimation, 'background_animation');
 </script>
