@@ -4,7 +4,7 @@
 
 <div
   id="canvasContainer"
-  class="absolute top-0 left-0 w-screen h-screen md:fixed -z-10 flex flex-row items-center"
+  class="fixed top-0 left-0 w-screen h-screen md:fixed -z-10 flex flex-row items-center justify-center"
 >
 </div>
 
@@ -15,13 +15,16 @@
 
   let windowHeight: number = window.innerHeight;
   let windowWidth: number = window.innerWidth;
+  
+  function updatePosition() {
+    windowHeight = window.innerHeight;
+    windowWidth = window.innerWidth;
 
-  function handleScroll() {
     // from right to left (on tablet, desktop)
     let canvas: HTMLElement = document.querySelector(
-      '#canvasContainer > canvas',
+      "#canvasContainer > canvas",
     )!;
-    let recent: HTMLElement = document.getElementById('speaker Series')!;
+    let recent: HTMLElement = document.getElementById("speaker Series")!;
     if (!canvas || !recent) {
       return;
     }
@@ -31,9 +34,11 @@
     let fractionToRecent = scroll / (scroll + distanceToRecent);
 
     if (fractionToRecent < 1) {
-      let margin = (1 - fractionToRecent) * (windowWidth - canvasSize);
-      canvas.style.marginLeft = `${margin}px`;
+      let margin = (1 - fractionToRecent) * windowWidth + (0.5 - fractionToRecent) * canvasSize;
+      canvas.style.opacity = "100%";
+      canvas.style.marginLeft = `calc(${margin}px - 50%)`;
     } else {
+      canvas.style.marginLeft = `calc(-50% - ${canvasSize}px / 2)`;
       canvas.style.opacity = `${Math.max(
         20,
         100 - Math.abs(recent.getBoundingClientRect().top - windowHeight) / 8,
@@ -42,7 +47,8 @@
   }
 
   if (windowWidth > 630) {
-    addEventListener('scroll', handleScroll);
+    addEventListener("scroll", updatePosition);
+    addEventListener("resize", updatePosition);
   }
 
   function backgroundAnimation(p) {
@@ -60,17 +66,19 @@
 
     p.setup = function () {
       let canvas = p.createCanvas(canvasSize, canvasSize);
-      canvas.parent('canvasContainer');
+      canvas.parent("canvasContainer");
       if (windowWidth > 630) {
-        canvas.style('margin-left', `calc(100% - ${canvasSize}px)`);
+        canvas.style("margin-left", `calc(50% - ${canvasSize}px)`);
+        updatePosition();
       } else {
-        canvas.style('margin-left', `calc(50% - ${canvasSize}px / 2)`);
-        canvas.style('opacity', '50%');
+        // canvas.style("margin-left", `calc((100% - ${canvasSize}px) / 2)`);
+        canvas.style("opacity", "50%");
       }
 
       p.stroke(255);
-      p.strokeWeight(1.5);
+      p.strokeWeight(2);
       p.clear();
+
 
       for (let i = 0; i < num; i++) {
         particles.push(
@@ -175,5 +183,5 @@
     };
   }
 
-  let sketch = new p5(backgroundAnimation, 'background_animation');
+  let sketch = new p5(backgroundAnimation, "background_animation");
 </script>
