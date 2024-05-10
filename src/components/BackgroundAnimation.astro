@@ -11,11 +11,11 @@
 <script>
   import p5 from "p5";
 
-  const canvasSize = 720;
-
   let windowHeight: number = window.innerHeight;
   let windowWidth: number = window.innerWidth;
-  
+
+  const canvasSize = windowWidth > 630 ? 1080 : 720;
+
   function updatePosition() {
     windowHeight = window.innerHeight;
     windowWidth = window.innerWidth;
@@ -34,11 +34,14 @@
     let fractionToRecent = scroll / (scroll + distanceToRecent);
 
     if (fractionToRecent < 1) {
-      let margin = (1 - fractionToRecent) * windowWidth + (0.5 - fractionToRecent) * canvasSize;
+      let globalOffset = (1 - fractionToRecent) * windowWidth; // positioning on page
+      let localOffset = ((0.5 - fractionToRecent) * canvasSize) / 2; // offset canvas by +- 0.5 * canvasSize
+      let margin = globalOffset + localOffset;
       canvas.style.opacity = "100%";
       canvas.style.marginLeft = `calc(${margin}px - 50%)`;
     } else {
-      canvas.style.marginLeft = `calc(-50% - ${canvasSize}px / 2)`;
+      let margin = ((0.5 - 1) * canvasSize) / 2; // ... = localOffset for fractionToRecent = 1
+      canvas.style.marginLeft = `calc(${margin}px - 50%)`;
       canvas.style.opacity = `${Math.max(
         20,
         100 - Math.abs(recent.getBoundingClientRect().top - windowHeight) / 8,
@@ -67,6 +70,7 @@
     p.setup = function () {
       let canvas = p.createCanvas(canvasSize, canvasSize);
       canvas.parent("canvasContainer");
+      canvas.style("color", "px solid red");
       if (windowWidth > 630) {
         canvas.style("margin-left", `calc(50% - ${canvasSize}px)`);
         updatePosition();
@@ -78,7 +82,6 @@
       p.stroke(255);
       p.strokeWeight(2);
       p.clear();
-
 
       for (let i = 0; i < num; i++) {
         particles.push(
