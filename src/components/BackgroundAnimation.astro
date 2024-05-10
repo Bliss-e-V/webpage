@@ -3,22 +3,21 @@
 ---
 
 <div
-  id="canvas"
-  class="absolute top-0 left-0 w-screen h-screen md:fixed -z-10 flex flex-col items-end justify-center"
+  id="canvasContainer"
+  class="absolute top-0 left-0 w-screen h-screen md:fixed -z-10 flex flex-row items-center"
 >
 </div>
 
-<!-- <script is:inline src="https://cdn.jsdelivr.net/npm/p5@1.9.3/lib/p5.js"></script> -->
 <script>
   import p5 from "p5";
+
+  const canvasSize = 720;
 
   function backgroundAnimation(p) {
     // Adapted from https://www.youtube.com/watch?v=sZBfLgfsvSk
     let particles = [];
     let velocities = [];
-    const num = 300;
-
-    const canvasSize = 720;
+    const num = 500;
 
     const noiseScale = 2 / canvasSize;
     const velocityDecay = 7 / canvasSize;
@@ -29,7 +28,8 @@
 
     p.setup = function () {
       let canvas = p.createCanvas(canvasSize, canvasSize);
-      canvas.parent("canvas");
+      canvas.parent("canvasContainer");
+      canvas.style("margin-left", `calc(100% - ${canvasSize}px)`);
 
       for (let i = 0; i < num; i++) {
         particles.push(
@@ -44,7 +44,12 @@
             ),
           ),
         );
-        velocities.push(p.createVector(p.random(1), p.random(1)));
+        velocities.push(
+          p.createVector(
+            p.random(2 * maxVelocity) - maxVelocity,
+            p.random(2 * maxVelocity) - maxVelocity,
+          ),
+        );
       }
 
       p.stroke(255);
@@ -57,7 +62,7 @@
       for (let i = 0; i < num; i++) {
         let particle = particles[i];
         let v = velocities[i];
-        let color = p.getColor(particle.y);
+        let color = p.getColor(particle);
         p.stroke(color);
         p.point(particle.x, particle.y);
         let n = p.noise(
@@ -134,4 +139,43 @@
   }
 
   let sketch = new p5(backgroundAnimation, "background_animation");
+
+  let windowHeight: number = window.innerHeight;
+  let windowWidth: number = window.innerWidth;
+
+  function handleScroll() {
+    // from right to left (on tablet, desktop)
+    let canvas: HTMLElement = document.querySelector(
+      "#canvasContainer > canvas",
+    )!;
+    let recent: HTMLElement = document.getElementById("speaker Series")!;
+    if (!canvas || !recent) {
+      return;
+    }
+
+    let scroll = window.scrollY;
+    let distanceToRecent = recent.getBoundingClientRect().top - windowHeight;
+    let fractionToRecent = scroll / (scroll + distanceToRecent);
+
+    if (fractionToRecent < 1) {
+      let margin = (1 - fractionToRecent) * (windowWidth - canvasSize);
+      canvas.style.marginLeft = `${margin}px`;
+    } else {
+      canvas.style.opacity = `${Math.max(
+        20,
+        100 - Math.abs(recent.getBoundingClientRect().top - windowHeight) / 8,
+      )}%`;
+    }
+  }
+
+  if (windowWidth > 630) {
+    addEventListener("scroll", handleScroll);
+  } else {
+    addEventListener("appLoaded", () => {
+      let canvas: HTMLElement = document.querySelector(
+        "#canvasContainer > canvas",
+      )!;
+      canvas.style.opacity = "50%";
+    });
+  }
 </script>
