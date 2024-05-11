@@ -17,6 +17,9 @@ import robotsTxt from 'astro-robots-txt';
 // https://docs.astro.build/en/guides/integrations-guide/sitemap/
 import sitemap from '@astrojs/sitemap';
 
+// https://docs.astro.build/en/guides/integrations-guide/vercel/#web-analytics
+import vercel from '@astrojs/vercel/static';
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://bliss.berlin",
@@ -32,7 +35,7 @@ export default defineConfig({
   },
   output: 'static',
   adapter: vercel({
-    analytics: true
+    webAnalytics: { enabled: true }
   }),
   trailingSlash: 'never',
 });

@@ -1,0 +1,196 @@
+---
+
+---
+
+<div
+  id="canvasContainer"
+  class="fixed top-0 left-0 w-screen h-screen md:fixed -z-10 flex flex-row items-center justify-center"
+>
+</div>
+
+<script>
+  import p5 from "p5";
+  console.log("imported", p5);
+
+  let windowHeight: number = window.innerHeight;
+  let windowWidth: number = window.innerWidth;
+  const renderMobile = windowWidth < 630;
+
+  const canvasSize = renderMobile
+    ? windowWidth
+    : 0.8 * Math.min(windowWidth / 2, windowHeight);
+  console.log("canvasSize", canvasSize);
+
+  const canvasContainer: HTMLElement =
+    document.querySelector("#canvasContainer")!;
+  const sketch = new p5(backgroundAnimation, canvasContainer);
+  console.log("sketch", sketch);
+
+  if (!renderMobile) {
+    addEventListener("scroll", updatePosition);
+    addEventListener("resize", updatePosition);
+  }
+
+  function backgroundAnimation(p: p5) {
+    // Adapted from https://www.youtube.com/watch?v=sZBfLgfsvSk
+    let particles: p5.Vector[] = [];
+    let velocities: p5.Vector[] = [];
+    const num = renderMobile ? 250 : 500;
+
+    const noiseScale = 2 / canvasSize;
+    const velocityDecay = 7 / canvasSize;
+    const maxVelocity = 130;
+    const dt = 0.05;
+    const gravityStrength = 1;
+    const gravityEqualsOneAtDistance = 0.7;
+
+    p.setup = function () {
+      let canvas = p.createCanvas(canvasSize, canvasSize);
+      canvas.parent("canvasContainer");
+      console.log("canvas", canvas);
+
+      if (renderMobile) canvas.style("opacity", "50%");
+      else updatePosition();
+
+      p.stroke(255);
+      p.strokeWeight(2);
+      p.clear();
+
+      for (let i = 0; i < num; i++) {
+        particles.push(
+          p.createVector(
+            p.random(
+              canvasSize / 2 - canvasSize / 5,
+              canvasSize / 2 + canvasSize / 5,
+            ),
+            p.random(
+              canvasSize / 2 - canvasSize / 5,
+              canvasSize / 2 + canvasSize / 5,
+            ),
+          ),
+        );
+        velocities.push(
+          p.createVector(
+            p.random(2 * maxVelocity) - maxVelocity,
+            p.random(2 * maxVelocity) - maxVelocity,
+          ),
+        );
+      }
+    };
+
+    p.draw = function () {
+      p.background(0, 25);
+      for (let i = 0; i < num; i++) {
+        let particle = particles[i];
+        let v = velocities[i];
+        let color = getColor(particle);
+        p.stroke(color);
+        p.point(particle.x, particle.y);
+        let n = p.noise(
+          particle.x * noiseScale,
+          particle.y * noiseScale,
+          p.frameCount * noiseScale * 0.5,
+        );
+        let a = 8 * p.TAU * n;
+
+        let gravity = p
+          .createVector(canvasSize / 2, canvasSize / 2)
+          .sub(particle);
+        gravity = gravity.div(canvasSize / 2);
+        gravity = gravity.div(gravityEqualsOneAtDistance);
+        gravity = gravity.setMag(gravity.mag() ** (1 / gravityStrength));
+
+        let dx = p.cos(a) + gravity.x;
+        let dy = p.sin(a) + gravity.y;
+        v.x += dx - velocityDecay * v.x;
+        v.y += dy - velocityDecay * v.y;
+        v.x = p.constrain(v.x, -maxVelocity, maxVelocity);
+        v.y = p.constrain(v.y, -maxVelocity, maxVelocity);
+        particle.x += dt * v.x;
+        particle.y += dt * v.y;
+        if (!onScreen(particle)) {
+          particle.x = p.random(p.width);
+          particle.y = p.random(p.height);
+        }
+      }
+    };
+
+    p.mouseReleased = function () {
+      p.noiseSeed(p.millis());
+    };
+
+    function getColor(particle: p5.Vector) {
+      const colors = [
+        [255, 0, 0], // red
+        [255, 0, 0], // red
+        [255, 128, 0], // orange
+        [255, 255, 0], // yellow
+        [0, 255, 0], // green
+        [0, 0, 255], // blue
+        [128, 0, 255], // purple
+        [128, 0, 255], // purple
+      ];
+      const dx = canvasSize / 8;
+      for (var i = 1; i < colors.length; i++) {
+        if (particle.y < i * dx) {
+          var m = i * dx - particle.y;
+          if (m < dx) {
+            m = dx - m;
+          }
+          m = m / dx;
+          var c = p.color(
+            (1 - m) * colors[i - 1][0] + m * colors[i][0],
+            (1 - m) * colors[i - 1][1] + m * colors[i][1],
+            (1 - m) * colors[i - 1][2] + m * colors[i][2],
+          );
+          return c;
+        }
+      }
+      return p.color(colors[colors.length - 1]);
+    }
+
+    function onScreen(particle: p5.Vector) {
+      return (
+        particle.x >= 0 &&
+        particle.x <= p.width &&
+        particle.y >= 0 &&
+        particle.y <= p.height
+      );
+    }
+  }
+
+  function updatePosition() {
+    windowHeight = window.innerHeight;
+    windowWidth = window.innerWidth;
+
+    // from right to left (on tablet, desktop)
+    let canvas: HTMLElement = document.querySelector(
+      "#canvasContainer > canvas",
+    )!;
+    let recent: HTMLElement = document.getElementById("speaker Series")!;
+    if (!canvas || !recent) {
+      return;
+    }
+
+    let scroll = window.scrollY;
+    let distanceToRecent = recent.getBoundingClientRect().top - windowHeight;
+    let fractionToRecent = scroll / (scroll + distanceToRecent);
+    console.log("fractionToRecent", fractionToRecent);
+
+    if (fractionToRecent < 1) {
+      let globalOffset = (1 - fractionToRecent) * windowWidth; // positioning on page
+      let localOffset =
+        (0.5 - fractionToRecent) * (windowWidth / 2 - canvasSize); // offset canvas by +- 0.5 * canvasSize
+      let margin = globalOffset + localOffset;
+      canvas.style.opacity = "100%";
+      canvas.style.marginLeft = `calc(${margin}px - 50%)`;
+    } else {
+      let margin = (0.5 - 1) * (windowWidth / 2 - canvasSize); // ... = localOffset for fractionToRecent = 1
+      canvas.style.marginLeft = `calc(${margin}px - 50%)`;
+      canvas.style.opacity = `${Math.max(
+        20,
+        100 - Math.abs(recent.getBoundingClientRect().top - windowHeight) / 8,
+      )}%`;
+    }
+  }
+</script>

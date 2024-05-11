@@ -19,12 +19,14 @@
     "@fontsource/righteous": "^5.0.12",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@types/react-dom": "^18.0.10",
-    "@vercel/analytics": "^1.0.2",
+    "@vercel/analytics": "^1.2.2",
+    "animejs": "^3.2.2",
     "astro": "^4.7.0",
     "astro-robots-txt": "^1.0.0",
     "astro-sitemap": "^1.0.0",
     "fuse.js": "^7.0.0",
     "mdast-util-to-string": "^4.0.0",
+    "p5": "^1.9.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "reading-time": "^1.5.0",
@@ -34,6 +36,7 @@
     "three-noise": "^1.1.2"
   },
   "devDependencies": {
+    "@types/p5": "^1.7.6",
     "@types/react": "^18.2.21",
     "@types/three": "^0.156.0",
     "cz-conventional-changelog": "^3.3.0",
