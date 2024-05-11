@@ -19,49 +19,18 @@
     ? windowWidth
     : 0.8 * Math.min(windowWidth / 2, windowHeight);
 
-  function updatePosition() {
-    windowHeight = window.innerHeight;
-    windowWidth = window.innerWidth;
-
-    // from right to left (on tablet, desktop)
-    let canvas: HTMLElement = document.querySelector(
-      "#canvasContainer > canvas",
-    )!;
-    let recent: HTMLElement = document.getElementById("speaker Series")!;
-    if (!canvas || !recent) {
-      return;
-    }
-
-    let scroll = window.scrollY;
-    let distanceToRecent = recent.getBoundingClientRect().top - windowHeight;
-    let fractionToRecent = scroll / (scroll + distanceToRecent);
-
-    if (fractionToRecent < 1) {
-      let globalOffset = (1 - fractionToRecent) * windowWidth; // positioning on page
-      let localOffset =
-        (0.5 - fractionToRecent) * (windowWidth / 2 - canvasSize); // offset canvas by +- 0.5 * canvasSize
-      let margin = globalOffset + localOffset;
-      canvas.style.opacity = "100%";
-      canvas.style.marginLeft = `calc(${margin}px - 50%)`;
-    } else {
-      let margin = (0.5 - 1) * (windowWidth / 2 - canvasSize); // ... = localOffset for fractionToRecent = 1
-      canvas.style.marginLeft = `calc(${margin}px - 50%)`;
-      canvas.style.opacity = `${Math.max(
-        20,
-        100 - Math.abs(recent.getBoundingClientRect().top - windowHeight) / 8,
-      )}%`;
-    }
-  }
+  const canvasContainer: HTMLElement = document.querySelector("#canvasContainer")!;
+  const sketch = new p5(backgroundAnimation, canvasContainer);
 
   if (!renderMobile) {
     addEventListener("scroll", updatePosition);
     addEventListener("resize", updatePosition);
   }
 
-  function backgroundAnimation(p) {
+  function backgroundAnimation(p: p5) {
     // Adapted from https://www.youtube.com/watch?v=sZBfLgfsvSk
-    let particles = [];
-    let velocities = [];
+    let particles: p5.Vector[] = [];
+    let velocities: p5.Vector[] = [];
     const num = renderMobile ? 250 : 500;
 
     const noiseScale = 2 / canvasSize;
@@ -142,7 +111,7 @@
       }
     };
 
-    p.getColor = function (particle) {
+    p.getColor = function (particle: p5.Vector) {
       const colors = [
         [255, 0, 0], // red
         [255, 0, 0], // red
@@ -176,7 +145,7 @@
       p.noiseSeed(p.millis());
     };
 
-    p.onScreen = function (particle) {
+    p.onScreen = function (particle: p5.Vector) {
       return (
         particle.x >= 0 &&
         particle.x <= p.width &&
@@ -186,5 +155,37 @@
     };
   }
 
-  let sketch = new p5(backgroundAnimation, "background_animation");
+  function updatePosition() {
+    windowHeight = window.innerHeight;
+    windowWidth = window.innerWidth;
+
+    // from right to left (on tablet, desktop)
+    let canvas: HTMLElement = document.querySelector(
+      "#canvasContainer > canvas",
+    )!;
+    let recent: HTMLElement = document.getElementById("speaker Series")!;
+    if (!canvas || !recent) {
+      return;
+    }
+
+    let scroll = window.scrollY;
+    let distanceToRecent = recent.getBoundingClientRect().top - windowHeight;
+    let fractionToRecent = scroll / (scroll + distanceToRecent);
+
+    if (fractionToRecent < 1) {
+      let globalOffset = (1 - fractionToRecent) * windowWidth; // positioning on page
+      let localOffset =
+        (0.5 - fractionToRecent) * (windowWidth / 2 - canvasSize); // offset canvas by +- 0.5 * canvasSize
+      let margin = globalOffset + localOffset;
+      canvas.style.opacity = "100%";
+      canvas.style.marginLeft = `calc(${margin}px - 50%)`;
+    } else {
+      let margin = (0.5 - 1) * (windowWidth / 2 - canvasSize); // ... = localOffset for fractionToRecent = 1
+      canvas.style.marginLeft = `calc(${margin}px - 50%)`;
+      canvas.style.opacity = `${Math.max(
+        20,
+        100 - Math.abs(recent.getBoundingClientRect().top - windowHeight) / 8,
+      )}%`;
+    }
+  }
 </script>
