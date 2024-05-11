@@ -78,9 +78,6 @@ const anchorLinks: string[] = ["speaker Series"];
   // header
   const header = document.getElementById("header")!;
 
-  // animated title
-  const animatedTitle: HTMLElement = document.getElementById("animatedTitle")!;
-
   // link animation
   const speakerSeries: HTMLElement = document.getElementById("speaker Series")!;
   const speakerSeriesLink: HTMLElement =
@@ -105,18 +102,6 @@ const anchorLinks: string[] = ["speaker Series"];
       header.classList.remove("backdrop-blur-md");
       header.classList.remove("border-border");
       header.classList.add("border-transparent");
-    }
-  }
-
-  function animateBlogTitle() {
-    if (windowWidth > 630) {
-      if (window.scrollY > window.innerHeight / 1.5) {
-        animatedTitle.classList.add("opacity-100");
-        animatedTitle.classList.remove("translate-y-4");
-      } else {
-        animatedTitle.classList.remove("opacity-100");
-        animatedTitle.classList.add("translate-y-4");
-      }
     }
   }
 
@@ -153,7 +138,6 @@ const anchorLinks: string[] = ["speaker Series"];
 
   function handleScroll() {
     animateHeader();
-    animateBlogTitle();
     animateLinks();
   }
 
@@ -162,7 +146,6 @@ const anchorLinks: string[] = ["speaker Series"];
   }
 
   animateHeader();
-  animateBlogTitle();
   animateLinks();
   handleRoute();
   document.addEventListener("scroll", handleScroll);
