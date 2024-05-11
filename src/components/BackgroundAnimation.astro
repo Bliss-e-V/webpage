@@ -10,6 +10,7 @@
 
 <script>
   import p5 from "p5";
+  console.log("imported", p5);
 
   let windowHeight: number = window.innerHeight;
   let windowWidth: number = window.innerWidth;
@@ -18,9 +19,12 @@
   const canvasSize = renderMobile
     ? windowWidth
     : 0.8 * Math.min(windowWidth / 2, windowHeight);
+  console.log("canvasSize", canvasSize);
 
-  const canvasContainer: HTMLElement = document.querySelector("#canvasContainer")!;
+  const canvasContainer: HTMLElement =
+    document.querySelector("#canvasContainer")!;
   const sketch = new p5(backgroundAnimation, canvasContainer);
+  console.log("sketch", sketch);
 
   if (!renderMobile) {
     addEventListener("scroll", updatePosition);
@@ -43,7 +47,7 @@
     p.setup = function () {
       let canvas = p.createCanvas(canvasSize, canvasSize);
       canvas.parent("canvasContainer");
-      canvas.style("color", "px solid red");
+      console.log("canvas", canvas);
 
       if (renderMobile) canvas.style("opacity", "50%");
       else updatePosition();
@@ -79,7 +83,7 @@
       for (let i = 0; i < num; i++) {
         let particle = particles[i];
         let v = velocities[i];
-        let color = p.getColor(particle);
+        let color = getColor(particle);
         p.stroke(color);
         p.point(particle.x, particle.y);
         let n = p.noise(
@@ -104,14 +108,18 @@
         v.y = p.constrain(v.y, -maxVelocity, maxVelocity);
         particle.x += dt * v.x;
         particle.y += dt * v.y;
-        if (!p.onScreen(particle)) {
+        if (!onScreen(particle)) {
           particle.x = p.random(p.width);
           particle.y = p.random(p.height);
         }
       }
     };
 
-    p.getColor = function (particle: p5.Vector) {
+    p.mouseReleased = function () {
+      p.noiseSeed(p.millis());
+    };
+
+    function getColor(particle: p5.Vector) {
       const colors = [
         [255, 0, 0], // red
         [255, 0, 0], // red
@@ -139,20 +147,16 @@
         }
       }
       return p.color(colors[colors.length - 1]);
-    };
+    }
 
-    p.mouseReleased = function () {
-      p.noiseSeed(p.millis());
-    };
-
-    p.onScreen = function (particle: p5.Vector) {
+    function onScreen(particle: p5.Vector) {
       return (
         particle.x >= 0 &&
         particle.x <= p.width &&
         particle.y >= 0 &&
         particle.y <= p.height
       );
-    };
+    }
   }
 
   function updatePosition() {
@@ -171,6 +175,7 @@
     let scroll = window.scrollY;
     let distanceToRecent = recent.getBoundingClientRect().top - windowHeight;
     let fractionToRecent = scroll / (scroll + distanceToRecent);
+    console.log("fractionToRecent", fractionToRecent);
 
     if (fractionToRecent < 1) {
       let globalOffset = (1 - fractionToRecent) * windowWidth; // positioning on page
