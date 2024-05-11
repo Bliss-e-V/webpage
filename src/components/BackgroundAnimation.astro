@@ -10,7 +10,6 @@
 
 <script>
   import p5 from "p5";
-  console.log("imported", p5);
 
   let windowHeight: number = window.innerHeight;
   let windowWidth: number = window.innerWidth;
@@ -19,12 +18,10 @@
   const canvasSize = renderMobile
     ? windowWidth
     : 0.8 * Math.min(windowWidth / 2, windowHeight);
-  console.log("canvasSize", canvasSize);
 
   const canvasContainer: HTMLElement =
     document.querySelector("#canvasContainer")!;
   const sketch = new p5(backgroundAnimation, canvasContainer);
-  console.log("sketch", sketch);
 
   if (!renderMobile) {
     addEventListener("scroll", updatePosition);
@@ -47,7 +44,6 @@
     p.setup = function () {
       let canvas = p.createCanvas(canvasSize, canvasSize);
       canvas.parent("canvasContainer");
-      console.log("canvas", canvas);
 
       if (renderMobile) canvas.style("opacity", "50%");
       else updatePosition();
@@ -175,7 +171,6 @@
     let scroll = window.scrollY;
     let distanceToRecent = recent.getBoundingClientRect().top - windowHeight;
     let fractionToRecent = scroll / (scroll + distanceToRecent);
-    console.log("fractionToRecent", fractionToRecent);
 
     if (fractionToRecent < 1) {
       let globalOffset = (1 - fractionToRecent) * windowWidth; // positioning on page
