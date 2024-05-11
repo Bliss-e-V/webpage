@@ -1,4 +1,11 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/blog/:page*",
+      "destination": "/blog/:page",
+      "statusCode": 410
+    }
+  ]
 }
