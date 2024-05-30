@@ -1,6 +1,6 @@
 ---
 import Card from "@components/Card.astro";
-import { dayToPapers, Paper } from "./data/papers";
+import { dayToPapers, Paper } from "@components/data/papers";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -21,7 +21,6 @@ const pastPapers = Object.entries(dayToPapers)
         obj[date] = papers;
         return obj;
     }, {});
-
 const pastPaperList = Object.entries(pastPapers)
     .sort(([date1], [date2]) => date1.localeCompare(date2))
     .map(([, event]) => event)
@@ -43,7 +42,7 @@ const pastPaperList = Object.entries(pastPapers)
         This semester, the BLISS reading group will convene at 6pm every second
         Tuesday in MAR 0.003, starting on the 23.04.2024. Our sessions will
         entail in-depth discussions on upcoming papers. Each gathering will
-        involve an discussion of two papers, accompanied by a brief introductory
+        involve a discussion of two papers, accompanied by a brief introductory
         presentation from one of the attendees. Our initial focus will be on
         self-supervised learning, followed by optimizers. Please read the papers
         in advance!
@@ -78,7 +77,8 @@ const pastPaperList = Object.entries(pastPapers)
     <div class="my-2 mt-4">
         <h2
             class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
-            >Past
+        >
+            Past
         </h2>
         <div class="flex items-center justify-center flex-col mt-2 sm:mt-4">
             {
