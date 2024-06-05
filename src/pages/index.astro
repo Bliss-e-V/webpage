@@ -4,9 +4,10 @@ import BackgroundAnimation from "../components/BackgroundAnimation.astro";
 import Landing from "../components/Landing.astro";
 import AboutUs from "@components/AboutUs.astro";
 import { SpeakerSeries } from "@components/SpeakerSeries";
-import Banner from "@components/Banner.astro";
-import Flinta from "@components/Flinta.astro";
 import Arrow from "@components/Arrow.astro";
+import { Newsletter } from "@components/Newsletter";
+
+export const prerender = true;
 ---
 
 <Layout
@@ -15,11 +16,10 @@ import Arrow from "@components/Arrow.astro";
 >
   <main>
     <BackgroundAnimation />
-    <Banner />
     <Landing />
+    <Newsletter client:only />
     <AboutUs />
     <SpeakerSeries client:idle />
-    <Flinta />
     <Arrow />
   </main>
 </Layout>

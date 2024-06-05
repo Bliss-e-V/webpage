@@ -1,22 +1,29 @@
 ---
 import "@fontsource/righteous";
+import { Headline } from "./Headline";
 ---
 
 <div class="flex flex-col justify-center h-screen -mt-40">
-  <h1
-    id="title"
-    class="py-1 text-4xl font-black tracking-wider text-transparent md:text-5xl md:w-3/4 bg-clip-text bg-red-bottom"
-  >
+  <Headline id="title" level={1} className="md:text-5xl md:w-3/4">
     Berlin Learning & Intelligent Systems Society
-  </h1>
+  </Headline>
+
   <p
     id="subtitle"
     class="mt-2 text-2xl font-light leading-snug text-secondary md:text-3xl md:w-1/2"
   >
     <strong class="text-primary">BLISS</strong> is the <span
       class="text-transparent bg-clip-text bg-red-bottom">AI organisation</span
-    > in Berlin that connects like-minded individuals who share great interest
-    and passion for the field of machine learning.
+    > in Berlin that connects like-minded individuals who share great interest and
+    passion for the field of machine learning.
+    <p
+      id="linktree"
+      class="mt-2 text-2xl font-light leading-snug text-secondary md:text-3xl md:w-1/2"
+    >
+      <a href="https://linktr.ee/bliss_berlin" class="text-primary"
+        >Newsletter, Calendar, Slack, Applications and more</a
+      >
+    </p>
   </p>
 </div>
 
@@ -33,7 +40,8 @@ import "@fontsource/righteous";
   }
 
   #title,
-  #subtitle {
+  #subtitle,
+  #linktree {
     opacity: 0;
     transform: translatey(10px);
     animation-name: animation;
@@ -45,6 +53,9 @@ import "@fontsource/righteous";
     animation-delay: 1s;
   }
   #subtitle {
+    animation-delay: 1.4s;
+  }
+  #linktree {
     animation-delay: 1.4s;
   }
 </style>
