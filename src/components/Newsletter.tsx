@@ -53,7 +53,7 @@ export const Newsletter = () => {
                             ref={captcha}
                             sitekey={SITE_KEY}
                             size="invisible"
-                            onChange={token => onSubmit(token)}
+                            onChange={token => { if (token === null) return; onSubmit(token) }}
                         />
                         <BigButton hover className="ml-4">
                             <button
