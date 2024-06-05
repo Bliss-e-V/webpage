@@ -16,7 +16,6 @@ export async function POST({ request }) {
         return new Response(JOSN.stringify({ success: false, message: 'Invalid content type' }), { status: 400 });
     }
 
-    console.log(API_KEY);
     const body = await request.json();
     const email = body['email'];
     const token = body['token'];
@@ -34,6 +33,7 @@ export async function POST({ request }) {
 
     const recaptchaData = await recaptchaResponse.data;
 
+    console.log(recaptchaData);
     if (!recaptchaData.success) {
         return new Response(JSON.stringify({ success: false, message: 'reCAPTCHA verification failed' }, { status: 400 }));
     }
