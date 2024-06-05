@@ -9,7 +9,7 @@ export const Newsletter = () => {
     const captcha = useRef(null);
     const [wasSuccessful, setWasSuccessful] = useState(false);
 
-    const onSubmit = async (token: string) => {
+    const onSubmit = async (token: string | null) => {
         const email = document.getElementById("email").value;
         const privacy = document.getElementById("privacy").checked;
 
@@ -34,7 +34,7 @@ export const Newsletter = () => {
         }
         {
             !wasSuccessful &&
-            <form onSubmit={(e) => { e.preventDefault(); captcha.current.execute().then(onSubmit) }}>
+            <form onSubmit={(e) => { e.preventDefault(); captcha.current.execute() }}>
                 <div className="flex flex-col justify-center items-center bg-opacity-70 bg-black z-10 p-10 shadow-black allAroundCustomShadow">
                     <Headline level={2} className="text-center mb-4">Sign up for our newsletter</Headline>
                     <p className="text-center mb-4 text-secondary">
@@ -53,6 +53,7 @@ export const Newsletter = () => {
                             ref={captcha}
                             sitekey={SITE_KEY}
                             size="invisible"
+                            onChange={onSubmit}
                         />
                         <BigButton hover className="ml-4">
                             <button
