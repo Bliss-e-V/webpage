@@ -16,9 +16,8 @@ export async function POST({ request }) {
         return new Response(JOSN.stringify({ success: false, message: 'Invalid content type' }), { status: 400 });
     }
 
+    console.log(API_KEY);
     const body = await request.json();
-
-    console.log(body);
     const email = body['email'];
     const token = body['token'];
 
