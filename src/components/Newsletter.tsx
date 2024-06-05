@@ -18,7 +18,7 @@ export const Newsletter = () => {
         }
 
         axios.post(`/api/signup`, { email, token }).then((res) => {
-            setWasSuccessful(true);
+            setWasSuccessful(res.data?.success || false);
         }).catch((err) => { });
     }
 
