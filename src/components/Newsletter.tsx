@@ -36,10 +36,7 @@ export const Newsletter = () => {
             !wasSuccessful &&
             <form onSubmit={(e) => {
                 e.preventDefault();
-                const captchaResult = captcha.current.execute(); captcha.current.execute();
-                if (navigator.userAgent.indexOf("Firefox") != -1) {
-                    captchaResult.then(onSubmit);
-                }
+                captcha.current.execute();
             }}>
                 <div className="flex flex-col justify-center items-center bg-opacity-70 bg-black z-10 p-10 shadow-black allAroundCustomShadow">
                     <Headline level={2} className="text-center mb-4">Sign up for our newsletter</Headline>
