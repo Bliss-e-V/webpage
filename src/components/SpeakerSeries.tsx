@@ -1,14 +1,12 @@
+import BigButton from "./BigButton";
+import { Headline } from "./Headline";
 import { speakers } from "./data/speakers";
 
 export const SpeakerSeries = () => {
 
     return <div className="flex items-center flex-wrap justify-center" >
         <div id="speaker Series" className="pt-32 sm:my-40 text-center">
-            <h2
-                className="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
-            >
-                Speaker Series
-            </h2>
+            <Headline level={2}>Speaker Series</Headline>
             <p
                 className="mt-4 font-light leading-relaxed text-secondary text-md sm:text-xl"
             >
@@ -43,12 +41,13 @@ export const SpeakerSeries = () => {
                 </div>
             </div>
 
-            <div className="mt-6 text-center">
+            <BigButton id="speaker-series" hover={true} className="ml-auto mr-auto">
                 <a
+                    className="no-underline"
                     href="https://www.meetup.com/bliss-speaker-series/"
-                    className="p-3 px-12 bg-accent text-gray-300 rounded-md px-2 text-lg hover:bg-gray-200 hover:text-gray-700 sm:text-xl text-center duration-300"
-                >Get Your Ticket</a
-                >
+                >Get Your Ticket</a>
+            </BigButton>
+            <div className="mt-6 text-center">
             </div>
 
             <ol className="relative border-l border-gray-200 dark:border-gray-700">

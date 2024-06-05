@@ -5,6 +5,9 @@ import Landing from "../components/Landing.astro";
 import AboutUs from "@components/AboutUs.astro";
 import { SpeakerSeries } from "@components/SpeakerSeries";
 import Arrow from "@components/Arrow.astro";
+import { Newsletter } from "@components/Newsletter";
+
+export const prerender = true;
 ---
 
 <Layout
@@ -14,6 +17,7 @@ import Arrow from "@components/Arrow.astro";
   <main>
     <BackgroundAnimation />
     <Landing />
+    <Newsletter client:only />
     <AboutUs />
     <SpeakerSeries client:idle />
     <Arrow />

@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import dotenv from 'dotenv';
 
 import tailwind from "@astrojs/tailwind";
 
@@ -9,7 +10,6 @@ import { remarkReadingTime } from './remark-reading-time.mjs';
 import react from "@astrojs/react";
 
 // https://docs.astro.build/en/guides/integrations-guide/vercel/
-import vercel from '@astrojs/vercel/static';
 
 // https://github.com/alextim/astro-lib/tree/main/packages/astro-robots-txt#readme
 import robotsTxt from 'astro-robots-txt';
@@ -18,7 +18,9 @@ import robotsTxt from 'astro-robots-txt';
 import sitemap from '@astrojs/sitemap';
 
 // https://docs.astro.build/en/guides/integrations-guide/vercel/#web-analytics
-import vercel from '@astrojs/vercel/static';
+import vercel from '@astrojs/vercel/serverless';
+
+dotenv.config();
 
 // https://astro.build/config
 export default defineConfig({
@@ -33,9 +35,12 @@ export default defineConfig({
     remarkPlugins: [remarkReadingTime],
     extendDefaultPlugins: true
   },
-  output: 'static',
+  output: 'server',
   adapter: vercel({
-    webAnalytics: { enabled: true }
+    webAnalytics: { enabled: true },
+    isr: {
+      expiration: 60 * 60 * 24,
+    }
   }),
   trailingSlash: 'never',
 });
