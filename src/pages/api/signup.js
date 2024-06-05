@@ -1,5 +1,8 @@
+export const prerender = false;
+
 import axios from "axios";
 import SibApiV3Sdk from 'sib-api-v3-sdk';
+
 const API_KEY = process.env.BREVO_API_KEY;
 const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 const LIST_ID = 3;

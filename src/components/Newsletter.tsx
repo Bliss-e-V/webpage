@@ -46,7 +46,7 @@ export const Newsletter = () => {
                             id="email"
                             name="email"
                             placeholder="e-mail"
-                            className="rounded-lg bg-gray-300 px-2 py-1 text-black w-80 md:w-96 text-center m-2 md:m-0 "
+                            className="rounded-lg bg-gray-300 px-2 py-1 text-black w-80 md:w-96 text-center m-2 md:m-0 border-white border"
                             required
                         />
                         <ReCAPTCHA
@@ -63,7 +63,7 @@ export const Newsletter = () => {
                         </BigButton>
                     </div>
                     <div className="mt-4 text-center w-1/2">
-                        <input type="checkbox" id="privacy" name="privacy" required className="mr-2 scale-125" />
+                        <input type="checkbox" id="privacy" name="privacy" required className="mr-2 scale-125 accent-accent" />
                         <label htmlFor="privacy" className="text-secondary">I agree to receive your newsletters and accept the data privacy statement.</label>
                     </div>
                     <p className="text-center mb-4 text-secondary md:w-1/2 mt-4 text-sm">

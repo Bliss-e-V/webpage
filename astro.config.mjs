@@ -35,15 +35,11 @@ export default defineConfig({
     remarkPlugins: [remarkReadingTime],
     extendDefaultPlugins: true
   },
-  output: 'server',
+  output: 'hybrid',
   adapter: vercel({
     webAnalytics: { enabled: true },
     isr: {
       expiration: 60 * 60 * 24,
-      // A secret random string that you create.
-      bypassToken: "cwO6zsyjYc1BIydLSJlNHalqoeRadsHw",
-      // Paths that will always be served fresh.
-      exclude: ["/api/signup"],
     },
   }),
   trailingSlash: 'never',
