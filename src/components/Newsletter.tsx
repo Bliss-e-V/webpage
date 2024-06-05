@@ -40,13 +40,13 @@ export const Newsletter = () => {
                     <p className="text-center mb-4 text-secondary">
                         We will not spam you inbox but keep you in the loop for upcomming events.
                     </p>
-                    <div className="flex flex-row h-10 justify-center items-center">
+                    <div className="flex flex-col md:flex-row justify-center items-center">
                         <input
                             type="email"
                             id="email"
                             name="email"
                             placeholder="e-mail"
-                            className="rounded-lg bg-gray-300 px-2 py-1 text-black w-96 text-center"
+                            className="rounded-lg bg-gray-300 px-2 py-1 text-black w-80 md:w-96 text-center m-2 md:m-0 "
                             required
                         />
                         <ReCAPTCHA
