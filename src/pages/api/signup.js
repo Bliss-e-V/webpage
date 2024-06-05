@@ -36,7 +36,7 @@ export async function POST({ request }) {
     const recaptchaData = await recaptchaResponse.data;
 
     if (!recaptchaData.success) {
-        return new Response({ success: false, message: 'reCAPTCHA verification failed' }, { status: 400 });
+        return new Response(JSON.stringify({ success: false, message: 'reCAPTCHA verification failed' }, { status: 400 }));
     }
 
     let apiInstance = new SibApiV3Sdk.ContactsApi();
