@@ -30,7 +30,7 @@ const partners = [
 <div id="Partners" class="pt-32">
     <Headline level={1}>Partners</Headline>
 
-    <p class="md:max-w-[50%] mt-4">
+    <p class="max-w-full md:max-w-[50%] mt-4">
         We frequenty coorperate with our partners granting them access to a
         large community of AI talents while using the given recources to
         increase the quality of our events.
@@ -42,7 +42,7 @@ const partners = [
         >
     </BigButton>
 
-    <div class="mt-6 flex flex-wrap align-center md:max-w-[75%]">
+    <div class="mt-6 flex flex-wrap align-center max-w-full md:max-w-[75%]">
         {
             partners.map((partner) => (
                 <Partner src={partner.src} alt={partner.alt} />
