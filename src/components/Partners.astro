@@ -1,0 +1,48 @@
+---
+import { Headline } from "@components/Headline";
+import Partner from "@components/Partner.astro";
+import BigButton from "./BigButton";
+
+class PartnerImg {
+    constructor(
+        public src: string,
+        public alt: string,
+    ) {}
+}
+
+const partners = [
+    new PartnerImg("../images/partners/kiez-w.png", "Kiez"),
+    new PartnerImg("../images/partners/google-white.png", "Google"),
+    new PartnerImg(
+        "../images/partners/silicon-allee-logo.png",
+        "Silicon Allee",
+    ),
+    new PartnerImg("../images/partners/quantco.png", "QuantCo"),
+    new PartnerImg("../images/partners/kipark.png", "KI Park"),
+    new PartnerImg("../images/partners/bifold.png", "Bifold"),
+];
+---
+
+<div id="Partners">
+    <Headline level={1}>Partners</Headline>
+
+    <p class="max-w-[50%] mt-4">
+        We frequenty coorperate with our partners granting them access to a
+        large community of AI talents while using the given recources to
+        increase the quality of our events.
+    </p>
+
+    <BigButton hover={true} className="mt-4">
+        <a class="no-underline" href="mailto:parters@bliss.berlin"
+            >Become a Partner</a
+        >
+    </BigButton>
+
+    <div class="mt-6 flex flex-wrap align-center">
+        {
+            partners.map((partner) => (
+                <Partner src={partner.src} alt={partner.alt} />
+            ))
+        }
+    </div>
+</div>
