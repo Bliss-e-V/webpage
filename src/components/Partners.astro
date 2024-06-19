@@ -5,25 +5,29 @@ import BigButton from "./BigButton";
 
 class PartnerImg {
     constructor(
-        public src: string,
+        public src: ImageMetadata,
         public alt: string,
     ) {}
 }
 
+import kiezImg from "../images/partners/kiez-w.png";
+import googleImg from "../images/partners/google-w.png";
+import siliconAlleeImg from "../images/partners/silicon-allee-logo-w.png";
+import quantCoImg from "../images/partners/quantco.png";
+import kiParkImg from "../images/partners/kipark.png";
+import bifoldImg from "../images/partners/bifold.png";
+
 const partners = [
-    new PartnerImg("../images/partners/kiez-w.png", "Kiez"),
-    new PartnerImg("../images/partners/google-white.png", "Google"),
-    new PartnerImg(
-        "../images/partners/silicon-allee-logo.png",
-        "Silicon Allee",
-    ),
-    new PartnerImg("../images/partners/quantco.png", "QuantCo"),
-    new PartnerImg("../images/partners/kipark.png", "KI Park"),
-    new PartnerImg("../images/partners/bifold.png", "Bifold"),
+    new PartnerImg(kiezImg, "Kiez"),
+    new PartnerImg(googleImg, "Google"),
+    new PartnerImg(siliconAlleeImg, "Silicon Allee"),
+    new PartnerImg(quantCoImg, "QuantCo"),
+    new PartnerImg(kiParkImg, "KI Park"),
+    new PartnerImg(bifoldImg, "Bifold"),
 ];
 ---
 
-<div id="Partners">
+<div id="Partners" class="pt-32">
     <Headline level={1}>Partners</Headline>
 
     <p class="max-w-[50%] mt-4">

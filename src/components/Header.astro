@@ -84,14 +84,16 @@ const showHackathon = false;
 
   // link animation
   const speakerSeries: HTMLElement = document.getElementById("speaker Series")!;
+  const partners: HTMLElement = document.getElementById("Partners")!;
   const speakerSeriesLink: HTMLElement =
     document.getElementById("speaker SeriesLink")!;
 
   const readingGroupLink: HTMLElement =
     document.getElementById("readingGroupLink")!;
+  const partnersLink: HTMLElement = document.getElementById("PartnersLink")!;
 
-  const sections: HTMLElement[] = [speakerSeries];
-  const links: HTMLElement[] = [speakerSeriesLink];
+  const sections: HTMLElement[] = [speakerSeries, partners];
+  const links: HTMLElement[] = [speakerSeriesLink, partnersLink];
 
   function animateHeader() {
     if (window.scrollY > 0) {
