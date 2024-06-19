@@ -1,0 +1,21 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+    src: ImageMetadata;
+    alt: string;
+}
+const { src, alt } = Astro.props as Props;
+---
+
+<div class="h-24 mx-10 first:ml-0 last:mr-0 my-4">
+    <Image
+        src={src}
+        alt={alt}
+        inferSize
+        quality="low"
+        decoding="async"
+        loading="lazy"
+        class="h-full w-auto"
+    />
+</div>
