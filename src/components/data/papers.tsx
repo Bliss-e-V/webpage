@@ -79,11 +79,11 @@ const papers = [
     new Paper("Stochastic Gradient Descend", ["appliedprobability"], "https://appliedprobability.blog/2019/01/26/robbins-munro-2/", sgdImage, new Date(2024, 5, 18)),
     new Paper("Adding Gradient Noise Improves Learning for Very Deep Networks", ["Arvind Neelakantan", "Luke Vilnis", "Quoc V. Le", "Ilya Sutskever", "Lukasz Kaiser", "Karol Kurach", "James Martens"], "https://arxiv.org/pdf/1511.06807.pdf", addedGradientNoiseImage, new Date(2024, 5, 18)),
     
-    new Paper("On the importance of initialization and momentum in deep learning", ["Ilya Sutskever", "James Martens", "George Dahl", "Geoffrey Hinton"], "https://proceedings.mlr.press/v28/sutskever13.html", importanceInitializationMomentumImage, new Date(2024, 6, 2)),
-    new Paper("RMSProp", ["Geoffrey Hinton", "Nitish Srivastava", "Kevin Swersky"], "https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf", rmsPropImage, new Date(2024, 6, 2)),
+    new Paper("On the importance of initialization and momentum in deep learning", ["Ilya Sutskever", "James Martens", "George Dahl", "Geoffrey Hinton"], "https://proceedings.mlr.press/v28/sutskever13.html", importanceInitializationMomentumImage, new Date(2024, 6, 1)),
+    new Paper("RMSProp", ["Geoffrey Hinton", "Nitish Srivastava", "Kevin Swersky"], "https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf", rmsPropImage, new Date(2024, 6, 1)),
     
-    new Paper("Adam: A Method for Stochastic Optimization", ["Diederik P. Kingma", "Jimmy Ba"], "https://arxiv.org/abs/1412.6980", adamOptimizerImage, new Date(2024, 6, 16)),
-    new Paper("Symbolic Discovery of Optimization Algorithms", ["Xiangning Chen", "Chen Liang", "Da Huang", "Esteban Real", "Kaiyuan Wang", "Yao Liu", "Hieu Pham", "Xuanyi Dong", "Thang Luong", "Cho-Jui Hsieh", "Yifeng Lu", "Quoc V. Le"], "https://arxiv.org/abs/2302.06675", symbolicOptimizationAlgorithmsImage, new Date(2024, 6, 16)),
+    // new Paper("Adam: A Method for Stochastic Optimization", ["Diederik P. Kingma", "Jimmy Ba"], "https://arxiv.org/abs/1412.6980", adamOptimizerImage, new Date(2024, 6, 16)),
+    // new Paper("Symbolic Discovery of Optimization Algorithms", ["Xiangning Chen", "Chen Liang", "Da Huang", "Esteban Real", "Kaiyuan Wang", "Yao Liu", "Hieu Pham", "Xuanyi Dong", "Thang Luong", "Cho-Jui Hsieh", "Yifeng Lu", "Quoc V. Le"], "https://arxiv.org/abs/2302.06675", symbolicOptimizationAlgorithmsImage, new Date(2024, 6, 16)),
     // new Paper("VeLO: Training Versatile Learned Optimizers by Scaling Up", ["Luke Metz", "James Harrison", "C. Daniel Freeman", "Amil Merchant", "Lucas Beyer", "James Bradbury", "Naman Agrawal", "Ben Poole", "Igor Mordatch", "Adam Roberts", "Jascha Sohl-Dickstein"], "https://arxiv.org/abs/2211.09760", veloTrainingImage, new Date(2024, 6, 16)),
 ]
 
