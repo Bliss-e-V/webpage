@@ -71,7 +71,7 @@ export const SpeakerSeries = () => {
                                             : "border-gray-900 bg-gray-700"
                                             }`}
                                     />
-                                    <div className="text-left pl-4 border-left">
+                                    <div className={"text-left pl-4 border-left " + (speaker.canceled ? "line-through" : "")}>
                                         <p
                                             className={`text-base sm:text-lg ${speaker.past
                                                 ? "text-gray-500"
