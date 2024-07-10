@@ -41,7 +41,7 @@ export const Newsletter = () => {
                 <div className="flex flex-col justify-center items-center bg-opacity-70 bg-black z-10 p-10 shadow-black allAroundCustomShadow">
                     <Headline level={2} className="text-center mb-4">Sign up for our newsletter</Headline>
                     <p className="text-center mb-4 text-secondary">
-                        We will not spam you inbox but keep you in the loop for upcomming events.
+                        We will not spam your inbox but keep you in the loop for upcoming events.
                     </p>
                     <div className="flex flex-col md:flex-row justify-center items-center">
                         <input
