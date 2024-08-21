@@ -7,6 +7,7 @@ class PartnerImg {
     constructor(
         public src: ImageMetadata,
         public alt: string,
+        public url: string,
     ) {}
 }
 
@@ -18,12 +19,12 @@ import kiParkImg from "../images/partners/kipark.png";
 import bifoldImg from "../images/partners/bifold.png";
 
 const partners = [
-    new PartnerImg(kiezImg, "Kiez"),
-    new PartnerImg(googleImg, "Google"),
-    new PartnerImg(siliconAlleeImg, "Silicon Allee"),
-    new PartnerImg(quantCoImg, "QuantCo"),
-    new PartnerImg(kiParkImg, "KI Park"),
-    new PartnerImg(bifoldImg, "Bifold"),
+    new PartnerImg(kiezImg, "Kiez", "https://kiez.ai/"),
+    new PartnerImg(googleImg, "Google", "https://www.google.com/"),
+    new PartnerImg(siliconAlleeImg, "Silicon Allee", "https://www.siliconallee.com/"),
+    new PartnerImg(quantCoImg, "QuantCo", "https://www.quantco.com/"),
+    new PartnerImg(kiParkImg, "KI Park", "https://kipark.de/"),
+    new PartnerImg(bifoldImg, "Bifold", "https://www.bifold.berlin/"),
 ];
 ---
 
@@ -37,15 +38,15 @@ const partners = [
     </p>
 
     <BigButton hover={true} className="mt-4">
-        <a class="no-underline min-w-fit" href="mailto:partners@bliss.berlin"
-            >Become a Partner</a
-        >
+        <a class="no-underline min-w-fit" href="mailto:partners@bliss.berlin">
+            Become a Partner
+        </a>
     </BigButton>
 
     <div class="mt-6 flex flex-wrap align-center max-w-full md:max-w-[75%]">
         {
             partners.map((partner) => (
-                <Partner src={partner.src} alt={partner.alt} />
+                <Partner src={partner.src} alt={partner.alt} url={partner.url}/>
             ))
         }
     </div>
