@@ -18,7 +18,7 @@ import robotsTxt from 'astro-robots-txt';
 import sitemap from '@astrojs/sitemap';
 
 // https://docs.astro.build/en/guides/integrations-guide/vercel/#web-analytics
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel/static';
 
 dotenv.config();
 
