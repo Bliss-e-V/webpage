@@ -35,7 +35,7 @@ export default defineConfig({
     remarkPlugins: [remarkReadingTime],
     extendDefaultPlugins: true
   },
-  output: 'server',
+  output: 'static',
   adapter: vercel({
     webAnalytics: { enabled: true },
     isr: {
