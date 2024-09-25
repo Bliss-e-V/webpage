@@ -10,14 +10,16 @@ class Speaker {
 // modify HERE to update speakers
 
 const speakersRaw = [
-    new Speaker(new Date(2024, 3, 16), "Set Learning for Accurate and Calibrated Models", "Thomas Unterthiner", "Deepmind", "https://www.meetup.com/bliss-speaker-series/events/299466047/"),
-    new Speaker(new Date(2024, 3, 30), "MatterGen: A Generative Model for Inorganic Materials Design", "Daniel Zügner", "Microsoft", "https://www.meetup.com/bliss-speaker-series/events/299480129/"),
-    new Speaker(new Date(2024, 4, 14), "Towards Open Language Models for Europe", "Malte Ostendorff", "DFKI", "https://www.meetup.com/bliss-speaker-series/events/299480149/"),
-    new Speaker(new Date(2024, 4, 28), "Natural Language Representations in Brains and Machines", "Prof. Fatma Deniz", "TU Berlin", "https://www.meetup.com/bliss-speaker-series/events/299480165/"),
-    new Speaker(new Date(2024, 5, 11), "Intelligent Flying Multi-Robot Systems", "Prof. Wolfgang Hönig", "TU Berlin", "https://www.meetup.com/bliss-speaker-series/events/299480172/"),
-    new Speaker(new Date(2024, 5, 25), "Human Alignment of Neural Network Representation", "Lukas Muttenhaler", "Deepmind & TU Berlin", "https://www.meetup.com/bliss-speaker-series/events/299480178/", true),
-    new Speaker(new Date(2024, 6, 9), "Learning Molecular Models by Integrating ML & Experimental Data", "Prof. Cecilia Clementi", "FU Berlin", "https://www.meetup.com/bliss-speaker-series/events/299480197/")
+    new Speaker(new Date(2024, 9, 22), "The Role of AI in Disinformation Resilience", "Dr. Veronika Solopova", "Mantis Analytics", "https://www.meetup.com/bliss-speaker-series/events/303354404/?eventOrigin=bliss_website", false),
+    new Speaker(new Date(2024, 10, 5), "The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery", "Robert Lange", "SakanaAI", "https://www.meetup.com/bliss-speaker-series/events/303354498/?eventOrigin=bliss_website", false),
+    new Speaker(new Date(2024, 10, 19), "Planning in the Age of Learning", "Prof. Marc Toussiant", "TU Berlin", "https://www.meetup.com/bliss-speaker-series/events/303354520/?eventOrigin=bliss_website", false),
+    new Speaker(new Date(2024, 11, 3), "Learning Physical Laws from Data", "Prof. Sven Wang", "HU Berlin", "https://www.meetup.com/bliss-speaker-series/events/303354531/?eventOrigin=bliss_website", false),
+    new Speaker(new Date(2024, 11, 17), "Combining Reinforcement Learning and Generative Models for de novo Drug Design", "Dr. Nima Siboni & Dr. Miguel Arbesü Andrés", "InstaDeep", "https://www.meetup.com/bliss-speaker-series/events/303354531/?eventOrigin=bliss_website", false),
+    new Speaker(new Date(2025, 0, 7), "Making AI fit for the Life Sciences: Informing ML and Explaining Uncertainty", "Prof. Katharina Baum", "FU Berlin", "https://www.meetup.com/bliss-speaker-series/events/303354557/?eventOrigin=bliss_website", false),
+    new Speaker(new Date(2025, 0, 21), "Sequential and Active Decision Making: Bandit Theory", "Prof. Alexandra Carpentier", "University of Potsdam", "https://www.meetup.com/bliss-speaker-series/events/303354565/?eventOrigin=bliss_website", false),
+    new Speaker(new Date(2025, 1, 4), "The Science of Decision-Making", "Prof. Sanaz Mostaghim", "University of Magdeburg", "https://www.meetup.com/bliss-speaker-series/events/303354572/?eventOrigin=bliss_website", false)
 ];
+
 
 // --------------------------------------------------
 

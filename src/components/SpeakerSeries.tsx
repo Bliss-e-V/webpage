@@ -4,7 +4,7 @@ import { speakers } from "./data/speakers";
 
 export const SpeakerSeries = () => {
 
-    return <div className="flex items-center flex-wrap justify-center" >
+    return <div className="flex items-center flex-wrap justify-center max-w-2/3" >
         <div id="speaker Series" className="pt-32 sm:my-40 text-center">
             <Headline level={2}>Speaker Series</Headline>
             <p
@@ -26,9 +26,8 @@ export const SpeakerSeries = () => {
                     ></path></svg
                     >
                     <a
-                        href="https://www.google.com/maps/place/52.51169098971815,13.325654094872284"
-                        target="_blank">TU Berlin H1012</a
-                    >
+                        href="https://www.google.com/maps/place/52.512234026784135,13.326086191574715"
+                        target="_blank">TU Berlin H0110</a>
                 </div>
 
                 <div className="flex items-center">
@@ -37,7 +36,7 @@ export const SpeakerSeries = () => {
                         className="w-6 h-6 mr-2 stroke-white fill-white"
                         alt="clock"
                     />
-                    <p>6:45pm</p>
+                    <p>7:00pm</p>
                 </div>
             </div>
 
@@ -75,7 +74,7 @@ export const SpeakerSeries = () => {
                                         <p
                                             className={`text-base sm:text-lg ${speaker.past
                                                 ? "text-gray-500"
-                                                : "text-secondary"
+                                                : (speaker.next ? "text-white" : "text-secondary")
                                                 }`}
                                         >
                                             {speaker.date.toLocaleDateString(
