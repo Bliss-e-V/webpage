@@ -34,6 +34,7 @@ import nlpIntroImage from "../../images/posts/images/NLP Introduction.png";
 import illustratedTransImage from "../../images/posts/images/illustrated_trans.png";
 import chinchillaImage from "../../images/posts/images/chinchilla.png";
 import megatronImage from "../../images/posts/images/megatron.png";
+import rlhfImage from "../../images/posts/images/rlhf.png";
 
 
 export class Paper {
