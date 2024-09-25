@@ -28,11 +28,12 @@ import revealingDarkSecretsImage from "../../images/posts/images/Revealing the D
 import sgdImage from "../../images/posts/images/SGD.png";
 import addedGradientNoiseImage from "../../images/posts/images/Added Gradient Noise.png";
 import importanceInitializationMomentumImage from "../../images/posts/images/On the importance of initialization and momentum in deep learning.png";
-import rmsPropImage from "../../images/posts/images/Neural Networks for Machine Learning.png";
 import adamOptimizerImage from "../../images/posts/images/Adam A Method for Stochastic Optimization.png";
-import symbolicOptimizationAlgorithmsImage from "../../images/posts/images/Symbolic Discovery of Optimization Algorithms.png";
-import veloTrainingImage from "../../images/posts/images/VeLO Training Versatile Learned Optimizers by Scaling Up.png";
 import strongAugmentationsImage from "../..//images/posts/images/Can We Break Free from Strong Data Augmentations in Self-Supervised Learning.png"
+import nlpIntroImage from "../../images/posts/images/NLP Introduction.png";
+import illustratedTransImage from "../../images/posts/images/illustrated_trans.png";
+import chinchillaImage from "../../images/posts/images/chinchilla.png";
+import megatronImage from "../../images/posts/images/megatron.png";
 
 
 export class Paper {
@@ -78,13 +79,25 @@ const papers = [
 
     new Paper("Stochastic Gradient Descend", ["appliedprobability"], "https://appliedprobability.blog/2019/01/26/robbins-munro-2/", sgdImage, new Date(2024, 5, 18)),
     new Paper("Adding Gradient Noise Improves Learning for Very Deep Networks", ["Arvind Neelakantan", "Luke Vilnis", "Quoc V. Le", "Ilya Sutskever", "Lukasz Kaiser", "Karol Kurach", "James Martens"], "https://arxiv.org/pdf/1511.06807.pdf", addedGradientNoiseImage, new Date(2024, 5, 18)),
-    
+
     new Paper("On the importance of initialization and momentum in deep learning", ["Ilya Sutskever", "James Martens", "George Dahl", "Geoffrey Hinton"], "https://proceedings.mlr.press/v28/sutskever13.html", importanceInitializationMomentumImage, new Date(2024, 6, 1)),
     new Paper("Adam: A Method for Stochastic Optimization", ["Diederik P. Kingma", "Jimmy Ba"], "https://arxiv.org/abs/1412.6980", adamOptimizerImage, new Date(2024, 6, 1)),
-    
-    // new Paper("RMSProp", ["Geoffrey Hinton", "Nitish Srivastava", "Kevin Swersky"], "https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf", rmsPropImage, new Date(2024, 6, 1)),
-    // new Paper("Symbolic Discovery of Optimization Algorithms", ["Xiangning Chen", "Chen Liang", "Da Huang", "Esteban Real", "Kaiyuan Wang", "Yao Liu", "Hieu Pham", "Xuanyi Dong", "Thang Luong", "Cho-Jui Hsieh", "Yifeng Lu", "Quoc V. Le"], "https://arxiv.org/abs/2302.06675", symbolicOptimizationAlgorithmsImage, new Date(2024, 6, 16)),
-    // new Paper("VeLO: Training Versatile Learned Optimizers by Scaling Up", ["Luke Metz", "James Harrison", "C. Daniel Freeman", "Amil Merchant", "Lucas Beyer", "James Bradbury", "Naman Agrawal", "Ben Poole", "Igor Mordatch", "Adam Roberts", "Jascha Sohl-Dickstein"], "https://arxiv.org/abs/2211.09760", veloTrainingImage, new Date(2024, 6, 16)),
+
+    new Paper("Natural Language Processing, Chapter 6", ["Jacob Eisenstein"], "https://cseweb.ucsd.edu/~nnakashole/teaching/eisenstein-nov18.pdf", nlpIntroImage, new Date(2024, 9, 21)),
+    new Paper("The Illustrated Transformer", ["Jay Alammar"], "https://jalammar.github.io/illustrated-transformer/", illustratedTransImage, new Date(2024, 9, 28)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 10, 4)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 10, 11)),
+    new Paper("Training Compute-Optimal Large Language Models", ["Jordan Hoffmann", "Sebastian Borgeaud", "Arthur Mensch", "Elena Buchatskaya", "Trevor Cai", "Eliza Rutherford", "Diego de Las Casas", "Lisa Anne Hendricks", "Johannes Welbl", "Aidan Clark", "Tom Hennigan", "Eric Noland", "Katie Millican", "George van den Driessche", "Bogdan Damoc", "Aurelia Guy", "Simon Osindero", "Karen Simonyan", "Erich Elsen", "Jack W. Rae", "Oriol Vinyals", "Laurent Sifre"], "https://arxiv.org/abs/2203.15556", chinchillaImage, new Date(2024, 10, 18)),
+    new Paper("Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism", ["Mohammad Shoeybi", "Mostofa Patwary", "Raul Puri", "Patrick LeGresley", "Jared Casper", "Bryan Catanzaro"], "https://arxiv.org/abs/1909.08053", megatronImage, new Date(2024, 10, 25)),
+    new Paper("Training language models to follow instructions with human feedback", ["Long Ouyang", "Jeff Wu", "Xu Jiang", "Diogo Almeida", "Carroll L. Wainwright", "Pamela Mishkin", "Chong Zhang", "Sandhini Agarwal", "Katarina Slama", "Alex Ray", "John Schulman", "Jacob Hilton", "Fraser Kelton", "Luke Miller", "Maddie Simens", "Amanda Askell", "Peter Welinder", "Paul Christiano", "Jan Leike", "Ryan Lowe"], "https://arxiv.org/abs/2203.02155", rlhfImage, new Date(2024, 11, 2)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 11, 9)),
+
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 11, 16)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 0, 13)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 0, 20)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 0, 27)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 1, 3)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 1, 10)),
 ]
 
 // --------------------------------------------------
