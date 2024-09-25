@@ -94,11 +94,11 @@ const papers = [
     new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 11, 9)),
 
     new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 11, 16)),
-    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 0, 13)),
-    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 0, 20)),
-    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 0, 27)),
-    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 1, 3)),
-    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 1, 10)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2025, 0, 13)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2025, 0, 20)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2025, 0, 27)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2025, 1, 3)),
+    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2025, 1, 10)),
 ]
 
 // --------------------------------------------------
