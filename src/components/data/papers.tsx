@@ -35,6 +35,9 @@ import illustratedTransImage from "../../images/posts/images/illustrated_trans.p
 import chinchillaImage from "../../images/posts/images/chinchilla.png";
 import megatronImage from "../../images/posts/images/megatron.png";
 import rlhfImage from "../../images/posts/images/rlhf.png";
+import selfCorrect from "../../images/posts/images/self-correct.png";
+import bytePair from "../../images/posts/images/byte-pair.png";
+import gpt3Image from "../../images/posts/images/gpt3.png";
 
 
 export class Paper {
@@ -86,12 +89,12 @@ const papers = [
 
     new Paper("Natural Language Processing, Chapter 6", ["Jacob Eisenstein"], "https://cseweb.ucsd.edu/~nnakashole/teaching/eisenstein-nov18.pdf", nlpIntroImage, new Date(2024, 9, 21)),
     new Paper("The Illustrated Transformer", ["Jay Alammar"], "https://jalammar.github.io/illustrated-transformer/", illustratedTransImage, new Date(2024, 9, 28)),
-    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 10, 4)),
-    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 10, 11)),
+    new Paper("Language Models are Few-Shot Learners Chapter 3", ["Tom B. Brown", "Benjamin Mann", "Nick Ryder", "Melanie Subbiah", "Jared Kaplan", "Prafulla Dhariwal", "Arvind Neelakantan", "Pranav Shyam", "Girish Sastry", "Amanda Askell", "Sandhini Agarwal", "Ariel Herbert-Voss", "Gretchen Krueger", "Tom Henighan", "Rewon Child", "Aditya Ramesh", "Daniel M. Ziegler", "Jeffrey Wu", "Clemens Winter", "Christopher Hesse", "Mark Chen", "Eric Sigler", "Mateusz Litwin", "Scott Gray", "Benjamin Chess", "Jack Clark", "Christopher Berner", "Sam McCandlish", "Alec Radford", "Ilya Sutskever", "Dario Amodei"], "https://arxiv.org/abs/2005.14165", doubleDQNImage, new Date(2024, 10, 4)),
+    new Paper("A Formal Perspective on Byte-Pair Encoding", ["Vilém Zouhar", "Clara Meister", "Juan Luis Gastaldi", "Li Du", "Tim Vieira", "Mrinmaya Sachan", "Ryan Cotterell"], "https://arxiv.org/abs/2306.16837", bytePair, new Date(2024, 10, 11)),
     new Paper("Training Compute-Optimal Large Language Models", ["Jordan Hoffmann", "Sebastian Borgeaud", "Arthur Mensch", "Elena Buchatskaya", "Trevor Cai", "Eliza Rutherford", "Diego de Las Casas", "Lisa Anne Hendricks", "Johannes Welbl", "Aidan Clark", "Tom Hennigan", "Eric Noland", "Katie Millican", "George van den Driessche", "Bogdan Damoc", "Aurelia Guy", "Simon Osindero", "Karen Simonyan", "Erich Elsen", "Jack W. Rae", "Oriol Vinyals", "Laurent Sifre"], "https://arxiv.org/abs/2203.15556", chinchillaImage, new Date(2024, 10, 18)),
     new Paper("Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism", ["Mohammad Shoeybi", "Mostofa Patwary", "Raul Puri", "Patrick LeGresley", "Jared Casper", "Bryan Catanzaro"], "https://arxiv.org/abs/1909.08053", megatronImage, new Date(2024, 10, 25)),
     new Paper("Training language models to follow instructions with human feedback", ["Long Ouyang", "Jeff Wu", "Xu Jiang", "Diogo Almeida", "Carroll L. Wainwright", "Pamela Mishkin", "Chong Zhang", "Sandhini Agarwal", "Katarina Slama", "Alex Ray", "John Schulman", "Jacob Hilton", "Fraser Kelton", "Luke Miller", "Maddie Simens", "Amanda Askell", "Peter Welinder", "Paul Christiano", "Jan Leike", "Ryan Lowe"], "https://arxiv.org/abs/2203.02155", rlhfImage, new Date(2024, 11, 2)),
-    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 11, 9)),
+    new Paper("Training Language Models to Self-Correct via Reinforcement Learning", ["Aviral Kumar", "Vincent Zhuang", "Rishabh Agarwal", "Yi Su", "JD Co-Reyes", "Avi Singh", "Kate Baumli", "Shariq Iqbal", "Colton Bishop", "Rebecca Roelofs", "Lei M Zhang", "Kay McKinney", "Disha Shrivastava", "Cosmin Paduraru", "George Tucker", "Doina Precup", "Feryal Behbahani", "Aleksandra Faust"], "https://arxiv.org/pdf/2409.12917", selfCorrect, new Date(2024, 11, 9)),
 
     new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2024, 11, 16)),
     new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date(2025, 0, 13)),
