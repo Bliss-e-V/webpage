@@ -1,5 +1,5 @@
 export interface HeadlineProps extends React.HTMLAttributes<HTMLDivElement> {
-    level: 1 | 2;
+    level: 1 | 2 | 3;
 }
 
 export const Headline = (props: HeadlineProps) => {
@@ -19,6 +19,14 @@ export const Headline = (props: HeadlineProps) => {
             >
                 {props.children}
             </h2>
+        }
+        {
+            props.level === 3 &&
+            <div
+                className={"text-xl sm:text-2xl text-transparent bg-clip-text bg-red-right font-bold " + props.className}
+            >
+                {props.children}
+            </div>
         }
     </>;
 }

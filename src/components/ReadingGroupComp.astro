@@ -91,8 +91,8 @@ const pastPaperList = Object.entries(pastPapers)
                             {papers.map((paper, i) => {
                                 return (
                                     <Card
-                                        paper={paper}
-                                        hasBorder={i == papers.length - 1}
+                                    paper={paper}
+                                    hasBorder={i == papers.length - 1}
                                     />
                                 );
                             })}
@@ -100,6 +100,7 @@ const pastPaperList = Object.entries(pastPapers)
                     );
                 })
             }
+            <div class="text-secondary">The list of past papers is not extensive.</div>
         </div>
     </div>
 </div>

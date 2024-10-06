@@ -1,0 +1,7 @@
+---
+const header = "{{ contact.FIRSTNAME | default : \"Blisser\" }}"
+---
+<div class="mb-20 md:w-2/3">
+    <div class="text-xl">Dear {header},</div>
+    <slot />
+</div>

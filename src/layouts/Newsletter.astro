@@ -1,0 +1,92 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+}
+const { title, subtitle }: Props = Astro.props;
+
+import NewsHeader from "../components/newsletter/NewsHeader.astro";
+import Footer from "../components/Footer.astro";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+  .toString()
+  .replace(/\/$/, "");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{title}</title>
+    <link rel="canonical" href={canonicalURL} />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#000000" />
+</head>
+  <body class="w-full">
+    <NewsHeader title={subtitle} />
+    <div class="container flex-1 pt-20">
+      <slot />
+    </div>
+    <Footer />
+    <a href="https://app.brevo.com/%7B%7B%20unsubscribe%20%7D%7D" class="text-secondary">
+      Unsubscribe
+    </a>
+  </body>
+</html>
+
+
+<style is:global>
+  :root {
+    --accent: #cb2d3e;
+    --accent-dark: #3c0909;
+    --accent-light: #ef473a;
+    --background: #000000;
+    --background-secondary: #101010;
+    --primary: #ffffff;
+    --secondary: #adb5bd;
+    --tertiary: #6c757d;
+    --border: #3b424d;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: white;
+  }
+
+  html {
+    background-color: var(--background);
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--primary);
+    line-height: 2;
+  }
+
+  a {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 300ms;
+  }
+
+  a:hover {
+    text-decoration-color: var(--color);
+  }
+
+  .container {
+    width: 100%;
+    max-width: 80rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0 auto;
+  }
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>
