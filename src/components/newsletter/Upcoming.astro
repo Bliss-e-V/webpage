@@ -14,7 +14,7 @@ const { events } = Astro.props as Props;
     <Headline id="title" level={1} className="md:text-5xl md:w-3/4 text-center">
         Upcoming Events
     </Headline>
-    <div class="text-secondary">Click the event for more information</div>
+    <div class="text-secondary text-md sm:text-xl">Click the event for more information</div>
     <div>
         {
             events.map((event) => {
