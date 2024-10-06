@@ -2,10 +2,18 @@ import BigButton from "./BigButton";
 import { Headline } from "./Headline";
 import { speakers } from "./data/speakers";
 
-export const SpeakerSeries = () => {
+export interface SpeakerSeriesProps {
+    renderPastEvents?: boolean;
+    largeMargins?: boolean;
+}
+
+export const SpeakerSeries = (props: SpeakerSeriesProps) => {
+    const renderPastEvents = props.renderPastEvents === undefined ? true : props.renderPastEvents;
+    const speakersToRender = renderPastEvents ? speakers : speakers.filter(speaker => speaker.date > new Date());
+    const renderWithLargeMargins = props.largeMargins === undefined ? true : props.largeMargins;
 
     return <div className="flex items-center flex-wrap justify-center max-w-2/3" >
-        <div id="speaker Series" className="pt-32 sm:my-40 text-center">
+        <div id="speaker Series" className={"text-center " + (renderWithLargeMargins ? " pt-32 sm:my-40" : "")}>
             <Headline level={2}>Speaker Series</Headline>
             <p
                 className="mt-4 font-light leading-relaxed text-secondary text-md sm:text-xl"
@@ -23,8 +31,7 @@ export const SpeakerSeries = () => {
                         fill="currentColor"
                     ><path
                         d="M18,4.48a8.45,8.45,0,0,0-12,12l5.27,5.28a1,1,0,0,0,1.42,0L18,16.43A8.45,8.45,0,0,0,18,4.48ZM16.57,15,12,19.59,7.43,15a6.46,6.46,0,1,1,9.14,0ZM9,7.41a4.32,4.32,0,0,0,0,6.1,4.31,4.31,0,0,0,7.36-3,4.24,4.24,0,0,0-1.26-3.05A4.3,4.3,0,0,0,9,7.41Zm4.69,4.68a2.33,2.33,0,1,1,.67-1.63A2.33,2.33,0,0,1,13.64,12.09Z"
-                    ></path></svg
-                    >
+                    ></path></svg>
                     <a
                         href="https://www.google.com/maps/place/52.512234026784135,13.326086191574715"
                         target="_blank">TU Berlin H0110</a>
@@ -51,7 +58,7 @@ export const SpeakerSeries = () => {
 
             <ol className="relative border-l border-gray-200 dark:border-gray-700">
                 {
-                    speakers
+                    speakersToRender
                         .sort((a, b) => a.date - b.date)
                         .map((speaker) => (
                             <a

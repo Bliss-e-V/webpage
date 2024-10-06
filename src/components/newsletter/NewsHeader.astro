@@ -1,0 +1,11 @@
+---
+import { Headline } from '../../components/Headline.tsx';
+const { title } = Astro.props;
+---
+
+<div class="md:w-3/4 mt-10">
+    <Headline id="title" level={1} className="md:text-5xl">
+        Berlin Learning & <br /> Intelligent Systems Society
+      </Headline>
+    <h2 class="text-3xl mt-2 ">{title}</h2>
+</div>

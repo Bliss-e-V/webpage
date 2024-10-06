@@ -1,0 +1,46 @@
+---
+import { SpeakerSeries } from "@components/SpeakerSeries";
+import Newsletter from "../layouts/Newsletter.astro";
+import Introduction from "@components/newsletter/Introduction.astro";
+import Upcoming from "@components/newsletter/Upcoming.astro";
+import {Event} from "@components/data/event";
+---
+
+<Newsletter
+  title="BLISS - Machine Learning student initiative in Berlin Newsletter"
+  subtitle="Oktober 2024 Newsletter"
+>
+  <main>
+    <Introduction>
+        <div class="text-secondary">
+            At <span class="text-primary">BLISS</span>, we are <span class="text-primary">gearing up</span> for the new semester and have exiting events to share with you.
+            At the top, we inform you about immediate events, and below you can find the full lineup for this semesters speaker series.
+        </div>
+        <div class="text-secondary">
+            If any of these events spark your interest, make sure to <span class="text-primary">book immediatly</span> as some of them have a limited amout of available spots.
+        </div>
+    </Introduction>
+    <Upcoming events={[
+        new Event(
+            new Date("2024-10-15"),
+            "Semester Kickoff Event",
+            "One week before our official program starts, we're gathering for a fun evening at a cozy bar near S+U Gesundbrunnen at 7 PM. It's the perfect chance to reconnect with friends from past semesters and get in the right mood for the next one! Come enjoy good company, lively conversations, and a relaxed atmosphere.",
+            "https://www.meetup.com/bliss-speaker-series/events/303861246/?eventOrigin=newsletter"
+        ),
+        new Event(
+            new Date("2024-10-22"),
+            "The Role of AI in Disinformation Resilience",
+            "The first taslk this semester will be given by Dr. Veronika Solopova from TU Berlin and Mantis Analytics. For all of the lineup, see below.",
+            "https://www.meetup.com/bliss-speaker-series/events/303354404/?eventOrigin=newsletter"
+        ),
+        new Event(
+            new Date("2024-11-06"),
+            "FLINTA* AI Event",
+            "During this event FLINTA* students will be provided with valuable networking opportunities with seasoned FLINTA* Al professionals, while professionals will engage with the next gen of Al talents.",
+            "https://berlinscienceweek.com/programme/flinta-ai-professionals-x-juniors-speed-dating"
+        )
+    ]} />
+    <div class="mt-20"></div>
+    <SpeakerSeries renderPastEvents={false} largeMargins={false} />
+  </main>
+</Layout>

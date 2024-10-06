@@ -1,0 +1,31 @@
+---
+import { Headline } from "@components/Headline";
+import MiniCard from "./MiniCard.astro";
+import { Event } from "@components/data/event";
+
+interface Props {
+    events: Event[];
+}
+
+const { events } = Astro.props as Props;
+---
+
+<div class="flex items-center flex-col justify-center p-4 md:p-0 md:max-w-2/3">
+    <Headline id="title" level={1} className="md:text-5xl md:w-3/4 text-center">
+        Upcoming Events
+    </Headline>
+    <div class="text-secondary">Click the event for more information</div>
+    <div>
+        {
+            events.map((event) => {
+                return (
+                    <div class="mt-4">
+                        <MiniCard
+                            event={event}
+                        />
+                    </div>
+                );
+            })
+        }
+    </div>
+</div>
