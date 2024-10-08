@@ -41,7 +41,7 @@ import transformerCircuts from "../../images/posts/images/transformer_circuits.p
 import superposition from "../../images/posts/images/superposition.png";
 import steeringLlama from "../../images/posts/images/x2.png";
 import refusal from "../../images/posts/images/refusal.png";
-import monosematicity from "../../images/posts/images/monosematicity.png";
+import monosematicity from "../../images/posts/images/monosemanticity.png";
 import scalingMono from "../../images/posts/images/scaling_mono.png";
 
 
