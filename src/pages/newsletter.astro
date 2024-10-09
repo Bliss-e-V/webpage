@@ -1,9 +1,9 @@
 ---
-import { SpeakerSeries } from "@components/SpeakerSeries";
 import NewsletterLayout from "../layouts/Newsletter.astro";
 import Introduction from "@components/newsletter/Introduction.astro";
 import Upcoming from "@components/newsletter/Upcoming.astro";
 import {Event} from "@components/data/event";
+import Ending from "@components/newsletter/Ending.astro";
 ---
 
 <NewsletterLayout
@@ -13,11 +13,10 @@ import {Event} from "@components/data/event";
   <main>
     <Introduction>
         <div class="text-secondary">
-            At <span class="text-primary">BLISS</span>, we are <span class="text-primary">gearing up</span> for the new semester and have exiting events to share with you.
-            At the top, we inform you about immediate events, and below you can find the full lineup for this semesters speaker series.
+            At <span class="text-primary">BLISS</span>, we are gearing up for the new semester with a new <a class="underline" href="https://www.meetup.com/bliss-speaker-series/?eventOrigin=newsletter">speaker series</a>, <a class="underline" href="https://www.meetup.com/bliss-speaker-series/events/303861246/?eventOrigin=newsletter">community events</a>, and <a class="underline" href="https://bliss.berlin/reading-group">reading group</a>.
         </div>
         <div class="text-secondary">
-            If any of these events spark your interest, make sure to <span class="text-primary">book immediatly</span> as some of them have a limited amout of available spots.
+            Don't forget to register, spots are <span class="text-primary">limited!</span>
         </div>
     </Introduction>
     <Upcoming events={[
@@ -28,19 +27,48 @@ import {Event} from "@components/data/event";
             "https://www.meetup.com/bliss-speaker-series/events/303861246/?eventOrigin=newsletter"
         ),
         new Event(
+            new Date("2024-10-21"),
+            "Reading Group Kickoff",
+            "The WiSe24/25 reading group will meet every Monday at 7pm in MAR 0.015, starting October 21st. We'll explore LLMs and mechanistic interpretability. First, we'll cover the basics of NLP and transformer architecture, then move on to model scaling, modern training techniques, and self-improvement. The mechanistic interpretability section is still being finalized.",
+            "https://bliss.berlin/reading-group"
+        ),
+        new Event(
             new Date("2024-10-22"),
             "The Role of AI in Disinformation Resilience",
             "The first taslk this semester will be given by Dr. Veronika Solopova from TU Berlin and Mantis Analytics. For all of the lineup, see below.",
             "https://www.meetup.com/bliss-speaker-series/events/303354404/?eventOrigin=newsletter"
         ),
         new Event(
+            new Date("2024-10-29"),
+            "Community Event",
+            "We bring back regular community events every other Tuesday! Place and time will be announced soon in our slack and the website. Feel free to drop by, meet new friends and have a good time.",
+            "https://www.meetup.com/bliss-speaker-series/events/303354404/?eventOrigin=newsletter"
+        ),
+        new Event(
+            new Date("2024-11-05"),
+            "The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery",
+            "We are excited to feature Robert Lange, Research Scientist at SakanaAI and PhD student at TU Berlin presenting a new approach to AI-driven scientific discovery. The talk will be followed by a Q&A session and networking.",
+            "https://www.meetup.com/bliss-speaker-series/events/303354498/?eventOrigin=newsletter"
+        ),
+        new Event(
             new Date("2024-11-06"),
-            "FLINTA* AI Event",
-            "During this event FLINTA* students will be provided with valuable networking opportunities with seasoned FLINTA* Al professionals, while professionals will engage with the next gen of Al talents.",
+            "FLINTA* in AI Professionals x Juniors speed dating networking event",
+            "At our recurring FLINTA* in AI Professionals x Juniors networking event, 12 passionate FLINTA* students with a keen interest in AI and Machine Learning will have the unique chance to connect with 6 experienced FLINTA* professionals in the field. This event is all about building meaningful connections — through a series of dynamic, speed-date-style sessions, students will engage directly with experts, while professionals get to meet and inspire the next wave of AI talent. Afterward, everyone can continue to network freely, fostering relationships that could shape your future in AI.",
             "https://berlinscienceweek.com/programme/flinta-ai-professionals-x-juniors-speed-dating"
-        )
+        ),
+        new Event(
+            new Date("2024-11-12"),
+            "Community Event",
+            "Place and time will be announced soon in our slack and the website.",
+            "https://bliss.berlin"
+        ),
+        new Event(
+            new Date("2024-11-29"),
+            "Planing in the Age of Learning",
+            "We are excited to feature Prof. Marc Toussiant, Professor at TU Berlin and Lead of the Learning & Intelligent Systems Lab.",
+            "https://www.meetup.com/bliss-speaker-series/events/303354520/?eventOrigin=newsletter"
+        ),
     ]} />
-    <div class="mt-20"></div>
-    <SpeakerSeries renderPastEvents={false} largeMargins={false} />
+    <Ending />
   </main>
 </Layout>
