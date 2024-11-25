@@ -9,7 +9,7 @@ Big thanks to our befriended AI student organisation [AITU](https://aitu.group) 
 
 The project is built using the modern JS framework Astro and follows a minimal
 project setup. It utilises native HTML, CSS, and JS (in .astro files) as much as
-possible. The packages used are:
+possible. The packages used are: 
 
 - [Tailwind](https://www.tailwindcss.com) for styling
 - [ThreeJS](https://www.threejs.org) for 3d rendering
