@@ -1,7 +1,7 @@
 # BLISS Webpage
 
 This repository holds the source code for the [BLISS
-Website](https://bliss.berlin).
+Website](https://bliss.berlin). 
 
 Big thanks to our befriended AI student organisation [AITU](https://aitu.group) team for open-sourcing their webpage code, which served as the foundation of this website.
 
