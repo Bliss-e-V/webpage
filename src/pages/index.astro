@@ -7,6 +7,7 @@ import { SpeakerSeries } from "@components/SpeakerSeries";
 import Arrow from "@components/Arrow.astro";
 import NewsletterLink from "@components/NewsletterLink.astro";
 import Partners from "@components/Partners.astro";
+import { Members } from "@components/Members"
 ---
 
 <Layout
@@ -19,6 +20,7 @@ import Partners from "@components/Partners.astro";
     <SpeakerSeries client:idle />
     <NewsletterLink />
     <AboutUs />
+    <Members client:load />
     <Partners />
     <Arrow />
   </main>
