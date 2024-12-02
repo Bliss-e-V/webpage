@@ -31,8 +31,7 @@ const { event } = Astro.props as Props;
       </div>
     </td>
     <td class="p-2">
-        <div>
-            {event.description}
+        <div set:html={event.description}>
         </div>
     </td>
 </tr>

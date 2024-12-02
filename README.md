@@ -16,7 +16,7 @@ possible. The packages used are:
 - [Three Noise](https://www.npmjs.com/package/three-noise) for creating Perlin
   noise vector field
 - [Fontsource DM-Sans](https://fontsource.org/fonts/dm-sans) for custom font
-
+ 
 We also use
 [@astrojs/tailwind](https://docs.astro.build/en/guides/integrations-guide/tailwind/)
 to integrate Tailwind with Astro.
