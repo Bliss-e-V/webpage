@@ -20,7 +20,7 @@ possible. The packages used are:
 We also use
 [@astrojs/tailwind](https://docs.astro.build/en/guides/integrations-guide/tailwind/)
 to integrate Tailwind with Astro.
-
+ 
 ## 🚀 Project Structure
 
 The project structure broadly follows the default `Astro` file structure:
