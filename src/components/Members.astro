@@ -16,16 +16,18 @@ import { Image } from "astro:assets";
         {
             members.map((member) => (
                 <a href={member.link}>
-                    <div class="flex flex-col items-center justify-center w-24 p-4">
+                    <div class="flex flex-col items-center justify-center w-24 m-4">
                         <Image
                             src={member.image}
                             alt={member.name}
                             quality="low"
                             loading="lazy"
                             decoding="async"
-                            class="rounded-full h-16 w-16"
+                            class="rounded-full h-24 w-24 shadow-inner"
                         />
-                        <div class="text-center">{member.name}</div>
+                        <div class="text-center no-underline mt-2">
+                            {member.name}
+                        </div>
                     </div>
                 </a>
             ))
