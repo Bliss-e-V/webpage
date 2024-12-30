@@ -2,56 +2,61 @@
 import NewsletterLayout from "../layouts/Newsletter.astro";
 import Introduction from "@components/newsletter/Introduction.astro";
 import Upcoming from "@components/newsletter/Upcoming.astro";
-import {Event} from "@components/data/event";
+import { Event } from "@components/data/event";
 import Ending from "@components/newsletter/Ending.astro";
 ---
 
 <NewsletterLayout
-  title="BLISS - Machine Learning student initiative in Berlin Newsletter"
-  subtitle="November 2024 Newsletter"
+    title="BLISS - Machine Learning student initiative in Berlin Newsletter"
+    subtitle="Janurary 2025 Newsletter"
 >
-  <main>
-    <Introduction>
-        <div class="text-secondary"> At <span class="text-primary">BLISS</span>, we’re in full swing this semester with our ongoing <a class="underline" href="https://www.meetup.com/bliss-speaker-series/?eventOrigin=newsletter">speaker series</a>, <a class="underline" href="https://www.meetup.com/bliss-speaker-series/?eventOrigin=newsletter">community events</a>, and <a class="underline" href="https://bliss.berlin/reading-group">reading group</a>. </div> <div class="text-secondary"> For the reading group, we meet every Monday at 7pm at MAR 0.0015, Marchstraße 23, 10587 Berlin. </div>
-    </Introduction>
-    <Upcoming events={[
-        new Event(
-            new Date("2024-11-12"),
-            "Community Event",
-            "We're gathering for a fun evening at Duc's favorite bar \"GM26\" near S Feuerbachstrasse / U Walther-Schreiber-Platz at 8 PM",
-            "https://www.meetup.com/bliss-speaker-series/events/304396779/?eventOrigin=group_events_list"
-        ),
-        new Event(
-            new Date("2024-11-19"),
-            "Planning in the Age of Learning",
-            "We are excited to feature Prof. Marc Toussaint, Professor at TU Berlin and Lead of the Learning & Intelligent Systems Lab.",
-            "https://www.meetup.com/bliss-speaker-series/events/303354520/?eventOrigin=newsletter"
-        ),
-        new Event(
-            new Date("2024-11-26"),
-            "Community Event",
-            "Place and time will be announced soon in our slack and meetup.",
-            "https://www.meetup.com/bliss-speaker-series/"
-        ),
-        new Event(
-            new Date("2024-12-03"),
-            "Sequential and Active Decision Making",
-            "This weeks event we host Prof. A. Carpentier, Professor and Chair of Mathematical Statistics and Machine Learning at the University of Potsdam. Afterwards, you can enjoy a chance to connect with fellow AI enthusiasts over drinks and freshly baked waffles.",
-            "https://www.meetup.com/bliss-speaker-series/events/303354531/?eventOrigin=newsletter"
-        ),
-        new Event(
-            new Date("2024-12-10"),
-            "Community Event",
-            "Place and time will be announced soon in our slack and meetup.",
-            "https://www.meetup.com/bliss-speaker-series/"
-        ),
-        new Event(
-            new Date("2024-12-17"),
-            "Combining RL and Gen-Models for Drug Design",
-            "This week we are delighted to announce Dr. Nima Siboni and Dr. Miguel Arbesú Andrés two senoir research scientists from InstaDeep. At the end of the talk, you will have time to ask questions and connect and sip hot wine punch.",
-            "https://www.meetup.com/bliss-speaker-series/events/303354547/?eventOrigin=newsletter"
-        ),
-    ]} />
-    <Ending />
-  </main>
-</Layout>
+    <main>
+        <Introduction>
+            <div class="text-secondary">
+                At <span class="text-primary">BLISS</span>, we’re in slowly
+                approaching the end of the semester with our ongoing
+                <a
+                    class="underline"
+                    href="https://www.meetup.com/bliss-speaker-series/?eventOrigin=newsletter"
+                    >speaker series</a
+                >,
+                <a
+                    class="underline"
+                    href="https://www.meetup.com/bliss-speaker-series/?eventOrigin=newsletter"
+                    >community events</a
+                >, and <a
+                    class="underline"
+                    href="https://bliss.berlin/reading-group">reading group</a
+                >.
+            </div>
+            <div class="text-secondary">
+                For the reading group, we meet every Monday at 7pm at MAR
+                0.0015, Marchstraße 23, 10587 Berlin. The current topic is
+                mechanistic interpretability.
+            </div>
+        </Introduction>
+        <Upcoming
+            events={[
+                new Event(
+                    new Date("2025-01-07"),
+                    "Making AI fit for the Life Sciences",
+                    "Prof. Katharina Baum from Freie Universität Berlin will explore how AI can be tailored to meet the challenges of the life sciences, with a focus on informing machine learning models and explaining uncertainty.",
+                    "https://www.meetup.com/bliss-speaker-series/events/303354557/?eventOrigin=newsletter",
+                ),
+                new Event(
+                    new Date("2025-01-21"),
+                    "Learning Physical Laws from Data",
+                    "Prof. Sven Wang, an assistant professor at Humboldt University Berlin, will discuss how data-driven approaches can uncover underlying physical laws, bridging the gap between empirical data and theoretical physics.",
+                    "https://www.meetup.com/bliss-speaker-series/events/303354565/?eventOrigin=newsletter",
+                ),
+                new Event(
+                    new Date("2025-02-04"),
+                    "The Science of Decision-Making",
+                    "Prof. Sanaz Mostaghim, a full professor of computer science at Otto von Guericke University Magdeburg and director of the Fraunhofer Institute for Transportation and Infrastructure Systems, will delve into the complexities of decision-making processes, emphasizing multi-objective optimization and human-centric decision support systems.",
+                    "https://www.meetup.com/bliss-speaker-series/events/303354572/?eventOrigin=newsletter",
+                ),
+            ]}
+        />
+        <Ending />
+    </main>
+</NewsletterLayout>
