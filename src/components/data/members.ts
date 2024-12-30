@@ -11,7 +11,7 @@ import philipa from "../../images/members/philipa.png"
 import josi from "../../images/members/josi.png"
 
 export class Member {
-    constructor(public name: string, public surname: string, public image: string, public link: string) { }
+    constructor(public name: string, public surname: string, public image: string, public link: string | null) { }
 }
 
 export const members = [
@@ -23,7 +23,7 @@ export const members = [
     // new Member("Duc", "Hoang", duc, "https://www.linkedin.com/in/ly-duc-hoang/"),
     new Member("Arina", "Belova", arina, "https://www.linkedin.com/in/a-belova"),
     new Member("Lorenz", "Hufe", lorenz, "https://www.linkedin.com/in/lorenz-hufe"),
-    new Member("Philipa", "Ringe", philipa, "about:blank"),
-    new Member("Josephine", "Egerer", josi, "www.linkedin.com/in/josephine-egerer"),
+    new Member("Philipa", "Ringe", philipa, null),
+    new Member("Josephine", "Egerer", josi, "https://www.linkedin.com/in/josephine-egerer"),
     new Member("Leo", "Pinetzki", leo, "https://www.linkedin.com/in/leo-pinetzki/"),
 ]

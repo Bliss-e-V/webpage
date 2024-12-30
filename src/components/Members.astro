@@ -2,6 +2,7 @@
 import { members } from "./data/members";
 import { Image } from "astro:assets";
 import { Headline } from "./Headline";
+import MemberCard from "./MemberCard.astro";
 ---
 
 <div class="flex items-center flex-col justify-center max-w-2/3 mb-40">
@@ -17,27 +18,15 @@ import { Headline } from "./Headline";
         class="membersContainer flex flex-wrap justify-center flex-row flex-grow-0"
     >
         {
-            members.map((member) => (
-                <a href={member.link}>
-                    <div class="flex flex-col items-center justify-center w-24 m-4">
-                        <Image
-                            src={member.image}
-                            alt={member.name}
-                            quality="mid"
-                            width={200}
-                            height={200}
-                            loading="lazy"
-                            decoding="async"
-                            class="rounded-full h-24 w-24 shadow-inner"
-                        />
-                        <div class="text-center no-underline mt-2 text-secondary">
-                            {member.name}
-                            <br />
-                            {member.surname}
-                        </div>
-                    </div>
-                </a>
-            ))
+            members.map((member) =>
+                member.link === null ? (
+                    <MemberCard member={member} />
+                ) : (
+                    <a href={member.link}>
+                        <MemberCard member={member} />
+                    </a>
+                ),
+            )
         }
     </div>
 </div>
