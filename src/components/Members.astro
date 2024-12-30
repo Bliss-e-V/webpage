@@ -1,0 +1,51 @@
+---
+import { members } from "./data/members";
+import { Image } from "astro:assets";
+---
+
+<div class="flex items-center flex-col justify-center max-w-2/3 mb-40">
+    <div id="speaker-series" class="text-center pt-32 mb-6">
+        <h2>Team</h2>
+        <p
+            class="mt-4 font-light leading-relaxed text-secondary text-md sm:text-xl"
+        >
+            Get to know the team!
+        </p>
+    </div>
+    <div class="membersContainer flex flex-wrap flex-row flex-grow-0">
+        {
+            members.map((member) => (
+                <a href={member.link}>
+                    <div class="flex flex-col items-center justify-center w-24 p-4">
+                        <Image
+                            src={member.image}
+                            alt={member.name}
+                            quality="low"
+                            loading="lazy"
+                            decoding="async"
+                            class="rounded-full h-16 w-16"
+                        />
+                        <div class="text-center">{member.name}</div>
+                    </div>
+                </a>
+            ))
+        }
+    </div>
+</div>
+
+<!-- Client-side Shuffle Script -->
+<script>
+    // Wait for the DOM to be fully parsed
+    window.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".membersContainer");
+        if (!container) return;
+
+        // Convert children into an array and shuffle them
+        const childrenArray = Array.from(container.children);
+        childrenArray.sort(() => Math.random() - 0.5);
+
+        // Remove the old elements, then re-insert them in a new order
+        container.innerHTML = "";
+        childrenArray.forEach((child) => container.appendChild(child));
+    });
+</script>
