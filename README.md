@@ -1,7 +1,7 @@
 # BLISS Webpage
 
 This repository holds the source code for the [BLISS
-Website](https://bliss.berlin).
+Website](https://bliss.berlin). 
 
 Big thanks to our befriended AI student organisation [AITU](https://aitu.group) team for open-sourcing their webpage code, which served as the foundation of this website.
 
@@ -16,11 +16,11 @@ possible. The packages used are:
 - [Three Noise](https://www.npmjs.com/package/three-noise) for creating Perlin
   noise vector field
 - [Fontsource DM-Sans](https://fontsource.org/fonts/dm-sans) for custom font
-
+ 
 We also use
 [@astrojs/tailwind](https://docs.astro.build/en/guides/integrations-guide/tailwind/)
 to integrate Tailwind with Astro.
-
+ 
 ## 🚀 Project Structure
 
 The project structure broadly follows the default `Astro` file structure:
