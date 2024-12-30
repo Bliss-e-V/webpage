@@ -1,18 +1,21 @@
 ---
 import { members } from "./data/members";
 import { Image } from "astro:assets";
+import { Headline } from "./Headline";
 ---
 
 <div class="flex items-center flex-col justify-center max-w-2/3 mb-40">
     <div id="speaker-series" class="text-center pt-32 mb-6">
-        <h2>Team</h2>
+        <Headline level={2}>Team</Headline>
         <p
             class="mt-4 font-light leading-relaxed text-secondary text-md sm:text-xl"
         >
             Get to know the team!
         </p>
     </div>
-    <div class="membersContainer flex flex-wrap flex-row flex-grow-0">
+    <div
+        class="membersContainer flex flex-wrap justify-center flex-row flex-grow-0"
+    >
         {
             members.map((member) => (
                 <a href={member.link}>
@@ -27,6 +30,8 @@ import { Image } from "astro:assets";
                         />
                         <div class="text-center no-underline mt-2">
                             {member.name}
+                            <br />
+                            {member.surname}
                         </div>
                     </div>
                 </a>
