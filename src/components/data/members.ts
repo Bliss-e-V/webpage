@@ -23,7 +23,7 @@ export const members = [
     // new Member("Duc", "Hoang", duc, "https://www.linkedin.com/in/ly-duc-hoang/"),
     new Member("Arina", "Belova", arina, "https://www.linkedin.com/in/a-belova"),
     new Member("Lorenz", "Hufe", lorenz, "https://www.linkedin.com/in/lorenz-hufe"),
-    new Member("Philipa", "Ringe", philipa, null),
+    new Member("Philippa", "Ringe", philipa, null),
     new Member("Josephine", "Egerer", josi, "https://www.linkedin.com/in/josephine-egerer"),
     new Member("Leo", "Pinetzki", leo, "https://www.linkedin.com/in/leo-pinetzki/"),
 ]
