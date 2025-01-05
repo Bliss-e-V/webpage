@@ -22,4 +22,4 @@ pnpm-debug.log*
 .astro
 .vercel
 .vscode
-final_newsletter.html
+newsletter.html
