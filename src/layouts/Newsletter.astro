@@ -7,6 +7,7 @@ const { title, subtitle }: Props = Astro.props;
 
 import NewsHeader from "../components/newsletter/NewsHeader.astro";
 import Footer from "../components/Footer.astro";
+import NewsFooter from "@components/newsletter/NewsFooter.astro";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
   .toString()
@@ -22,17 +23,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="theme-color" content="#000000" />
 </head>
   <body class="w-full">
     <NewsHeader title={subtitle} />
-    <div class="container flex-1 pt-20">
+    <div class="container pt-20">
       <slot />
     </div>
-    <Footer />
-    <a href="https://app.brevo.com/%7B%7B%20unsubscribe%20%7D%7D" class="text-secondary">
-      Unsubscribe
-    </a>
+    <NewsFooter />
   </body>
 </html>
 
@@ -42,12 +39,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     --accent: #cb2d3e;
     --accent-dark: #3c0909;
     --accent-light: #ef473a;
-    --background: #000000;
+    --background: #ffffff;
     --background-secondary: #101010;
-    --primary: #ffffff;
-    --secondary: #adb5bd;
-    --tertiary: #6c757d;
-    --border: #3b424d;
+    --primary: #000000;
+    --secondary: #111111;
+    --tertiary: #232323;
+    --border: #171717;
+    --bliss-red: #dc2626;
   }
 
   ::selection {
@@ -60,28 +58,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
   }
 
   body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
     color: var(--primary);
     line-height: 2;
   }
 
-  a {
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-underline-offset: 4px;
-    transition: text-decoration-color 300ms;
+  .bliss-red {
+    color: var(--bliss-red);
   }
 
-  a:hover {
-    text-decoration-color: var(--color);
+  .border-y-dark {
+    border-top: var(--border) 1px solid;
+    border-bottom: var(--border) 1px solid;
   }
 
   .container {
     width: 100%;
-    max-width: 80rem;
     padding-left: 20px;
     padding-right: 20px;
     margin: 0 auto;

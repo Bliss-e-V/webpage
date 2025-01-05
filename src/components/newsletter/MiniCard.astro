@@ -1,8 +1,7 @@
 ---
 // Import the necessary components or types
-import { Headline } from "@components/Headline";
 import type { Event } from "../data/event";
-import { Image } from "astro:assets";
+import { NewsHeadline } from "./NewsHeadline";
 
 interface Props {
   event: Event;
@@ -12,39 +11,33 @@ interface Props {
 const { event } = Astro.props as Props;
 ---
 
-<div class="group no-underline w-full">
-  <div class="hover:bg-li py-1 rounded p-4">
-    <a href={event.url} class="no-underline rounded-lg">
-      <div
-        class="flex sm:flex-row sm:space-x-10 sm:items-center sm:max-h-min no-underline"
-      >
-        <div class={`flex flex-col`}>
-          <div class="flex items-center space-x-1">
-            <p class="text-tertiary">
-              {
-                event.date.toLocaleString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              }
-            </p>
-          </div>
-          <Headline id="title" level={3} className="text-xl font-medium leading-snug text-primary">
-            {event.title}
-            </Headline> 
-          <div>
-            {event.description}
-          </div>
-        </div>
+<tr class="cursor-pointer border-y-dark" onclick=`window.open("${event.url}");`>
+    <td class="p-2 w-[33%]">
+      <div class="text-secondar text-nowrap">
+          {
+            event.date.toLocaleString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
       </div>
-    </a>
-  </div>
-  <div class="border-b w-full my-4 sm:my-2" />
-</div>
+      <div class="w-full bliss-red">
+        <a href={event.url} class="no-underline bliss-red" onclick="event.stopPropagation()">
+            <NewsHeadline id="title" level={3} className="text-xl font-medium leading-snug bliss-red">
+                {event.title}
+            </NewsHeadline> 
+        </a>
+      </div>
+    </td>
+    <td class="p-2">
+        <div set:html={event.description}>
+        </div>
+    </td>
+</tr>
 
 <style>
-  .hover\:bg-li:hover {
+  .group:hover {
     background-color: rgba(203, 45, 62, 0.25);
   }
 </style>
