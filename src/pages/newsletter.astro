@@ -8,26 +8,18 @@ import Ending from "@components/newsletter/Ending.astro";
 
 <NewsletterLayout
     title="BLISS - Machine Learning student initiative in Berlin Newsletter"
-    subtitle="Janurary 2025 Newsletter"
+    subtitle="End of WiSe 24/25 Newsletter"
 >
     <main>
         <Introduction>
             <div class="text-secondary">
-                At <span class="text-primary">BLISS</span>, as we wrap up this
-                semester's
-                <a
-                    class="underline"
-                    href="https://www.meetup.com/bliss-speaker-series/?eventOrigin=newsletter"
-                    >speaker series</a
-                >,
-                <a
-                    class="underline"
-                    href="https://www.meetup.com/bliss-speaker-series/?eventOrigin=newsletter"
-                    >community events</a
-                >, and <a
-                    class="underline"
-                    href="https://bliss.berlin/reading-group">reading group</a
-                >, we want to wish everyone a Happy New Year!
+                Thank you for an awesome semester with you at <span
+                    class="text-primary">BLISS</span
+                >! We look forward to see you at the upcoming events next
+                semester or at one of the two large events coming up. Our
+                <a class="underline" href="https://bliss.berlin/reading-group"
+                    >reading group</a
+                > will continue on for a few more weeks.
             </div>
             <div class="text-secondary">
                 For the reading group, we meet every Monday at 7pm at MAR
@@ -38,22 +30,16 @@ import Ending from "@components/newsletter/Ending.astro";
         <Upcoming
             events={[
                 new Event(
-                    new Date("2025-01-07"),
-                    "Making AI fit for the Life Sciences",
-                    "Prof. Katharina Baum from Free University Berlin will explore how AI can be tailored to meet the challenges of the life sciences, with a focus on informing machine learning models and explaining uncertainty.",
-                    "https://www.meetup.com/bliss-speaker-series/events/303354557/?eventOrigin=newsletter",
+                    new Date("2025-02-12"),
+                    "FLINTA Event",
+                    "We want to provide 12 FLINTA* students with valuable networking opportunities and insights from 6 seasoned FLINTA* professionals, while giving professionals a chance to engage with the next generation of AI enthusiasts and foster a more inclusive environment within the AI community of Berlin.",
+                    "https://docs.google.com/forms/d/1GcJXYQ3qhXaxssDu-aa7DLt2P3BTAvJBLkK6f9Q1q1g/viewform",
                 ),
                 new Event(
-                    new Date("2025-01-21"),
-                    "Learning Physical Laws from Data",
-                    "Prof. Sven Wang, an assistant professor at Humboldt University Berlin, will discuss  data-driven approaches to learn the underlying partial differential equations of physical laws, particularly focusing on the statistical foundations of learning mappings between function spaces, also called Neural Operators.",
-                    "https://www.meetup.com/bliss-speaker-series/events/303354565/?eventOrigin=newsletter",
-                ),
-                new Event(
-                    new Date("2025-02-04"),
-                    "The Science of Decision-Making",
-                    "Prof. Sanaz Mostaghim, a full professor of computer science at Otto von Guericke University Magdeburg and director of the Fraunhofer Institute for Transportation and Infrastructure Systems, will delve into the complexities of decision-making processes, emphasizing multi-objective optimization and human-centric decision support systems.",
-                    "https://www.meetup.com/bliss-speaker-series/events/303354572/?eventOrigin=newsletter",
+                    new Date("2025-03-31"),
+                    "Hackathon at Google",
+                    "We partnered up with Google, Onethousand.ai and TechniSat to bring a 1-day challange with a a price-pool of 1500€, free food and drinks and endless fun. Do not miss out!",
+                    "https://www.eventbrite.com/e/blissathon-2025-google-tickets-1226735110739",
                 ),
             ]}
         />
