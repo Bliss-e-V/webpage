@@ -101,15 +101,17 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
                                         >
                                             {speaker.title}
                                         </p>
-                                        <p
-                                            className={`text-lg sm:text-xl ${speaker.past
-                                                ? "text-gray-500"
-                                                : "text-secondary"
-                                                }`}
-                                        >
-                                            {speaker.name},{" "}
-                                            <span className="font-bold">{speaker.affiliation}</span>
-                                        </p>
+                                        {!speaker.undefinedEvent && (
+                                            <p
+                                                className={`text-lg sm:text-xl ${speaker.past
+                                                    ? "text-gray-500"
+                                                    : "text-secondary"
+                                                    }`}
+                                            >
+                                                {speaker.name},{" "}
+                                                <span className="font-bold">{speaker.affiliation}</span>
+                                            </p>
+                                        )}
                                     </div>
                                 </li>
                             </a>
