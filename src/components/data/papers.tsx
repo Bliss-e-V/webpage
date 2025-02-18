@@ -44,6 +44,10 @@ import refusal from "../../images/posts/images/refusal.png";
 import monosematicity from "../../images/posts/images/monosemanticity.png";
 import scalingMono from "../../images/posts/images/scaling_mono.png";
 import dictLearning from "../../images/posts/images/dict_learning.png";
+import switchSAE from "../../images/posts/images/SwitchSAE.png";
+import transcoders from "../../images/posts/images/Transcoders.png";
+import sparseCircuits from "../../images/posts/images/SparseCircuits.png";
+import paramSpace from "../../images/posts/images/ParamSpace.png";
 
 
 export class Paper {
@@ -107,8 +111,11 @@ const papers = [
     new Paper("Towards Monosemanticity: Decomposing Language Models With Dictionary Learning", ["Trenton Bricken", "Adly Templeton", "Joshua Batson", "Brian Chen", "Adam Jermyn", "Tom Conerly", "Nicholas L Turner", "Cem Anil", "Carson Denison", "Amanda Askell", "Robert Lasenby", "Yifan Wu", "Shauna Kravec", "Nicholas Schiefer", "Tim Maxwell", "Nicholas Joseph", "Alex Tamkin", "Karina Nguyen", "Brayden McLean", "Josiah E Burke", "Tristan Hume", "Shan Carter", "Tom Henighan", "Chris Olah"], "https://transformer-circuits.pub/2023/monosemantic-features/index.html", monosematicity, new Date(2025, 0, 20)),
     new Paper("Refusal in Language Models Is Mediated by a Single Direction", ["Andy Arditi", "Oscar Obeso", "Aaquib Syed", "Daniel Paleka", "Nina Panickssery", "Wes Gurnee", "Neel Nanda"], "https://arxiv.org/pdf/2406.11717#page=29.09", refusal, new Date(2025, 0, 27)),
     new Paper("Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet", ["Adly Templeton", "Tom Conerly", "Jonathan Marcus", "Jack Lindsey", "Trenton Bricken", "Brian Chen", "Adam Pearce", "Craig Citro", "Emmanuel Ameisen", "Andy Jones", "Hoagy Cunningham", "Nicholas L Turner", "Callum McDougall", "Monte MacDiarmid", "Alex Tamkin", "Esin Durmus", "Tristan Hume", "Francesco Mosconi", "C. Daniel Freeman", "Theodore R. Sumers", "Edward Rees", "Joshua Batson", "Adam Jermyn", "Shan Carter", "Chris Olah", "Tom Henighan"], "https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html", scalingMono, new Date(2025, 1, 3)),
-    new Paper("Efficient Dictionary Learning with Switch Sparse Autoencoders", ["Anish Mudide", "Joshua Engels", "Eric J. Michaud", "Max Tegmark", "Christian Schroeder de Witt"], "https://arxiv.org/abs/2410.08201", monet, new Date(2025, 1, 10)),
+    new Paper("Efficient Dictionary Learning with Switch Sparse Autoencoders", ["Anish Mudide", "Joshua Engels", "Eric J. Michaud", "Max Tegmark", "Christian Schroeder de Witt"], "https://arxiv.org/abs/2410.08201", switchSAE, new Date(2025, 1, 10)),
     new Paper("Monet: Mixture of Monosemantic Experts for Transformers", ["Jungwoo Park", "Young Jin Ahn", "Kee-Eung Kim", "Jaewoo Kang"], "https://arxiv.org/abs/2412.04139", monet, new Date(2025, 1, 17)),
+    new Paper("Sparse Feature Circuits: Discovering and Editing Interpretable Causal Graphs in Language Models", ["Samuel Marks", "Can Rager", "Eric J. Michaud", "Yonatan Belinkov", "David Bau", "Aaron Mueller"], "https://arxiv.org/abs/2403.19647", sparseCircuits, new Date("2025-02-24")),
+    new Paper("Transcoders Find Interpretable LLM Feature Circuits", ["Jacob Dunefsky", "Philippe Chlenski", "Neel Nanda"], "https://arxiv.org/abs/2406.11944", transcoders, new Date("2025-03-03")),
+    new Paper("Interpretability in Parameter Space: Minimizing Mechanistic Description Length with Attribution-based Parameter Decomposition", ["Dan Braun", "Lucius Bushnaq", "Stefan Heimersheim", "Jake Mendel", "Lee Sharkey"], "https://arxiv.org/abs/2501.14926", paramSpace, new Date("2025-03-10")),
 ]
 
 // --------------------------------------------------
