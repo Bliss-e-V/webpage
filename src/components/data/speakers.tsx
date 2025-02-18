@@ -11,18 +11,18 @@ class Speaker {
 
 const speakersRaw = [
     // === summersemester 2025, waiting for confirmation to have the events replaced with the real data===
-    new Speaker(new Date(2025, 4, 22), "to be announced soon", "", "", "", false, true),
-    // new Speaker(new Date(2025, 5, 6), "TBD", "Timothée Darcet", "INRIA France, Meta AI", "TBD", false),
-    new Speaker(new Date(2025, 5, 6), "to be announced soon", "", "", "", false, true),
-    new Speaker(new Date(2025, 5, 20), "to be announced soon", "", "", "", false, true),
-    // new Speaker(new Date(2025, 6, 3), "TBD", "Prof. Yu Xie", "Princeton University", "TBD", false),
-    new Speaker(new Date(2025, 6, 3), "to be announced soon", "", "", "", false, true),
-    // new Speaker(new Date(2025, 6, 17), "TBD", "Daniel Duckworth", "Google Deepmind", "TBD", false),
-    new Speaker(new Date(2025, 6, 17), "to be announced soon", "", "", "", false, true),
-    // new Speaker(new Date(2025, 7, 1), "TBD", "Jannik Kossen", "University of Oxford, Meta AI", "TBD", false),
-    new Speaker(new Date(2025, 7, 1), "to be announced soon", "", "", "", false, true),
-    // new Speaker(new Date(2025, 7, 15), "TBD", "Dr. Adel Bibi", "University of Oxford, Softserve", "TBD", false),
-    new Speaker(new Date(2025, 7, 15), "to be announced soon", "", "", "", false, true),
+    new Speaker(new Date("2025-04-22"), "to be announced soon", "", "", "", false, true),
+    // new Speaker(new Date("2025-05-6"), "TBD", "Timothée Darcet", "INRIA France, Meta AI", "TBD", false),
+    new Speaker(new Date("2025-05-6"), "to be announced soon", "", "", "", false, true),
+    new Speaker(new Date("2025-05-20"), "to be announced soon", "", "", "", false, true),
+    // new Speaker(new Date("2025-06-3"), "TBD", "Prof. Yu Xie", "Princeton University", "TBD", false),
+    new Speaker(new Date("2025-06-3"), "to be announced soon", "", "", "", false, true),
+    // new Speaker(new Date("2025-06-17"), "TBD", "Daniel Duckworth", "Google Deepmind", "TBD", false),
+    new Speaker(new Date("2025-06-17"), "to be announced soon", "", "", "", false, true),
+    // new Speaker(new Date("2025-07-1"), "TBD", "Jannik Kossen", "University of Oxford, Meta AI", "TBD", false),
+    new Speaker(new Date("2025-07-1"), "to be announced soon", "", "", "", false, true),
+    // new Speaker(new Date("2025-07-15"), "TBD", "Dr. Adel Bibi", "University of Oxford, Softserve", "TBD", false),
+    new Speaker(new Date("2025-07-15"), "to be announced soon", "", "", "", false, true),
 ];
 
 
