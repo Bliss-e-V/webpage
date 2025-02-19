@@ -23,3 +23,6 @@ pnpm-debug.log*
 .vercel
 .vscode
 newsletter.html
+
+# npm-specific files, as they are not used currently
+package-lock.json
