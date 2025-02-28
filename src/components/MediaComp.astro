@@ -1,0 +1,52 @@
+---
+import MediaCard from "@components/MediaCard.astro";
+import { dayToMediaItems, MediaItem } from "@components/data/media";
+
+const allMedia = Object.entries(dayToMediaItems)
+    .sort(([date1], [date2]) => date1.localeCompare(date2))
+    .map(([, event]) => event)
+    .reverse() as MediaItem[][];
+---
+
+<div>
+    <h1
+        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+    >
+        Media
+    </h1>
+    <div
+        class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."
+    >
+    </div>
+
+    <div class="mb-10">
+        <div>
+            Welcome to the Media section. Here you will find various media items related to our activities.
+        </div>
+        <div>
+            Below you will find the list of media items. Please check back regularly for updates.
+        </div>
+    </div>
+
+    <div class="my-2">
+        <h2 class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">
+            Past Speaker Events
+        </h2>
+        <div class="flex items-center justify-center flex-col mt-2 sm:mt-4">
+            {allMedia.map((items) => {
+                return (
+                    <div class="w-10/12 mt-4">
+                        {items.map((item, i) => {
+                            return (
+                                <MediaCard
+                                    mediaItem={item}
+                                    hasBorder={i == items.length - 1}
+                                />
+                            );
+                        })}
+                    </div>
+                );
+            })}
+        </div>
+    </div>
+</div>

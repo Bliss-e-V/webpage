@@ -1,0 +1,358 @@
+---
+// Astro frontmatter
+interface MediaItem {
+  title: string;
+  speaker: string;
+  speakerIntro: string;
+  abstract: string;
+  videoLink: string;
+  imageUrls: string[];
+  date: Date;
+}
+
+const { mediaItem, hasBorder } = Astro.props;
+const formattedDate = mediaItem.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: '2-digit'
+});
+---
+
+<!-- The card includes data-images (JSON encoded) and, if available, data-video -->
+<div class={`card p-4 bg-white rounded-lg shadow-md ${hasBorder ? 'border-b' : ''}`}
+     data-images={mediaItem.imageUrls ? JSON.stringify(mediaItem.imageUrls) : '[]'}
+     data-video={mediaItem.videoLink ? mediaItem.videoLink : ""}>
+  <h3 class="text-2xl font-bold" style="color: #1a202c;">{mediaItem.title}</h3>
+  <p class="text-sm text-gray-600">by {mediaItem.speaker}</p>
+  <p class="text-sm text-gray-600">Date: {formattedDate}</p>
+  
+  <!-- Speaker Introduction -->
+  <div class="mt-2">
+    <button 
+      class="text-sm text-gray-600 font-semibold flex items-center" 
+      data-target=".speakerIntro" 
+      data-arrow=".speakerIntroArrow" 
+      onclick="toggleSection(this)"
+    >
+      <span>Speaker Introduction</span>
+      <svg class="speakerIntroArrow ml-2 w-4 h-4 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+    <p class="speakerIntro text-sm text-gray-500" style="display:none;">{mediaItem.speakerIntro}</p>
+  </div>
+  
+  <!-- Abstract -->
+  <div class="mt-2">
+    <button 
+      class="text-sm text-gray-600 font-semibold flex items-center" 
+      data-target=".abstractContent" 
+      data-arrow=".abstractArrow" 
+      onclick="toggleSection(this)"
+    >
+      <span>Abstract</span>
+      <svg class="abstractArrow ml-2 w-4 h-4 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+    <p class="abstractContent mt-2 text-gray-800" style="display:none;">{mediaItem.abstract}</p>
+  </div>
+  
+  <!-- Carousel / Video & Images -->
+  <div class="mt-4">
+    <div class="carousel-container relative">
+      <div class="carousel flex overflow-x-auto space-x-4">
+        {mediaItem.videoLink && (
+          <!-- Wrap the video in a container so it can be clicked to open popup (index 0) -->
+          <div class="flex-none w-1/3 video-container cursor-pointer" onclick="openPopup(this, 0)">
+            <iframe
+              width="100%"
+              height="200"
+              src={mediaItem.videoLink}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="mb-4"
+            ></iframe>
+          </div>
+        )}
+        {mediaItem.imageUrls && mediaItem.imageUrls.length > 0 && (
+          mediaItem.imageUrls.map((url, i) => (
+            <div class="flex-none w-1/3">
+              <img 
+                src={url} 
+                alt="Media image" 
+                class="w-full h-48 object-cover rounded-lg cursor-pointer hover:scale-105 transition-transform" 
+                onclick={`openPopup(this, ${mediaItem.videoLink ? i+1 : i})`} 
+              />
+            </div>
+          ))
+        )}
+      </div>
+      <!-- Carousel navigation buttons -->
+      <button class="carousel-button left-0" data-direction="-1" style="display:none;">&#10094;</button>
+      <button class="carousel-button right-0" data-direction="1" style="display:none;">&#10095;</button>
+    </div>
+  </div>
+</div>
+
+<!-- Global Popup Overlay for large view -->
+<div id="imagePopup" class="image-popup" style="display: none;">
+  <div class="popup-content">
+    <button class="close-popup" onclick="closePopup()">&times;</button>
+    <button class="popup-nav popup-left" onclick="popupPrev()">&#10094;</button>
+    <!-- This container will hold either an iframe or an image -->
+    <div id="popupMedia"></div>
+    <button class="popup-nav popup-right" onclick="popupNext()">&#10095;</button>
+  </div>
+</div>
+
+<style>
+  /* Carousel Styles */
+  .carousel-container {
+    position: relative;
+  }
+  .carousel {
+    scroll-behavior: smooth;
+  }
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .carousel-button.left-0 {
+    left: 0;
+  }
+  .carousel-button.right-0 {
+    right: 0;
+  }
+  /* Card Image Adjustments */
+  /* In the standard card view, images use object-cover so they preserve their aspect ratio.
+     A hover effect adds a slight zoom if needed. */
+  
+   /* Popup Overlay Styles */
+   .image-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  .popup-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* The media container: either an image or a video will be inserted here */
+  #popupMedia {
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+  /* Popup image styles if an image is rendered */
+  .popup-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    border-radius: 4px;
+    object-fit: contain;
+    display: block;
+  }
+  .close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+    z-index: 10000;
+  }
+  .popup-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10000;
+  }
+  .popup-left {
+    left: 10px;
+  }
+  .popup-right {
+    right: 10px;
+  }
+  /* Updated rule for the embedded video in the popup: 
+     use a larger width (80vw) while keeping a 16:9 aspect ratio */
+  #popupMedia iframe {
+    width: 80vw;
+    max-width: 90vw;
+    aspect-ratio: 16 / 9;
+    border: none;
+    border-radius: 4px;
+  }
+</style>
+
+<script>
+  // Global variables for the popup media list and current index
+  let currentPopupItems = [];
+  let currentPopupIndex = 0;
+  
+  // Toggle section (speaker intro, abstract) inside a card
+  function toggleSection(button) {
+    const card = button.closest('.card');
+    const targetSelector = button.getAttribute('data-target');
+    const arrowSelector = button.getAttribute('data-arrow');
+    const section = card.querySelector(targetSelector);
+    const arrow = card.querySelector(arrowSelector);
+    if (section) {
+      section.style.display = (section.style.display === 'none' || section.style.display === '') ? 'block' : 'none';
+    }
+    if (arrow) {
+      arrow.classList.toggle('rotate-180');
+    }
+  }
+  
+  // Carousel scrolling for each card
+  function scrollCarousel(button, direction) {
+    const card = button.closest('.card');
+    const carousel = card.querySelector('.carousel');
+    if (carousel) {
+      const scrollAmount = carousel.clientWidth;
+      carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
+  }
+  
+  // Open the popup overlay for a clicked media item.
+  // 'elem' is the clicked element; 'index' is its index in the popup list.
+  function openPopup(elem, index) {
+    const card = elem.closest('.card');
+    const video = card.getAttribute('data-video');
+    const imagesData = card.getAttribute('data-images');
+    let images = imagesData ? JSON.parse(imagesData) : [];
+    currentPopupItems = [];
+    // If a video exists, add it as the first item
+    if (video && video.trim() !== "") {
+      currentPopupItems.push({ type: "video", url: video });
+    }
+    // Then add images
+    images.forEach((img) => {
+      currentPopupItems.push({ type: "image", url: img });
+    });
+    currentPopupIndex = index;
+    updatePopupContent();
+    document.getElementById('imagePopup').style.display = 'flex';
+  }
+  
+  // Update the popup content based on currentPopupIndex
+  function updatePopupContent() {
+    const popupMedia = document.getElementById('popupMedia');
+    popupMedia.innerHTML = "";
+    if (currentPopupItems.length > 0 && currentPopupIndex >= 0 && currentPopupIndex < currentPopupItems.length) {
+      const item = currentPopupItems[currentPopupIndex];
+      if (item.type === "video") {
+        const iframe = document.createElement('iframe');
+        // The CSS rule will enforce a 16:9 aspect ratio
+        iframe.src = item.url;
+        iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+        iframe.setAttribute("allowfullscreen", "");
+        popupMedia.appendChild(iframe);
+      } else {
+        const img = document.createElement('img');
+        img.src = item.url;
+        img.className = "popup-img";
+        popupMedia.appendChild(img);
+      }
+    }
+  }
+  
+  // Navigate to the previous media item in popup
+  function popupPrev() {
+    if (currentPopupItems.length > 0) {
+      currentPopupIndex = (currentPopupIndex - 1 + currentPopupItems.length) % currentPopupItems.length;
+      updatePopupContent();
+    }
+  }
+  
+  // Navigate to the next media item in popup
+  function popupNext() {
+    if (currentPopupItems.length > 0) {
+      currentPopupIndex = (currentPopupIndex + 1) % currentPopupItems.length;
+      updatePopupContent();
+    }
+  }
+  
+  // Close the popup overlay
+  function closePopup() {
+    document.getElementById('imagePopup').style.display = 'none';
+  }
+  
+  // Close popup when clicking outside the popup content
+  document.getElementById('imagePopup').addEventListener('click', function(event) {
+    if (event.target.id === 'imagePopup') {
+      closePopup();
+    }
+  });
+  
+  // Listen for keyboard events: Escape to close, ArrowLeft/ArrowRight to navigate.
+  document.addEventListener('keydown', function(event) {
+    const popup = document.getElementById('imagePopup');
+    if (popup.style.display !== 'none') {
+      if (event.key === 'Escape') {
+        closePopup();
+      } else if (event.key === 'ArrowLeft') {
+        popupPrev();
+      } else if (event.key === 'ArrowRight') {
+        popupNext();
+      }
+    }
+  });
+  
+  // Expose global functions for inline event handlers
+  window.toggleSection = toggleSection;
+  window.openPopup = openPopup;
+  window.closePopup = closePopup;
+  window.popupPrev = popupPrev;
+  window.popupNext = popupNext;
+  
+  // Setup carousel buttons for each card
+  document.addEventListener('DOMContentLoaded', () => {
+    const carouselButtons = document.querySelectorAll('.carousel-button');
+    carouselButtons.forEach(button => {
+      const card = button.closest('.card');
+      const carousel = card.querySelector('.carousel');
+      if (carousel && carousel.children.length > 0) {
+        const visibleItems = Math.floor(carousel.clientWidth / carousel.children[0].clientWidth);
+        if (carousel.children.length > visibleItems) {
+          button.style.display = 'block';
+        }
+      }
+      button.addEventListener('click', () => {
+        const direction = parseInt(button.getAttribute('data-direction'), 10);
+        scrollCarousel(button, direction);
+      });
+    });
+  });
+</script>
