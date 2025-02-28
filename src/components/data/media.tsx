@@ -165,7 +165,7 @@ const mediaItems = [
         "Dr. Veronika Solopova",
         "",
         "",
-        "https://www.youtube.com/embed/dRDemw05XQM", 
+        "https://www.youtube.com/embed/IEeL9HbzAm8", 
         [
             "src/images/media/ws2425/20241022_solopova/solopova_1 Large.jpeg",
             "src/images/media/ws2425/20241022_solopova/solopova_2 Large.jpeg",

@@ -19,17 +19,18 @@ const formattedDate = mediaItem.date.toLocaleDateString('en-US', {
 ---
 
 <!-- The card includes data-images (JSON encoded) and, if available, data-video -->
-<div class={`card p-4 bg-white rounded-lg shadow-md ${hasBorder ? 'border-b' : ''}`}
+<div class={`card p-4 bg-black rounded-lg shadow-md ${hasBorder ? 'border-b border-gray-700 hover:bg-li' : ''} group`}
      data-images={mediaItem.imageUrls ? JSON.stringify(mediaItem.imageUrls) : '[]'}
      data-video={mediaItem.videoLink ? mediaItem.videoLink : ""}>
-  <h3 class="text-2xl font-bold" style="color: #1a202c;">{mediaItem.title}</h3>
-  <p class="text-sm text-gray-600">by {mediaItem.speaker}</p>
-  <p class="text-sm text-gray-600">Date: {formattedDate}</p>
+  <!-- Header -->
+  <h3 class="text-2xl font-bold text-white">{mediaItem.title}</h3>
+  <p class="text-sm text-gray-300">by {mediaItem.speaker}</p>
+  <p class="text-sm text-gray-300">Date: {formattedDate}</p>
   
   <!-- Speaker Introduction -->
   <div class="mt-2">
     <button 
-      class="text-sm text-gray-600 font-semibold flex items-center" 
+      class="text-sm text-gray-300 font-semibold flex items-center" 
       data-target=".speakerIntro" 
       data-arrow=".speakerIntroArrow" 
       onclick="toggleSection(this)"
@@ -40,13 +41,13 @@ const formattedDate = mediaItem.date.toLocaleDateString('en-US', {
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
       </svg>
     </button>
-    <p class="speakerIntro text-sm text-gray-500" style="display:none;">{mediaItem.speakerIntro}</p>
+    <p class="speakerIntro text-sm text-gray-300" style="display:none;">{mediaItem.speakerIntro}</p>
   </div>
   
   <!-- Abstract -->
   <div class="mt-2">
     <button 
-      class="text-sm text-gray-600 font-semibold flex items-center" 
+      class="text-sm text-gray-300 font-semibold flex items-center" 
       data-target=".abstractContent" 
       data-arrow=".abstractArrow" 
       onclick="toggleSection(this)"
@@ -57,7 +58,7 @@ const formattedDate = mediaItem.date.toLocaleDateString('en-US', {
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
       </svg>
     </button>
-    <p class="abstractContent mt-2 text-gray-800" style="display:none;">{mediaItem.abstract}</p>
+    <p class="abstractContent mt-2 text-gray-300" style="display:none;">{mediaItem.abstract}</p>
   </div>
   
   <!-- Carousel / Video & Images -->
@@ -65,7 +66,7 @@ const formattedDate = mediaItem.date.toLocaleDateString('en-US', {
     <div class="carousel-container relative">
       <div class="carousel flex overflow-x-auto space-x-4">
         {mediaItem.videoLink && (
-          <!-- Wrap the video in a container so it can be clicked to open popup (index 0) -->
+          <!-- Wrap the video so it can be clicked to open the larger view (index 0) -->
           <div class="flex-none w-1/3 video-container cursor-pointer" onclick="openPopup(this, 0)">
             <iframe
               width="100%"
@@ -206,12 +207,32 @@ const formattedDate = mediaItem.date.toLocaleDateString('en-US', {
   }
   /* Updated rule for the embedded video in the popup: 
      use a larger width (80vw) while keeping a 16:9 aspect ratio */
-  #popupMedia iframe {
+  /* #popupMedia iframe {
     width: 80vw;
     max-width: 90vw;
     aspect-ratio: 16 / 9;
     border: none;
     border-radius: 4px;
+  } */
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 90vw; /* Ensure it doesn't exceed viewport width */
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 4px;
+  }
+  .hover\:bg-li:hover {
+    background-color: rgba(203, 45, 62, 0.25);
   }
 </style>
 
@@ -271,22 +292,28 @@ const formattedDate = mediaItem.date.toLocaleDateString('en-US', {
     const popupMedia = document.getElementById('popupMedia');
     popupMedia.innerHTML = "";
     if (currentPopupItems.length > 0 && currentPopupIndex >= 0 && currentPopupIndex < currentPopupItems.length) {
-      const item = currentPopupItems[currentPopupIndex];
-      if (item.type === "video") {
+        const item = currentPopupItems[currentPopupIndex];
+        if (item.type === "video") {
+        // Create a responsive wrapper for the video
+        const wrapper = document.createElement('div');
+        wrapper.className = "video-wrapper";
+        
         const iframe = document.createElement('iframe');
-        // The CSS rule will enforce a 16:9 aspect ratio
         iframe.src = item.url;
         iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
         iframe.setAttribute("allowfullscreen", "");
-        popupMedia.appendChild(iframe);
-      } else {
+        
+        wrapper.appendChild(iframe);
+        popupMedia.appendChild(wrapper);
+        } else {
         const img = document.createElement('img');
         img.src = item.url;
         img.className = "popup-img";
         popupMedia.appendChild(img);
-      }
+        }
     }
-  }
+    }
+
   
   // Navigate to the previous media item in popup
   function popupPrev() {
