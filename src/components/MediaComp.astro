@@ -1,488 +1,156 @@
 ---
 import { dayToMediaItems, MediaItem } from "@components/data/media";
-
-// Compute and sort media items
 const allMedia = Object.entries(dayToMediaItems)
   .sort(([date1], [date2]) => date1.localeCompare(date2))
   .map(([, event]) => event)
   .reverse() as MediaItem[][];
-
 const flatMedia = allMedia.flat();
-
-// Filter for Winter season: September 2024 - March 2025
 const winterMediaItems = flatMedia.filter((item) => {
   const itemDate = new Date(item.date);
   return itemDate >= new Date("2024-09-01") && itemDate <= new Date("2025-03-31");
 });
-
-// Filter for Summer season: April 2024 - August 2024
 const summerMediaItems = flatMedia.filter((item) => {
   const itemDate = new Date(item.date);
   return itemDate >= new Date("2024-04-01") && itemDate <= new Date("2024-08-31");
 });
-
-// Serialize the arrays to JSON for use on the client side
 const winterMediaJSON = JSON.stringify(winterMediaItems);
 const summerMediaJSON = JSON.stringify(summerMediaItems);
 ---
 
-<div>
-  <h1 class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">
-    Media
-  </h1>
-  <div class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent"></div>
-
-  <div class="mb-10">
+<html>
+  <head>
+    <title>Media</title>
+  </head>
+  <body>
     <div>
-      Welcome to the Media section. Here you will find various media items related to our activities.
+      <h1 class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">Media</h1>
+      <div class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent"></div>
+      <div class="mb-10">
+        <div>Welcome to the Media section. Here you will find various media items related to our activities.</div>
+        <div>Below you will find the list of media items. Please check back regularly for updates.</div>
+      </div>
+      <div class="my-2 card">
+        <div class="flex items-center">
+          <button class="text-sm text-gray-300 font-semibold flex items-center" data-target=".winterMedia" data-arrow=".winterArrow" onclick="toggleSection(this)">
+            <svg class="winterArrow w-8 h-8 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <h2 class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">Season: Winter 2024/25</h2>
+        </div>
+        <div class="winterMedia flex items-center justify-center flex-col mt-2 sm:mt-4"></div>
+      </div>
+      <div class="my-2 card">
+        <div class="flex items-center">
+          <button class="text-sm text-gray-300 font-semibold flex items-center" data-target=".summerMedia" data-arrow=".summerArrow" onclick="toggleSection(this)">
+            <svg class="summerArrow w-8 h-8 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <h2 class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">Season: Summer 2024</h2>
+        </div>
+        <div class="summerMedia flex items-center justify-center flex-col mt-2 sm:mt-4"></div>
+      </div>
     </div>
-    <div>
-      Below you will find the list of media items. Please check back regularly for updates.
+    <script id="winter-data" type="application/json" set:html={winterMediaJSON}></script>
+    <script id="summer-data" type="application/json" set:html={summerMediaJSON}></script>
+    <script src="src/components/MediaCards.js" type="module"></script>
+    <div id="imagePopup" class="image-popup" style="display: none;">
+      <div class="popup-content">
+        <button class="close-popup" onclick="closePopup()">&times;</button>
+        <button class="popup-nav popup-left" onclick="popupPrev()">&#10094;</button>
+        <div id="popupMedia"></div>
+        <button class="popup-nav popup-right" onclick="popupNext()">&#10095;</button>
+      </div>
     </div>
-  </div>
-
-  <!-- Season: Winter 2024/25 -->
-  <div class="my-2 card">
-    <div class="flex items-center">
-      <button 
-        class="text-sm text-gray-300 font-semibold flex items-center" 
-        data-target=".winterMedia" 
-        data-arrow=".winterArrow" 
-        onclick="toggleSection(this)"
-      >
-        <svg class="winterArrow w-8 h-8 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-             xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </button>
-      <h2 class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">
-        Season: Winter 2024/25
-      </h2>
-    </div>
-    <!-- Empty container: media cards will be generated here dynamically -->
-    <div class="winterMedia flex items-center justify-center flex-col mt-2 sm:mt-4"></div>
-  </div>
-
-  <!-- Season: Summer 2024 -->
-  <div class="my-2 card">
-    <div class="flex items-center">
-      <button 
-        class="text-sm text-gray-300 font-semibold flex items-center" 
-        data-target=".summerMedia" 
-        data-arrow=".summerArrow" 
-        onclick="toggleSection(this)"
-      >
-        <svg class="summerArrow w-8 h-8 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-             xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </button>
-      <h2 class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">
-        Season: Summer 2024
-      </h2>
-    </div>
-    <!-- Empty container: media cards will be generated here dynamically -->
-    <div class="summerMedia flex items-center justify-center flex-col mt-2 sm:mt-4"></div>
-  </div>
-</div>
-
-<!-- Inject the JSON data as non-executable scripts -->
-<script id="winter-data" type="application/json" set:html={winterMediaJSON}></script>
-<script id="summer-data" type="application/json" set:html={summerMediaJSON}></script>
-
-<script>
-  // Retrieve and parse the JSON data
-  const winterDataEl = document.getElementById('winter-data');
-  const winterJSON = winterDataEl ? winterDataEl.textContent.trim().replace(/\n/g, '') : '[]';
-  window.winterMediaItems = JSON.parse(winterJSON);
-
-  const summerDataEl = document.getElementById('summer-data');
-  const summerJSON = summerDataEl ? summerDataEl.textContent.trim().replace(/\n/g, '') : '[]';
-  window.summerMediaItems = JSON.parse(summerJSON);
-
-  // createMediaCard() generates the media card, but omits carousel navigation buttons.
-  function createMediaCard(item) {
-    // Outer container
-    const container = document.createElement('div');
-    container.className = "w-10/12 mt-4";
-
-    // Card element
-    const card = document.createElement('div');
-    const hasBorder = item.hasBorder || false;
-    card.className = "card p-4 bg-black rounded-lg shadow-md " + (hasBorder ? "border-b border-gray-700 hover:bg-li" : "group");
-    // Set data attributes for images and video
-    card.setAttribute('data-images', JSON.stringify(item.imageUrls || []));
-    card.setAttribute('data-video', item.videoLink ? item.videoLink : "");
-
-    // Header: Title
-    const titleEl = document.createElement('h3');
-    titleEl.className = "text-2xl font-bold text-white";
-    titleEl.textContent = item.title || "Untitled";
-    card.appendChild(titleEl);
-
-    // Speaker info
-    const speakerEl = document.createElement('p');
-    speakerEl.className = "text-sm text-gray-300";
-    speakerEl.textContent = "by " + (item.speaker || "Unknown");
-    card.appendChild(speakerEl);
-
-    // Date formatting
-    const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: '2-digit'
-    });
-    const dateEl = document.createElement('p');
-    dateEl.className = "text-sm text-gray-300";
-    dateEl.textContent = "Date: " + formattedDate;
-    card.appendChild(dateEl);
-
-    // Speaker Introduction Section
-    const speakerIntroDiv = document.createElement('div');
-    speakerIntroDiv.className = "mt-2";
-    const speakerIntroButton = document.createElement('button');
-    speakerIntroButton.className = "text-sm text-gray-300 font-semibold flex items-center";
-    speakerIntroButton.setAttribute('data-target', ".speakerIntro");
-    speakerIntroButton.setAttribute('data-arrow', ".speakerIntroArrow");
-    speakerIntroButton.setAttribute('onclick', "toggleSection(this)");
-    const speakerIntroSpan = document.createElement('span');
-    speakerIntroSpan.textContent = "Speaker Introduction";
-    speakerIntroButton.appendChild(speakerIntroSpan);
-    const speakerIntroSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    speakerIntroSvg.setAttribute("class", "speakerIntroArrow ml-2 w-4 h-4 transform");
-    speakerIntroSvg.setAttribute("fill", "none");
-    speakerIntroSvg.setAttribute("stroke", "currentColor");
-    speakerIntroSvg.setAttribute("viewBox", "0 0 24 24");
-    const speakerIntroPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    speakerIntroPath.setAttribute("stroke-linecap", "round");
-    speakerIntroPath.setAttribute("stroke-linejoin", "round");
-    speakerIntroPath.setAttribute("stroke-width", "2");
-    speakerIntroPath.setAttribute("d", "M19 9l-7 7-7-7");
-    speakerIntroSvg.appendChild(speakerIntroPath);
-    speakerIntroButton.appendChild(speakerIntroSvg);
-    speakerIntroDiv.appendChild(speakerIntroButton);
-    const speakerIntroContent = document.createElement('p');
-    speakerIntroContent.className = "speakerIntro text-sm text-gray-300";
-    speakerIntroContent.style.display = "none";
-    speakerIntroContent.textContent = item.speakerIntro || "";
-    speakerIntroDiv.appendChild(speakerIntroContent);
-    card.appendChild(speakerIntroDiv);
-
-    // Abstract Section
-    const abstractDiv = document.createElement('div');
-    abstractDiv.className = "mt-2";
-    const abstractButton = document.createElement('button');
-    abstractButton.className = "text-sm text-gray-300 font-semibold flex items-center";
-    abstractButton.setAttribute('data-target', ".abstractContent");
-    abstractButton.setAttribute('data-arrow', ".abstractArrow");
-    abstractButton.setAttribute('onclick', "toggleSection(this)");
-    const abstractSpan = document.createElement('span');
-    abstractSpan.textContent = "Abstract";
-    abstractButton.appendChild(abstractSpan);
-    const abstractSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    abstractSvg.setAttribute("class", "abstractArrow ml-2 w-4 h-4 transform");
-    abstractSvg.setAttribute("fill", "none");
-    abstractSvg.setAttribute("stroke", "currentColor");
-    abstractSvg.setAttribute("viewBox", "0 0 24 24");
-    const abstractPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    abstractPath.setAttribute("stroke-linecap", "round");
-    abstractPath.setAttribute("stroke-linejoin", "round");
-    abstractPath.setAttribute("stroke-width", "2");
-    abstractPath.setAttribute("d", "M19 9l-7 7-7-7");
-    abstractSvg.appendChild(abstractPath);
-    abstractButton.appendChild(abstractSvg);
-    abstractDiv.appendChild(abstractButton);
-    const abstractContent = document.createElement('p');
-    abstractContent.className = "abstractContent mt-2 text-gray-300";
-    abstractContent.style.display = "none";
-    abstractContent.textContent = item.abstract || "";
-    abstractDiv.appendChild(abstractContent);
-    card.appendChild(abstractDiv);
-
-    // Carousel / Video & Images Section (without adding carousel buttons)
-    const carouselWrapper = document.createElement('div');
-    carouselWrapper.className = "mt-4";
-    const carouselContainer = document.createElement('div');
-    carouselContainer.className = "carousel-container relative";
-    const carousel = document.createElement('div');
-    carousel.className = "carousel flex overflow-x-auto space-x-4";
-
-    let videoExists = false;
-    if (item.videoLink && item.videoLink.trim() !== "") {
-      videoExists = true;
-      const videoContainer = document.createElement('div');
-      videoContainer.className = "flex-none w-1/3 video-container cursor-pointer";
-      videoContainer.setAttribute('onclick', "openPopup(this, 0)");
-      const iframe = document.createElement('iframe');
-      iframe.setAttribute("width", "100%");
-      iframe.setAttribute("height", "200");
-      iframe.setAttribute("src", item.videoLink);
-      iframe.setAttribute("title", "YouTube video player");
-      iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-      iframe.setAttribute("allowfullscreen", "");
-      iframe.className = "mb-4";
-      videoContainer.appendChild(iframe);
-      carousel.appendChild(videoContainer);
-    }
-
-    if (item.imageUrls && item.imageUrls.length > 0) {
-      item.imageUrls.forEach((url, i) => {
-        const imageDiv = document.createElement('div');
-        imageDiv.className = "flex-none w-1/3";
-        const img = document.createElement('img');
-        img.setAttribute("src", url);
-        img.setAttribute("alt", "Media image");
-        img.className = "w-full h-48 object-cover rounded-lg cursor-pointer hover:scale-105 transition-transform";
-        const popupIndex = videoExists ? i + 1 : i;
-        img.setAttribute("onclick", `openPopup(this, ${popupIndex})`);
-        imageDiv.appendChild(img);
-        carousel.appendChild(imageDiv);
-      });
-    }
-
-    carouselContainer.appendChild(carousel);
-    // Note: The carousel navigation buttons are intentionally not created.
-    carouselWrapper.appendChild(carouselContainer);
-    card.appendChild(carouselWrapper);
-
-    container.appendChild(card);
-    return container;
-  }
-
-  // Toggle function to dynamically generate or remove sections.
-  function toggleSection(button) {
-    const card = button.closest('.card');
-    const targetSelector = button.getAttribute('data-target');
-    const arrowSelector = button.getAttribute('data-arrow');
-    const section = card.querySelector(targetSelector);
-    const arrow = card.querySelector(arrowSelector);
-
-    if (targetSelector.includes('winterMedia') || targetSelector.includes('summerMedia')) {
-      let mediaItems = [];
-      if (targetSelector.includes('winter')) {
-        mediaItems = window.winterMediaItems;
-      } else if (targetSelector.includes('summer')) {
-        mediaItems = window.summerMediaItems;
+    <style>
+      .carousel-container {
+        position: relative;
       }
-      if (!section.hasChildNodes()) {
-        mediaItems.forEach(item => {
-          const mediaCardElement = createMediaCard(item);
-          section.appendChild(mediaCardElement);
-        });
-        section.style.display = 'flex';
-        arrow.classList.add('rotate-180');
-      } else {
-        section.innerHTML = '';
-        section.style.display = 'none';
-        arrow.classList.remove('rotate-180');
+      .carousel {
+        scroll-behavior: smooth;
       }
-    } else {
-      if (section) {
-        section.style.display = (section.style.display === 'none' || section.style.display === '') ? 'block' : 'none';
+      .image-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
       }
-      if (arrow) {
-        arrow.classList.toggle('rotate-180');
+      .popup-content {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
-    }
-  }
-
-  window.toggleSection = toggleSection;
-
-  // Auto-expand the winter season on page load.
-  document.addEventListener('DOMContentLoaded', () => {
-    const winterButton = document.querySelector('button[data-target=".winterMedia"]');
-    if (winterButton) {
-      toggleSection(winterButton);
-    }
-  });
-</script>
-
-<!-- Popup functionality remains unchanged -->
-<script>
-  let currentPopupItems = [];
-  let currentPopupIndex = 0;
-  
-  function openPopup(elem, index) {
-    const card = elem.closest('.card');
-    const video = card.getAttribute('data-video');
-    const imagesData = card.getAttribute('data-images');
-    let images = imagesData ? JSON.parse(imagesData) : [];
-    currentPopupItems = [];
-    if (video && video.trim() !== "") {
-      currentPopupItems.push({ type: "video", url: video });
-    }
-    images.forEach((img) => {
-      currentPopupItems.push({ type: "image", url: img });
-    });
-    currentPopupIndex = index;
-    updatePopupContent();
-    document.getElementById('imagePopup').style.display = 'flex';
-  }
-  
-  function updatePopupContent() {
-    const popupMedia = document.getElementById('popupMedia');
-    popupMedia.innerHTML = "";
-    if (currentPopupItems.length > 0 && currentPopupIndex >= 0 && currentPopupIndex < currentPopupItems.length) {
-      const item = currentPopupItems[currentPopupIndex];
-      if (item.type === "video") {
-        const wrapper = document.createElement('div');
-        wrapper.className = "video-wrapper";
-        const iframe = document.createElement('iframe');
-        iframe.src = item.url;
-        iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-        iframe.setAttribute("allowfullscreen", "");
-        wrapper.appendChild(iframe);
-        popupMedia.appendChild(wrapper);
-      } else {
-        const img = document.createElement('img');
-        img.src = item.url;
-        img.className = "popup-img";
-        popupMedia.appendChild(img);
+      #popupMedia {
+        max-width: 90vw;
+        max-height: 90vh;
       }
-    }
-  }
-  
-  function popupPrev() {
-    if (currentPopupItems.length > 0) {
-      currentPopupIndex = (currentPopupIndex - 1 + currentPopupItems.length) % currentPopupItems.length;
-      updatePopupContent();
-    }
-  }
-  
-  function popupNext() {
-    if (currentPopupItems.length > 0) {
-      currentPopupIndex = (currentPopupIndex + 1) % currentPopupItems.length;
-      updatePopupContent();
-    }
-  }
-  
-  function closePopup() {
-    document.getElementById('imagePopup').style.display = 'none';
-  }
-  
-  document.getElementById('imagePopup').addEventListener('click', function(event) {
-    if (event.target.id === 'imagePopup') {
-      closePopup();
-    }
-  });
-  
-  document.addEventListener('keydown', function(event) {
-    const popup = document.getElementById('imagePopup');
-    if (popup.style.display !== 'none') {
-      if (event.key === 'Escape') {
-        closePopup();
-      } else if (event.key === 'ArrowLeft') {
-        popupPrev();
-      } else if (event.key === 'ArrowRight') {
-        popupNext();
+      .popup-img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        border-radius: 4px;
+        object-fit: contain;
+        display: block;
       }
-    }
-  });
-  
-  window.openPopup = openPopup;
-  window.closePopup = closePopup;
-  window.popupPrev = popupPrev;
-  window.popupNext = popupNext;
-</script>
-
-<!-- Global Popup Overlay -->
-<div id="imagePopup" class="image-popup" style="display: none;">
-  <div class="popup-content">
-    <button class="close-popup" onclick="closePopup()">&times;</button>
-    <button class="popup-nav popup-left" onclick="popupPrev()">&#10094;</button>
-    <div id="popupMedia"></div>
-    <button class="popup-nav popup-right" onclick="popupNext()">&#10095;</button>
-  </div>
-</div>
-
-<style>
-  /* Carousel and Popup styles */
-  .carousel-container {
-    position: relative;
-  }
-  .carousel {
-    scroll-behavior: smooth;
-  }
-  .image-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  .popup-content {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  #popupMedia {
-    max-width: 90vw;
-    max-height: 90vh;
-  }
-  .popup-img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    border-radius: 4px;
-    object-fit: contain;
-    display: block;
-  }
-  .close-popup {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #fff;
-    z-index: 10000;
-  }
-  .popup-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
-    border: none;
-    color: #fff;
-    font-size: 2rem;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10000;
-  }
-  .popup-left {
-    left: 10px;
-  }
-  .popup-right {
-    right: 10px;
-  }
-  .video-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 90vw;
-    height: 0;
-    padding-bottom: 56.25%;
-  }
-  .video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 4px;
-  }
-  .hover\:bg-li:hover {
-    background-color: rgba(203, 45, 62, 0.25);
-  }
-</style>
+      .close-popup {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #fff;
+        z-index: 10000;
+      }
+      .popup-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0,0,0,0.5);
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 10000;
+      }
+      .popup-left {
+        left: 10px;
+      }
+      .popup-right {
+        right: 10px;
+      }
+      .video-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 90vw;
+        height: 0;
+        padding-bottom: 56.25%;
+      }
+      .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 4px;
+      }
+      .hover\:bg-li:hover {
+        background-color: rgba(203, 45, 62, 0.25);
+      }
+    </style>
+  </body>
+</html>
