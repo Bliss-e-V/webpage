@@ -9,7 +9,7 @@ function createMediaCard(item) {
   container.className = "w-10/12 mt-4";
   const card = document.createElement('div');
   const hasBorder = item.hasBorder || false;
-  card.className = "card p-4 bg-black rounded-lg shadow-md " + (hasBorder ? "border-b border-gray-700 hover:bg-li" : "group");
+  card.className = "card p-4 bg-black rounded-lg shadow-md hover:bg-li " + (hasBorder ? "border-b border-gray-700" : "");
   card.setAttribute('data-images', JSON.stringify(item.imageUrls || []));
   card.setAttribute('data-video', item.videoLink ? item.videoLink : "");
   const titleEl = document.createElement('h3');
