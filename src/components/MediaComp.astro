@@ -86,12 +86,12 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   </div>
 </div>
 
-<!-- Inject the JSON data as non-executable scripts without extra whitespace -->
+<!-- Inject the JSON data as non-executable scripts -->
 <script id="winter-data" type="application/json" set:html={winterMediaJSON}></script>
 <script id="summer-data" type="application/json" set:html={summerMediaJSON}></script>
 
 <script>
-  // Retrieve and parse the JSON data from the script tags.
+  // Retrieve and parse the JSON data
   const winterDataEl = document.getElementById('winter-data');
   const winterJSON = winterDataEl ? winterDataEl.textContent.trim().replace(/\n/g, '') : '[]';
   window.winterMediaItems = JSON.parse(winterJSON);
@@ -100,13 +100,13 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   const summerJSON = summerDataEl ? summerDataEl.textContent.trim().replace(/\n/g, '') : '[]';
   window.summerMediaItems = JSON.parse(summerJSON);
 
-  // Updated createMediaCard() function that builds the complete card structure dynamically.
+  // createMediaCard() generates the media card, but omits carousel navigation buttons.
   function createMediaCard(item) {
     // Outer container
     const container = document.createElement('div');
     container.className = "w-10/12 mt-4";
 
-    // Card element (using a potential hasBorder flag if provided)
+    // Card element
     const card = document.createElement('div');
     const hasBorder = item.hasBorder || false;
     card.className = "card p-4 bg-black rounded-lg shadow-md " + (hasBorder ? "border-b border-gray-700 hover:bg-li" : "group");
@@ -126,7 +126,7 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
     speakerEl.textContent = "by " + (item.speaker || "Unknown");
     card.appendChild(speakerEl);
 
-    // Date formatting (using en-US locale)
+    // Date formatting
     const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -199,7 +199,7 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
     abstractDiv.appendChild(abstractContent);
     card.appendChild(abstractDiv);
 
-    // Carousel / Video & Images Section
+    // Carousel / Video & Images Section (without adding carousel buttons)
     const carouselWrapper = document.createElement('div');
     carouselWrapper.className = "mt-4";
     const carouselContainer = document.createElement('div');
@@ -242,18 +242,7 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
     }
 
     carouselContainer.appendChild(carousel);
-    const leftButton = document.createElement('button');
-    leftButton.className = "carousel-button left-0";
-    leftButton.setAttribute("data-direction", "-1");
-    leftButton.style.display = "none";
-    leftButton.innerHTML = "&#10094;";
-    carouselContainer.appendChild(leftButton);
-    const rightButton = document.createElement('button');
-    rightButton.className = "carousel-button right-0";
-    rightButton.setAttribute("data-direction", "1");
-    rightButton.style.display = "none";
-    rightButton.innerHTML = "&#10095;";
-    carouselContainer.appendChild(rightButton);
+    // Note: The carousel navigation buttons are intentionally not created.
     carouselWrapper.appendChild(carouselContainer);
     card.appendChild(carouselWrapper);
 
@@ -261,53 +250,55 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
     return container;
   }
 
-  // Toggle function to dynamically generate or remove the media cards and inner sections.
+  // Toggle function to dynamically generate or remove sections.
   function toggleSection(button) {
-  const card = button.closest('.card');
-  const targetSelector = button.getAttribute('data-target');
-  const arrowSelector = button.getAttribute('data-arrow');
-  const section = card.querySelector(targetSelector);
-  const arrow = card.querySelector(arrowSelector);
+    const card = button.closest('.card');
+    const targetSelector = button.getAttribute('data-target');
+    const arrowSelector = button.getAttribute('data-arrow');
+    const section = card.querySelector(targetSelector);
+    const arrow = card.querySelector(arrowSelector);
 
-  // For season toggling (media cards)
-  if (targetSelector.includes('winterMedia') || targetSelector.includes('summerMedia')) {
-    let mediaItems = [];
-    if (targetSelector.includes('winter')) {
-      mediaItems = window.winterMediaItems;
-    } else if (targetSelector.includes('summer')) {
-      mediaItems = window.summerMediaItems;
-    }
-    if (!section.hasChildNodes()) {
-      mediaItems.forEach(item => {
-        const mediaCardElement = createMediaCard(item);
-        section.appendChild(mediaCardElement);
-      });
-      section.style.display = 'flex';
-      // When expanded, rotate arrow upward (assuming rotate-180 rotates it 180°)
-      arrow.classList.add('rotate-180');
+    if (targetSelector.includes('winterMedia') || targetSelector.includes('summerMedia')) {
+      let mediaItems = [];
+      if (targetSelector.includes('winter')) {
+        mediaItems = window.winterMediaItems;
+      } else if (targetSelector.includes('summer')) {
+        mediaItems = window.summerMediaItems;
+      }
+      if (!section.hasChildNodes()) {
+        mediaItems.forEach(item => {
+          const mediaCardElement = createMediaCard(item);
+          section.appendChild(mediaCardElement);
+        });
+        section.style.display = 'flex';
+        arrow.classList.add('rotate-180');
+      } else {
+        section.innerHTML = '';
+        section.style.display = 'none';
+        arrow.classList.remove('rotate-180');
+      }
     } else {
-      section.innerHTML = '';
-      section.style.display = 'none';
-      // When collapsed, remove rotation so arrow points downward
-      arrow.classList.remove('rotate-180');
-    }
-  } else {
-    // For inner card sections (speaker intro, abstract)
-    if (section) {
-      section.style.display = (section.style.display === 'none' || section.style.display === '') ? 'block' : 'none';
-    }
-    if (arrow) {
-      arrow.classList.toggle('rotate-180');
+      if (section) {
+        section.style.display = (section.style.display === 'none' || section.style.display === '') ? 'block' : 'none';
+      }
+      if (arrow) {
+        arrow.classList.toggle('rotate-180');
+      }
     }
   }
-}
 
-
-  // Expose toggleSection to the global scope.
   window.toggleSection = toggleSection;
+
+  // Auto-expand the winter season on page load.
+  document.addEventListener('DOMContentLoaded', () => {
+    const winterButton = document.querySelector('button[data-target=".winterMedia"]');
+    if (winterButton) {
+      toggleSection(winterButton);
+    }
+  });
 </script>
 
-<!-- Popup and carousel functionality (remains largely as in your original code) -->
+<!-- Popup functionality remains unchanged -->
 <script>
   let currentPopupItems = [];
   let currentPopupIndex = 0;
@@ -393,46 +384,9 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   window.closePopup = closePopup;
   window.popupPrev = popupPrev;
   window.popupNext = popupNext;
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    const carouselButtons = document.querySelectorAll('.carousel-button');
-    carouselButtons.forEach(button => {
-      const card = button.closest('.card');
-      const carousel = card.querySelector('.carousel');
-      if (carousel && carousel.children.length > 0) {
-        const visibleItems = Math.floor(carousel.clientWidth / carousel.children[0].clientWidth);
-        if (carousel.children.length > visibleItems) {
-          button.style.display = 'block';
-        }
-      }
-      button.addEventListener('click', () => {
-        const direction = parseInt(button.getAttribute('data-direction'), 10);
-        scrollCarousel(button, direction);
-      });
-    });
-  });
-  
-  function scrollCarousel(button, direction) {
-    const card = button.closest('.card');
-    const carousel = card.querySelector('.carousel');
-    if (carousel) {
-      const scrollAmount = carousel.clientWidth;
-      carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-    }
-  }
 </script>
 
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', () => {
-  // Auto-expand the winter season by calling toggleSection on its button.
-  const winterButton = document.querySelector('button[data-target=".winterMedia"]');
-  if (winterButton) {
-    toggleSection(winterButton);
-  }
-});
-</script> -->
-
-<!-- Global Popup Overlay for large view -->
+<!-- Global Popup Overlay -->
 <div id="imagePopup" class="image-popup" style="display: none;">
   <div class="popup-content">
     <button class="close-popup" onclick="closePopup()">&times;</button>
@@ -449,23 +403,6 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   }
   .carousel {
     scroll-behavior: smooth;
-  }
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-  }
-  .carousel-button.left-0 {
-    left: 0;
-  }
-  .carousel-button.right-0 {
-    right: 0;
   }
   .image-popup {
     position: fixed;
