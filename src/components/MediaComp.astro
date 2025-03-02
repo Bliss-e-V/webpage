@@ -2,51 +2,115 @@
 import MediaCard from "@components/MediaCard.astro";
 import { dayToMediaItems, MediaItem } from "@components/data/media";
 
+// Original grouped media items array
 const allMedia = Object.entries(dayToMediaItems)
-    .sort(([date1], [date2]) => date1.localeCompare(date2))
-    .map(([, event]) => event)
-    .reverse() as MediaItem[][];
+  .sort(([date1], [date2]) => date1.localeCompare(date2))
+  .map(([, event]) => event)
+  .reverse() as MediaItem[][];
+
+// Flatten the array for easier filtering
+const flatMedia = allMedia.flat();
+
+// Filter for Winter season: September 2024 - March 2025
+const winterMediaItems = flatMedia.filter((item) => {
+  const itemDate = new Date(item.date);
+  return itemDate >= new Date("2024-09-01") && itemDate <= new Date("2025-03-31");
+});
+
+// Filter for Summer season: April 2024 - August 2024
+const summerMediaItems = flatMedia.filter((item) => {
+  const itemDate = new Date(item.date);
+  return itemDate >= new Date("2024-04-01") && itemDate <= new Date("2024-08-31");
+});
 ---
 
 <div>
-    <h1
-        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
-    >
-        Media
-    </h1>
-    <div
-        class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."
-    >
-    </div>
+  <h1 class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">
+    Media
+  </h1>
+  <div class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."></div>
 
-    <div class="mb-10">
-        <div>
-            Welcome to the Media section. Here you will find various media items related to our activities.
-        </div>
-        <div>
-            Below you will find the list of media items. Please check back regularly for updates.
-        </div>
+  <div class="mb-10">
+    <div>
+      Welcome to the Media section. Here you will find various media items related to our activities.
     </div>
+    <div>
+      Below you will find the list of media items. Please check back regularly for updates.
+    </div>
+  </div>
 
-    <div class="my-2">
-        <h2 class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">
-            Past Speaker Events
-        </h2>
-        <div class="flex items-center justify-center flex-col mt-2 sm:mt-4">
-            {allMedia.map((items) => {
-                return (
-                    <div class="w-10/12 mt-4">
-                        {items.map((item, i) => {
-                            return (
-                                <MediaCard
-                                    mediaItem={item}
-                                    hasBorder={i == items.length - 1}
-                                />
-                            );
-                        })}
-                    </div>
-                );
-            })}
-        </div>
+  <!-- Season: Winter 2024/25 -->
+  <div class="my-2 card">
+    <div class="flex items-center">
+      <button 
+        class="text-sm text-gray-300 font-semibold flex items-center" 
+        data-target=".winterMedia" 
+        data-arrow=".winterArrow" 
+        onclick="toggleSection(this)"
+      >
+        <svg class="winterArrow w-8 h-8 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <h2 class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">
+        Season: Winter 2024/25
+      </h2>
     </div>
+    <div class="winterMedia flex items-center justify-center flex-col mt-2 sm:mt-4">
+      {winterMediaItems.map((item, i) => (
+         <div class="w-10/12 mt-4">
+           <MediaCard mediaItem={item} hasBorder={true} />
+         </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Season: Summer 2024 -->
+  <div class="my-2 card">
+    <div class="flex items-center">
+      <button 
+        class="text-sm text-gray-300 font-semibold flex items-center" 
+        data-target=".summerMedia" 
+        data-arrow=".summerArrow" 
+        onclick="toggleSection(this)"
+      >
+        <svg class="summerArrow w-8 h-8 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <h2 class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold">
+        Season: Summer 2024
+      </h2>
+    </div>
+    <div class="summerMedia flex items-center justify-center flex-col mt-2 sm:mt-4">
+      {summerMediaItems.map((item, i) => (
+         <div class="w-10/12 mt-4">
+           <MediaCard mediaItem={item} hasBorder={true} />
+         </div>
+      ))}
+    </div>
+  </div>
 </div>
+
+<script>
+  function toggleSection(button) {
+    const card = button.closest('.card');
+    const targetSelector = button.getAttribute('data-target');
+    const arrowSelector = button.getAttribute('data-arrow');
+    const section = card.querySelector(targetSelector);
+    const arrow = card.querySelector(arrowSelector);
+    
+    if (section.style.display === 'none' || section.style.display === '') {
+      section.style.display = 'flex';
+    } else {
+      section.style.display = 'none';
+    }
+    
+    if (arrow) {
+      arrow.classList.toggle('rotate-180');
+    }
+  }
+  window.toggleSection = toggleSection;
+</script>
