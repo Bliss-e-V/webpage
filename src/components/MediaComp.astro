@@ -263,40 +263,45 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
 
   // Toggle function to dynamically generate or remove the media cards and inner sections.
   function toggleSection(button) {
-    const card = button.closest('.card');
-    const targetSelector = button.getAttribute('data-target');
-    const arrowSelector = button.getAttribute('data-arrow');
-    const section = card.querySelector(targetSelector);
-    const arrow = card.querySelector(arrowSelector);
+  const card = button.closest('.card');
+  const targetSelector = button.getAttribute('data-target');
+  const arrowSelector = button.getAttribute('data-arrow');
+  const section = card.querySelector(targetSelector);
+  const arrow = card.querySelector(arrowSelector);
 
-    // For season toggling (media cards)
-    if (targetSelector.includes('winterMedia') || targetSelector.includes('summerMedia')) {
-      let mediaItems = [];
-      if (targetSelector.includes('winter')) {
-        mediaItems = window.winterMediaItems;
-      } else if (targetSelector.includes('summer')) {
-        mediaItems = window.summerMediaItems;
-      }
-      if (!section.hasChildNodes()) {
-        mediaItems.forEach(item => {
-          const mediaCardElement = createMediaCard(item);
-          section.appendChild(mediaCardElement);
-        });
-        section.style.display = 'flex';
-      } else {
-        section.innerHTML = '';
-        section.style.display = 'none';
-      }
+  // For season toggling (media cards)
+  if (targetSelector.includes('winterMedia') || targetSelector.includes('summerMedia')) {
+    let mediaItems = [];
+    if (targetSelector.includes('winter')) {
+      mediaItems = window.winterMediaItems;
+    } else if (targetSelector.includes('summer')) {
+      mediaItems = window.summerMediaItems;
+    }
+    if (!section.hasChildNodes()) {
+      mediaItems.forEach(item => {
+        const mediaCardElement = createMediaCard(item);
+        section.appendChild(mediaCardElement);
+      });
+      section.style.display = 'flex';
+      // When expanded, rotate arrow upward (assuming rotate-180 rotates it 180°)
+      arrow.classList.add('rotate-180');
     } else {
-      // For inner card sections (speaker intro, abstract)
-      if (section) {
-        section.style.display = (section.style.display === 'none' || section.style.display === '') ? 'block' : 'none';
-      }
-      if (arrow) {
-        arrow.classList.toggle('rotate-180');
-      }
+      section.innerHTML = '';
+      section.style.display = 'none';
+      // When collapsed, remove rotation so arrow points downward
+      arrow.classList.remove('rotate-180');
+    }
+  } else {
+    // For inner card sections (speaker intro, abstract)
+    if (section) {
+      section.style.display = (section.style.display === 'none' || section.style.display === '') ? 'block' : 'none';
+    }
+    if (arrow) {
+      arrow.classList.toggle('rotate-180');
     }
   }
+}
+
 
   // Expose toggleSection to the global scope.
   window.toggleSection = toggleSection;
@@ -416,6 +421,16 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
     }
   }
 </script>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  // Auto-expand the winter season by calling toggleSection on its button.
+  const winterButton = document.querySelector('button[data-target=".winterMedia"]');
+  if (winterButton) {
+    toggleSection(winterButton);
+  }
+});
+</script> -->
 
 <!-- Global Popup Overlay for large view -->
 <div id="imagePopup" class="image-popup" style="display: none;">
