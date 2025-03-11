@@ -1,6 +1,6 @@
 ---
 import Card from "@components/Card.astro";
-import { dayToPapers, Paper } from "@components/data/papers";
+import { dayToPapers, Paper, readingGroupSections } from "@components/data/papers";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -25,6 +25,14 @@ const pastPaperList = Object.entries(pastPapers)
     .sort(([date1], [date2]) => date1.localeCompare(date2))
     .map(([, event]) => event)
     .reverse() as Paper[][];
+
+// Group papers by section
+const getPapersInDateRange = (startDate: Date, endDate: Date, papers: Paper[][]) => {
+    return papers.filter(paperGroup => {
+        const paperDate = paperGroup[0].readingDay;
+        return paperDate >= startDate && paperDate <= endDate;
+    });
+};
 ---
 
 <div>
@@ -63,17 +71,43 @@ const pastPaperList = Object.entries(pastPapers)
                     Upcoming
                 </h2>
                 <div class="flex items-center justify-center flex-col mt-2 sm:mt-4">
-                    {futurePaperList.map((papers) => {
+                    {readingGroupSections.map((section) => {
+                        const sectionPapers = getPapersInDateRange(
+                            section.startDate,
+                            section.endDate,
+                            futurePaperList
+                        );
+                        
+                        if (sectionPapers.length === 0) return null;
+
                         return (
                             <div class="w-10/12 mt-4">
-                                {papers.map((paper, i) => {
-                                    return (
-                                        <Card
-                                            paper={paper}
-                                            hasBorder={i == papers.length - 1}
-                                        />
-                                    );
-                                })}
+                                <details class="group mb-4" open>
+                                    <summary class="cursor-pointer list-none">
+                                        <div class="flex justify-between items-center">
+                                            <div>
+                                                <h3 class="text-2xl font-semibold">{section.title}</h3>
+                                                <p class="text-gray-600">Host: {section.host}</p>
+                                            </div>
+                                            <div class="transform group-open:rotate-180 transition-transform">
+                                                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-600 mt-1">{section.description}</p>
+                                    </summary>
+                                    <div class="mt-4">
+                                        {sectionPapers.map((papers) => (
+                                            papers.map((paper, i) => (
+                                                <Card
+                                                    paper={paper}
+                                                    hasBorder={i === papers.length - 1}
+                                                />
+                                            ))
+                                        ))}
+                                    </div>
+                                </details>
                             </div>
                         );
                     })}
@@ -89,23 +123,53 @@ const pastPaperList = Object.entries(pastPapers)
             Past
         </h2>
         <div class="flex items-center justify-center flex-col mt-2 sm:mt-4">
-            {
-                pastPaperList.map((papers) => {
-                    return (
-                        <div class="w-10/12">
-                            {papers.map((paper, i) => {
-                                return (
-                                    <Card
-                                    paper={paper}
-                                    hasBorder={i == papers.length - 1}
-                                    />
-                                );
-                            })}
-                        </div>
-                    );
-                })
-            }
+            {readingGroupSections.map((section) => {
+                const sectionPapers = getPapersInDateRange(
+                    section.startDate,
+                    section.endDate,
+                    pastPaperList
+                );
+                
+                if (sectionPapers.length === 0) return null;
+
+                return (
+                    <div class="w-10/12">
+                        <details class="group mb-4">
+                            <summary class="cursor-pointer list-none">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="text-2xl font-semibold">{section.title}</h3>
+                                        <p class="text-gray-600">Host: {section.host}</p>
+                                    </div>
+                                    <div class="transform group-open:rotate-180 transition-transform">
+                                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 mt-1">{section.description}</p>
+                            </summary>
+                            <div class="mt-4">
+                                {sectionPapers.map((papers) => (
+                                    papers.map((paper, i) => (
+                                        <Card
+                                            paper={paper}
+                                            hasBorder={i === papers.length - 1}
+                                        />
+                                    ))
+                                ))}
+                            </div>
+                        </details>
+                    </div>
+                );
+            })}
             <div class="text-secondary">The list of past papers is not extensive.</div>
         </div>
     </div>
 </div>
+
+<style>
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+</style>
