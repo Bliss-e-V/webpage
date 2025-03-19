@@ -55,6 +55,42 @@ export class Paper {
     }
 }
 
+export class Section {
+    constructor(
+        public title: string,
+        public host: string,
+        public startDate: Date,
+        public endDate: Date,
+        public description: string
+    ) { }
+}
+
+// --------------------------------------------------
+// Define sections
+const sections: Section[] = [
+    new Section(
+        "Foundations of NLP and Transformers & Optimizers",
+        "Leo Pinetzki",
+        new Date(2022, 8, 21), // September 21, 2022
+        new Date(2024, 9, 28), // October 28, 2024
+        "Introduction to natural language processing and the transformer architecture, as well as insights into different optimizers"
+    ),
+    new Section(
+        "Scaling Language Models",
+        "Raphael Reinauer",
+        new Date(2024, 10, 4), // November 4, 2024
+        new Date(2024, 11, 8), // December 9, 2024
+        "Understanding how to scale language models and modern training techniques"
+    ),
+    new Section(
+        "Mechanistic Interpretability",
+        "Lorenz Hufe",
+        new Date(2024, 11, 10), // December 11, 2024
+        new Date(2025, 4, 32), // March 31, 2025
+        "Deep dive into understanding the internal mechanisms of language models"
+    )
+]
+
 // --------------------------------------------------
 // modify HERE to add papers
 // remember months go from 0 to 11!
@@ -138,3 +174,4 @@ const papersToObject = (papers: Paper[]) => {
 }
 
 export const dayToPapers = papersToObject(papers)
+export const readingGroupSections = sections
