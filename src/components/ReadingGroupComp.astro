@@ -163,7 +163,9 @@ const getPapersInDateRange = (startDate: Date, endDate: Date, papers: Paper[][])
                     </div>
                 );
             })}
-            <div class="text-secondary">The list of past papers is not extensive.</div>
+            {pastPaperList.length === 0 && (
+                <div class="text-secondary">The list of past papers is not extensive.</div>
+            )}
         </div>
     </div>
 </div>

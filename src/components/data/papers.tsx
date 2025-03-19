@@ -69,24 +69,24 @@ export class Section {
 // Define sections
 const sections: Section[] = [
     new Section(
-        "Foundations of NLP and Transformers",
+        "Foundations of NLP and Transformers & Optimizers",
         "Leo Pinetzki",
-        new Date(2024, 8, 21), // September 21, 2024
+        new Date(2022, 8, 21), // September 21, 2022
         new Date(2024, 9, 28), // October 28, 2024
-        "Introduction to natural language processing and the transformer architecture"
+        "Introduction to natural language processing and the transformer architecture, as well as insights into different optimizers"
     ),
     new Section(
         "Scaling Language Models",
-        "Leo Pinetzki",
+        "Raphael Reinauer",
         new Date(2024, 10, 4), // November 4, 2024
-        new Date(2024, 11, 9), // December 9, 2024
+        new Date(2024, 11, 8), // December 9, 2024
         "Understanding how to scale language models and modern training techniques"
     ),
     new Section(
         "Mechanistic Interpretability",
-        "Leo Pinetzki",
-        new Date(2024, 11, 16), // December 16, 2024
-        new Date(2025, 1, 17), // February 17, 2025
+        "Lorenz Hufe",
+        new Date(2024, 11, 10), // December 11, 2024
+        new Date(2025, 4, 32), // March 31, 2025
         "Deep dive into understanding the internal mechanisms of language models"
     )
 ]
