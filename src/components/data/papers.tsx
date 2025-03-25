@@ -117,6 +117,7 @@ const sections: Section[] = [
         new Date("2024-11-16"),
         new Date("2025-03-17"),
         "Sometimes everybody needs to know what is going on inside a (language) model"
+    ),
 ]
 
 // --------------------------------------------------
