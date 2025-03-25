@@ -1,6 +1,10 @@
 ---
 import Card from "@components/Card.astro";
-import { dayToPapers, Paper, readingGroupSections } from "@components/data/papers";
+import {
+    dayToPapers,
+    Paper,
+    readingGroupSections,
+} from "@components/data/papers";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -11,9 +15,9 @@ const futurePapers = Object.entries(dayToPapers)
         return obj;
     }, {});
 const futurePaperList = Object.entries(futurePapers)
-    .sort(([date1], [date2]) => date2.localeCompare(date1))
+    .sort(([date1], [date2]) => date1.localeCompare(date2))
     .map(([, event]) => event)
-    .reverse() as Paper[][];
+    .flat() as Paper[];
 
 const pastPapers = Object.entries(dayToPapers)
     .filter(([date, papers]) => date < today)
@@ -22,13 +26,16 @@ const pastPapers = Object.entries(dayToPapers)
         return obj;
     }, {});
 const pastPaperList = Object.entries(pastPapers)
-    .sort(([date1], [date2]) => date1.localeCompare(date2))
-    .map(([, event]) => event)
-    .reverse() as Paper[][];
+    .sort(([date1], [date2]) => date2.localeCompare(date1))
+    .map(([, event]) => event) as Paper[][];
 
 // Group papers by section
-const getPapersInDateRange = (startDate: Date, endDate: Date, papers: Paper[][]) => {
-    return papers.filter(paperGroup => {
+const getPapersInDateRange = (
+    startDate: Date,
+    endDate: Date,
+    papers: Paper[][],
+) => {
+    return papers.filter((paperGroup) => {
         const paperDate = paperGroup[0].readingDay;
         return paperDate >= startDate && paperDate <= endDate;
     });
@@ -49,18 +56,25 @@ const getPapersInDateRange = (startDate: Date, endDate: Date, papers: Paper[][])
     <div class="mb-10">
         <div>
             The reading group in the WiSe24/25 will be every week on Monday
-            evenings, starting on the 21st of October.
-            We meet at <strong>7pm in <a href="https://www.google.de/maps/place/TU+Berlin+-+MAR+Gebäude/@52.5164087,13.3235126,19.85z/data=!3m1!5s0x47a8511b07135af7:0xb5e1a5c4e3efd989!4m6!3m5!1s0x47a8511b077c6593:0x20c0c69a522806e5!8m2!3d52.5165408!4d13.3237066!16s%2Fg%2F11bytv0042?entry=ttu&g_ep=EgoyMDI0MDkyMi4wIKXMDSoASAFQAw%3D%3D">MAR 0.015 </a></strong>.
+            evenings, starting on the 21st of October. We meet at <strong
+                >7pm in <a
+                    href="https://www.google.de/maps/place/TU+Berlin+-+MAR+Gebäude/@52.5164087,13.3235126,19.85z/data=!3m1!5s0x47a8511b07135af7:0xb5e1a5c4e3efd989!4m6!3m5!1s0x47a8511b077c6593:0x20c0c69a522806e5!8m2!3d52.5165408!4d13.3237066!16s%2Fg%2F11bytv0042?entry=ttu&g_ep=EgoyMDI0MDkyMi4wIKXMDSoASAFQAw%3D%3D"
+                    >MAR 0.015
+                </a></strong
+            >.
         </div>
         <div>
             Down below you find the list of papers with their respective date.
-            Please read the paper before attending as we will use the time to discuss the contents.
+            Please read the paper before attending as we will use the time to
+            discuss the contents.
         </div>
         <div>
-            We will use the semester to explore LLMs and mechanistic interpretability.
-            At first, we are going to learn the basics of natural language processing and the transformer architecture.
-            Then we will have a look at scaling these models, modern training techniques and self improvement.
-            Afterwards, we will switch topics and focus on mechanistic interpretability.
+            We will use the semester to explore LLMs and mechanistic
+            interpretability. At first, we are going to learn the basics of
+            natural language processing and the transformer architecture. Then
+            we will have a look at scaling these models, modern training
+            techniques and self improvement. Afterwards, we will switch topics
+            and focus on mechanistic interpretability.
         </div>
     </div>
 
@@ -71,46 +85,14 @@ const getPapersInDateRange = (startDate: Date, endDate: Date, papers: Paper[][])
                     Upcoming
                 </h2>
                 <div class="flex items-center justify-center flex-col mt-2 sm:mt-4">
-                    {readingGroupSections.map((section) => {
-                        const sectionPapers = getPapersInDateRange(
-                            section.startDate,
-                            section.endDate,
-                            futurePaperList
-                        );
-                        
-                        if (sectionPapers.length === 0) return null;
-
-                        return (
-                            <div class="w-10/12 mt-4">
-                                <details class="group mb-4" open>
-                                    <summary class="cursor-pointer list-none">
-                                        <div class="flex justify-between items-center">
-                                            <div>
-                                                <h3 class="text-2xl font-semibold">{section.title}</h3>
-                                                <p class="text-gray-600">Host: {section.host}</p>
-                                            </div>
-                                            <div class="transform group-open:rotate-180 transition-transform">
-                                                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <p class="text-gray-600 mt-1">{section.description}</p>
-                                    </summary>
-                                    <div class="mt-4">
-                                        {sectionPapers.map((papers) => (
-                                            papers.map((paper, i) => (
-                                                <Card
-                                                    paper={paper}
-                                                    hasBorder={i === papers.length - 1}
-                                                />
-                                            ))
-                                        ))}
-                                    </div>
-                                </details>
-                            </div>
-                        );
-                    })}
+                    <div class="w-10/12">
+                        {futurePaperList.map((paper, i) => (
+                            <Card
+                                paper={paper}
+                                hasBorder={i === futurePaperList.length - 1}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         )
@@ -120,52 +102,75 @@ const getPapersInDateRange = (startDate: Date, endDate: Date, papers: Paper[][])
         <h2
             class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
         >
-            Past
+            Past Papers
         </h2>
         <div class="flex items-center justify-center flex-col mt-2 sm:mt-4">
-            {readingGroupSections.map((section) => {
-                const sectionPapers = getPapersInDateRange(
-                    section.startDate,
-                    section.endDate,
-                    pastPaperList
-                );
-                
-                if (sectionPapers.length === 0) return null;
+            {
+                readingGroupSections.reverse().map((section) => {
+                    const sectionPapers = getPapersInDateRange(
+                        section.startDate,
+                        section.endDate,
+                        pastPaperList,
+                    );
 
-                return (
-                    <div class="w-10/12">
-                        <details class="group mb-4">
-                            <summary class="cursor-pointer list-none">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <h3 class="text-2xl font-semibold">{section.title}</h3>
-                                        <p class="text-gray-600">Host: {section.host}</p>
+                    if (sectionPapers.length === 0) return null;
+
+                    return (
+                        <div class="w-10/12 border border-gray-200 rounded-lg p-4 m-4">
+                            <details class="group mb-4">
+                                <summary class="cursor-pointer list-none">
+                                    <div class="flex justify-between items-center">
+                                        <div>
+                                            <h3 class="text-2xl font-semibold">
+                                                {section.title}
+                                            </h3>
+                                            <p class="text-gray-600">
+                                                Host: {section.host}
+                                            </p>
+                                        </div>
+                                        <div class="transform group-open:rotate-180 transition-transform">
+                                            <svg
+                                                width="24"
+                                                height="24"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M19 9l-7 7-7-7"
+                                                />
+                                            </svg>
+                                        </div>
                                     </div>
-                                    <div class="transform group-open:rotate-180 transition-transform">
-                                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
+                                    <p class="text-gray-600 mt-1">
+                                        {section.description}
+                                    </p>
+                                </summary>
+                                <div class="mt-4">
+                                    {sectionPapers.map((papers) =>
+                                        papers.map((paper, i) => (
+                                            <Card
+                                                paper={paper}
+                                                hasBorder={
+                                                    i === papers.length - 1
+                                                }
+                                            />
+                                        )),
+                                    )}
                                 </div>
-                                <p class="text-gray-600 mt-1">{section.description}</p>
-                            </summary>
-                            <div class="mt-4">
-                                {sectionPapers.map((papers) => (
-                                    papers.map((paper, i) => (
-                                        <Card
-                                            paper={paper}
-                                            hasBorder={i === papers.length - 1}
-                                        />
-                                    ))
-                                ))}
-                            </div>
-                        </details>
-                    </div>
-                );
-            })}
-            {pastPaperList.length === 0 && (
-                <div class="text-secondary">The list of past papers is not extensive.</div>
-            )}
+                            </details>
+                        </div>
+                    );
+                })
+            }
+            {
+                pastPaperList.length === 0 && (
+                    <div class="text-secondary">No past papers available.</div>
+                )
+            }
         </div>
     </div>
 </div>
