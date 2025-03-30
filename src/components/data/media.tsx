@@ -19,9 +19,9 @@ const mediaItems = [
         "This presentation focuses on a novel approach called OKO (odd-k-out learning), which aims to enhance the accuracy and calibration of machine learning models. OKO is a user-friendly method that improves model performance by modifying how data points are sampled during training and adjusting the computation of cross-entropy. This principled set learning approach is designed to help machine learning models provide predictions that are not only accurate but also well-balanced and reliable. The talk delves into the technical aspects of OKO and demonstrate its practical applications in improving model calibration and accuracy.",
         "https://www.youtube.com/embed/pR1Zi6Klv44",
         [
-            "../../src/images/media/ss24/20240416_unterthiner/20240416_unterthiner1 Large.jpeg",
-            "../../src/images/media/ss24/20240416_unterthiner/20240416_unterthiner2 Large.jpeg",
-            "../../src/images/media/ss24/20240416_unterthiner/20240416_unterthiner3 Large.jpeg",
+            "/images/media/ss24/20240416_unterthiner/20240416_unterthiner1 Large.jpeg",
+            "/images/media/ss24/20240416_unterthiner/20240416_unterthiner2 Large.jpeg",
+            "/images/media/ss24/20240416_unterthiner/20240416_unterthiner3 Large.jpeg",
             
         ],
         new Date("2024-04-16")
@@ -43,12 +43,12 @@ const mediaItems = [
         "“Towards Open Language Models for Europe,” outlines the technical, legal, and organizational challenges of building open, multilingual large language models in academia, emphasizing the need for European data sovereignty and community-driven efforts like the Occiglot project. He advocates for open-source development, efficient training methods, and collaborative contributions to advance LLMs tailored to European languages.",
         "https://www.youtube.com/embed/iXtMgk9nfxI",
         [
-            "../../src/images/media/ss24/20240514_ostendorff/ostendorff_1 Large.jpeg",
-            "../../src/images/media/ss24/20240514_ostendorff/ostendorff_2 Large.jpeg",
-            "../../src/images/media/ss24/20240514_ostendorff/ostendorff_3 Large.jpeg",
-            "../../src/images/media/ss24/20240514_ostendorff/ostendorff_5 Large.jpeg",
-            "../../src/images/media/ss24/20240514_ostendorff/ostendorff_6 Large.jpeg",
-            "../../src/images/media/ss24/20240514_ostendorff/ostendorff_7 Large.jpeg",
+            "/images/media/ss24/20240514_ostendorff/ostendorff_1 Large.jpeg",
+            "/images/media/ss24/20240514_ostendorff/ostendorff_2 Large.jpeg",
+            "/images/media/ss24/20240514_ostendorff/ostendorff_3 Large.jpeg",
+            "/images/media/ss24/20240514_ostendorff/ostendorff_5 Large.jpeg",
+            "/images/media/ss24/20240514_ostendorff/ostendorff_6 Large.jpeg",
+            "/images/media/ss24/20240514_ostendorff/ostendorff_7 Large.jpeg",
         ],
         new Date("2024-05-14")
     ),
@@ -59,10 +59,10 @@ const mediaItems = [
         "Prof. Deniz' talk deals with Natural language representations in brains and machines.",
         "",
         [
-            "../../src/images/media/ss24/20240528_deniz/deniz_1 Large.jpeg",
-            "../../src/images/media/ss24/20240528_deniz/deniz_2 Large.jpeg",
-            "../../src/images/media/ss24/20240528_deniz/deniz_3 Large.jpeg",
-            "../../src/images/media/ss24/20240528_deniz/deniz_4 Large.jpeg",
+            "/images/media/ss24/20240528_deniz/deniz_1 Large.jpeg",
+            "/images/media/ss24/20240528_deniz/deniz_2 Large.jpeg",
+            "/images/media/ss24/20240528_deniz/deniz_3 Large.jpeg",
+            "/images/media/ss24/20240528_deniz/deniz_4 Large.jpeg",
         ],
         new Date("2024-05-28")
     ),
@@ -73,9 +73,9 @@ const mediaItems = [
         "Decision-making is a fundamental aspect of intelligent systems, from autonomous robots to complex optimization problems in science and engineering. This talk provides an overview of research on computational decision-making, focusing on bio-inspired optimization, multi-objective evolutionary algorithms, and AI-driven strategies. It explores how these methods enhance decision processes in dynamic and uncertain environments, with applications ranging from robotics to transportation and infrastructure. The talk highlights the role of AI in developing efficient, adaptive, and explainable decision-making systems.",
         "",
         [
-            "../../src/images/media/ws2425/20250204_mostaghim/Mostaghim_1 Large.jpeg",
-            "../../src/images/media/ws2425/20250204_mostaghim/Mostaghim_2 Large.jpeg",
-            "../../src/images/media/ws2425/20250204_mostaghim/Mostaghim_3 Large.jpeg"
+            "/images/media/ws2425/20250204_mostaghim/Mostaghim_1 Large.jpeg",
+            "/images/media/ws2425/20250204_mostaghim/Mostaghim_2 Large.jpeg",
+            "/images/media/ws2425/20250204_mostaghim/Mostaghim_3 Large.jpeg"
         ],
         new Date("2025-02-04")
     ),
@@ -86,9 +86,9 @@ const mediaItems = [
         "Many data collection processes in natural scientific settings are described by partial differential equations (PDEs) and stochastic differential equations (SDEs). In these settings, key statistical tasks such as the estimation of unknown high-dimensional parameters, prediction and uncertainty quantification have given rise to sophisticated frequentist and Bayesian statistical methodology. Recently, 'Scientific Machine Learning' has also played a big role in inferring complex relationships from data. In this talk, we discuss recent mathematical results in this broad context. In particular, we discuss dimension-free statistical convergence results for regression of 'operators' with neural networks, and we discuss the computational complexity of sampling from high-dimensional posterior distributions. If time permits, we will also discuss some mathematical foundations for PDE and SDE-based generative AI models.",
         "https://www.youtube.com/embed/qLb2JKhtswU",
         [
-            "../../src/images/media/ws2425/20250121_wang/Wang_1 Large.jpeg",
-            "../../src/images/media/ws2425/20250121_wang/Wang_2 Large.jpeg",
-            "../../src/images/media/ws2425/20250121_wang/Wang_3 Large.jpeg"
+            "/images/media/ws2425/20250121_wang/Wang_1 Large.jpeg",
+            "/images/media/ws2425/20250121_wang/Wang_2 Large.jpeg",
+            "/images/media/ws2425/20250121_wang/Wang_3 Large.jpeg"
         ],
         new Date("2025-01-21")
     ),
@@ -99,9 +99,9 @@ const mediaItems = [
         "The integration of artificial intelligence and machine learning methods in the life sciences has enabled new insights into complex biological systems. However, the reliability and interpretability of machine learning (ML) models remain critical challenges. This talk explores strategies for informing ML models with domain-specific knowledge to enhance their accuracy and robustness. Additionally, it addresses the importance of quantifying and explaining uncertainty in data-driven analyses to ensure transparency and trust in biomedical applications. ",
         "https://www.youtube.com/embed/J_SI67Muq3w",
         [
-            "../../src/images/media/ws2425/20250107_baum/Baum_1 Large.jpeg",
-            "../../src/images/media/ws2425/20250107_baum/Baum_2 Large.jpeg",
-            "../../src/images/media/ws2425/20250107_baum/Baum_3 Large.jpeg"
+            "/images/media/ws2425/20250107_baum/Baum_1 Large.jpeg",
+            "/images/media/ws2425/20250107_baum/Baum_2 Large.jpeg",
+            "/images/media/ws2425/20250107_baum/Baum_3 Large.jpeg"
         ],
         new Date("2025-01-07")
     ),
@@ -112,11 +112,10 @@ const mediaItems = [
         "This talk explores how generative models can create novel molecular structures while RL fine-tunes these candidates toward desired biological and chemical properties. By incorporating domain-specific constraints and feedback mechanisms, this approach has the potential to accelerate drug discovery, optimizing for both efficacy and synthesizability.",
         "", 
         [
-            "../../src/images/media/ws2425/20241217_instadeep/instadeep_1 Large.jpeg",
-            "../../src/images/media/ws2425/20241217_instadeep/instadeep_2 Large.jpeg",
-            "../../src/images/media/ws2425/20241217_instadeep/instadeep_3 Large.jpeg",
-            "../../src/images/media/ws2425/20241217_instadeep/instadeep_4 Large.jpeg",
-            // "../../src/images/media/ws2425/20241217_instadeep/shortinstadeep.mp4"
+            "/images/media/ws2425/20241217_instadeep/instadeep_1 Large.jpeg",
+            "/images/media/ws2425/20241217_instadeep/instadeep_2 Large.jpeg",
+            "/images/media/ws2425/20241217_instadeep/instadeep_3 Large.jpeg",
+            "/images/media/ws2425/20241217_instadeep/instadeep_4 Large.jpeg",
         ],
         new Date("2024-12-17")
     ),
@@ -127,9 +126,9 @@ const mediaItems = [
         "This talk introduces Bandit Theory, a framework for sequential, adaptive learning in uncertain environments with partial information. Inspired by the classic multi-armed bandit problem, where a decision-maker balances exploration and exploitation, this approach extends to settings where actions actively influence the data received. Unlike traditional batch learning, the learner gathers data incrementally, adapting strategies based on observations.",
         "", 
         [
-            "../../src/images/media/ws2425/20241203_carpentier/carpentier_1 Large.jpeg",
-            "../../src/images/media/ws2425/20241203_carpentier/carpentier_2 Large.jpeg",
-            "../../src/images/media/ws2425/20241203_carpentier/carpentier_3 Large.jpeg",
+            "/images/media/ws2425/20241203_carpentier/carpentier_1 Large.jpeg",
+            "/images/media/ws2425/20241203_carpentier/carpentier_2 Large.jpeg",
+            "/images/media/ws2425/20241203_carpentier/carpentier_3 Large.jpeg",
         ],
         new Date("2024-12-03")
     ),
@@ -140,9 +139,9 @@ const mediaItems = [
         "Marc Toussaint's talk explores how combining traditional model-based planning with modern neural network approaches enables robots to navigate and manipulate complex, unstructured environments. He demonstrates that integrating deep visual constraints and generative models with classical planning techniques can create more adaptable and robust decision-making strategies in robotics.",
         "https://www.youtube.com/embed/hECYh6Pov-s", 
         [
-            "../../src/images/media/ws2425/20241119_toussaint/toussaint_1 Large.jpeg",
-            "../../src/images/media/ws2425/20241119_toussaint/toussaint_2 Large.jpeg",
-            "../../src/images/media/ws2425/20241119_toussaint/toussaint_3 Large.jpeg",
+            "/images/media/ws2425/20241119_toussaint/toussaint_1 Large.jpeg",
+            "/images/media/ws2425/20241119_toussaint/toussaint_2 Large.jpeg",
+            "/images/media/ws2425/20241119_toussaint/toussaint_3 Large.jpeg",
         ],
         new Date("2024-11-19")
     ),
@@ -153,10 +152,10 @@ const mediaItems = [
         "Robert Lange's talk, “The AI Scientist,” outlines an innovative pipeline where generative AI automates the research process—from formulating ideas and designing experiments to drafting manuscripts. By integrating iterative code implementation, automated reviewing, and ethical safeguards, the presentation demonstrates how AI can accelerate scientific discovery while keeping human insight in the loop.",
         "https://www.youtube.com/embed/dRDemw05XQM", 
         [
-            "../../src/images/media/ws2425/20241105_lange/lange_1 Large.jpeg",
-            "../../src/images/media/ws2425/20241105_lange/lange_2 Large.jpeg",
-            "../../src/images/media/ws2425/20241105_lange/lange_3 Large.jpeg",
-            "../../src/images/media/ws2425/20241105_lange/lange_4 Large.jpeg",
+            "/images/media/ws2425/20241105_lange/lange_1 Large.jpeg",
+            "/images/media/ws2425/20241105_lange/lange_2 Large.jpeg",
+            "/images/media/ws2425/20241105_lange/lange_3 Large.jpeg",
+            "/images/media/ws2425/20241105_lange/lange_4 Large.jpeg",
         ],
         new Date("2024-11-05")
     ),
@@ -167,9 +166,9 @@ const mediaItems = [
         "Veronika Solopova's talk examines how AI can fortify disinformation resilience by creating transparent, accurate, and adaptable systems for detecting propaganda across diverse languages and media formats. By leveraging sophisticated linguistic features, statistical models, and real-world user feedback, she illustrates a comprehensive approach that empowers journalists, fact-checkers, and policymakers to effectively counter misinformation.",
         "https://www.youtube.com/embed/IEeL9HbzAm8", 
         [
-            "../../src/images/media/ws2425/20241022_solopova/solopova_1 Large.jpeg",
-            "../../src/images/media/ws2425/20241022_solopova/solopova_2 Large.jpeg",
-            "../../src/images/media/ws2425/20241022_solopova/solopova_3 Large.jpeg",
+            "/images/media/ws2425/20241022_solopova/solopova_1 Large.jpeg",
+            "/images/media/ws2425/20241022_solopova/solopova_2 Large.jpeg",
+            "/images/media/ws2425/20241022_solopova/solopova_3 Large.jpeg",
         ],
         new Date("2024-10-22")
     ),
@@ -180,9 +179,9 @@ const mediaItems = [
         "Prof. Clementi delves into the exciting intersection of machine learning, experimental science, and molecular modeling. This session offers a comprehensive look at how cutting-edge machine learning techniques can be combined with experimental data to enhance our understanding of molecular dynamics.",
         "https://www.youtube.com/embed/IjICh0Vh8vk", 
         [
-            "../../src/images/media/ss24/20240709_clementi/clementi_1 Large.jpeg",
-            "../../src/images/media/ss24/20240709_clementi/clementi_2 Large.jpeg",
-            "../../src/images/media/ss24/20240709_clementi/clementi_3 Large.jpeg",
+            "/images/media/ss24/20240709_clementi/clementi_1 Large.jpeg",
+            "/images/media/ss24/20240709_clementi/clementi_2 Large.jpeg",
+            "/images/media/ss24/20240709_clementi/clementi_3 Large.jpeg",
         ],
         new Date("2024-07-09")
     ),
@@ -193,16 +192,31 @@ const mediaItems = [
         "Wolfgang Hönig's presentation explores cutting‐edge techniques for enabling intelligent flying multi-robot systems, where advanced machine learning models integrate seamlessly with motion planning and control to enhance safety and coordination. By leveraging neural interaction models and conflict-based search algorithms, the talk demonstrates how AI can effectively address the complex challenges of autonomous aerial teamwork.",
         "https://www.youtube.com/embed/hMjQWJC6Ed8", 
         [
-            "../../src/images/media/ss24/20240611_hoenig/hoenig_1 Large.jpeg",
-            "../../src/images/media/ss24/20240611_hoenig/hoenig_2 Large.jpeg",
-            "../../src/images/media/ss24/20240611_hoenig/hoenig_3 Large.jpeg",
-            "../../src/images/media/ss24/20240611_hoenig/hoenig_4 Large.jpeg",
+            "/images/media/ss24/20240611_hoenig/hoenig_1 Large.jpeg",
+            "/images/media/ss24/20240611_hoenig/hoenig_2 Large.jpeg",
+            "/images/media/ss24/20240611_hoenig/hoenig_3 Large.jpeg",
+            "/images/media/ss24/20240611_hoenig/hoenig_4 Large.jpeg",
         ],
         new Date("2024-06-11")
     ),
 ];
 
-// Convert media items to an object similar to dayToPapers
+function addOrigin(url: string): string {
+    if(url.includes("youtube.com/embed/") && !url.includes("origin=")) {
+        return url.includes('?')
+            ? url + "&origin=https://www.bliss.berlin"
+            : url + "?origin=https://www.bliss.berlin";
+    }
+    return url;
+}
+
+// After defining mediaItems, update videoLink for each item.
+mediaItems.forEach(item => {
+    if(item.videoLink) {
+         item.videoLink = addOrigin(item.videoLink);
+    }
+});
+
 const mediaItemsToObject = (mediaItems: MediaItem[]) => {
     const obj = {};
 
