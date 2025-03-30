@@ -25,7 +25,7 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
                         muted
                         loop
                     >
-                        <source src="public/images/media/ss25/ss25_min.mp4" type="video/mp4" />
+                        <source src="/images/media/ss25/ss25_min.mp4" type="video/mp4" />
                         Teaser for the Speaker Series Season 2025
                     </video>
                 </div>
