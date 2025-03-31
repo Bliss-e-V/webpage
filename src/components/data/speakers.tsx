@@ -10,19 +10,14 @@ class Speaker {
 // modify HERE to update speakers
 
 const speakersRaw = [
-    // === summersemester 2025, waiting for confirmation to have the events replaced with the real data===
-    new Speaker(new Date("2025-04-22"), "to be announced soon", "", "", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121089", false, true),
-    // new Speaker(new Date("2025-05-6"), "TBD", "Timothée Darcet", "INRIA France, Meta AI", "TBD", false),
-    new Speaker(new Date("2025-05-06"), "to be announced soon", "", "", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121112", false, true),
-    new Speaker(new Date("2025-05-20"), "to be announced soon", "", "", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121117", false, true),
-    // new Speaker(new Date("2025-06-3"), "TBD", "Prof. Yu Xie", "Princeton University", "TBD", false),
-    new Speaker(new Date("2025-06-03"), "to be announced soon", "", "", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121121", false, true),
-    // new Speaker(new Date("2025-06-17"), "TBD", "Daniel Duckworth", "Google Deepmind", "TBD", false),
-    new Speaker(new Date("2025-06-17"), "to be announced soon", "", "", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121124", false, true),
-    // new Speaker(new Date("2025-07-1"), "TBD", "Jannik Kossen", "University of Oxford, Meta AI", "TBD", false),
-    new Speaker(new Date("2025-07-01"), "to be announced soon", "", "", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121127", false, true),
-    // new Speaker(new Date("2025-07-15"), "TBD", "Dr. Adel Bibi", "University of Oxford, Softserve", "TBD", false),
-    new Speaker(new Date("2025-07-15"), "to be announced soon", "", "", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121141", false, true),
+    // === summersemester 2025===
+    new Speaker(new Date("2025-04-22"), "Can Compressing Foundation Models be as Easy as Image Compression?", "Martin Genzel", "Merantix Momentum", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121089", false),
+    new Speaker(new Date("2025-05-06"), "CAPI: Cluster and Predict Latent Patches for Improved Masked Image Modeling", "Timothée Darcet", "Meta AI and Inria", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121112", false),
+    new Speaker(new Date("2025-05-20"), "Scalable Emulation of Protein Equilibrium Ensembles with Generative Deep Learning", "Yu Xie", "Microsoft AI4Science", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121117", false),
+    new Speaker(new Date("2025-06-03"), "Watermark Anything with Localized Messages", "Pierre Fernandez", "Meta FAIR", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121121", false),
+    new Speaker(new Date("2025-06-17"), "Radiance Fields are Dead (and why that’s OK)", "Daniel Duckworth", "Google Deepmind", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121124", false),
+    new Speaker(new Date("2025-07-01"), "Progress in AI Safety and Security", "Adel Bibi", "University of Oxford", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121127", false),
+    new Speaker(new Date("2025-07-15"), "Detecting Hallucinations in Large Language Models Using Semantic Entropy", "Jannik Kossen", "Meta FAIR", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121141", false),
 ];
 
 
