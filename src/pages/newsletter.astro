@@ -6,28 +6,6 @@ import { Event } from "@components/data/event";
 import { JobOffer } from "@components/data/jobOffer";
 import JobOfferings from "@components/newsletter/JobOfferings.astro";
 import Ending from "@components/newsletter/Ending.astro";
-
-const description = `
-    <div>
-        <h2 class="text-xl font-semibold mb-4">
-            What do these three things have in common?
-        </h2>
-
-        <p>
-            A fine-tuned YOLO model for a pipe manufacturer, a demand prediction
-            engine for a vegetable producer, and a low-latency voice agent for a
-            housing company.
-        </p>
-        <p>
-            They're all AI applications we've built in the last few months. If
-            you want to work at the cutting edge of applied AI and help
-            accelerate Europe's AI transformation, come join us.
-        </p>
-        <p>
-            We work hard, we care deeply about what we build — and we ship.
-        </p>
-    </div>
-`;
 ---
 
 <NewsletterLayout
@@ -55,43 +33,43 @@ const description = `
                 new Event(
                     new Date("2025-04-22"),
                     "Can Compressing Foundation Models be as Easy as Image Compression?",
-                    "Martin Genzel from Merantix Momentum will discuss the challenges posed by the substantial size and computational demands of Foundation Models, particularly Large Language Models (LLMs), in resource-limited settings. He will explore post-training compression as a promising solution to mitigate these challenges, addressing the complexities and expertise required to balance model size and performance effectively.",
+                    "Martin Genzel from <strong>Merantix Momentum</strong> will discuss the challenges posed by the substantial size and computational demands of Foundation Models, particularly Large Language Models (LLMs), in resource-limited settings. He will explore post-training compression as a promising solution to mitigate these challenges, addressing the complexities and expertise required to balance model size and performance effectively.",
                     "https://www.meetup.com/bliss-speaker-series/events/306121089/",
                 ),
                 new Event(
                     new Date("2025-05-06"),
                     "CAPI: Cluster and Predict Latent Patches for Improved Masked Image Modeling",
-                    'Timothée Darcet of Meta AI and Inria will introduce "Any Compression via Iterative Pruning" (ACIP), a novel algorithm designed to provide users with intuitive and direct control over the compression-performance trade-off, similar to image compression. ACIP utilizes a single gradient descent run of iterative pruning to establish a global parameter ranking, enabling the immediate materialization of models of any target size.',
+                    'Timothée Darcet of <strong>Meta AI</strong> and <strong>Inria</strong> will introduce "Any Compression via Iterative Pruning" (ACIP), a novel algorithm designed to provide users with intuitive and direct control over the compression-performance trade-off, similar to image compression. ACIP utilizes a single gradient descent run of iterative pruning to establish a global parameter ranking, enabling the immediate materialization of models of any target size.',
                     "https://www.meetup.com/bliss-speaker-series/events/306121112/",
                 ),
                 new Event(
                     new Date("2025-05-20"),
                     "Scalable Emulation of Protein Equilibrium Ensembles with Generative Deep Learning",
-                    "Yu Xie from Microsoft AI4Science will discuss generative deep learning approaches designed to efficiently emulate protein equilibrium ensembles. He will highlight methods that achieve scalability and predictive accuracy, reducing computational costs while reliably capturing complex protein behaviors.",
+                    "Yu Xie from <strong>Microsoft AI4Science</strong> will discuss generative deep learning approaches designed to efficiently emulate protein equilibrium ensembles. He will highlight methods that achieve scalability and predictive accuracy, reducing computational costs while reliably capturing complex protein behaviors.",
                     "https://www.meetup.com/bliss-speaker-series/events/306121117/",
                 ),
                 new Event(
                     new Date("2025-06-03"),
                     "Watermark Anything with Localized Messages",
-                    'Pierre Fernandez from Meta FAIR will discuss an innovative approach to invisible image watermarking, especially tailored for embedding localized information that withstands significant image editing. He will introduce "Watermark Anything" (ICLR 2025), a method reframing watermarking as a segmentation problem, and describe its motivation, training process, challenges, and effectiveness in real-world scenarios.',
+                    'Pierre Fernandez from <strong>Meta FAIR</strong> will discuss an innovative approach to invisible image watermarking, especially tailored for embedding localized information that withstands significant image editing. He will introduce "Watermark Anything" (ICLR 2025), a method reframing watermarking as a segmentation problem, and describe its motivation, training process, challenges, and effectiveness in real-world scenarios.',
                     "https://www.meetup.com/bliss-speaker-series/events/306121121/",
                 ),
                 new Event(
                     new Date("2025-06-17"),
                     "Radiance Fields are Dead (and why that's OK)",
-                    'Daniel Duckworth, a researcher at Google DeepMind, will discuss the current state and future of radiance fields in computer vision. With extensive experience in neural radiance fields (NeRFs) and novel view synthesis, his work includes contributions to projects like SMERF (Streamable Memory Efficient Radiance Fields for Real-Time Large-Scene Exploration) and "NeRF in the Wild" which focuses on synthesizing novel views from unstructured photo collections.',
+                    'Daniel Duckworth, a researcher at <strong>Google DeepMind</strong>, will discuss the current state and future of radiance fields in computer vision. With extensive experience in neural radiance fields (NeRFs) and novel view synthesis, his work includes contributions to projects like SMERF (Streamable Memory Efficient Radiance Fields for Real-Time Large-Scene Exploration) and "NeRF in the Wild" which focuses on synthesizing novel views from unstructured photo collections.',
                     "https://www.meetup.com/bliss-speaker-series/events/306121124/",
                 ),
                 new Event(
                     new Date("2025-07-01"),
                     "Progress in AI Safety and Security",
-                    "Adel Bibi, a senior researcher in machine learning and computer vision at the University of Oxford, will discuss advancements in AI safety and security. His work focuses on the intersection of AI safety in large foundational models, covering topics such as robustness, certification, alignment, and adversarial elicitation. In this talk, he will address current challenges and open problems in machine unlearning for AI safety, particularly in managing dual-use knowledge in sensitive domains.",
+                    "Adel Bibi, a senior researcher in machine learning and computer vision at the <strong>University of Oxford</strong>, will discuss advancements in AI safety and security. His work focuses on the intersection of AI safety in large foundational models, covering topics such as robustness, certification, alignment, and adversarial elicitation. In this talk, he will address current challenges and open problems in machine unlearning for AI safety, particularly in managing dual-use knowledge in sensitive domains.",
                     "https://www.meetup.com/bliss-speaker-series/events/306121127/",
                 ),
                 new Event(
                     new Date("2025-07-15"),
                     "Detecting hallucinations in large language models using semantic entropy",
-                    "Jannik Kossen from Meta FAIR will discuss methods for detecting hallucinations—factually incorrect outputs—in large language models (LLMs). He will present research on using semantic entropy to quantify a model's uncertainty over its generated content, aiding in the identification of unreliable responses. Additionally, he will introduce Semantic Entropy Probes (SEPs), a technique that reduces the computational cost of uncertainty quantification by predicting semantic entropy from latent space. These approaches enhance the reliability of LLMs in various applications.",
+                    "Jannik Kossen from <strong>Meta FAIR</strong> will discuss methods for detecting hallucinations—factually incorrect outputs—in large language models (LLMs). He will present research on using semantic entropy to quantify a model's uncertainty over its generated content, aiding in the identification of unreliable responses. Additionally, he will introduce Semantic Entropy Probes (SEPs), a technique that reduces the computational cost of uncertainty quantification by predicting semantic entropy from latent space. These approaches enhance the reliability of LLMs in various applications.",
                     "https://www.meetup.com/bliss-speaker-series/events/306121141/",
                 ),
             ]}
@@ -102,7 +80,27 @@ const description = `
                     "Onethousand.ai",
                     "https://raw.githubusercontent.com/Bliss-e-V/webpage/0458296632d1d5c5a91bf99952491edf9902f963/src/images/partners/onethousand_black.jpeg",
                     "https://raw.githubusercontent.com/Bliss-e-V/webpage/5104381e6256adbdf0a55a00903ca4bc368c9ff0/src/images/partners/team_images/onethousand.jpg",
-                    description,
+                    `
+    <div>
+        <h2 class="text-xl font-semibold mb-4">
+            What do these three things have in common?
+        </h2>
+
+        <p>
+            A fine-tuned YOLO model for a pipe manufacturer, a demand prediction
+            engine for a vegetable producer, and a low-latency voice agent for a
+            housing company.
+        </p>
+        <p>
+            They're all AI applications we've built in the last few months. If
+            you want to work at the cutting edge of applied AI and help
+            accelerate Europe's AI transformation, come join us.
+        </p>
+        <p>
+            We work hard, we care deeply about what we build — and we ship.
+        </p>
+    </div>
+`,
                     "https://form.typeform.com/to/mPQHbRMs?typeform-source=onethousand.netlify.app",
                 ),
             ]}
