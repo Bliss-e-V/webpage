@@ -37,33 +37,62 @@ const description = `
     <main>
         <Introduction>
             <div class="text-secondary">
-                Thank you for an awesome semester with you at <span
-                    class="text-primary">BLISS</span
-                >! We look forward to see you at the upcoming events next
-                semester or at one of the two large events coming up. Our
-                <a class="underline" href="https://bliss.berlin/reading-group"
-                    >reading group</a
-                > will continue on for a few more weeks.
+                Welcome to the new semester from <span class="text-primary"
+                    >BLISS</span
+                >! We're excited to share our upcoming speaker series featuring
+                renowned experts in machine learning and AI. Additionally, we
+                added a job opportunities section at the bottom for you to check
+                out!
             </div>
             <div class="text-secondary">
-                For the reading group, we meet every Monday at 7pm at MAR
-                0.0015, Marchstraße 23, 10587 Berlin. The current topic is
-                mechanistic interpretability.
+                We're looking forward to seeing you at our events and continuing
+                to build our vibrant ML community together. Let's make this
+                semester another great one!
             </div>
         </Introduction>
         <Upcoming
             events={[
                 new Event(
-                    new Date("2025-02-12"),
-                    "FLINTA Event",
-                    "We want to provide 12 FLINTA* students with valuable networking opportunities and insights from 6 seasoned FLINTA* professionals, while giving professionals a chance to engage with the next generation of AI enthusiasts and foster a more inclusive environment within the AI community of Berlin.",
-                    "https://docs.google.com/forms/d/1GcJXYQ3qhXaxssDu-aa7DLt2P3BTAvJBLkK6f9Q1q1g/viewform",
+                    new Date("2025-04-22"),
+                    "Can Compressing Foundation Models be as Easy as Image Compression?",
+                    "Martin Genzel from Merantix Momentum will discuss the challenges posed by the substantial size and computational demands of Foundation Models, particularly Large Language Models (LLMs), in resource-limited settings. He will explore post-training compression as a promising solution to mitigate these challenges, addressing the complexities and expertise required to balance model size and performance effectively.",
+                    "https://www.meetup.com/bliss-speaker-series/events/306121089/",
                 ),
                 new Event(
-                    new Date("2025-03-31"),
-                    "Hackathon at Google",
-                    "We partnered up with Google, Onethousand.ai and TechniSat to bring a 1-day challange with a a price-pool of 1500€, free food and drinks and endless fun. Do not miss out!",
-                    "https://www.eventbrite.com/e/blissathon-2025-google-tickets-1226735110739",
+                    new Date("2025-05-06"),
+                    "CAPI: Cluster and Predict Latent Patches for Improved Masked Image Modeling",
+                    'Timothée Darcet of Meta AI and Inria will introduce "Any Compression via Iterative Pruning" (ACIP), a novel algorithm designed to provide users with intuitive and direct control over the compression-performance trade-off, similar to image compression. ACIP utilizes a single gradient descent run of iterative pruning to establish a global parameter ranking, enabling the immediate materialization of models of any target size.',
+                    "https://www.meetup.com/bliss-speaker-series/events/306121112/",
+                ),
+                new Event(
+                    new Date("2025-05-20"),
+                    "Scalable Emulation of Protein Equilibrium Ensembles with Generative Deep Learning",
+                    "Yu Xie from Microsoft AI4Science will discuss generative deep learning approaches designed to efficiently emulate protein equilibrium ensembles. He will highlight methods that achieve scalability and predictive accuracy, reducing computational costs while reliably capturing complex protein behaviors.",
+                    "https://www.meetup.com/bliss-speaker-series/events/306121117/",
+                ),
+                new Event(
+                    new Date("2025-06-03"),
+                    "Watermark Anything with Localized Messages",
+                    'Pierre Fernandez from Meta FAIR will discuss an innovative approach to invisible image watermarking, especially tailored for embedding localized information that withstands significant image editing. He will introduce "Watermark Anything" (ICLR 2025), a method reframing watermarking as a segmentation problem, and describe its motivation, training process, challenges, and effectiveness in real-world scenarios.',
+                    "https://www.meetup.com/bliss-speaker-series/events/306121121/",
+                ),
+                new Event(
+                    new Date("2025-06-17"),
+                    "Radiance Fields are Dead (and why that's OK)",
+                    'Daniel Duckworth, a researcher at Google DeepMind, will discuss the current state and future of radiance fields in computer vision. With extensive experience in neural radiance fields (NeRFs) and novel view synthesis, his work includes contributions to projects like SMERF (Streamable Memory Efficient Radiance Fields for Real-Time Large-Scene Exploration) and "NeRF in the Wild" which focuses on synthesizing novel views from unstructured photo collections.',
+                    "https://www.meetup.com/bliss-speaker-series/events/306121124/",
+                ),
+                new Event(
+                    new Date("2025-07-01"),
+                    "Progress in AI Safety and Security",
+                    "Adel Bibi, a senior researcher in machine learning and computer vision at the University of Oxford, will discuss advancements in AI safety and security. His work focuses on the intersection of AI safety in large foundational models, covering topics such as robustness, certification, alignment, and adversarial elicitation. In this talk, he will address current challenges and open problems in machine unlearning for AI safety, particularly in managing dual-use knowledge in sensitive domains.",
+                    "https://www.meetup.com/bliss-speaker-series/events/306121127/",
+                ),
+                new Event(
+                    new Date("2025-07-15"),
+                    "Detecting hallucinations in large language models using semantic entropy",
+                    "Jannik Kossen from Meta FAIR will discuss methods for detecting hallucinations—factually incorrect outputs—in large language models (LLMs). He will present research on using semantic entropy to quantify a model's uncertainty over its generated content, aiding in the identification of unreliable responses. Additionally, he will introduce Semantic Entropy Probes (SEPs), a technique that reduces the computational cost of uncertainty quantification by predicting semantic entropy from latent space. These approaches enhance the reliability of LLMs in various applications.",
+                    "https://www.meetup.com/bliss-speaker-series/events/306121141/",
                 ),
             ]}
         />
