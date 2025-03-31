@@ -18,43 +18,56 @@ const { jobOffers } = Astro.props;
 ---
 
 <section class="mt-8">
-    <NewsHeadline id="title" level={1} className="md:text-4xl ">
+    <NewsHeadline id="title" level={1} className="md:text-4xl">
         Job Opportunities
     </NewsHeadline>
-    <div
-        class="flex flex-nowrap gap-8 overflow-x-auto pb-4 flex-row w-full justify-center mt-4"
-    >
-        {
-            jobOffers.map((job) => (
-                <div class="bg-white rounded-lg shadow-md overflow-hidden flex-shrink-0 border max-w-[90vw] sm:max-w-[70vw] md:max-w-[600px]">
-                    <div class="p-6 space-y-4">
-                        <div class="flex items-center justify-between mb-4">
-                            <img
-                                src={job.companyImage}
-                                alt={`${job.companyName} logo`}
-                                class="h-12 w-auto object-contain"
-                            />
-                            <a
-                                href={job.applyLink}
-                                class="inline-block bliss-red-bg text-white px-4 py-2 rounded-md"
-                            >
-                                Apply Now
-                            </a>
-                        </div>
-                        <div class="w-full">
-                            <img
-                                src={job.teamImage}
-                                alt={`${job.companyName} team`}
-                                class="w-full max-h-[300px] object-contain rounded-md bg-gray-50"
-                            />
-                        </div>
-                        <div
-                            class="text-secondary"
-                            set:html={job.description}
-                        />
-                    </div>
-                </div>
-            ))
-        }
+    <div class="w-full overflow-x-auto mt-4 pb-4">
+        <table class="w-full">
+            <tr>
+                {
+                    jobOffers.map((job) => (
+                        <td
+                            class="align-top px-4"
+                            style="min-width: min(600px, 70vw);"
+                        >
+                            <div class="bg-white rounded-lg overflow-hidden border-dark w-full">
+                                <div class="p-6 space-y-4">
+                                    <table class="w-full mb-4">
+                                        <tr>
+                                            <td>
+                                                <img
+                                                    src={job.companyImage}
+                                                    alt={`${job.companyName} logo`}
+                                                    class="h-12 w-auto max-h-[50px] object-contain"
+                                                />
+                                            </td>
+                                            <td class="text-right">
+                                                <a
+                                                    href={job.applyLink}
+                                                    class="inline-block bliss-red-bg text-white px-4 py-2 rounded-md whitespace-nowrap"
+                                                >
+                                                    Apply Now
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="w-full text-center">
+                                        <img
+                                            src={job.teamImage}
+                                            alt={`${job.companyName} team`}
+                                            class="inline-block max-h-[300px] object-contain"
+                                        />
+                                    </div>
+                                    <div
+                                        class="text-secondary"
+                                        set:html={job.description}
+                                    />
+                                </div>
+                            </div>
+                        </td>
+                    ))
+                }
+            </tr>
+        </table>
     </div>
 </section>
