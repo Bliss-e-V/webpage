@@ -1,0 +1,48 @@
+---
+interface JobOffer {
+    companyName: string;
+    companyImage: string;
+    teamImage: string;
+    description: string;
+    applyLink: string;
+}
+
+interface Props {
+    jobOffers: JobOffer[];
+}
+
+const { jobOffers } = Astro.props;
+---
+
+<section class="mt-8">
+    <h2 class="text-2xl font-bold text-primary mb-6">Job Opportunities</h2>
+    <div class="flex flex-nowrap gap-8 overflow-x-auto pb-4 flex-row w-full">
+        {
+            jobOffers.map((job) => (
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex-shrink-0 min-w-[300px]">
+                    <div class="p-6 space-y-4 flex-row">
+                        <div class="flex items-center justify-between mb-4">
+                            <img
+                                src={job.companyImage}
+                                alt={`${job.companyName} logo`}
+                                class="h-12 object-contain"
+                            />
+                            <a
+                                href={job.applyLink}
+                                class="inline-block bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+                            >
+                                Apply Now
+                            </a>
+                        </div>
+                        <img
+                            src={job.teamImage}
+                            alt={`${job.companyName} team`}
+                            class="w-full h-48 object-cover rounded-md"
+                        />
+                        <p class="text-secondary">{job.description}</p>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>
