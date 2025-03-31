@@ -1,4 +1,7 @@
 ---
+import { NewsHeadline } from "./NewsHeadline";
+import type { ComponentInstance } from "astro";
+
 interface JobOffer {
     companyName: string;
     companyImage: string;
@@ -15,17 +18,21 @@ const { jobOffers } = Astro.props;
 ---
 
 <section class="mt-8">
-    <h2 class="text-2xl font-bold text-primary mb-6">Job Opportunities</h2>
-    <div class="flex flex-nowrap gap-8 overflow-x-auto pb-4 flex-row w-full">
+    <NewsHeadline id="title" level={1} className="md:text-4xl ">
+        Job Opportunities
+    </NewsHeadline>
+    <div
+        class="flex flex-nowrap gap-8 overflow-x-auto pb-4 flex-row w-full justify-center mt-4"
+    >
         {
             jobOffers.map((job) => (
-                <div class="bg-white rounded-lg shadow-md overflow-hidden flex-shrink-0 min-w-[300px]">
-                    <div class="p-6 space-y-4 flex-row">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex-shrink-0 border max-w-[90vw] sm:max-w-[70vw] md:max-w-[600px]">
+                    <div class="p-6 space-y-4">
                         <div class="flex items-center justify-between mb-4">
                             <img
                                 src={job.companyImage}
                                 alt={`${job.companyName} logo`}
-                                class="h-12 object-contain"
+                                class="h-12 w-auto object-contain"
                             />
                             <a
                                 href={job.applyLink}
@@ -34,12 +41,17 @@ const { jobOffers } = Astro.props;
                                 Apply Now
                             </a>
                         </div>
-                        <img
-                            src={job.teamImage}
-                            alt={`${job.companyName} team`}
-                            class="w-full h-48 object-cover rounded-md"
+                        <div class="w-full">
+                            <img
+                                src={job.teamImage}
+                                alt={`${job.companyName} team`}
+                                class="w-full max-h-[300px] object-contain rounded-md bg-gray-50"
+                            />
+                        </div>
+                        <div
+                            class="text-secondary"
+                            set:html={job.description}
                         />
-                        <p class="text-secondary">{job.description}</p>
                     </div>
                 </div>
             ))

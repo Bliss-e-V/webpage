@@ -3,7 +3,31 @@ import NewsletterLayout from "../layouts/Newsletter.astro";
 import Introduction from "@components/newsletter/Introduction.astro";
 import Upcoming from "@components/newsletter/Upcoming.astro";
 import { Event } from "@components/data/event";
+import { JobOffer } from "@components/data/jobOffer";
+import JobOfferings from "@components/newsletter/JobOfferings.astro";
 import Ending from "@components/newsletter/Ending.astro";
+
+const description = `
+    <div>
+        <h2 class="text-xl font-semibold mb-4">
+            What do these three things have in common?
+        </h2>
+
+        <p>
+            A fine-tuned YOLO model for a pipe manufacturer, a demand prediction
+            engine for a vegetable producer, and a low-latency voice agent for a
+            housing company.
+        </p>
+        <p>
+            They're all AI applications we've built in the last few months. If
+            you want to work at the cutting edge of applied AI and help
+            accelerate Europe's AI transformation, come join us.
+        </p>
+        <p>
+            We work hard, we care deeply about what we build — and we ship.
+        </p>
+    </div>
+`;
 ---
 
 <NewsletterLayout
@@ -40,6 +64,17 @@ import Ending from "@components/newsletter/Ending.astro";
                     "Hackathon at Google",
                     "We partnered up with Google, Onethousand.ai and TechniSat to bring a 1-day challange with a a price-pool of 1500€, free food and drinks and endless fun. Do not miss out!",
                     "https://www.eventbrite.com/e/blissathon-2025-google-tickets-1226735110739",
+                ),
+            ]}
+        />
+        <JobOfferings
+            jobOffers={[
+                new JobOffer(
+                    "Onethousand.ai",
+                    "https://raw.githubusercontent.com/Bliss-e-V/webpage/0458296632d1d5c5a91bf99952491edf9902f963/src/images/partners/onethousand_black.jpeg",
+                    "https://raw.githubusercontent.com/Bliss-e-V/webpage/5104381e6256adbdf0a55a00903ca4bc368c9ff0/src/images/partners/team_images/onethousand.jpg",
+                    description,
+                    "https://form.typeform.com/to/mPQHbRMs?typeform-source=onethousand.netlify.app",
                 ),
             ]}
         />
