@@ -15,6 +15,21 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
     return <div className="flex items-center flex-wrap justify-center max-w-2/3" >
         <div id="speaker Series" className={"text-center " + (renderWithLargeMargins ? " pt-32 sm:my-40" : "")}>
             <Headline level={2}>Speaker Series</Headline>
+            <div className="relative flex justify-center mt-16">
+                <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black pointer-events-none"></div>
+                <div className="relative w-full max-w-3xl h-auto rounded-md">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/50 to-transparent pointer-events-none z-20"></div>
+                    <video
+                        className="w-full h-auto rounded-md relative z-10"
+                        autoPlay
+                        muted
+                        loop
+                    >
+                        <source src="/images/media/ss25/ss25_min.mp4" type="video/mp4" />
+                        Teaser for the Speaker Series Season 2025
+                    </video>
+                </div>
+            </div>
             <p
                 className="mt-4 font-light leading-relaxed text-secondary text-md sm:text-xl"
             >
