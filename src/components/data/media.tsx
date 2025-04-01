@@ -202,10 +202,28 @@ const mediaItems = [
 ];
 
 function addOrigin(url: string): string {
-    if(url.includes("youtube.com/embed/") && !url.includes("origin=")) {
-        return url.includes('?')
-            ? url + "&origin=https://www.bliss.berlin"
-            : url + "?origin=https://www.bliss.berlin";
+    if(!url || typeof url !== 'string') return url;
+    
+    if(url.includes("youtube.com/embed/")) {
+        try {
+            // Parse URL properly
+            const baseUrl = url.split('?')[0];
+            const params = new URLSearchParams(url.includes('?') ? url.split('?')[1] : '');
+            
+            // Set the essential YouTube iframe API parameters
+            params.set('origin', 'https://www.bliss.berlin');
+            params.set('enablejsapi', '1');
+            
+            // Remove any potentially problematic parameters
+            if (params.has('data')) {
+                params.delete('data');
+            }
+            
+            return `${baseUrl}?${params.toString()}`;
+        } catch (error) {
+            console.error("Error processing YouTube URL:", error);
+            return url;
+        }
     }
     return url;
 }
@@ -218,9 +236,9 @@ mediaItems.forEach(item => {
 });
 
 const mediaItemsToObject = (mediaItems: MediaItem[]) => {
-    const obj = {};
+    const obj: Record<string, MediaItem[]> = {};
 
-    mediaItems.sort((a, b) => a.date - b.date).forEach(x => {
+    mediaItems.sort((a, b) => a.date.getTime() - b.date.getTime()).forEach(x => {
         const offset = x.date.getTimezoneOffset();
         x.date = new Date(x.date.getTime() - (offset * 60 * 1000));
         const dateString = x.date.toISOString().split('T')[0];
