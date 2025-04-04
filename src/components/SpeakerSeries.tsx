@@ -33,8 +33,8 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
             <p
                 className="mt-4 font-light leading-relaxed text-secondary text-md sm:text-xl"
             >
-                Get your <strong className="text-primary">free</strong> tickets for the
-                speaker series now!
+                Get your <strong className="text-primary">Free</strong> Tickets for the
+                Speaker Series now!
             </p>
 
             <div className="flex items-center justify-center my-2">
