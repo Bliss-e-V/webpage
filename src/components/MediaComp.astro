@@ -231,7 +231,6 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
           <iframe
             src="${videoSrc}"
             frameborder="0"
-            referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen
             loading="lazy"
           ></iframe>
@@ -271,6 +270,13 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
     }
     
     popup.style.display = 'flex';
+    
+    // Using PointerEvent API instead of deprecated MouseEvent properties
+    popup.addEventListener('pointerdown', (e) => {
+      if (e instanceof PointerEvent && e.target instanceof Element && e.target.id === 'imagePopup') {
+        closePopup();
+      }
+    }, { once: true });
   }
   
   function closePopup() {
@@ -325,7 +331,6 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
             <iframe
               src="${videoSrc}"
               frameborder="0"
-              referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen
               loading="lazy"
             ></iframe>
@@ -337,7 +342,6 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
         img.src = item.url;
         img.className = "popup-img";
         img.setAttribute("loading", "lazy");
-        img.setAttribute("crossorigin", "anonymous");
         popupMedia.appendChild(img);
       }
     }
@@ -345,11 +349,15 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   
   // Add global event listeners
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('imagePopup')?.addEventListener('click', function(event) {
-      if (event.target instanceof Element && event.target.id === 'imagePopup') {
-        closePopup();
-      }
-    });
+    const popupElement = document.getElementById('imagePopup');
+    if (popupElement) {
+      // Use PointerEvent instead of MouseEvent properties
+      popupElement.addEventListener('pointerdown', function(event) {
+        if (event instanceof PointerEvent && event.target instanceof Element && event.target.id === 'imagePopup') {
+          closePopup();
+        }
+      });
+    }
     
     document.addEventListener('keydown', function(event) {
       const popup = document.getElementById('imagePopup');

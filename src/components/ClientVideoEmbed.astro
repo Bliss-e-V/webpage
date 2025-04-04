@@ -8,7 +8,8 @@ if (src && src.includes("youtube.com/embed/")) {
   const params = new URLSearchParams(src.includes('?') ? src.split('?')[1] : '');
   
   // Set essential parameters for CORS
-  params.set('origin', 'https://www.bliss.berlin');
+  // Use Astro.site?.origin as the primary source, with a fallback
+  params.set('origin', Astro.site?.origin || 'https://www.bliss.berlin');
   params.set('enablejsapi', '1');
   
   processedSrc = `${baseUrl}?${params.toString()}`;
@@ -19,8 +20,6 @@ if (src && src.includes("youtube.com/embed/")) {
   height="200"
   src={processedSrc}
   title={title}
-  frameborder="0"
-  referrerpolicy="strict-origin-when-cross-origin"
   allowfullscreen
   class={className}
   loading="lazy"
