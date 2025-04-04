@@ -204,7 +204,7 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   let currentPopupIndex = 0;
   
   // Media popup functions
-  function openMedia(type: 'video' | 'image', url: string) {
+  function openMedia(type: 'video' | 'image', url: string, event?: Event) {
     const popup = document.getElementById('imagePopup');
     const popupMedia = document.getElementById('popupMedia');
     
@@ -246,32 +246,56 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
       popupMedia.appendChild(img);
     }
     
-    // Collect all media items from the card for navigation
-    const card = (event?.target as HTMLElement)?.closest('.card');
+    // Get the target element that was clicked
+    const clickedElement = event?.target as HTMLElement || document.querySelector(`img[src="${url}"]`) as HTMLElement;
+    if (!clickedElement) return;
+    
+    // Find the closest card container
+    const card = clickedElement.closest('.card');
     if (card) {
-      const videoElements = card.querySelectorAll('iframe');
-      const imageElements = card.querySelectorAll('img'); // Get all images
+      // Reset the items array
       currentPopupItems = [];
       
-      videoElements.forEach((iframe: HTMLIFrameElement) => {
-        if (iframe.src) {
-          currentPopupItems.push({ type: 'video', url: iframe.src });
-        }
-      });
-      
-      imageElements.forEach((img: HTMLImageElement) => {
-        if (img.src && !img.classList.contains('popup-img')) {
-          currentPopupItems.push({ type: 'image', url: img.src });
-        }
-      });
-      
-      // Set current index
-      currentPopupIndex = currentPopupItems.findIndex(item => item.url === url);
+      // Get all media items in their DOM order from this specific card
+      const carousel = card.querySelector('.carousel');
+      if (carousel) {
+        // Process all media items in the carousel
+        // Fixed: Split the selector into separate queries to avoid invalid selector error
+        const videoContainers = Array.from(carousel.querySelectorAll('.video-container'));
+        const imageContainers = Array.from(carousel.querySelectorAll('.w-1\\/3')); // Escape the slash
+        
+        // Process videos
+        videoContainers.forEach(container => {
+          const iframe = container.querySelector('iframe');
+          if (iframe && iframe.src) {
+            currentPopupItems.push({
+              type: 'video',
+              url: iframe.src
+            });
+          }
+        });
+        
+        // Process images
+        imageContainers.forEach(container => {
+          const img = container.querySelector('img');
+          if (img && img.src && !img.classList.contains('popup-img')) {
+            currentPopupItems.push({
+              type: 'image',
+              url: img.src
+            });
+          }
+        });
+        
+        // Set the current index based on the clicked URL
+        currentPopupIndex = currentPopupItems.findIndex(item => item.url === url);
+        if (currentPopupIndex === -1) currentPopupIndex = 0;
+      }
     }
     
+    // Show the popup
     popup.style.display = 'flex';
     
-    // Using PointerEvent API instead of deprecated MouseEvent properties
+    // Add click event to close popup when clicking outside
     popup.addEventListener('pointerdown', (e) => {
       if (e instanceof PointerEvent && e.target instanceof Element && e.target.id === 'imagePopup') {
         closePopup();
@@ -349,6 +373,14 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   
   // Add global event listeners
   document.addEventListener('DOMContentLoaded', () => {
+    // Use the actual event system for image clicks to pass the event to openMedia
+    document.querySelectorAll('.carousel img').forEach(img => {
+      img.addEventListener('click', function(event) {
+        event.preventDefault();
+        openMedia('image', this.src, event);
+      });
+    });
+    
     const popupElement = document.getElementById('imagePopup');
     if (popupElement) {
       // Use PointerEvent instead of MouseEvent properties
@@ -391,7 +423,7 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   // Expose functions to global scope
   declare global {
     interface Window {
-      openMedia: (type: 'video' | 'image', url: string) => void;
+      openMedia: (type: 'video' | 'image', url: string, event?: Event) => void;
       closePopup: () => void;
       popupPrev: () => void;
       popupNext: () => void;
