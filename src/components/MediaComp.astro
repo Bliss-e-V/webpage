@@ -240,6 +240,8 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   // Swipe gesture variables
   let touchStartX = 0;
   let touchEndX = 0;
+  let lastSwipeTime = 0; // Track the time of the last swipe
+  const swipeCooldown = 300; // Minimum milliseconds between swipes
   
   // Media popup functions
   function openMedia(type: 'video' | 'image', url: string, event?: Event) {
@@ -311,12 +313,8 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
       // Get all media items in their DOM order from this specific card
       const carousel = card.querySelector('.carousel');
       if (carousel) {
-        // Process all media items in the carousel
-        // Fixed: Split the selector into separate queries to avoid invalid selector error
-        const videoContainers = Array.from(carousel.querySelectorAll('.video-container'));
-        const imageContainers = Array.from(carousel.querySelectorAll('.w-1\\/3')); // Escape the slash
-        
-        // Process videos
+        // For videos: First check for embedded iframes
+        const videoContainers = carousel.querySelectorAll('.video-container');
         videoContainers.forEach(container => {
           const iframe = container.querySelector('iframe');
           if (iframe && iframe.src) {
@@ -324,19 +322,46 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
               type: 'video',
               url: iframe.src
             });
+          } else {
+            // Look for ClientVideoEmbed custom component
+            const embedContainer = container.querySelector('.video-embed');
+            if (embedContainer) {
+              const src = embedContainer.getAttribute('src');
+              if (src) {
+                currentPopupItems.push({
+                  type: 'video',
+                  url: src
+                });
+              }
+            }
           }
         });
         
-        // Process images
-        imageContainers.forEach(container => {
-          const img = container.querySelector('img');
-          if (img && img.src && !img.classList.contains('popup-img')) {
+        // For images: Select all img elements that are inside the current carousel
+        // and are not part of the popup interface
+        const imgContainers = carousel.querySelectorAll('.media-item-container');
+        imgContainers.forEach(container => {
+          const img = container.querySelector('img.media-image');
+          if (img && img.src) {
             currentPopupItems.push({
               type: 'image',
               url: img.src
             });
           }
         });
+        
+        // Backup: If no containers were found specifically, try to get all images directly
+        if (currentPopupItems.length === 0) {
+          const allImages = carousel.querySelectorAll('img.media-image');
+          allImages.forEach(img => {
+            if (img instanceof HTMLImageElement && img.src) {
+              currentPopupItems.push({
+                type: 'image',
+                url: img.src
+              });
+            }
+          });
+        }
         
         // Set the current index based on the clicked URL
         currentPopupIndex = currentPopupItems.findIndex(item => item.url === url);
@@ -401,7 +426,7 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
     
     if (currentPopupItems.length > 0 && currentPopupIndex >= 0 && currentPopupIndex < currentPopupItems.length) {
       const item = currentPopupItems[currentPopupIndex];
-      
+
       if (item.type === "video") {
         const wrapper = document.createElement('div');
         wrapper.className = "video-wrapper popup-video";
@@ -456,34 +481,51 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   }
   
   function handleTouchEnd(e: TouchEvent) {
+    // Stop propagation to prevent multiple handlers from firing
+    e.stopPropagation();
+    
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
   }
   
   function handleSwipe() {
     const swipeThreshold = 50; // Minimum distance to be considered a swipe
-    if (touchEndX < touchStartX - swipeThreshold) {
-      // Swiped left, go to next
-      popupNext();
+    const swipeDistance = touchStartX - touchEndX;
+    const now = Date.now();
+    
+    // Check if enough time has passed since the last swipe
+    if (now - lastSwipeTime < swipeCooldown) {
+      return;
     }
-    if (touchEndX > touchStartX + swipeThreshold) {
-      // Swiped right, go to previous
-      popupPrev();
+    
+    if (Math.abs(swipeDistance) >= swipeThreshold) {
+      lastSwipeTime = now; // Record the time of this swipe
+      
+      if (swipeDistance > 0) {
+        // Swiped left, go to next
+        popupNext();
+      } else {
+        // Swiped right, go to previous
+        popupPrev();
+      }
     }
   }
   
   function setupSwipeListeners() {
+    // Remove any existing listeners first to avoid duplicates
+    removeSwipeListeners();
+    
     const popupContent = document.querySelector('.swipeable-content');
     if (popupContent) {
       popupContent.addEventListener('touchstart', handleTouchStart, { passive: true });
-      popupContent.addEventListener('touchend', handleTouchEnd, { passive: true });
+      popupContent.addEventListener('touchend', handleTouchEnd);
     }
     
-    // Also add listeners to the popup content for better coverage
+    // Only add popup listener if we don't already have one on the content
     const popup = document.getElementById('imagePopup');
-    if (popup) {
+    if (popup && !popupContent) {
       popup.addEventListener('touchstart', handleTouchStart, { passive: true });
-      popup.addEventListener('touchend', handleTouchEnd, { passive: true });
+      popup.addEventListener('touchend', handleTouchEnd);
     }
   }
   
@@ -583,6 +625,7 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
   }
   .carousel {
     scroll-behavior: smooth;
+    overflow-y: hidden
   }
   .image-popup {
     position: fixed;
