@@ -1,0 +1,26 @@
+---
+const { src, title, class: className = "" } = Astro.props;
+
+// Process YouTube URL to ensure it has proper origin parameter
+let processedSrc = src;
+if (src && src.includes("youtube.com/embed/")) {
+  const baseUrl = src.split('?')[0];
+  const params = new URLSearchParams(src.includes('?') ? src.split('?')[1] : '');
+  
+  // Set essential parameters for CORS
+  // Use Astro.site?.origin as the primary source, with a fallback
+  params.set('origin', Astro.site?.origin || 'https://www.bliss.berlin');
+  params.set('enablejsapi', '1');
+  
+  processedSrc = `${baseUrl}?${params.toString()}`;
+}
+---
+<iframe
+  width="100%"
+  height="200"
+  src={processedSrc}
+  title={title}
+  allowfullscreen
+  class={className}
+  loading="lazy"
+/>
