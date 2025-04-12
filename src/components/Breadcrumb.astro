@@ -1,0 +1,34 @@
+---
+interface Crumb {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  crumbs: Crumb[];
+}
+
+const { crumbs } = Astro.props;
+const currentUrl = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!-- Structured data for breadcrumbs only (no visible UI) -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": currentUrl.origin
+    },
+    ...crumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      "position": index + 2,
+      "name": crumb.name,
+      "item": new URL(crumb.href, currentUrl.origin).toString()
+    }))
+  ]
+})}>
+</script>
