@@ -8,6 +8,7 @@ import BLISSathonSchedule from "@components/hackathon/Schedule.astro";
 import ThreeScence2 from "@components/ThreeScence-2.astro";
 import BLISSathonPartners from "@components/hackathon/Partners.astro";
 import BLISSathonFAQ from "@components/hackathon/FAQ.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
 ---
 
 <Layout
@@ -17,6 +18,11 @@ import BLISSathonFAQ from "@components/hackathon/FAQ.astro";
 >
   <main>
     <ThreeScence2 />
+    <Breadcrumb 
+      crumbs={[
+        { name: "BLISSathon 2025", href: "/blissathon" }
+      ]}
+    />
     <BLISSathonHeader />
     <BLISSathonFeatures />
     <BLISSathonSchedule />

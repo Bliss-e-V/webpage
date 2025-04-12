@@ -3,11 +3,17 @@ export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
 import MediaComp from "@components/MediaComp.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
 ---
 
 <Layout
     title="Media & Events Archive | BLISS Berlin"
     description="Explore BLISS Berlin's archive of AI events including speaker series recordings. Watch past presentations and stay updated on our latest tech community activities."
     ogImage="https://www.bliss.berlin/assets/bliss-banner.png">
+    <Breadcrumb
+        crumbs={[
+            { name: "Media & Events", href: "/media" }
+        ]}
+    />
     <MediaComp />
 </Layout>
