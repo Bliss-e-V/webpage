@@ -11,8 +11,9 @@ interface Props {
 const { crumbs } = Astro.props;
 const currentUrl = new URL(Astro.url.pathname, Astro.site);
 
-// Prepare the structured data JSON
-const breadcrumbsData = {
+// Generate the JSON string manually - this approach avoids the $ issue
+const jsonLD = `
+{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
@@ -20,19 +21,20 @@ const breadcrumbsData = {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": currentUrl.origin
-    },
-    ...crumbs.map((crumb, index) => ({
+      "item": "${currentUrl.origin}"
+    }${crumbs.map((crumb, index) => `
+    ,{
       "@type": "ListItem",
-      "position": index + 2,
-      "name": crumb.name,
-      "item": new URL(crumb.href, currentUrl.origin).toString()
-    }))
+      "position": ${index + 2},
+      "name": "${crumb.name}",
+      "item": "${new URL(crumb.href, currentUrl.origin).toString()}"
+    }`).join('')}
   ]
-};
+}`;
 ---
 
-<!-- Structured data for breadcrumbs only (no visible UI) -->
-<script type="application/ld+json">
-  {JSON.stringify(breadcrumbsData)}
-</script>
+<!-- This div is completely empty, no visible elements -->
+<div style="display:none">
+  <!-- Script tag for SEO purposes only -->
+  <script type="application/ld+json" set:html={jsonLD}></script>
+</div>
