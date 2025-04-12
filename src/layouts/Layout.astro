@@ -93,24 +93,24 @@ const currentDate = new Date().toISOString();
 
     <!-- Add webpage structured data -->
     <script type="application/ld+json">
-      {
+      {JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "url": "${canonicalURL}",
-        "name": "${fullTitle}",
-        "description": "${description}",
-        "dateModified": "${currentDate}",
+        "url": canonicalURL,
+        "name": fullTitle,
+        "description": description,
+        "dateModified": currentDate,
         "isPartOf": {
           "@type": "WebSite",
           "name": "BLISS Berlin",
           "url": "https://bliss.berlin"
         }
-      }
+      })}
     </script>
 
     <!-- LocalBusiness structured data for local SEO -->
     <script type="application/ld+json">
-      {
+      {JSON.stringify({
         "@context": "https://schema.org",
         "@type": "EducationalOrganization",
         "name": "BLISS Berlin",
@@ -118,7 +118,7 @@ const currentDate = new Date().toISOString();
         "url": "https://bliss.berlin",
         "logo": "https://www.bliss.berlin/assets/bliss-logo.png",
         "image": "https://www.bliss.berlin/assets/bliss-banner.png",
-        "description": "Berlin's research-focused AI non-profit organization connecting passionate individuals in machine learning through weekly reading groups, speaker and diversity events, and hackathons.",
+        "description": "Berlin's research-focused AI non-profit organization connecting passionate individuals in machine learning through weekly reading groups, speaker events, and hackathons.",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Berlin",
@@ -134,35 +134,35 @@ const currentDate = new Date().toISOString();
           "https://github.com/Bliss-e-V",
           "https://www.linkedin.com/company/bliss-berlin"
         ]
-      }
+      })}
     </script>
 
     <!-- If this is an article page, add Article structured data -->
-    ${article && publishDate ? `
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "${title}",
-        "description": "${description}",
-        "image": "${ogImage ? ogImage : "https://www.bliss.berlin/assets/bliss-banner.png"}",
-        "datePublished": "${publishDate}",
-        "dateModified": "${modifiedDate || currentDate}",
-        "publisher": {
-          "@type": "Organization",
-          "name": "BLISS Berlin",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://www.bliss.berlin/assets/bliss-logo.png"
+    {article && publishDate && (
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": title,
+          "description": description,
+          "image": ogImage ? ogImage : "https://www.bliss.berlin/assets/bliss-banner.png",
+          "datePublished": publishDate,
+          "dateModified": modifiedDate || currentDate,
+          "publisher": {
+            "@type": "Organization",
+            "name": "BLISS Berlin",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.bliss.berlin/assets/bliss-logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonicalURL
           }
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "${canonicalURL}"
-        }
-      }
-    </script>
-    ` : ''}
+        })}
+      </script>
+    )}
   </head>
 
   <body>
