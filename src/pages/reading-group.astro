@@ -3,11 +3,18 @@ export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
 import ReadingGroupComp from "@components/ReadingGroupComp.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
 ---
 
 <Layout
-    title="BLISS - Reading Group"
-    description="Reading group of BLISS, the AI student initiative in Berlin. Join to read exciting papers and discuss them with peers in a laid-back setting."
+    title="AI Reading Group | BLISS Berlin"
+    description="Join BLISS Berlin's weekly AI reading group, where we discuss cutting-edge machine learning research papers in a collaborative environment. Current focus: mechanistic interpretability. Mondays at 7pm, Marchstraße 23, Berlin."
+    ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
 >
+    <Breadcrumb 
+        crumbs={[
+            { name: "Reading Group", href: "/reading-group" }
+        ]}
+    />
     <ReadingGroupComp />
 </Layout>

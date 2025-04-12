@@ -25,7 +25,35 @@ dotenv.config();
 // https://astro.build/config
 export default defineConfig({
   site: "https://bliss.berlin",
-  integrations: [tailwind(), react(), robotsTxt(), sitemap()],
+  integrations: [
+    tailwind(),
+    react(),
+    robotsTxt({
+      policy: [
+        {
+          userAgent: '*',
+          allow: '/',
+          disallow: ['/newsletter', '/404'],
+          crawlDelay: 10
+        }
+      ],
+      sitemap: [
+        'https://bliss.berlin/sitemap-index.xml'
+      ]
+    }),
+    sitemap({
+      filter: (page) => !page.includes('/newsletter') && !page.includes('/404'),
+      customPages: [
+        'https://bliss.berlin/',
+        'https://bliss.berlin/blissathon',
+        'https://bliss.berlin/reading-group',
+        'https://bliss.berlin/media'
+      ],
+      lastmod: new Date(),
+      changefreq: 'weekly',
+      priority: 0.7
+    })
+  ],
   renderers: ['@astrojs/renderer-react'],
   markdown: {
     shikiConfig: {
