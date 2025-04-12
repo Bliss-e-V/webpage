@@ -10,10 +10,9 @@ interface Props {
 
 const { crumbs } = Astro.props;
 const currentUrl = new URL(Astro.url.pathname, Astro.site);
----
 
-<!-- Structured data for breadcrumbs only (no visible UI) -->
-<script type="application/ld+json" set:html={JSON.stringify({
+// Prepare the structured data JSON
+const breadcrumbsData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
@@ -30,5 +29,10 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site);
       "item": new URL(crumb.href, currentUrl.origin).toString()
     }))
   ]
-})}>
+};
+---
+
+<!-- Structured data for breadcrumbs only (no visible UI) -->
+<script type="application/ld+json">
+  {JSON.stringify(breadcrumbsData)}
 </script>
