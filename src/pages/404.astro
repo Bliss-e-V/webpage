@@ -3,9 +3,13 @@ export const prerender = true;
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="404 | BLISS" description="Something went wrong...">
+<Layout
+  title="Page Not Found | BLISS Berlin"
+  description="The page you're looking for doesn't exist. Return to the BLISS Berlin homepage to explore our AI events."
+  ogImage="https://www.bliss.berlin/assets/404.svg"
+>
   <div class="flex flex-col items-center justify-center h-full">
-    <img src="/assets/404.svg" class="w-40 md:w-80" />
+    <img src="/assets/404.svg" class="w-40 md:w-80" alt="404 Page Not Found Illustration" />
     <h1 class="mt-4 text-4xl font-black text-center">
       Looks like a <strong class="text-transparent bg-clip-text bg-red-right"
         >404</strong

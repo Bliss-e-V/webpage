@@ -1,5 +1,16 @@
 ---
 import BigButton from "@components/BigButton";
+
+// Event data for structured data
+const eventDate = "2025-03-31T09:00";
+const eventEndDate = "2025-03-31T21:00";
+const eventName = "BLISSathon 2025 @ Google";
+const eventLocation = "Google Berlin, Tucholskystraße 2, 10117 Berlin, Germany";
+const eventDescription = "Join our 1-day AI challenge at Google Berlin to win experience, prizes and friends. Compete for a €1500 prize pool, enjoy free food and drinks, and connect with the AI community.";
+const eventUrl = "https://www.eventbrite.com/e/blissathon-2025-google-tickets-1226735110739";
+const eventImage = "https://www.bliss.berlin/assets/hackathon.gif";
+const organizerName = "BLISS Berlin";
+const organizerUrl = "https://bliss.berlin";
 ---
 
 <div class="flex flex-col justify-center items-center h-screen -mt-40">
@@ -63,3 +74,44 @@ import BigButton from "@components/BigButton";
     text-decoration-color: transparent;
   }
 </style>
+
+<!-- Event Structured Data for SEO -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": eventName,
+  "description": eventDescription,
+  "image": eventImage,
+  "startDate": eventDate,
+  "endDate": eventEndDate,
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "Google Berlin",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Tucholskystraße 2",
+      "addressLocality": "10117 Berlin",
+      "addressRegion": "Berlin",
+      "addressCountry": "DE"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": eventUrl,
+    "price": "0",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock"
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": organizerName,
+    "url": organizerUrl
+  },
+  "performer": {
+    "@type": "Organization",
+    "name": organizerName
+  }
+})}>
+</script>
