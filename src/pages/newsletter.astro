@@ -7,39 +7,42 @@ import Ending from "@components/newsletter/Ending.astro";
 ---
 
 <NewsletterLayout
-    title="BLISS - Machine Learning student initiative in Berlin Newsletter"
-    subtitle="End of WiSe 24/25 Newsletter"
+    title="BLISS - Machine Learning in Berlin"
+    subtitle="May 2025 Newsletter"
 >
     <main>
         <Introduction>
             <div class="text-secondary">
-                Thank you for an awesome semester with you at <span
-                    class="text-primary">BLISS</span
-                >! We look forward to see you at the upcoming events next
-                semester or at one of the two large events coming up. Our
+                At <span class="text-primary">BLISS</span> the 2025 summer semester
+                is in full swing with the best lineup yet! We also offer a
                 <a class="underline" href="https://bliss.berlin/reading-group"
                     >reading group</a
-                > will continue on for a few more weeks.
-            </div>
-            <div class="text-secondary">
-                For the reading group, we meet every Monday at 7pm at MAR
-                0.0015, Marchstraße 23, 10587 Berlin. The current topic is
-                mechanistic interpretability.
+                > on AI in medicine (GNNs will come later this semester) at the <a
+                    class="underline"
+                    href="https://maps.app.goo.gl/4eqs9zTgEi9E9pbv5"
+                    >Merantix AI-Campus</a
+                > at 18:45 each Monday.
             </div>
         </Introduction>
         <Upcoming
             events={[
                 new Event(
-                    new Date("2025-02-12"),
-                    "FLINTA Event",
-                    "We want to provide 12 FLINTA* students with valuable networking opportunities and insights from 6 seasoned FLINTA* professionals, while giving professionals a chance to engage with the next generation of AI enthusiasts and foster a more inclusive environment within the AI community of Berlin.",
-                    "https://docs.google.com/forms/d/1GcJXYQ3qhXaxssDu-aa7DLt2P3BTAvJBLkK6f9Q1q1g/viewform",
+                    new Date("2025-05-06"),
+                    "CAPI: Cluster & Predict Latent Patches for Improved Masked Image Modeling",
+                    "Timothée Darcet (<strong>Meta AI & Inria</strong>) presents CAPI, a novel masked image modeling framework achieving 83.8% ImageNet accuracy and advancing self-supervised learning.",
+                    "https://www.meetup.com/bliss-speaker-series/events/306121112/",
                 ),
                 new Event(
-                    new Date("2025-03-31"),
-                    "Hackathon at Google",
-                    "We partnered up with Google, Onethousand.ai and TechniSat to bring a 1-day challange with a a price-pool of 1500€, free food and drinks and endless fun. Do not miss out!",
-                    "https://www.eventbrite.com/e/blissathon-2025-google-tickets-1226735110739",
+                    new Date("2025-05-20"),
+                    "Scalable Emulation of Protein Equilibrium Ensembles with AI",
+                    "Dr. Yu Xie (<strong>Microsoft AI4Science</strong>) unveils BioEmu, a generative model that samples protein conformations with <1 kcal/mol accuracy, accelerating mechanistic insights in structural biology.",
+                    "https://www.meetup.com/bliss-speaker-series/events/306121117/",
+                ),
+                new Event(
+                    new Date("2025-06-03"),
+                    "Watermark Anything with Localized Messages",
+                    "Dr. Pierre Fernandez (<strong>Meta AI</strong>) introduces Watermark Anything (ICLR ’25), reframing invisible watermarking as segmentation to robustly protect images under real-world edits.",
+                    "https://www.meetup.com/bliss-speaker-series/events/306121121/",
                 ),
             ]}
         />
