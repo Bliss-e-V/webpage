@@ -50,6 +50,12 @@ import transcoders from "../../images/posts/images/Transcoders.png";
 import sparseCircuits from "../../images/posts/images/SparseCircuits.png";
 import paramSpace from "../../images/posts/images/ParamSpace.png";
 
+import foundationPathCancer from "../../images/posts/images/20250428_foundationModelPathCancer.png";
+import visLangPath from "../../images/posts/images/20250505_visLangPathologyFoundation.png";
+import transMil from "../../images/posts/images/20250512_transmil.png"
+import multimodalPath from "../../images/posts/images/20250519_multimodalPath.png";
+import scalingViT from "../../images/posts/images/20250526_scalingViT.png";
+import prism from "../../images/posts/images/20250602_prism.png";
 
 export class Paper {
     constructor(public name: string, public authors: string[], public link: string, public image: ImageMetadata, public readingDay: Date) {
@@ -118,6 +124,13 @@ const sections: Section[] = [
         new Date("2025-03-17"),
         "Sometimes everybody needs to know what is going on inside a (language) model"
     ),
+    new Section(
+        "AI in Medicine",
+        "Tom Neuhäuser",
+        new Date("2025-04-01"),
+        new Date("2025-06-03"),
+        "A deep dive into the world of multimodal foundation models for histopathology."
+    )
 ]
 
 // --------------------------------------------------
@@ -173,7 +186,13 @@ const papers = [
     new Paper("Monet: Mixture of Monosemantic Experts for Transformers", ["Jungwoo Park", "Young Jin Ahn", "Kee-Eung Kim", "Jaewoo Kang"], "https://arxiv.org/abs/2412.04139", monet, new Date("2025-02-17")),
     new Paper("Sparse Feature Circuits: Discovering and Editing Interpretable Causal Graphs in Language Models", ["Samuel Marks", "Can Rager", "Eric J. Michaud", "Yonatan Belinkov", "David Bau", "Aaron Mueller"], "https://arxiv.org/abs/2403.19647", sparseCircuits, new Date("2025-03-03")),
     new Paper("Transcoders Find Interpretable LLM Feature Circuits", ["Jacob Dunefsky", "Philippe Chlenski", "Neel Nanda"], "https://arxiv.org/abs/2406.11944", transcoders, new Date("2025-03-10")),
-    new Paper("Interpretability in Parameter Space: Minimizing Mechanistic Description Length with Attribution-based Parameter Decomposition", ["Dan Braun", "Lucius Bushnaq", "Stefan Heimersheim", "Jake Mendel", "Lee Sharkey"], "https://arxiv.org/abs/2501.14926", paramSpace, new Date("2025-03-17"))
+    new Paper("Interpretability in Parameter Space: Minimizing Mechanistic Description Length with Attribution-based Parameter Decomposition", ["Dan Braun", "Lucius Bushnaq", "Stefan Heimersheim", "Jake Mendel", "Lee Sharkey"], "https://arxiv.org/abs/2501.14926", paramSpace, new Date("2025-03-17")),
+    new Paper("A foundation model for clinical-grade computational pathology and rare cancers detection", ["Eugene Vorontsov", "Alican Bozkurt", "Adam Casson", "George Shaikovski", "Michal Zelechowski", "Kristen Severson", "Eric Zimmermann", "James Hall", "Neil Tenenholtz", "Nicolo Fusi", "Ellen Yang", "Philippe Mathieu", "Alexander van Eck", "Donghun Lee", "Julian Viret", "Eric Robert", "Yi Kan Wang", "Jeremy D. Kunz", "Matthew C. H. Lee", "Jan H. Bernhard", "Ran A. Godrich", "Gerard Oakley", "Ewan Millar", "Matthew Hanna", "Hannah Wen", "Juan A. Retamero", "William A. Moye", "Razik Yousfi", "Christopher Kanan", "David S. Klimstra", "Brandon Rothrock", "Siqi Liu", "Thomas J. Fuchs"], "https://www.nature.com/articles/s41591-024-03141-0.pdf", foundationPathCancer, new Date("2025-04-28")),
+    new Paper("A visual-language foundation model for computational pathology", ["Ming Y. Lu", "Bowen Chen", "Drew F. K. Williamson", "Richard J. Chen", "Ivy Liang", "Tong Ding", "Guillaume Jaume", "Igor Odintsov", "Long Phi Le", "Georg Gerber", "Anil V. Parwani", "Andrew Zhang", "Faisal Mahmood"], "https://www.nature.com/articles/s41591-024-02856-4.epdf?sharing_token=oxrnoCI4J4GotgQPtYqhxtRgN0jAjWel9jnR3ZoTv0PmeocnzHdxO4Q-z304lTFOE9gfAQ4aOUdEe1q7KpOZrJPvH2xnU6NL0L0gf1Wy5LPTCE_ptjKfk7dLA2eG5opNjEHop5oOAfB60GZRNBQbXXwltaWADikm_fOMbypyiWA%3D", visLangPath, new Date("2025-05-05")),
+    new Paper("Transmil: Transformer based Correlated Multiple Instance Learning for Whole Slide Image Classification", ["Zhuchen Shao", "Hao Bian", "Yang Chen", "Yifeng Wang", "Jian Zhang", "Xiangyang Ji", "Yongbing Zhang"], "https://proceedings.neurips.cc/paper/2021/file/10c272d06794d3e5785d5e7c5356e9ff-Paper.pdf", transMil, new Date("2025-05-12")),
+    new Paper("A multimodal generative AI copilot for human pathology", ["Ming Y. Lu", "Bowen Chen", "Drew F. K. Williamson", "Richard J. Chen", "Melissa Zhao", "Aaron K. Chow", "Kenji Ikemura", "Ahrong Kim", "Dimitra Pouli", "Ankush Patel", "Amr Soliman", "Chengkuan Chen", "Tong Ding", "Judy J. Wang", "Georg Gerber", "Ivy Liang", "Long Phi Le", "Anil V. Parwani", "Luca L. Weishaupt", "Faisal Mahmood"], "https://www.nature.com/articles/s41586-024-07618-3.pdf", multimodalPath, new Date('2025-05-19')),
+    new Paper("Scaling Vision Transformers to Gigapixel Images via Hierarchical Self-Supervised Learning", ["Richard J. Chen", "Chengkuan Chen", "Yicong Li", "Tiffany Y. Chen", "Andrew D. Trister", "Rahul G. Krishnan", "Faisal Mahmood"], "https://arxiv.org/pdf/2206.02647", scalingViT, new Date('2025-05-26')),
+    new Paper("PRISM: A Multi-Modal Generative Foundation Model for Slide-Level Histopathology", ["George Shaikovski", "Adam Casson", "Kristen Severson", "Eric Zimmermann", "Yi Kan Wang", "Jeremy D. Kunz", "Juan A. Retamero", "Gerard Oakley", "David Klimstra", "Christopher Kanan", "Matthew Hanna", "Michal Zelechowski", "Julian Viret", "Neil Tenenholtz", "James Hall", "Nicolo Fusi", "Razik Yousfi", "Peter Hamilton", "William A. Moye", "Eugene Vorontsov", "Siqi Liu", "Thomas J. Fuchs"], "https://arxiv.org/pdf/2405.10254", prism, new Date('2025-06-02')),
 ];
 
 // --------------------------------------------------
