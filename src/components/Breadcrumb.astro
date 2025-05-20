@@ -1,0 +1,40 @@
+---
+interface Crumb {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  crumbs: Crumb[];
+}
+
+const { crumbs } = Astro.props;
+const currentUrl = new URL(Astro.url.pathname, Astro.site);
+
+// Generate the JSON string manually - this approach avoids the $ issue
+const jsonLD = `
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "${currentUrl.origin}"
+    }${crumbs.map((crumb, index) => `
+    ,{
+      "@type": "ListItem",
+      "position": ${index + 2},
+      "name": "${crumb.name}",
+      "item": "${new URL(crumb.href, currentUrl.origin).toString()}"
+    }`).join('')}
+  ]
+}`;
+---
+
+<!-- This div is completely empty, no visible elements -->
+<div style="display:none">
+  <!-- Script tag for SEO purposes only -->
+  <script type="application/ld+json" set:html={jsonLD}></script>
+</div>
