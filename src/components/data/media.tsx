@@ -199,6 +199,35 @@ const mediaItems = [
         ],
         new Date("2024-06-11")
     ),
+    // SS2025
+    new MediaItem(
+        "Compressing Foundation Models as Easy as Image Compression?",
+        "Dr. Martin Genzel (Merantix Momentum)",
+        "Dr. Martin Genzel is a Senior Research Engineer at Merantix Momentum.",
+        "The widespread adoption of Foundation Models, especially LLMs, is often hindered by their substantial size and computational demands, especially in resource-limited settings. While post-training compression offers a promising avenue to mitigate these challenges, the process can feel like a \"black box\" for the user, requiring significant expertise and trial-and-error to find the right balance between model size and performance. This talk introduces Any Compression via Iterative Pruning (ACIP), a novel algorithmic approach designed with the user in mind. ACIP allows for intuitive and direct control over the compression-performance trade-off, akin to compressing an image. It leverages a single gradient descent run of iterative pruning to establish a global parameter ranking, from which models of any target size can be immediately materialized. ACIP demonstrates strong predictive performance on downstream tasks without costly fine-tuning. Across various open-weight LLMs, it achieves state-of-the-art compression results compared to existing factorization-based methods. Moreover, it seamlessly complements common quantization techniques for even greater compression.",
+        "https://www.youtube.com/embed/xP1q9puc5hk",
+        [
+            "/images/media/ss25/20250422_genzel/DSCF9904.jpeg",
+            "/images/media/ss25/20250422_genzel/DSCF9911.jpeg",
+            "/images/media/ss25/20250422_genzel/DSCF9913.jpeg",
+        ],
+        new Date("2025-04-22")
+    ),
+    new MediaItem(
+        "CAPI: Cluster & Predict Patches for Improved Image Modeling",
+        "Timothée Darcet (Meta AI, Inria)",
+        "Timothée Darcet is a PhD student at Meta AI and Inria.",
+        "Masked Image Modeling (MIM) offers a promising approach to self-supervised representation learning, however existing MIM models still lag behind the state-of-the-art. In this talk, we systematically analyze target representations, loss functions, and architectures, to present CAPI - a novel pure-MIM framework that relies on the prediction of latent clusterings. Our approach leverages a clustering-based loss, which is stable to train, and exhibits promising scaling properties. Our ViT-L backbone, CAPI, achieves 83.8% accuracy on ImageNet and 32.1% mIoU on ADE20K with simple linear probes, substantially outperforming previous MIM methods and approaching the performance of the current state-of-the-art, DINOv2.",
+        "https://www.youtube.com/embed/s8fH9Xbau7o",
+        [
+            "/images/media/ss25/20250506_darcet/DSCF9943.jpeg",
+            "/images/media/ss25/20250506_darcet/IMG_8487.jpeg",
+            "/images/media/ss25/20250506_darcet/IMG_8489.jpeg",
+            "/images/media/ss25/20250506_darcet/IMG_8504.jpeg",
+        ],
+        new Date("2025-05-06")
+    ),
+
 ];
 
 function addOrigin(url: string): string {
