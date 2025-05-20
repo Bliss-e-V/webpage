@@ -225,7 +225,7 @@ const mediaItems = [
             "/images/media/ss25/20250506_darcet/IMG_8489.jpeg",
             "/images/media/ss25/20250506_darcet/IMG_8504.jpeg",
         ],
-        new Date("2025-04-22")
+        new Date("2025-05-06")
     ),
 
 ];
