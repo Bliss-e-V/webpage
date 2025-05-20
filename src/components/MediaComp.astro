@@ -7,16 +7,20 @@ const allMedia = Object.entries(dayToMediaItems)
   .map(([, event]) => event)
   .reverse() as MediaItem[][];
 const flatMedia = allMedia.flat();
-const winterMediaItems = flatMedia.filter((item) => {
+const summer25MediaItems = flatMedia.filter((item) => {
+  const itemDate = new Date(item.date);
+  return itemDate >= new Date("2025-04-01") && itemDate <= new Date("2025-08-31");
+});
+const winter2425MediaItems = flatMedia.filter((item) => {
   const itemDate = new Date(item.date);
   return itemDate >= new Date("2024-09-01") && itemDate <= new Date("2025-03-31");
 });
-const summerMediaItems = flatMedia.filter((item) => {
+const summer24MediaItems = flatMedia.filter((item) => {
   const itemDate = new Date(item.date);
   return itemDate >= new Date("2024-04-01") && itemDate <= new Date("2024-08-31");
 });
-const winterMediaJSON = JSON.stringify(winterMediaItems);
-const summerMediaJSON = JSON.stringify(summerMediaItems);
+const winterMediaJSON = JSON.stringify(winter2425MediaItems);
+const summerMediaJSON = JSON.stringify(summer24MediaItems);
 ---
 
 <div>
@@ -28,20 +32,27 @@ const summerMediaJSON = JSON.stringify(summerMediaItems);
     <div>Below you will find the list of media items. Please check back regularly for updates.</div>
   </div>
 
-  <!-- Winter Section -->
+  <!-- Season Definitions -->
   <div class="my-2">
     <MediaCard 
-      title="Season: Winter 2024/25" 
-      mediaItems={winterMediaItems} 
+      title="Season: Summer 2025" 
+      mediaItems={summer25MediaItems} 
       isOpenByDefault={true} 
     />
   </div>
+
+  <div class="my-2">
+    <MediaCard 
+      title="Season: Winter 2024/25" 
+      mediaItems={winter2425MediaItems} 
+      isOpenByDefault={false} 
+    />
+  </div>
   
-  <!-- Summer Section -->
   <div class="my-2">
     <MediaCard 
       title="Season: Summer 2024" 
-      mediaItems={summerMediaItems} 
+      mediaItems={summer24MediaItems} 
       isOpenByDefault={false} 
     />
   </div>
