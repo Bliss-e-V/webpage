@@ -1,7 +1,6 @@
 ---
 import { dayToMediaItems, MediaItem } from "@components/data/media";
 import MediaCard from "@components/MediaCard.astro";
-import MediaHeader from "@components/MediaHeader.astro";
 
 const allMedia = Object.entries(dayToMediaItems)
   .sort(([date1], [date2]) => date1.localeCompare(date2))
@@ -101,33 +100,32 @@ const summerMediaJSON = JSON.stringify(summer24MediaItems);
     // Check if a hash exists in the URL
     if (location.hash) {
       const hash = location.hash.substring(1); // Remove the # character
-      
       // If the hash starts with 'event-', it's an event deep link
       if (hash.startsWith('event-')) {
         const targetElement = document.getElementById(hash);
-        
         if (targetElement) {
           // Find the parent season container
           const seasonContainer = targetElement.closest('.media-season');
-          
           if (seasonContainer) {
             // Close all seasons first
             document.querySelectorAll('.media-season').forEach(season => {
               (season as HTMLDetailsElement).open = false;
             });
-            
             // Open the parent season
-            (seasonContainer as HTMLDetailsElement).open = true;              // Scroll to the target element with a slight delay to allow the details to expand
+            (seasonContainer as HTMLDetailsElement).open = true;
+            // Scroll to the target element with a slight delay to allow the details to expand
             setTimeout(() => {
               targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              
-              // Add a temporary highlight class and remove it after animation completes
+              // Remove highlight from all cards first
+              document.querySelectorAll('.card').forEach(card => {
+                (card as HTMLElement).classList.remove('highlight-target');
+                (card as HTMLElement).style.background = '';
+              });
+              // Add persistent highlight to the linked card
               const card = targetElement.querySelector('.card');
               if (card) {
                 card.classList.add('highlight-target');
-                setTimeout(() => {
-                  card.classList.remove('highlight-target');
-                }, 2000);
+                (card as HTMLElement).style.background = 'rgba(203, 45, 62, 0.25)';
               }
             }, 100);
           }
