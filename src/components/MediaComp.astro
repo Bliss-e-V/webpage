@@ -1,6 +1,7 @@
 ---
 import { dayToMediaItems, MediaItem } from "@components/data/media";
 import MediaCard from "@components/MediaCard.astro";
+import MediaHeader from "@components/MediaHeader.astro";
 
 const allMedia = Object.entries(dayToMediaItems)
   .sort(([date1], [date2]) => date1.localeCompare(date2))
@@ -29,7 +30,13 @@ const summerMediaJSON = JSON.stringify(summer24MediaItems);
   
   <div class="mb-10">
     <div>Welcome to the Media section. Here you will find various media items related to our activities.</div>
-    <div>Below you will find the list of media items. Please check back regularly for updates.</div>
+    <div>Below you will find the list of media items organized by season. Click on a season to expand it and explore the events.</div>
+    <div class="mt-2 text-sm text-gray-400 flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+      </svg>
+      <span>Pro tip: Click the link icon on any event to copy a direct link for sharing.</span>
+    </div>
   </div>
 
   <!-- Season Definitions -->
@@ -88,6 +95,102 @@ const summerMediaJSON = JSON.stringify(summer24MediaItems);
   let touchEndX = 0;
   let lastSwipeTime = 0; // Track the time of the last swipe
   const swipeCooldown = 300; // Minimum milliseconds between swipes
+  
+  // Handle deep linking and URL hash navigation
+  function handleDeepLink() {
+    // Check if a hash exists in the URL
+    if (location.hash) {
+      const hash = location.hash.substring(1); // Remove the # character
+      
+      // If the hash starts with 'event-', it's an event deep link
+      if (hash.startsWith('event-')) {
+        const targetElement = document.getElementById(hash);
+        
+        if (targetElement) {
+          // Find the parent season container
+          const seasonContainer = targetElement.closest('.media-season');
+          
+          if (seasonContainer) {
+            // Close all seasons first
+            document.querySelectorAll('.media-season').forEach(season => {
+              (season as HTMLDetailsElement).open = false;
+            });
+            
+            // Open the parent season
+            (seasonContainer as HTMLDetailsElement).open = true;              // Scroll to the target element with a slight delay to allow the details to expand
+            setTimeout(() => {
+              targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              
+              // Add a temporary highlight class and remove it after animation completes
+              const card = targetElement.querySelector('.card');
+              if (card) {
+                card.classList.add('highlight-target');
+                setTimeout(() => {
+                  card.classList.remove('highlight-target');
+                }, 2000);
+              }
+            }, 100);
+          }
+        }
+      }
+    }
+  }
+  
+  // Copy the link to clipboard when the link icon is clicked
+  function setupLinkCopyButtons() {
+    document.querySelectorAll('.card a[href^="#event-"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = new URL(window.location.href);
+        url.hash = (link as HTMLAnchorElement).getAttribute('href') || '';
+        
+        // Copy the full URL to clipboard
+        navigator.clipboard.writeText(url.toString())
+          .then(() => {
+            // Show a temporary tooltip or notification
+            const originalTitle = (link as HTMLElement).getAttribute('title');
+            (link as HTMLElement).setAttribute('title', 'Link copied!');
+            
+            // Add visual feedback
+            const oldColor = (link as HTMLElement).style.color;
+            (link as HTMLElement).style.color = '#4CAF50'; // Success green
+            
+            // Create temporary tooltip
+            const tooltip = document.createElement('div');
+            tooltip.textContent = 'Link copied!';
+            tooltip.style.position = 'absolute';
+            tooltip.style.backgroundColor = '#333';
+            tooltip.style.color = '#fff';
+            tooltip.style.padding = '5px 10px';
+            tooltip.style.borderRadius = '4px';
+            tooltip.style.fontSize = '12px';
+            tooltip.style.zIndex = '1000';
+            tooltip.style.opacity = '0';
+            tooltip.style.transition = 'opacity 0.3s';
+            
+            // Position the tooltip near the link
+            const rect = (link as HTMLElement).getBoundingClientRect();
+            tooltip.style.top = `${window.pageYOffset + rect.bottom + 5}px`;
+            tooltip.style.left = `${window.pageXOffset + rect.left}px`;
+            
+            // Add to document and animate
+            document.body.appendChild(tooltip);
+            setTimeout(() => { tooltip.style.opacity = '1'; }, 10);
+            
+            // Remove tooltip and reset after animation
+            setTimeout(() => {
+              tooltip.style.opacity = '0';
+              (link as HTMLElement).style.color = oldColor;
+              (link as HTMLElement).setAttribute('title', originalTitle || 'Copy link to this event');
+              setTimeout(() => tooltip.remove(), 300); // Remove after fade out
+            }, 2000);
+          })
+          .catch(err => {
+            console.error('Failed to copy link: ', err);
+          });
+      });
+    });
+  }
   
   // Media popup functions
   function openMedia(type: 'video' | 'image', url: string, event?: Event) {
@@ -392,6 +495,15 @@ const summerMediaJSON = JSON.stringify(summer24MediaItems);
   
   // Add global event listeners
   document.addEventListener('DOMContentLoaded', () => {
+    // Handle deep linking on page load
+    handleDeepLink();
+    
+    // Set up link copy buttons
+    setupLinkCopyButtons();
+    
+    // Listen for hash changes to handle navigation without page reload
+    window.addEventListener('hashchange', handleDeepLink);
+    
     // Hide the video loading spinner when a video loads
     document.querySelectorAll('.video-embed iframe').forEach((iframe: HTMLIFrameElement) => {
       iframe.addEventListener('load', function(this: HTMLIFrameElement) {
@@ -688,5 +800,58 @@ const summerMediaJSON = JSON.stringify(summer24MediaItems);
   
   details > summary::-webkit-details-marker {
     display: none;
+  }
+  
+  /* Enhanced styles for the copy link button */
+  .card a[href^="#event-"] {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .card a[href^="#event-"]:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+  }
+  
+  .card a[href^="#event-"]:active {
+    transform: scale(0.9);
+  }
+  
+  /* Add a small tooltip effect */
+  .card a[href^="#event-"]::after {
+    content: "Copy link";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+  }
+  
+  .card a[href^="#event-"]:hover::after {
+    opacity: 1;
+  }
+  
+  /* Highlight the targeted event */
+  :target {
+    scroll-margin-top: 2rem;
+  }
+  
+  :target > .card {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+    animation: highlight-pulse 2s ease-in-out;
+  }
+  
+  @keyframes highlight-pulse {
+    0% { box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 0 4px rgba(203, 45, 62, 0.6); }
+    100% { box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3); }
   }
 </style>
