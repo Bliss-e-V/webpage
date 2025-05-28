@@ -201,7 +201,7 @@ const mediaItems = [
     ),
     // SS2025
     new MediaItem(
-        "Compressing Foundation Models as Easy as Image Compression?",
+        "Can Compressing Foundation Models be as Easy as Image Compression?",
         "Dr. Martin Genzel (Merantix Momentum)",
         "Dr. Martin Genzel is a Senior Research Engineer at Merantix Momentum.",
         "The widespread adoption of Foundation Models, especially LLMs, is often hindered by their substantial size and computational demands, especially in resource-limited settings. While post-training compression offers a promising avenue to mitigate these challenges, the process can feel like a \"black box\" for the user, requiring significant expertise and trial-and-error to find the right balance between model size and performance. This talk introduces Any Compression via Iterative Pruning (ACIP), a novel algorithmic approach designed with the user in mind. ACIP allows for intuitive and direct control over the compression-performance trade-off, akin to compressing an image. It leverages a single gradient descent run of iterative pruning to establish a global parameter ranking, from which models of any target size can be immediately materialized. ACIP demonstrates strong predictive performance on downstream tasks without costly fine-tuning. Across various open-weight LLMs, it achieves state-of-the-art compression results compared to existing factorization-based methods. Moreover, it seamlessly complements common quantization techniques for even greater compression.",
