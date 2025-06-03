@@ -141,7 +141,7 @@ const sections: Section[] = [
         "Gregor Lied",
         new Date("2025-06-04"),
         new Date("2025-09-30"),
-        "Investigations into geometric and equivariant graph neural networks with applications in molecular and quantum systems"
+        "This reading group investigates the theoretical foundations and architectural design space of Geometric Graph Neural Networks for 3D atomic systems."
     ),
 ]
 
