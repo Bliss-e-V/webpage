@@ -49,13 +49,18 @@ import switchSAE from "../../images/posts/images/SwitchSAE.png";
 import transcoders from "../../images/posts/images/Transcoders.png";
 import sparseCircuits from "../../images/posts/images/SparseCircuits.png";
 import paramSpace from "../../images/posts/images/ParamSpace.png";
-
 import foundationPathCancer from "../../images/posts/images/20250428_foundationModelPathCancer.png";
 import visLangPath from "../../images/posts/images/20250505_visLangPathologyFoundation.png";
 import transMil from "../../images/posts/images/20250512_transmil.png"
 import multimodalPath from "../../images/posts/images/20250519_multimodalPath.png";
 import scalingViT from "../../images/posts/images/20250526_scalingViT.png";
 import prism from "../../images/posts/images/20250602_prism.png";
+
+import gilmer from "../../images/posts/images/20250609_gilmer17.png";
+import gasteiger from "../../images/posts/images/20250616_gasteiger20.png";
+import satorras from "../../images/posts/images/20250623_satorras22.png";
+import hu from "../../images/posts/images/20250630_hu21.png";
+import joshi from "../../images/posts/images/20250707_joshi24.png";
 
 export class Paper {
     constructor(public name: string, public authors: string[], public link: string, public image: ImageMetadata, public readingDay: Date) {
@@ -130,7 +135,14 @@ const sections: Section[] = [
         new Date("2025-04-01"),
         new Date("2025-06-03"),
         "A deep dive into the world of multimodal foundation models for histopathology."
-    )
+    ),
+    new Section(
+        "Geometric Graph Neural Network",
+        "Gregor Lied",
+        new Date("2025-06-04"),
+        new Date("2025-09-30"),
+        "This reading group investigates the theoretical foundations and architectural design space of Geometric Graph Neural Networks for 3D atomic systems."
+    ),
 ]
 
 // --------------------------------------------------
@@ -193,6 +205,11 @@ const papers = [
     new Paper("A multimodal generative AI copilot for human pathology", ["Ming Y. Lu", "Bowen Chen", "Drew F. K. Williamson", "Richard J. Chen", "Melissa Zhao", "Aaron K. Chow", "Kenji Ikemura", "Ahrong Kim", "Dimitra Pouli", "Ankush Patel", "Amr Soliman", "Chengkuan Chen", "Tong Ding", "Judy J. Wang", "Georg Gerber", "Ivy Liang", "Long Phi Le", "Anil V. Parwani", "Luca L. Weishaupt", "Faisal Mahmood"], "https://www.nature.com/articles/s41586-024-07618-3.pdf", multimodalPath, new Date('2025-05-19')),
     new Paper("Scaling Vision Transformers to Gigapixel Images via Hierarchical Self-Supervised Learning", ["Richard J. Chen", "Chengkuan Chen", "Yicong Li", "Tiffany Y. Chen", "Andrew D. Trister", "Rahul G. Krishnan", "Faisal Mahmood"], "https://arxiv.org/pdf/2206.02647", scalingViT, new Date('2025-05-26')),
     new Paper("PRISM: A Multi-Modal Generative Foundation Model for Slide-Level Histopathology", ["George Shaikovski", "Adam Casson", "Kristen Severson", "Eric Zimmermann", "Yi Kan Wang", "Jeremy D. Kunz", "Juan A. Retamero", "Gerard Oakley", "David Klimstra", "Christopher Kanan", "Matthew Hanna", "Michal Zelechowski", "Julian Viret", "Neil Tenenholtz", "James Hall", "Nicolo Fusi", "Razik Yousfi", "Peter Hamilton", "William A. Moye", "Eugene Vorontsov", "Siqi Liu", "Thomas J. Fuchs"], "https://arxiv.org/pdf/2405.10254", prism, new Date('2025-06-02')),
+    new Paper("Neural Message Passing for Quantum Chemistry", ["Justin Gilmer", "Samuel S. Schoenholz", "Patrick F. Riley", "Oriol Vinyals", "George E. Dahl"], "https://arxiv.org/pdf/1704.01212", gilmer, new Date("2025-06-09")),
+    new Paper("Directional Message Passing for Molecular Graphs", ["Johannes Gasteiger", "Janek Groß", "Stephan Günnemann"], "https://arxiv.org/pdf/2003.03123", gasteiger, new Date("2025-06-16")),
+    new Paper("E(n) Equivariant Graph Neural Networks", ["Victor Garcia Satorras", "Emiel Hoogeboom", "Max Welling"], "https://arxiv.org/pdf/2102.09844", satorras, new Date("2025-06-23")),
+    new Paper("ForceNet: A Graph Neural Network for Large-Scale Quantum Calculations", ["Weihua Hu", "Muhammed Shuaibi", "Abhishek Das", "Siddharth Goyal", "Anuroop Sriram", "Jure Leskovec", "Devi Parikh", "C. Lawrence Zitnick"], "https://arxiv.org/pdf/2103.01436", hu, new Date("2025-06-30")),
+    new Paper("On the Expressive Power of Geometric Graph Neural Networks", ["Chaitanya K. Joshi", "Cristian Bodnar", "Simon V. Mathis", "Taco Cohen", "Pietro Liò"], "https://arxiv.org/pdf/2301.09308", joshi, new Date("2025-07-07")),
 ];
 
 // --------------------------------------------------
