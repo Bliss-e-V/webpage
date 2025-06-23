@@ -227,6 +227,36 @@ const mediaItems = [
         ],
         new Date("2025-05-06")
     ),
+    new MediaItem(
+        "Scalable Emulation of Protein Equilibrium Ensembles with Generative Deep Learning",
+        "Dr. Yu Xie and Dr. Michael Gastegger (Microsoft AI4Science)",
+        "We are excited to feature Dr. Yu Xie and Dr. Michael Gastegger, both Senior Researchers at Microsoft AI4Science, who will discuss `Scalable Emulation of Protein Equilibrium Ensembles with Generative Deep Learning`,  lasting approximately 45 minutes.",
+        "Following the sequence and structure revolutions, predicting the dynamical mechanisms of proteins that implement biological function remains an outstanding scientific challenge. Several experimental techniques and molecular dynamics (MD) simulations can, in principle, determine conformational states, binding configurations and their probabilities, but suffer from low throughput. Here we develop a Biomolecular Emulator (BioEmu), a generative deep learning system that can generate thousands of statistically independent samples from the protein structure ensemble per hour on a single graphical processing unit. By leveraging novel training methods and vast data of protein structures, over 200 milliseconds of MD simulation, and experimental protein stabilities, BioEmu’s protein ensembles represent equilibrium in a range of challenging and practically relevant metrics. Qualitatively, BioEmu samples many functionally relevant conformational changes, ranging from formation of cryptic pockets, over unfolding of specific protein regions, to large-scale domain rearrangements. Quantitatively, BioEmu samples protein conformations with relative free energy errors around 1 kcal/mol, as validated against millisecond-timescale MD simulation and experimentally-measured protein stabilities. By simultaneously emulating structural ensembles and thermodynamic properties, BioEmu reveals mechanistic insights, such as the causes for fold destabilization of mutants, and can efficiently provide experimentally-testable hypotheses.",
+        "https://www.youtube.com/embed/UvWHCsjjEBY",
+        [
+            "/images/media/ss25/20250520_xie_gastegger/ai4s_1.jpeg",
+            "/images/media/ss25/20250520_xie_gastegger/ai4s_2.jpeg",
+            "/images/media/ss25/20250520_xie_gastegger/ai4s_3.jpeg",
+            "/images/media/ss25/20250520_xie_gastegger/ai4s_4.jpeg",
+            "/images/media/ss25/20250520_xie_gastegger/ai4s_5.jpeg",
+            "/images/media/ss25/20250520_xie_gastegger/ai4s_6.jpeg",
+        ],
+        new Date("2025-05-20")
+    ),
+
+    new MediaItem(
+        "Watermark Anything with Localized Messages",
+        "Dr. Pierre Fernandez (FAIR Meta AI)",
+        "We are excited to feature Dr. Pierre Fernandez, Research Scientist at Meta AI, who will discuss `Watermark Anything with Localized Messages`, lasting approximately 45 minutes.",
+        "Invisible image watermarking embeds information into image pixels in a way that remains imperceptible to the human eye but can still be retrieved even after significant image editing. However, traditional methods struggle when dealing with small, localized watermarked areas—something that often happens in real-world scenarios where images come from different sources or undergo modifications. In this talk, after a brief introduction to image watermarking, we’ll explore an approach designed to tackle this issue. Watermark Anything (ICLR 2025) reframes image watermarking as a segmentation problem. We’ll walk through the motivation behind this idea, how we developed and trained the model, the challenges we faced, and the final results.",
+        "https://www.youtube.com/embed/gwnYmoVzJCo",
+        [
+            "/images/media/ss25/20250603_fernandez/fernandez_1.jpeg",
+            "/images/media/ss25/20250603_fernandez/fernandez_2.jpeg",
+            "/images/media/ss25/20250603_fernandez/fernandez_3.jpeg",
+        ],
+        new Date("2025-06-03")
+    )
 
 ];
 
