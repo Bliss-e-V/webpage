@@ -1,15 +1,13 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
 import dotenv from 'dotenv';
 
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://docs.astro.build/en/guides/markdown-content/#modifying-frontmatter-programmatically
 import { remarkReadingTime } from './remark-reading-time.mjs';
 
 // https://astro.build/config
 import react from "@astrojs/react";
-
-// https://docs.astro.build/en/guides/integrations-guide/vercel/
 
 // https://github.com/alextim/astro-lib/tree/main/packages/astro-robots-txt#readme
 import robotsTxt from 'astro-robots-txt';
@@ -18,7 +16,7 @@ import robotsTxt from 'astro-robots-txt';
 import sitemap from '@astrojs/sitemap';
 
 // https://docs.astro.build/en/guides/integrations-guide/vercel/#web-analytics
-import vercel from '@astrojs/vercel/static';
+import vercel from '@astrojs/vercel';
 
 dotenv.config();
 
@@ -26,7 +24,6 @@ dotenv.config();
 export default defineConfig({
   site: "https://bliss.berlin",
   integrations: [
-    tailwind(),
     react(),
     robotsTxt({
       policy: [
@@ -54,7 +51,9 @@ export default defineConfig({
       priority: 0.7
     })
   ],
-  renderers: ['@astrojs/renderer-react'],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   markdown: {
     shikiConfig: {
       theme: 'github-dark',
@@ -71,4 +70,7 @@ export default defineConfig({
     },
   }),
   trailingSlash: 'never',
+  image: {
+    service: passthroughImageService()
+  },
 });

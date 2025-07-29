@@ -184,6 +184,8 @@ const currentDate = new Date().toISOString();
 </script>
 
 <style is:global>
+  @reference "../global.css";
+
   :root {
     --accent: #cb2d3e;
     --accent-dark: #3c0909;
@@ -194,6 +196,7 @@ const currentDate = new Date().toISOString();
     --secondary: #adb5bd;
     --tertiary: #6c757d;
     --border: #3b424d;
+    --color: var(--accent);
   }
 
   ::selection {
