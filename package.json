@@ -18,14 +18,11 @@
     "@fontsource/dm-sans": "^5.2.6",
     "@fontsource/righteous": "^5.2.6",
     "@getbrevo/brevo": "^2.5.0",
-    "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/vite": "^4.1.11",
     "@types/react-dom": "^19.1.7",
     "@vercel/analytics": "^1.5.0",
     "animejs": "^4.1.2",
     "astro": "^5.12.5",
-    "astro-robots-txt": "^1.0.0",
-    "astro-sitemap": "^1.0.0",
     "axios": "^1.11.0",
     "dotenv": "^17.2.1",
     "fuse.js": "^7.1.0",
@@ -43,6 +40,7 @@
     "three-noise": "^1.1.2"
   },
   "devDependencies": {
+    "@types/node": "^24.1.0",
     "@types/p5": "^1.7.6",
     "@types/react": "^19.1.9",
     "@types/react-google-recaptcha": "^2.1.9",
@@ -50,7 +48,9 @@
     "cz-conventional-changelog": "^3.3.0",
     "jsdom": "^26.1.0",
     "prettier": "^3.6.2",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.6"
   },
   "config": {
     "commitizen": {

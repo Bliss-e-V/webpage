@@ -9,9 +9,6 @@ import { remarkReadingTime } from './remark-reading-time.mjs';
 // https://astro.build/config
 import react from "@astrojs/react";
 
-// https://github.com/alextim/astro-lib/tree/main/packages/astro-robots-txt#readme
-import robotsTxt from 'astro-robots-txt';
-
 // https://docs.astro.build/en/guides/integrations-guide/sitemap/
 import sitemap from '@astrojs/sitemap';
 
@@ -25,19 +22,6 @@ export default defineConfig({
   site: "https://bliss.berlin",
   integrations: [
     react(),
-    robotsTxt({
-      policy: [
-        {
-          userAgent: '*',
-          allow: '/',
-          disallow: ['/newsletter', '/404'],
-          crawlDelay: 10
-        }
-      ],
-      sitemap: [
-        'https://bliss.berlin/sitemap-index.xml'
-      ]
-    }),
     sitemap({
       filter: (page) => !page.includes('/newsletter') && !page.includes('/404'),
       customPages: [
@@ -59,8 +43,7 @@ export default defineConfig({
       theme: 'github-dark',
       wrap: true
     },
-    remarkPlugins: [remarkReadingTime],
-    extendDefaultPlugins: true
+    remarkPlugins: [remarkReadingTime]
   },
   output: 'static',
   adapter: vercel({
