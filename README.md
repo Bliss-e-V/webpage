@@ -302,17 +302,3 @@ Again, make sure that the image size does not exceed 150kB (`.jpg` is the
 preferred image format as it uses compression). It the image significantly
 exceeds the maximum file size, use online or CLI tools to compress the image.
 Also, remember to add alt text for increased visibility (SEO).
-
-### Adding Author Profile Image
-
-If you have never authored a blog post before, just writing your name in the
-`author` metadata field will not magically make an image of you appear. For this
-to work, you will need to add your own avatar to the `public/authors` directory.
-Note, that the naming of the file is critically important since Astro is
-internally traversing the author meta tag (lowercasing and making spaces to
-dashes) and searches for a match in the `public/authors` directory. This means
-the following for adding an author image.
-
-> `author: Mika Senghaas` -> `/public/authors/mika-senghaas.jpg`
-
-✅ Done. Thanks for making this project better!
