@@ -230,7 +230,7 @@ const mediaItems = [
     new MediaItem(
         "Scalable Emulation of Protein Equilibrium Ensembles with Generative Deep Learning",
         "Dr. Yu Xie and Dr. Michael Gastegger (Microsoft AI4Science)",
-        "We are excited to feature Dr. Yu Xie and Dr. Michael Gastegger, both Senior Researchers at Microsoft AI4Science, who will discuss `Scalable Emulation of Protein Equilibrium Ensembles with Generative Deep Learning`,  lasting approximately 45 minutes.",
+        "Dr. Yu Xie and Dr. Michael Gastegger are both Senior Researchers at Microsoft AI4Science.",
         "Following the sequence and structure revolutions, predicting the dynamical mechanisms of proteins that implement biological function remains an outstanding scientific challenge. Several experimental techniques and molecular dynamics (MD) simulations can, in principle, determine conformational states, binding configurations and their probabilities, but suffer from low throughput. Here we develop a Biomolecular Emulator (BioEmu), a generative deep learning system that can generate thousands of statistically independent samples from the protein structure ensemble per hour on a single graphical processing unit. By leveraging novel training methods and vast data of protein structures, over 200 milliseconds of MD simulation, and experimental protein stabilities, BioEmu’s protein ensembles represent equilibrium in a range of challenging and practically relevant metrics. Qualitatively, BioEmu samples many functionally relevant conformational changes, ranging from formation of cryptic pockets, over unfolding of specific protein regions, to large-scale domain rearrangements. Quantitatively, BioEmu samples protein conformations with relative free energy errors around 1 kcal/mol, as validated against millisecond-timescale MD simulation and experimentally-measured protein stabilities. By simultaneously emulating structural ensembles and thermodynamic properties, BioEmu reveals mechanistic insights, such as the causes for fold destabilization of mutants, and can efficiently provide experimentally-testable hypotheses.",
         "https://www.youtube.com/embed/UvWHCsjjEBY",
         [
@@ -243,7 +243,6 @@ const mediaItems = [
         ],
         new Date("2025-05-20")
     ),
-
     new MediaItem(
         "Watermark Anything with Localized Messages",
         "Dr. Pierre Fernandez (FAIR Meta AI)",
@@ -256,6 +255,46 @@ const mediaItems = [
             "/images/media/ss25/20250603_fernandez/fernandez_3.jpeg",
         ],
         new Date("2025-06-03")
+    ),
+    new MediaItem(
+        "Radiance Fields are Dead (and why that's OK)",
+        "Daniel Duckworth (Google DeepMind)",
+        "Daniel Duckworth is a Senior Research Software Engineer at Google DeepMind",
+        "Our innate ability to reconstruct the 3D world around us from our eyes alone is a fundamental part of human perception. For computers, however, this task remained a significant challenge — until the advent of Neural Radiance Fields (NeRFs). Upon their introduction, NeRFs marked a paradigm shift in the field of novel view synthesis, demonstrating huge improvements in visual realism and geometric accuracy over prior works. The subsequent proliferation of NeRF variants has only expanded their capabilities, unlocking larger scenes, achieving even higher visual fidelity, and accelerating both training and inference. Nevertheless, NeRF is no longer the tool of choice for 3D reconstruction. Why? Join a researcher from the front lines as we explore NeRF’s foundations, dissect its strengths and weaknesses, see how the field has evolved, and explore the future of novel view synthesis.",
+        "https://www.youtube.com/embed/FtaC5lh8hxs",
+        [
+            "/images/media/ss25/20250617_duckworth/1.jpg",
+            "/images/media/ss25/20250617_duckworth/2.jpg",
+            "/images/media/ss25/20250617_duckworth/3.jpg",
+        ],
+        new Date("2025-06-17")
+    ),
+    new MediaItem(
+        "Progress in AI Safety and Security",
+        "Dr. Adel Bibi (University of Oxford)",
+        "Adel Bibi is a senior researcher in machine learning and computer vision at the Department of Engineering Science since 2023, University of Oxford, a Research Member of the Common Room at Kellogg College, and a member of the ELLIS Society. Bibi is an R&D Distinguished Advisor with Softserve.",
+        "We will navigate through the alignment challenges and safety considerations of LLMs, addressing both their limitations and capabilities, particularly focusing on techniques related to instruction prefix tuning and their theoretical limitations toward alignment. Additionally, I will discuss fairness across languages in common tokenizers used in LLMs. Finally, I will address safety considerations for agentic systems, illustrating methods to compromise their safety by exploiting seemingly minor changes, such as altering the desktop background to generate a chain of sequenced harmful actions. I will also explore the transferability of these vulnerabilities across different agents.",
+        "",
+        [
+            "/images/media/ss25/20250701_bibi/1.jpg",
+            "/images/media/ss25/20250701_bibi/2.jpg",
+            "/images/media/ss25/20250701_bibi/3.jpg",
+        ],
+        new Date("2025-07-01")
+    ),
+    new MediaItem(
+        "Detecting Hallucinations in Large Language Models Using Semantic Entropy",
+        "Jannik Kossen (Meta FAIR)",
+        "Jannik is an AI research scientist at Meta FAIR, building LLMs for code generation. At some point, the University of Oxford, where he worked on uncertainty and data-efficiency in vision and language models, will probably grant him a PhD. He previously studied Physics in Bremen and Heidelberg, has interned at Google and DeepMind, but now lives in Berlin.",
+        "Large language models can 'hallucinate' factually incorrect outputs, presenting significant risks for their adoption to high-stakes applications. Jannik will present joint work recently published in Nature (https://www.nature.com/articles/s41586-024-07421-0) on detecting hallucinations in large language models using semantic entropy, which mitigates hallucinations by quantifying the model's own uncertainty over the meaning of generations. He will also discuss a recent pre-print (https://arxiv.org/abs/2406.15927) that proposes a method to drastically reduce the cost of uncertainty quantification in LLMs by predicting semantic entropy from latent space, and he may ramble about uncertainties in LLMs more generally.",
+        "",
+        [
+            "/images/media/ss25/20250715_kossen/1.jpg",
+            "/images/media/ss25/20250715_kossen/2.jpg",
+            "/images/media/ss25/20250715_kossen/3.jpg",
+            "/images/media/ss25/20250715_kossen/4.jpg",
+        ],
+        new Date("2025-07-15")
     )
 
 ];
