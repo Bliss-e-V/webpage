@@ -47,7 +47,7 @@ export const members = [
     new Member("Nina", "Zukowska", nina, "https://www.linkedin.com/in/nina-zukowska/"),
     new Member("Shairal", "Sharma", shairal, "https://www.linkedin.com/in/shairal-om-sharma-409590188/"),
     new Member("Anna", "Tils", anna, "https://www.linkedin.com/in/anna-tils-0759b3312/"),
-    new Member("Jan", "Tiegges", jan, "https://www.linkedin.com/in/jan-tiegges/"),
+    // new Member("Jan", "Tiegges", jan, "https://www.linkedin.com/in/jan-tiegges/"),
     // new Member("Maja", "Kosiarski", null, "https://www.linkedin.com/in/maja-kosiarski-227194297/"),
     // new Member("Mia", "Prokopovych ", mia, "https://www.linkedin.com/in/mia-prokopovych-9aaa26302"),
     // new Member("Jarek", "Liesen", null, "https://www.linkedin.com/in/jarek-liesen/"),
