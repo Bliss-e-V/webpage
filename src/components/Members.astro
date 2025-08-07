@@ -8,24 +8,15 @@ import MemberCard from "./MemberCard.astro";
 <div class="flex items-center flex-col justify-center max-w-2/3 mb-40">
     <div id="speaker-series" class="text-center pt-32 mb-6">
         <Headline level={2}>Team</Headline>
-        <p
-            class="mt-4 font-light leading-relaxed text-secondary text-md sm:text-xl"
-        >
-            Get to know the team!
-        </p>
     </div>
     <div
         class="membersContainer flex flex-wrap justify-center flex-row flex-grow-0"
     >
         {
             members.map((member) =>
-                member.link === null ? (
-                    <MemberCard member={member} />
-                ) : (
-                    <a href={member.link}>
-                        <MemberCard member={member} />
-                    </a>
-                ),
+                member.link
+                ? <a href={member.link}><MemberCard member={member}/></a>
+                : <span><MemberCard member={member}/></span>
             )
         }
     </div>
