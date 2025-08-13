@@ -77,7 +77,6 @@
   border-color: var(--border);
 }
 
-/* Custom gradients from old config */
 @utility bg-red-bottom {
   background-image: linear-gradient(to bottom, #cb2d3e, #ef473a);
 }
@@ -90,7 +89,6 @@
   background-image: linear-gradient(to right, #552383, #88BCE9);
 }
 
-/* Custom box shadows from old config */
 @utility shadow-accent {
   box-shadow: 0 0 20px 5px #cb2d3e;
 }

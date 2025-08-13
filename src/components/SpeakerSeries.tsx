@@ -12,7 +12,7 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
     const speakersToRender = renderPastEvents ? speakers : speakers.filter(speaker => speaker.date > new Date());
     const renderWithLargeMargins = props.largeMargins === undefined ? true : props.largeMargins;
 
-    return <div className="flex items-center flex-wrap justify-center max-w-2/3" >
+    return <div className="flex items-center flex-wrap justify-center" >
         <div id="speaker Series" className={"text-center " + (renderWithLargeMargins ? " pt-32 sm:my-40" : "")}>
             <Headline level={2}>Speaker Series</Headline>
             <div className="relative flex justify-center mt-16">
