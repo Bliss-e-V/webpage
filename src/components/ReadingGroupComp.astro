@@ -102,6 +102,7 @@ const getPapersInDateRange = (
                     );
 
                     if (sectionPapers.length === 0) return null;
+                    const years = section.startDate.getFullYear() === section.endDate.getFullYear() ? section.startDate.getFullYear() : `${section.startDate.getFullYear()} - ${section.endDate.getFullYear()}`;
 
                     return (
                         <div class="w-10/12 border border-gray-200 rounded-lg p-4 m-4 bg-neutral-950">
@@ -113,7 +114,7 @@ const getPapersInDateRange = (
                                                 {section.title}
                                             </h3>
                                             <p class="text-secondary">
-                                                Host: {section.host}
+                                                by {section.host}, {years}
                                             </p>
                                         </div>
                                         <div class="transform group-open:rotate-180 transition-transform">
