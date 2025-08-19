@@ -1,6 +1,15 @@
 ---
 interface Props {
-  post: any;
+  post: {
+    frontmatter: {
+      title: string;
+      description: string;
+      imgSrc?: string;
+      minutesRead?: string;
+      date: string;
+    };
+    file: string;
+  };
 }
 
 const { frontmatter, file } = Astro.props.post;

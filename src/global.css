@@ -1,3 +1,102 @@
+@import "tailwindcss";
+
+/* Custom utilities for Tailwind CSS v4 */
+@utility text-primary {
+  color: var(--primary);
+}
+
+@utility text-secondary {
+  color: var(--secondary);
+}
+
+@utility text-tertiary {
+  color: var(--tertiary);
+}
+
+@utility text-accent {
+  color: var(--accent);
+}
+
+@utility text-accent-dark {
+  color: var(--accent-dark);
+}
+
+@utility text-accent-light {
+  color: var(--accent-light);
+}
+
+@utility bg-primary {
+  background-color: var(--primary);
+}
+
+@utility bg-secondary {
+  background-color: var(--secondary);
+}
+
+@utility bg-tertiary {
+  background-color: var(--tertiary);
+}
+
+@utility bg-accent {
+  background-color: var(--accent);
+}
+
+@utility bg-accent-dark {
+  background-color: var(--accent-dark);
+}
+
+@utility bg-accent-light {
+  background-color: var(--accent-light);
+}
+
+@utility bg-background {
+  background-color: var(--background);
+}
+
+@utility bg-background-secondary {
+  background-color: var(--background-secondary);
+}
+
+@utility border-primary {
+  border-color: var(--primary);
+}
+
+@utility border-secondary {
+  border-color: var(--secondary);
+}
+
+@utility border-tertiary {
+  border-color: var(--tertiary);
+}
+
+@utility border-accent {
+  border-color: var(--accent);
+}
+
+@utility border-border {
+  border-color: var(--border);
+}
+
+@utility bg-red-bottom {
+  background-image: linear-gradient(to bottom, #cb2d3e, #ef473a);
+}
+
+@utility bg-red-right {
+  background-image: linear-gradient(to right, #cb2d3e, #ef473a);
+}
+
+@utility bg-bliss {
+  background-image: linear-gradient(to right, #552383, #88BCE9);
+}
+
+@utility shadow-accent {
+  box-shadow: 0 0 20px 5px #cb2d3e;
+}
+
+@utility shadow-accent-small {
+  box-shadow: 0 0 10px 3px #cb2d3e;
+}
+
 html {
   scroll-behavior: smooth;
 }
