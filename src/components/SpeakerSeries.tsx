@@ -25,8 +25,8 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
                         muted
                         loop
                     >
-                        <source src="/images/media/ss25/ss25_min.mp4" type="video/mp4" />
-                        Teaser for the Speaker Series Season 2025
+                        <source src="/images/media/ws2526/teaser_min.mp4" type="video/mp4" />
+                        Teaser for the BLISS AI Speaker Series Winter 2025/26
                     </video>
                 </div>
             </div>
@@ -34,7 +34,7 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
                 className="mt-4 font-light leading-relaxed text-secondary text-md sm:text-xl"
             >
                 Get your <strong className="text-primary">Free</strong> Tickets for the
-                Speaker Series now!
+                Speaker Series Winter 2025/26 now!
             </p>
 
             <div className="flex items-center justify-center my-2">
@@ -49,7 +49,7 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
                     ></path></svg>
                     <a
                         href="https://www.google.com/maps/place/52.512234026784135,13.326086191574715"
-                        target="_blank">TU Berlin H0110</a>
+                        target="_blank">TU Berlin Chemistry Building C130</a>
                 </div>
 
                 <div className="flex items-center">
