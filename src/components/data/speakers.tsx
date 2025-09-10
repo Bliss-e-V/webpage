@@ -10,14 +10,15 @@ class Speaker {
 // modify HERE to update speakers
 
 const speakersRaw = [
-    // === summersemester 2025===
-    new Speaker(new Date("2025-04-22"), "Can Compressing Foundation Models be as Easy as Image Compression?", "Dr. Martin Genzel", "Merantix Momentum", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121089", false),
-    new Speaker(new Date("2025-05-06"), "CAPI: Cluster and Predict Latent Patches for Improved Masked Image Modeling", "Timothée Darcet", "Meta AI, Inria", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121112", false),
-    new Speaker(new Date("2025-05-20"), "Scalable Emulation of Protein Equilibrium Ensembles with Generative Deep Learning", "Dr. Yu Xie", "Microsoft AI4Science", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121117", false),
-    new Speaker(new Date("2025-06-03"), "Watermark Anything with Localized Messages", "Dr. Pierre Fernandez", "Meta AI", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121121", false),
-    new Speaker(new Date("2025-06-17"), "Radiance Fields are Dead (and why that’s OK)", "Daniel Duckworth", "Google DeepMind", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121124", false),
-    new Speaker(new Date("2025-07-01"), "Progress in AI Safety and Security", "Dr. Adel Bibi", "University of Oxford", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121127", false),
-    new Speaker(new Date("2025-07-15"), "Detecting Hallucinations in Large Language Models Using Semantic Entropy", "Jannik Kossen", "Meta AI, University of Oxford", "https://www.meetup.com/de-DE/bliss-speaker-series/events/306121141", false),
+    // === wintersemester 2025===
+    new Speaker(new Date("2025-10-21"), "Why do LLMs struggle with Long Context?", "Federico Barbero", "DeepMind, University of Oxford", "https://www.meetup.com/bliss-speaker-series/events/310955905", false),
+    new Speaker(new Date("2025-11-04"), "TBD", "Beyza Ermiş", "Cohere", "https://www.meetup.com/bliss-speaker-series/events/", false),
+    new Speaker(new Date("2025-11-18"), "Generative World Models", "Ashley Edwards", "DeepMind", "https://www.meetup.com/bliss-speaker-series/events/", false),
+    new Speaker(new Date("2025-12-02"), "TBD", "Ameya Prabhu", "Tübingen AI Center", "https://www.meetup.com/bliss-speaker-series/events/", false),
+    new Speaker(new Date("2025-12-16"), "TBD", "Dilara Gökay", "DeepMind", "https://www.meetup.com/bliss-speaker-series/events/", false),
+    new Speaker(new Date("2026-01-13"), "Test-Time Training Agents for Deep Exploration", "Jonas Hübotter", "ETH Zurich", "https://www.meetup.com/bliss-speaker-series/events/", false),
+    new Speaker(new Date("2026-01-27"), "Can Humans Flourish in the Age of AI?", "David Watson", "King's College London", "https://www.meetup.com/bliss-speaker-series/events/", false),
+    new Speaker(new Date("2026-02-10"), "The Price of Intelligence: Three Risks Inherent in LLMs", "Ahmed Salem", "Microsoft Security Response Center (MSRC)", "https://www.meetup.com/bliss-speaker-series/events/", false),
 ];
 
 
