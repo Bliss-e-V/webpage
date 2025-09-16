@@ -15,7 +15,7 @@ const speakersRaw = [
     new Speaker(new Date("2025-11-04"), "TBD", "Beyza Ermiş", "Cohere", "https://www.meetup.com/bliss-speaker-series/events/", false),
     new Speaker(new Date("2025-11-18"), "Generative World Models", "Ashley Edwards", "DeepMind", "https://www.meetup.com/bliss-speaker-series/events/", false),
     new Speaker(new Date("2025-12-02"), "What's Next in Continual Learning for Foundation Models?", "Ameya Prabhu", "Tübingen AI Center", "https://www.meetup.com/bliss-speaker-series/events/", false),
-    new Speaker(new Date("2025-12-16"), "Insights into training video models", "Dilara Gökay", "DeepMind", "https://www.meetup.com/bliss-speaker-series/events/", false),
+    new Speaker(new Date("2025-12-16"), "Insights into Training Video Models", "Dilara Gökay", "DeepMind", "https://www.meetup.com/bliss-speaker-series/events/", false),
     new Speaker(new Date("2026-01-13"), "Test-Time Training Agents for Deep Exploration", "Jonas Hübotter", "ETH Zurich", "https://www.meetup.com/bliss-speaker-series/events/", false),
     new Speaker(new Date("2026-01-27"), "Can Humans Flourish in the Age of AI?", "David Watson", "King's College London", "https://www.meetup.com/bliss-speaker-series/events/", false),
     new Speaker(new Date("2026-02-10"), "The Price of Intelligence: Three Risks Inherent in LLMs", "Ahmed Salem", "Microsoft Security Response Center (MSRC)", "https://www.meetup.com/bliss-speaker-series/events/", false),
