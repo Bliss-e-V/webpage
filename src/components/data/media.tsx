@@ -274,7 +274,7 @@ const mediaItems = [
         "Dr. Adel Bibi (University of Oxford)",
         "Adel Bibi is a senior researcher in machine learning and computer vision at the Department of Engineering Science since 2023, University of Oxford, a Research Member of the Common Room at Kellogg College, and a member of the ELLIS Society. Bibi is an R&D Distinguished Advisor with Softserve.",
         "We will navigate through the alignment challenges and safety considerations of LLMs, addressing both their limitations and capabilities, particularly focusing on techniques related to instruction prefix tuning and their theoretical limitations toward alignment. Additionally, I will discuss fairness across languages in common tokenizers used in LLMs. Finally, I will address safety considerations for agentic systems, illustrating methods to compromise their safety by exploiting seemingly minor changes, such as altering the desktop background to generate a chain of sequenced harmful actions. I will also explore the transferability of these vulnerabilities across different agents.",
-        "",
+        "https://www.youtube.com/embed/pyTLoOqtA0k",
         [
             "/images/media/ss25/20250701_bibi/1.jpg",
             "/images/media/ss25/20250701_bibi/2.jpg",
