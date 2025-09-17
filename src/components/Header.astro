@@ -78,7 +78,11 @@ const showHackathon = false;
   // link animation
   const readingGroupLink: HTMLElement =
     document.getElementById("readingGroupLink")!;
+  const mediaLink: HTMLElement = document.getElementById("mediaLink")!;
   const alumniLink: HTMLElement = document.getElementById("alumniLink")!;
+  const hackathonLink: HTMLElement | null = document.getElementById("HackathonLink");
+  const allLinks: HTMLElement[] = [readingGroupLink, mediaLink, alumniLink];
+  if (hackathonLink) allLinks.push(hackathonLink);
 
   function animateHeader() {
     if (window.scrollY > 0) {
@@ -96,23 +100,29 @@ const showHackathon = false;
     }
   }
 
+  function setActiveLink(activeLink: HTMLElement | null) {
+    // Reset all links to secondary
+    allLinks.forEach(link => {
+      link.classList.remove("text-primary");
+      link.classList.add("text-secondary");
+    });
+
+    // Set active link to primary
+    if (activeLink) {
+      activeLink.classList.remove("text-secondary");
+      activeLink.classList.add("text-primary");
+    }
+  }
 
   function handleRoute() {
-    if (document.URL.includes("blog")) {
-      readingGroupLink.classList.add("text-primary");
-      readingGroupLink.classList.remove("text-secondary");
-    } else {
-      readingGroupLink.classList.add("text-secondary");
-      readingGroupLink.classList.remove("text-primary");
+    // Set active link based on URL path
+    const linkMap = {
+      "/reading-group": readingGroupLink,
+      "/media": mediaLink,
+      "/alumni": alumniLink,
+      "/blissathon": hackathonLink,
     }
-
-    if (document.URL.includes("alumni")) {
-      alumniLink.classList.add("text-primary");
-      alumniLink.classList.remove("text-secondary");
-    } else {
-      alumniLink.classList.add("text-secondary");
-      alumniLink.classList.remove("text-primary");
-    }
+    setActiveLink(linkMap[window.location.pathname as keyof typeof linkMap]);
   }
 
   function handleScroll() {
