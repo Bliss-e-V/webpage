@@ -21,6 +21,7 @@ import nina from "../../images/members/nina.png"
 import shairal from "../../images/members/shairal.png"
 import anna from "../../images/members/anna.png"
 import jan from "../../images/members/jan.png"
+import jarek from "../../images/members/jarek.png"
 import type { ImageMetadata } from "astro";
 
 export class Member {
@@ -55,7 +56,7 @@ export const currentMembers = [
 export const alumniMembers = [
     new Member("Jan", "Tiegges", jan, "https://www.linkedin.com/in/jan-tiegges/"),
     new Member("Mia", "Prokopovych", mia, "https://www.linkedin.com/in/mia-prokopovych-9aaa26302"),
-    new Member("Jarek", "Liesen", null, "https://www.linkedin.com/in/jarek-liesen/"),
+    new Member("Jarek", "Liesen", jarek, "https://www.linkedin.com/in/jarek-liesen/"),
     new Member("Josephine", "Egerer", josi, "https://www.linkedin.com/in/josephine-egerer/"),
     new Member("Jakob", "Hackstein", null, "https://www.linkedin.com/in/jakob-hackstein-5a1167281/"),
     new Member("Felix", "Ringe", null, "https://www.linkedin.com/in/felix-ringe/"),
