@@ -53,11 +53,11 @@ const showHackathon = false;
         <p>Media</p>
       </a>
       <a
-        id="alumniLink"
-        href="/alumni"
+        id="teamLink"
+        href="/team"
         class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
       >
-        <p>Alumni</p>
+        <p>Team</p>
       </a>
     </div>
   </div>
@@ -79,9 +79,9 @@ const showHackathon = false;
   const readingGroupLink: HTMLElement =
     document.getElementById("readingGroupLink")!;
   const mediaLink: HTMLElement = document.getElementById("mediaLink")!;
-  const alumniLink: HTMLElement = document.getElementById("alumniLink")!;
+  const teamLink: HTMLElement = document.getElementById("teamLink")!;
   const hackathonLink: HTMLElement | null = document.getElementById("HackathonLink");
-  const allLinks: HTMLElement[] = [readingGroupLink, mediaLink, alumniLink];
+  const allLinks: HTMLElement[] = [readingGroupLink, mediaLink, teamLink];
   if (hackathonLink) allLinks.push(hackathonLink);
 
   function animateHeader() {
@@ -119,7 +119,7 @@ const showHackathon = false;
     const linkMap = {
       "/reading-group": readingGroupLink,
       "/media": mediaLink,
-      "/alumni": alumniLink,
+      "/team": teamLink,
       "/blissathon": hackathonLink,
     }
     setActiveLink(linkMap[window.location.pathname as keyof typeof linkMap]);
