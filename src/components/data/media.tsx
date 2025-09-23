@@ -287,7 +287,7 @@ const mediaItems = [
         "Jannik Kossen (Meta FAIR)",
         "Jannik is an AI research scientist at Meta FAIR, building LLMs for code generation. He worked at the University of Oxford on uncertainty and data-efficiency in vision and language models, which will culminate in the awarding of his PhD. He previously studied Physics in Bremen and Heidelberg, has interned at Google and DeepMind, and now lives in Berlin.",
         "Large language models can 'hallucinate' factually incorrect outputs, presenting significant risks for their adoption to high-stakes applications. Jannik will present joint work recently published in Nature (https://www.nature.com/articles/s41586-024-07421-0) on detecting hallucinations in large language models using semantic entropy, which mitigates hallucinations by quantifying the model's own uncertainty over the meaning of generations. He will also discuss a recent pre-print (https://arxiv.org/abs/2406.15927) that proposes a method to drastically reduce the cost of uncertainty quantification in LLMs by predicting semantic entropy from latent space, and he may ramble about uncertainties in LLMs more generally.",
-        "",
+        "https://www.youtube.com/embed/eiL6egIX4ms",
         [
             "/images/media/ss25/20250715_kossen/1.jpg",
             "/images/media/ss25/20250715_kossen/2.jpg",
