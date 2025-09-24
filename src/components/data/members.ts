@@ -61,6 +61,10 @@ export const alumniMembers = [
     new Member("Jakob", "Hackstein", null, "https://www.linkedin.com/in/jakob-hackstein-5a1167281/"),
     new Member("Felix", "Ringe", null, "https://www.linkedin.com/in/felix-ringe/"),
     new Member("Philippa", "Ringe", philipa, null),
+    new Member("Gabriele", "Inciuraite", null, null),
+    new Member("Haci Mustafa", "Suman", null, null),
+    new Member("Ingimar", "Tomasson", null, null),
+    new Member("Iman", "Modarressi Tehrani", null, null),
 ]
 
 // Legacy export for backward compatibility (current members only)
