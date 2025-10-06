@@ -1,19 +1,16 @@
 ---
 export const prerender = true;
-
-import Layout from "../layouts/Layout.astro";
-import MediaComp from "@components/MediaComp.astro";
-import Breadcrumb from "@components/Breadcrumb.astro";
 ---
 
-<Layout
-    title="Media & Events Archive | BLISS Berlin"
-    description="Explore BLISS Berlin's archive of AI events including speaker series recordings. Watch past presentations and stay updated on our latest tech community activities."
-    ogImage="https://www.bliss.berlin/assets/bliss-banner.png">
-    <Breadcrumb
-        crumbs={[
-            { name: "Media & Events", href: "/media" }
-        ]}
-    />
-    <MediaComp />
-</Layout>
+<script>
+  // Redirect to the new past-events page, preserving any anchor
+  const currentHash = window.location.hash;
+  const newUrl = '/past-events' + currentHash;
+  window.location.replace(newUrl);
+</script>
+
+<!-- Fallback for users with JavaScript disabled -->
+<meta http-equiv="refresh" content="0; url=/past-events">
+<noscript>
+  <p>This page has moved. <a href="/past-events">Click here to go to Past Events</a>.</p>
+</noscript>
