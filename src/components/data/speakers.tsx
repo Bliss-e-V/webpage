@@ -12,13 +12,13 @@ class Speaker {
 const speakersRaw = [
     // === wintersemester 2025===
     new Speaker(new Date("2025-10-21"), "Why do LLMs struggle with Long Context?", "Federico Barbero", "Google DeepMind, University of Oxford", "https://www.meetup.com/bliss-speaker-series/events/310955905", false),
-    new Speaker(new Date("2025-11-04"), "Scaling AI Safety Across Cultures and Languages", "Beyza Ermiş", "Cohere", "https://www.meetup.com/bliss-speaker-series/events/", false),
-    new Speaker(new Date("2025-11-18"), "Generative World Models", "Ashley Edwards", "Google DeepMind", "https://www.meetup.com/bliss-speaker-series/events/", false),
-    new Speaker(new Date("2025-12-02"), "What's Next in Continual Learning for Foundation Models?", "Ameya Prabhu", "Tübingen AI Center", "https://www.meetup.com/bliss-speaker-series/events/", false),
-    new Speaker(new Date("2025-12-16"), "Insights into Training Video Models", "Dilara Gökay", "DeepMind", "https://www.meetup.com/bliss-speaker-series/events/", false),
-    new Speaker(new Date("2026-01-13"), "Test-Time Training Agents for Deep Exploration", "Jonas Hübotter", "ETH Zurich", "https://www.meetup.com/bliss-speaker-series/events/", false),
-    new Speaker(new Date("2026-01-27"), "Can Humans Flourish in the Age of AI?", "David Watson", "King's College London", "https://www.meetup.com/bliss-speaker-series/events/", false),
-    new Speaker(new Date("2026-02-10"), "The Price of Intelligence: Three Risks Inherent in LLMs", "Ahmed Salem", "Microsoft Security Response Center (MSRC)", "https://www.meetup.com/bliss-speaker-series/events/", false),
+    new Speaker(new Date("2025-11-04"), "Scaling AI Safety Across Cultures and Languages", "Beyza Ermiş", "Cohere", "https://www.meetup.com/bliss-speaker-series/events/311344080", false),
+    new Speaker(new Date("2025-11-18"), "Generative World Models", "Ashley Edwards", "Google DeepMind", "https://www.meetup.com/bliss-speaker-series/events/311344105", false),
+    new Speaker(new Date("2025-12-02"), "What's Next in Continual Learning for Foundation Models?", "Ameya Prabhu", "Tübingen AI Center", "https://www.meetup.com/bliss-speaker-series/events/311344129", false),
+    new Speaker(new Date("2025-12-16"), "Insights into Training Video Models", "Dilara Gökay", "Google DeepMind", "https://www.meetup.com/bliss-speaker-series/events/311344158", false),
+    new Speaker(new Date("2026-01-13"), "Test-Time Training Agents for Deep Exploration", "Jonas Hübotter", "ETH Zurich", "https://www.meetup.com/bliss-speaker-series/events/311344179", false),
+    new Speaker(new Date("2026-01-27"), "Can Humans Flourish in the Age of AI?", "David Watson", "King's College London", "https://www.meetup.com/bliss-speaker-series/events/311344201", false),
+    new Speaker(new Date("2026-02-10"), "The Price of Intelligence: Three Risks Inherent in LLMs", "Ahmed Salem", "Microsoft Security Response Center (MSRC)", "https://www.meetup.com/bliss-speaker-series/events/311344223", false),
 ];
 
 
