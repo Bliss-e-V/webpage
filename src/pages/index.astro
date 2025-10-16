@@ -9,6 +9,7 @@ import NewsletterLink from "@components/NewsletterLink.astro";
 import Partners from "@components/Partners.astro";
 import Members from "@components/Members.astro";
 import Banner from "@components/Banner.astro";
+import EventCarousel from "@components/EventCarousel.astro";
 ---
 
 <Layout
@@ -18,6 +19,7 @@ import Banner from "@components/Banner.astro";
 >
   <main>
     <BackgroundAnimation />
+    <EventCarousel />
     <Landing />
     <SpeakerSeries client:load />
     <NewsletterLink />
