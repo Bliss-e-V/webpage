@@ -6,24 +6,24 @@ const events = [
     date: "Tue, Oct 21",
     description: "Federico Barbero, who is currently at DeepMind and University of Oxford, will discuss \"Why do LLMs struggle with Long Context?\"",
     link: "https://www.meetup.com/bliss-speaker-series/events/310955905/",
-    color: "bg-accent-dark",
-    textColor: "text-accent"
+    color: "bg-red-900/50",
+    textColor: "text-red-200"
   },
   {
     title: "Model Brawls | HackNight with Lyceum",
     date: "Thu, Oct 23",
     description: "Take a baseline neural network and dataset, then supercharge it in 2 hours using the latest GPU software truly optimized to accelerate training and inference.",
     link: "https://luma.com/modelbrawlslyceum",
-    color: "bg-blue-900",
-    textColor: "text-blue-300"
+    color: "bg-blue-900/50",
+    textColor: "text-blue-200"
   },
   {
     title: "Reading Group Kickoff",
     date: "Monday, Oct 20",
     description: "Join us for discussions about state-of-the-art AI research with this semester's topic: variety of machine learning in healthcare.",
     link: "/reading-group",
-    color: "bg-green-900",
-    textColor: "text-green-300"
+    color: "bg-green-900/50",
+    textColor: "text-green-200"
   }
 ];
 ---
@@ -42,9 +42,9 @@ const events = [
             <div class="event-content">
               <div class="flex justify-between items-start">
                 <div class="flex-1">
-                  <h3 class="event-title text-xl font-bold mb-1">{event.title}</h3>
-                  <p class="event-description text-sm opacity-80">{event.description}</p>
-                  <p class="event-date text-xs mb-2 opacity-90">{event.date}</p>
+                  <h3 class="event-title text-xl font-bold mb-1">Upcoming: {event.title}</h3>
+                  <p class="event-description text-sm">{event.description}</p>
+                  <p class="event-date text-xs mb-2">{event.date}</p>
                 </div>
                 {event.link.startsWith('http') && (
                   <div class="external-link-icon ml-3 flex-shrink-0">
