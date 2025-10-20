@@ -302,3 +302,4 @@ Again, make sure that the image size does not exceed 150kB (`.jpg` is the
 preferred image format as it uses compression). It the image significantly
 exceeds the maximum file size, use online or CLI tools to compress the image.
 Also, remember to add alt text for increased visibility (SEO).
+
