@@ -62,7 +62,7 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
                 </div>
             </div>
 
-            <BigButton id="speaker-series" hover={true} className="ml-auto mr-auto">
+            <BigButton id="speaker-series" hover={true} className="ml-auto mr-auto my-10">
                 <a
                     className="no-underline"
                     href="https://www.meetup.com/bliss-speaker-series/"
