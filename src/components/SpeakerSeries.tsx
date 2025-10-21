@@ -37,8 +37,8 @@ export const SpeakerSeries = (props: SpeakerSeriesProps) => {
                 Speaker Series Winter 2025/26 now!
             </p>
 
-            <div className="flex items-center justify-center my-2">
-                <div className="flex items-center hover:cursor-pointer mr-10">
+            <div className="flex flex-col md:flex-row items-center justify-center my-2 gap-4 md:gap-10">
+                <div className="flex items-center hover:cursor-pointer">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
