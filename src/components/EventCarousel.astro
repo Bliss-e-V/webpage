@@ -2,14 +2,6 @@
 // Event data for the carousel
 const events = [
   {
-    title: "Speaker Series Kickoff",
-    date: "Tue, Oct 21",
-    description: "Federico Barbero, who is currently at DeepMind and University of Oxford, will discuss \"Why do LLMs struggle with Long Context?\"",
-    link: "https://www.meetup.com/bliss-speaker-series/events/310955905/",
-    color: "bg-red-900/50",
-    textColor: "text-red-200"
-  },
-  {
     title: "Model Brawls | HackNight with Lyceum",
     date: "Thu, Oct 23",
     description: "Take a baseline neural network and dataset, then supercharge it in 2 hours using the latest GPU software truly optimized to accelerate training and inference.",
@@ -53,28 +45,32 @@ const events = [
     </div>
   </div>
   
-  <!-- Navigation dots -->
-  <div class="carousel-dots">
-    {events.map((_, index) => (
-      <button 
-        class="carousel-dot" 
-        data-index={index}
-        aria-label={`Go to slide ${index + 1}`}
-      ></button>
-    ))}
-  </div>
-  
-  <!-- Navigation arrows -->
-  <button class="carousel-arrow carousel-arrow-left" aria-label="Previous slide">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-    </svg>
-  </button>
-  <button class="carousel-arrow carousel-arrow-right" aria-label="Next slide">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-    </svg>
-  </button>
+  {events.length > 1 && (
+    <>
+      <!-- Navigation dots -->
+      <div class="carousel-dots">
+        {events.map((_, index) => (
+          <button 
+            class="carousel-dot" 
+            data-index={index}
+            aria-label={`Go to slide ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+      
+      <!-- Navigation arrows -->
+      <button class="carousel-arrow carousel-arrow-left" aria-label="Previous slide">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button class="carousel-arrow carousel-arrow-right" aria-label="Next slide">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </>
+  )}
 </div>
 
 <script>
