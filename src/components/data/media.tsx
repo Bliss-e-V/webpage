@@ -295,6 +295,21 @@ const mediaItems = [
             "/images/media/ss25/20250715_kossen/4.jpg",
         ],
         new Date("2025-07-15")
+    ),
+    // WS2526
+    new MediaItem(
+        "Why do LLMs struggle with Long Context?",
+        "Federico Barbero (Google DeepMind, University of Oxford)",
+        "Federico Barbero is a researcher at Google DeepMind and the University of Oxford, focusing on the challenges and limitations of large language models, particularly in handling long-context scenarios.",
+        "This talk explores the fundamental challenges that large language models face when processing long contexts. Federico will discuss the technical limitations, architectural constraints, and potential solutions for improving LLMs' ability to effectively handle extended input sequences.",
+        "",
+        [
+            "/images/media/ws2526/20251021_barbero/barbero_1.jpeg",
+            "/images/media/ws2526/20251021_barbero/barbero_2.jpeg",
+            "/images/media/ws2526/20251021_barbero/barbero_3.jpeg",
+            "/images/media/ws2526/20251021_barbero/barbero_4.jpeg",
+        ],
+        new Date("2025-10-21")
     )
 
 ];

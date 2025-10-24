@@ -7,6 +7,10 @@ const allMedia = Object.entries(dayToMediaItems)
   .map(([, event]) => event)
   .reverse() as MediaItem[][];
 const flatMedia = allMedia.flat();
+const winter2526MediaItems = flatMedia.filter((item) => {
+  const itemDate = new Date(item.date);
+  return itemDate >= new Date("2025-09-01") && itemDate <= new Date("2026-03-31");
+});
 const summer25MediaItems = flatMedia.filter((item) => {
   const itemDate = new Date(item.date);
   return itemDate >= new Date("2025-04-01") && itemDate <= new Date("2025-08-31");
@@ -39,9 +43,17 @@ const summer24MediaItems = flatMedia.filter((item) => {
   <!-- Season Definitions -->
   <div class="my-2">
     <MediaCard 
+      title="Season: Winter 2025/26" 
+      mediaItems={winter2526MediaItems} 
+      isOpenByDefault={true} 
+    />
+  </div>
+
+  <div class="my-2">
+    <MediaCard 
       title="Season: Summer 2025" 
       mediaItems={summer25MediaItems} 
-      isOpenByDefault={true} 
+      isOpenByDefault={false} 
     />
   </div>
 
