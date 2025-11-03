@@ -1,0 +1,13 @@
+# .github/workflows/daily-redeploy.yml
+name: Daily redeploy
+on:
+  schedule:
+    - cron: "0 4 * * *"   # 04:00 UTC = 05:00 in Berlin today (CET)
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        run: curl -fsS -X POST "$VERCEL_DEPLOY_HOOK_URL"
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
