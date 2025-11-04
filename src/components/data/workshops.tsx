@@ -10,8 +10,11 @@ class Workshop {
 // modify HERE to update workshops
 
 const workshopsRaw = [
-    new Workshop(new Date("2025-11-15"), "BLISS x Smth: Hands-On Diffusion fine-tuning", "John Doe", "Example Affiliation", "https://luma.com/", "Learn how to fine-tune diffusion models for your specific use case with hands-on examples. John Doe will give a short introduction to diffusion models and then we will dive into the hands-on fine-tuning.", false),
-    new Workshop(new Date("2026-04-20"), "Never gonna let the loss go down", "Dr. Rick", "University of Example", "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Explore advanced loss functions and optimization techniques in machine learning or something like that.", false),
+    new Workshop(new Date("2025-11-26"), "BLISS x Dida: tbd", "...", "Dida", "https://...", "More infos coming soon!", false),
+    new Workshop(new Date("2025-12-11"), "BLISS x InstaDeep: tbd", "...", "InstaDeep", "https://...", "More infos coming soon!", false),
+    new Workshop(new Date("2026-01-07"), "BLISS x Dida: tbd", "...", "Dida", "https://...", "More infos coming soon!", false),
+    new Workshop(new Date("2026-01-21"), "BLISS x Neo4J: tbd", "...", "Neo4J", "https://...", "More infos coming soon!", false),
+    new Workshop(new Date("2026-02-04"), "BLISS x Google: tbd", "...", "Google", "https://...", "More infos coming soon!", false),
 ];
 
 
