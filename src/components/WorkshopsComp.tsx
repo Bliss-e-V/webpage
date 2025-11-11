@@ -6,18 +6,32 @@ export interface WorkshopsCompProps {
 
 export const WorkshopsComp = (props: WorkshopsCompProps) => {
     const renderPastEvents = props.renderPastEvents === undefined ? true : props.renderPastEvents;
-    const workshopsToRender = renderPastEvents ? workshops : workshops.filter(workshop => workshop.date > new Date());
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
+    // Separate workshops into future and past
+    const futureWorkshops = workshops.filter(workshop => workshop.date >= currentDate);
+    const pastWorkshops = workshops.filter(workshop => workshop.date < currentDate);
+
+    // Sort future workshops in reverse chronological order (newest first)
+    const sortedFutureWorkshops = futureWorkshops.sort((a, b) => b.date.getTime() - a.date.getTime());
+
+    // Sort past workshops in reverse chronological order (newest first)
+    const sortedPastWorkshops = pastWorkshops.sort((a, b) => b.date.getTime() - a.date.getTime());
+
+    // Combine: future first, then past
+    const workshopsToRender = renderPastEvents
+        ? [...sortedFutureWorkshops, ...sortedPastWorkshops]
+        : sortedFutureWorkshops;
 
     return (
         <div className="flex items-center flex-wrap justify-center">
-            <div className="text-center w-full max-w-4xl">
+            <div className="text-center w-full max-w-4xl ml-20 sm:ml-24">
                 <div className="mt-6 text-center">
                 </div>
                 <ol className="relative border-l border-gray-200 dark:border-gray-700">
                     {
-                        workshopsToRender
-                            .sort((a, b) => a.date.getTime() - b.date.getTime())
-                            .map((workshop) => (
+                        workshopsToRender.map((workshop) => (
                                 <a
                                     href={workshop.url}
                                     key={workshop.date.toISOString()}
@@ -25,9 +39,19 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                     className="no-underline"
                                 >
                                     <li
-                                        className={`py-1 mt-6 rounded-md duration-200 ${workshop.past ? "" : "hover:bg-li"
+                                        className={`py-1 mt-6 rounded-md duration-200 relative ${workshop.past ? "" : "hover:bg-li"
                                             }`}
                                     >
+                                        {workshop.image && (
+                                            <div className="absolute -left-20 sm:-left-24 w-16 h-16 sm:w-20 sm:h-20 top-0 pr-2">
+                                                <img
+                                                    src={workshop.image.src}
+                                                    alt={workshop.affiliation + " logo"}
+                                                    className="w-full h-full object-contain"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        )}
                                         <div
                                             className={`absolute -left-1.5 w-3 h-3 bg-gray-200 rounded-full mt-1.5 border ${workshop.next
                                                 ? "border-white"
@@ -75,7 +99,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                         : "text-secondary"
                                                         }`}
                                                 >
-                                                    {workshop.name},{" "}
+                                                    {workshop.name} - {" "}
                                                     <span className="font-bold">{workshop.affiliation}</span>
                                                 </p>
                                             )}
