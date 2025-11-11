@@ -26,7 +26,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
 
     return (
         <div className="flex items-center flex-wrap justify-center">
-            <div className="text-center w-full max-w-4xl ml-28 sm:ml-32">
+            <div className="text-center w-full max-w-4xl sm:ml-32">
                 <div className="mt-6 text-center">
                 </div>
                 <ol className="relative border-l border-gray-200 dark:border-gray-700">
@@ -43,14 +43,28 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                             }`}
                                     >
                                         {workshop.image && (
-                                            <div className="absolute -left-28 sm:-left-32 w-28 h-28 sm:w-32 sm:h-32 top-0 pr-4">
-                                                <img
-                                                    src={workshop.image.src}
-                                                    alt={workshop.affiliation + " logo"}
-                                                    className="w-full h-full object-contain"
-                                                    loading="lazy"
-                                                />
-                                            </div>
+                                            <>
+                                                {/* Mobile: logo above content */}
+                                                <div className="sm:hidden mb-1 flex justify-start pl-4">
+                                                    <div className="w-28">
+                                                        <img
+                                                            src={workshop.image.src}
+                                                            alt={workshop.affiliation + " logo"}
+                                                            className="w-full h-auto object-contain"
+                                                            loading="lazy"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                {/* Desktop: logo to the left */}
+                                                <div className="hidden sm:block absolute -left-32 w-32 h-32 top-0 pr-4">
+                                                    <img
+                                                        src={workshop.image.src}
+                                                        alt={workshop.affiliation + " logo"}
+                                                        className="w-full h-full object-contain"
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                            </>
                                         )}
                                         <div
                                             className={`absolute -left-1.5 w-3 h-3 bg-gray-200 rounded-full mt-1.5 border ${workshop.next
