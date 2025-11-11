@@ -26,7 +26,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
 
     return (
         <div className="flex items-center flex-wrap justify-center">
-            <div className="text-center w-full max-w-4xl ml-20 sm:ml-24">
+            <div className="text-center w-full max-w-4xl ml-28 sm:ml-32">
                 <div className="mt-6 text-center">
                 </div>
                 <ol className="relative border-l border-gray-200 dark:border-gray-700">
@@ -43,7 +43,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                             }`}
                                     >
                                         {workshop.image && (
-                                            <div className="absolute -left-20 sm:-left-24 w-16 h-16 sm:w-20 sm:h-20 top-0 pr-2">
+                                            <div className="absolute -left-28 sm:-left-32 w-28 h-28 sm:w-32 sm:h-32 top-0 pr-4">
                                                 <img
                                                     src={workshop.image.src}
                                                     alt={workshop.affiliation + " logo"}
