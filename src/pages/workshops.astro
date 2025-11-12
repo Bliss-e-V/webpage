@@ -1,0 +1,35 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import { WorkshopsComp } from "@components/WorkshopsComp";
+import Breadcrumb from "@components/Breadcrumb.astro";
+---
+
+<Layout
+    title="Workshops | BLISS Berlin"
+    description="Join BLISS Berlin's hands-on workshops on cutting-edge AI and machine learning topics. Learn practical skills and explore the latest technologies."
+    ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
+>
+    <Breadcrumb 
+        crumbs={[
+            { name: "Workshops", href: "/workshops" }
+        ]}
+    />
+    <h1
+        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+    >
+        Workshops
+    </h1>
+    <div
+        class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."
+    >
+    </div>
+    <div class="mb-10">
+        <p class="text-secondary text-md sm:text-lg">
+            Hands-on workshops on cutting-edge AI and machine learning topics. Learn practical skills and explore the latest technologies.
+        </p>
+    </div>
+    <WorkshopsComp client:load />
+</Layout>
+

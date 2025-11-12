@@ -1,8 +1,5 @@
 ---
 import Badge from "@components/Badge";
-const anchorLinks: string[] = ["Partners", "speaker Series"];
-
-const showHackathon = false;
 ---
 
 <div
@@ -25,46 +22,27 @@ const showHackathon = false;
         </p>
       </a>
     </div>
-    <div id="menu" class="flex items-center space-x-7">
-      {
-        showHackathon && (
-          <a
-            id={`HackathonLink`}
-            href={`/blissathon`}
-            class="hidden text-sm tracking-wider sm:text-base no-underline sm:block text-secondary hover:text-primary transition-colors duration-300"
-          >
-            <p class="bg-accent-dark text-accent rounded-md px-2 text-lg hover:shadow-accent-small transition-shadow">
-              Hackathon
-            </p>
-          </a>
-        )
-      }
-      {
-        anchorLinks.map((link: string) => {
-          return (
-            <a
-              id={`${link}Link`}
-              href={`/#${link}`}
-              class="hidden text-sm tracking-wider sm:text-base no-underline sm:block text-secondary hover:text-primary transition-colors duration-300"
-            >
-              <p>
-                {link
-                  .split("-")
-                  .map((subword: string) => {
-                    return subword.at(0)?.toUpperCase() + subword.slice(1);
-                  })
-                  .join(" ")}
-              </p>
-            </a>
-          );
-        })
-      }
+    <div id="menu" class="flex items-center space-x-4 md:space-x-7 pl-4 md:pl-0">
+      <a
+        id="speakerSeriesLink"
+        href="/"
+        class="hidden md:block tracking-wider no-underline text-secondary hover:text-primary transition-colors"
+      >
+        <p>Speaker Series</p>
+      </a>
       <a
         id="readingGroupLink"
         href="/reading-group"
         class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
       >
         <p>Reading Group</p>
+      </a>
+      <a
+        id="workshopsLink"
+        href="/workshops"
+        class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
+      >
+        <p>Workshops</p>
       </a>
       <a
         id="pastEventsLink"
@@ -90,16 +68,11 @@ const showHackathon = false;
   const header = document.getElementById("header")!;
 
   // link animation
-  const speakerSeries: HTMLElement = document.getElementById("speaker Series")!;
-  const partners: HTMLElement = document.getElementById("Partners")!;
-  const speakerSeriesLink: HTMLElement =
-    document.getElementById("speaker SeriesLink")!;
-  const readingGroupLink: HTMLElement =
-    document.getElementById("readingGroupLink")!;
-  const partnersLink: HTMLElement = document.getElementById("PartnersLink")!;
-  
-  const sections: HTMLElement[] = [speakerSeries, partners];
-  const links: HTMLElement[] = [speakerSeriesLink, partnersLink];
+  const speakerSeriesLink: HTMLElement = document.getElementById("speakerSeriesLink")!;
+  const readingGroupLink: HTMLElement = document.getElementById("readingGroupLink")!;
+  const workshopsLink: HTMLElement = document.getElementById("workshopsLink")!;
+  const pastEventsLink: HTMLElement = document.getElementById("pastEventsLink")!;
+  const allLinks: HTMLElement[] = [speakerSeriesLink, readingGroupLink, workshopsLink, pastEventsLink];
 
   function animateHeader() {
     if (window.scrollY > 0) {
@@ -117,40 +90,33 @@ const showHackathon = false;
     }
   }
 
-  function animateLinks() {
-    const buffer = 300;
-    let sectionIdInView: number = -1;
-    let closestToBuffer: number = -20000000;
-    sections.forEach((section: HTMLElement, i: number) => {
-      let top = section?.getBoundingClientRect().top;
-      if (top < buffer && top > closestToBuffer) {
-        closestToBuffer = top;
-        sectionIdInView = i;
-      }
+  function setActiveLink(activeLink: HTMLElement | null) {
+    // Reset all links to secondary
+    allLinks.forEach(link => {
+      link.classList.remove("text-primary");
+      link.classList.add("text-secondary");
     });
 
-    links.forEach((_: HTMLElement, i: number) => {
-      if (i == sectionIdInView) {
-        links[i].classList.remove("text-secondary");
-      } else {
-        links[i].classList.add("text-secondary");
-      }
-    });
+    // Set active link to primary
+    if (activeLink) {
+      activeLink.classList.remove("text-secondary");
+      activeLink.classList.add("text-primary");
+    }
   }
 
   function handleRoute() {
-    if (document.URL.includes("blog")) {
-      readingGroupLink.classList.add("text-primary");
-      readingGroupLink.classList.remove("text-secondary");
-    } else {
-      readingGroupLink.classList.add("text-secondary");
-      readingGroupLink.classList.remove("text-primary");
+    // Set active link based on URL path
+    const linkMap = {
+      "/": speakerSeriesLink,
+      "/reading-group": readingGroupLink,
+      "/workshops": workshopsLink,
+      "/past-events": pastEventsLink,
     }
+    setActiveLink(linkMap[window.location.pathname as keyof typeof linkMap]);
   }
 
   function handleScroll() {
     animateHeader();
-    animateLinks();
   }
 
   function handleResize() {
@@ -158,7 +124,6 @@ const showHackathon = false;
   }
 
   animateHeader();
-  animateLinks();
   handleRoute();
   document.addEventListener("scroll", handleScroll);
   document.addEventListener("resize", handleResize);
