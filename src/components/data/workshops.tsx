@@ -16,7 +16,8 @@ class Workshop {
 // modify HERE to update workshops
 
 const workshopsRaw = [
-    new Workshop(new Date("2024-07-08"), "BLISS x Neo4j: Hands-On with GraphRAG - Powering GenAI with Knowledge Graphs", "Martin", "Neo4j", "https://luma.com/7j77q70m?tk=XSoFkG", "A hands-on workshop focused on integrating Knowledge Graphs and Retrieval Augmented Generation (RAG) to enhance Generative AI projects by reducing hallucinations and providing access to reliable data.", false, false, neo4jLogo),
+    // TODO: add other past workshops (maybe also flinta events or even hackathons?)
+    new Workshop(new Date("2025-07-08"), "BLISS x Neo4j: Hands-On with GraphRAG - Powering GenAI with Knowledge Graphs", "Martin", "Neo4j", "https://luma.com/7j77q70m?tk=XSoFkG", "A hands-on workshop focused on integrating Knowledge Graphs and Retrieval Augmented Generation (RAG) to enhance Generative AI projects by reducing hallucinations and providing access to reliable data.", false, false, neo4jLogo),
     // new Workshop(new Date("2025-11-26"), "BLISS x Dida: tbd", "...", "Dida", "https://...", "More infos coming soon!", false, false, undefined),
     new Workshop(new Date("2025-12-11"), "BLISS x InstaDeep: Foundational Models for Genomics: Decoding Genomic Sequences", "Miguel Arbesú, Bernardo Almeida, Luis Herrmann", "InstaDeep", "https://luma.com/f3yb8zn2", "Genomics foundation models have emerged as powerful tools to decode the human genome and understand how genetic variants affect disease and traits. In this hands-on workshop, we will provide an overview of how these models learn the regulatory code of the genome, discuss specific models and applications, and get hands-on experience implementing them.", false, false, instadeepLogo),
     // new Workshop(new Date("2026-01-07"), "BLISS x Dida: tbd", "...", "Dida", "https://...", "More infos coming soon!", false, false, undefined),
