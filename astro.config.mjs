@@ -28,7 +28,6 @@ export default defineConfig({
         'https://bliss.berlin/',
         'https://bliss.berlin/blissathon',
         'https://bliss.berlin/reading-group',
-        'https://bliss.berlin/workshops',
         'https://bliss.berlin/media'
       ],
       lastmod: new Date(),
