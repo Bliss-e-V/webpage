@@ -66,6 +66,7 @@ import arnoldt from "../../images/posts/images/20251027_arnoldt.png"
 import huang from "../../images/posts/images/20251103_huang.png"
 import hegselmann from "../../images/posts/images/20251110_hegselmann.png"
 import richard from "../../images/posts/images/20251117_richard.png"
+import duan from "../../images/posts/images/20251117_duan.png"
 import erturk from "../../images/posts/images/20251124_erturk.png"
 import saporta from "../../images/posts/images/20251201_saporta.png"
 
@@ -228,7 +229,8 @@ const papers = [
     new Paper("Biologically Guided Variational Inference for Interpretable Multimodal Single-Cell Integration and Mechanistic Discovery", ["Lucas Arnoldt", "Julius Upmeier zu Belzen", "Luis Herrmann", "Khue Nguyen", "Fabian Theis", "Benjamin Wild", "Roland Eils"], "https://www.biorxiv.org/content/10.1101/2025.06.10.657924v1.full.pdf", arnoldt, new Date("2025-10-27")),
     new Paper("A foundation model for clinician-centered drug repurposing", ["Kexin Huang", "Payal Chandak", "Qianwen Wang", "Shreyas Havaldar", "Akhil Vaid", "Jure Leskovec", "Girish Nadkarni", "Benjamin S. Glicksberg", "Nils Gehlenborg", "Marinka Zitnik"], "https://www.medrxiv.org/content/10.1101/2023.03.19.23287458v4.full.pdf", huang, new Date("2025-11-03")),
     new Paper("Large Language Models are Powerful Electronic Health Record Encoders", ["Stefan Hegselmann", "Georg von Arnim", "Tillmann Rheude", "Noel Kronenberg", "David Sontag", "Gerhard Hindricks", "Roland Eils", "Benjamin Wild"], "https://arxiv.org/pdf/2502.17403.pdf", hegselmann, new Date("2025-11-10")),
-    new Paper("ChatNT: A Multimodal Conversational Agent for DNA, RNA and Protein Tasks", ["Guillaume Richard", "Bernardo P. de Almeida", "Hugo Dalla-Torre", "Christopher Blum", "Lorenz Hexemer", "Priyanka Pandey", "Stefan Laurent", "Marie Lopez", "Alexandre Laterre", "Maren Lang", "Ugur Sahin", "Karim Beguir", "Thomas Pierrot"], "https://www.biorxiv.org/content/10.1101/2024.04.30.591835v1.full.pdf", richard, new Date("2025-11-17")),
+    // new Paper("ChatNT: A Multimodal Conversational Agent for DNA, RNA and Protein Tasks", ["Guillaume Richard", "Bernardo P. de Almeida", "Hugo Dalla-Torre", "Christopher Blum", "Lorenz Hexemer", "Priyanka Pandey", "Stefan Laurent", "Marie Lopez", "Alexandre Laterre", "Maren Lang", "Ugur Sahin", "Karim Beguir", "Thomas Pierrot"], "https://www.biorxiv.org/content/10.1101/2024.04.30.591835v1.full.pdf", richard, new Date("2025-11-17")),  // cancelled
+    new Paper("JanusDNA: A Powerful Bi-directional Hybrid DNA Foundation Model", ["Qihao Duan", "Bingding Huang", "Zhenqiao Song", "Irina Lehmann", "Lei Gu", "Roland Eils", "Benjamin Wild"], "https://arxiv.org/abs/2505.17257", duan, new Date("2025-11-17")),
     new Paper("Beyond Sensor Data: Foundation Models of Behavioral Data from Wearables Improve Health Predictions", ["Eray Erturk", "Fahad Kamran", "Salar Abbaspourazad", "Sean Jewell", "Harsh Sharma", "Yujie Li", "Sinead Williamson", "Nicholas J. Foti", "Joseph Futoma"], "https://arxiv.org/pdf/2507.00191.pdf", erturk, new Date("2025-11-24")),
     new Paper("Contrasting with Symile: Simple Model-Agnostic Representation Learning for Unlimited Modalities", ["Adriel Saporta", "Aahlad Puli", "Mark Goldstein", "Rajesh Ranganath"], "https://arxiv.org/pdf/2411.01053.pdf", saporta, new Date("2025-12-01")),
 
