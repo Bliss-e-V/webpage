@@ -302,7 +302,7 @@ const mediaItems = [
         "Federico Barbero (Google DeepMind, University of Oxford)",
         "Federico Barbero is a researcher at Google DeepMind and the University of Oxford, focusing on the challenges and limitations of large language models, particularly in handling long-context scenarios.",
         "This talk explores the fundamental challenges that large language models face when processing long contexts. Federico will discuss the technical limitations, architectural constraints, and potential solutions for improving LLMs' ability to effectively handle extended input sequences.",
-        "https://www.youtube.com/watch?v=Dsl2bD6akkM",
+        "https://www.youtube.com/embed/Dsl2bD6akkM",
         [
             "/images/media/ws2526/20251021_barbero/barbero_1.jpeg",
             "/images/media/ws2526/20251021_barbero/barbero_2.jpeg",
@@ -316,7 +316,7 @@ const mediaItems = [
         "Beyza Ermiş (Cohere)",
         "Beyza is a Senior Research Scientist at Cohere in Berlin, working on large-scale machine learning with a focus on language models. Prior to this, she was a Research Scientist at Amazon Web Services (2017-2022) and held research assistant and intern positions at Boğaziçi University and Amazon, where she worked on applied machine learning problems. She completed her PhD and MSc in Computer Science at Boğaziçi University, following a BSc in Computer Engineering at Bilkent University.",
         "Modern AI systems are deployed globally, across cultures and in hundreds of languages, yet most safety research and evaluation remains English-centric. In this talk, we will outline a pragmatic roadmap for scaling safety beyond a single linguistic or cultural frame. We will first outline AI safety as a full-stack technical discipline spanning robustness, alignment, privacy, misuse resistance, and critically, evaluation. We will then argue that harm is not universal: what counts as harmful varies with local norms and histories. Drawing on evidence from multilingual red-teaming and jailbreak studies, we will show higher failure rates in low-resource languages and the limits of translate-and-test approaches. We will introduce a global-vs-local harm lens, address data scarcity and long-tail challenges, and present actionable mitigations. Finally, we will examine fairness in model evaluation and close with concrete recommendations for building culturally aware benchmarks and auditing multilingual safety so models are not only capable, but reliably aligned with the communities they serve.",
-        "https://www.youtube.com/watch?v=ECS0Rez1AeA",
+        "https://www.youtube.com/embed/ECS0Rez1AeA",
         [],
         new Date("2025-11-04")
     )
