@@ -317,7 +317,11 @@ const mediaItems = [
         "Beyza is a Senior Research Scientist at Cohere in Berlin, working on large-scale machine learning with a focus on language models. Prior to this, she was a Research Scientist at Amazon Web Services (2017-2022) and held research assistant and intern positions at Boğaziçi University and Amazon, where she worked on applied machine learning problems. She completed her PhD and MSc in Computer Science at Boğaziçi University, following a BSc in Computer Engineering at Bilkent University.",
         "Modern AI systems are deployed globally, across cultures and in hundreds of languages, yet most safety research and evaluation remains English-centric. In this talk, we will outline a pragmatic roadmap for scaling safety beyond a single linguistic or cultural frame. We will first outline AI safety as a full-stack technical discipline spanning robustness, alignment, privacy, misuse resistance, and critically, evaluation. We will then argue that harm is not universal: what counts as harmful varies with local norms and histories. Drawing on evidence from multilingual red-teaming and jailbreak studies, we will show higher failure rates in low-resource languages and the limits of translate-and-test approaches. We will introduce a global-vs-local harm lens, address data scarcity and long-tail challenges, and present actionable mitigations. Finally, we will examine fairness in model evaluation and close with concrete recommendations for building culturally aware benchmarks and auditing multilingual safety so models are not only capable, but reliably aligned with the communities they serve.",
         "https://www.youtube.com/embed/ECS0Rez1AeA",
-        [],
+        [
+            "/images/media/ws2526/20251104_ermis/ermis_1.jpeg",
+            "/images/media/ws2526/20251104_ermis/ermis_2.jpeg",
+            "/images/media/ws2526/20251104_ermis/ermis_3.jpeg",
+        ],
         new Date("2025-11-04")
     ),
     new MediaItem(
@@ -326,7 +330,12 @@ const mediaItems = [
         "Ashley is a Senior Research Scientist at Google DeepMind, where she works on reinforcement learning and foundational world models. She received her PhD in Computer Science from Georgia Tech in 2019, where she developed models for inferring latent actions, rewards, and policies from videos. Previously, she was a Research Scientist at Uber AI Labs and an intern at Google Brain. She holds a BSc in Computer Science from the University of Georgia.",
         "Training models on large-scale data has given us powerful generative capabilities for text, images, and video. However, this success has not yet extended to training generalist embodied agents. This talk tackles this gap by focusing on a potential solution to this problem: scalable world models. We'll trace the idea of planning in predictive models, from its origins to modern efforts on building world models directly from pixels. I'll discuss the primary challenge of scaling these models and present our work, Genie, which enables us to learn world models without explicit action labels at scale, demonstrating a new path forward for training the generalist agents of the future.",
         "",
-        [],
+        [
+            "/images/media/ws2526/20251118_edwards/edwards_1.jpeg",
+            "/images/media/ws2526/20251118_edwards/edwards_2.jpeg",
+            "/images/media/ws2526/20251118_edwards/edwards_3.jpeg",
+            "/images/media/ws2526/20251118_edwards/edwards_4.jpeg",
+        ],
         new Date("2025-11-18")
     )
 ];
