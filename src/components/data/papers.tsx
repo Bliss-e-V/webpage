@@ -69,6 +69,13 @@ import richard from "../../images/posts/images/20251117_richard.png"
 import duan from "../../images/posts/images/20251117_duan.png"
 import erturk from "../../images/posts/images/20251124_erturk.png"
 import saporta from "../../images/posts/images/20251201_saporta.png"
+import ouyang from "../../images/posts/images/20251208_ouyang.png"
+import bai from "../../images/posts/images/20251215_bai.png"
+import ziegler from "../../images/posts/images/20260112_ziegler.png"
+import langosco from "../../images/posts/images/20260119_langosco.png"
+import lin from "../../images/posts/images/20260126_lin.png"
+import greenblatt from "../../images/posts/images/20260202_greenblatt.png"
+import betley from "../../images/posts/images/20260209_betley.png"
 
 export class Paper {
     constructor(public name: string, public authors: string[], public link: string, public image: ImageMetadata, public readingDay: Date) {
@@ -157,6 +164,13 @@ const sections: Section[] = [
         new Date("2025-10-20"),
         new Date("2025-12-01"),
         "A tour through the variety of machine learning in healthcare, from images and cells to genes and multimodal data."
+    ),
+    new Section(
+        "Technical Alignment in AI",
+        "Craig Dickson",
+        new Date("2025-12-08"),
+        new Date("2026-02-09"),
+        "A tour through the alignment of large language models."
     )
 ]
 
@@ -233,7 +247,13 @@ const papers = [
     new Paper("JanusDNA: A Powerful Bi-directional Hybrid DNA Foundation Model", ["Qihao Duan", "Bingding Huang", "Zhenqiao Song", "Irina Lehmann", "Lei Gu", "Roland Eils", "Benjamin Wild"], "https://arxiv.org/abs/2505.17257", duan, new Date("2025-11-17")),
     new Paper("Beyond Sensor Data: Foundation Models of Behavioral Data from Wearables Improve Health Predictions", ["Eray Erturk", "Fahad Kamran", "Salar Abbaspourazad", "Sean Jewell", "Harsh Sharma", "Yujie Li", "Sinead Williamson", "Nicholas J. Foti", "Joseph Futoma"], "https://arxiv.org/pdf/2507.00191.pdf", erturk, new Date("2025-11-24")),
     new Paper("Contrasting with Symile: Simple Model-Agnostic Representation Learning for Unlimited Modalities", ["Adriel Saporta", "Aahlad Puli", "Mark Goldstein", "Rajesh Ranganath"], "https://arxiv.org/pdf/2411.01053.pdf", saporta, new Date("2025-12-01")),
-
+    new Paper("Training Language Models to Follow Instructions with Human Feedback", ["Ouyang", "et al."], "https://luma.com/8srmkzqy", ouyang, new Date("2025-12-08")),  // https://arxiv.org/abs/2203.02155
+    new Paper("Constitutional AI: Harmlessness from AI Feedback", ["Bai", "et al."], "https://luma.com/1ta19ld6", bai, new Date("2025-12-15")),  // https://arxiv.org/abs/2212.08073
+    new Paper("Adversarial Training for High-Stakes Reliability", ["Ziegler", "et al."], "https://luma.com/07fakgvs", ziegler, new Date("2026-01-12")),  // https://arxiv.org/abs/2205.01663
+    new Paper("Goal Misgeneralization in Deep Reinforcement Learning", ["Langosco", "et al."], "https://luma.com/dhuyfbg0", langosco, new Date("2026-01-19")),  // https://arxiv.org/abs/2105.14111
+    new Paper("TruthfulQA: Measuring How Models Mimic Human Falsehoods", ["Lin", "et al."], "https://luma.com/eepv5hz4", lin, new Date("2026-01-26")),  // https://arxiv.org/abs/2109.07958
+    new Paper("Alignment Faking in Large Language Models", ["Greenblatt", "et al."], "https://luma.com/83ava297", greenblatt, new Date("2026-02-02")),  // https://arxiv.org/abs/2412.14093
+    new Paper("Emergent Misalignment", ["Betley", "et al."], "https://luma.com/0n59u1mc", betley, new Date("2026-02-09")),  // https://arxiv.org/abs/2502.17424
 ];
 
 // --------------------------------------------------
