@@ -246,7 +246,7 @@ const mediaItems = [
     new MediaItem(
         "Watermark Anything with Localized Messages",
         "Dr. Pierre Fernandez (FAIR Meta AI)",
-        "We are excited to feature Dr. Pierre Fernandez, Research Scientist at Meta AI, who will discuss `Watermark Anything with Localized Messages`, lasting approximately 45 minutes.",
+        "Dr. Pierre Fernandez is a Research Scientist at Meta AI",
         "Invisible image watermarking embeds information into image pixels in a way that remains imperceptible to the human eye but can still be retrieved even after significant image editing. However, traditional methods struggle when dealing with small, localized watermarked areas—something that often happens in real-world scenarios where images come from different sources or undergo modifications. In this talk, after a brief introduction to image watermarking, we’ll explore an approach designed to tackle this issue. Watermark Anything (ICLR 2025) reframes image watermarking as a segmentation problem. We’ll walk through the motivation behind this idea, how we developed and trained the model, the challenges we faced, and the final results.",
         "https://www.youtube.com/embed/gwnYmoVzJCo",
         [
@@ -337,6 +337,15 @@ const mediaItems = [
             "/images/media/ws2526/20251118_edwards/edwards_4.jpeg",
         ],
         new Date("2025-11-18")
+    ),
+    new MediaItem(
+        "What's Next in Continual Learning for Foundation Models?",
+        "Ameya Prabhu (Tübingen AI Center)",
+        "Ameya is a Postdoctoral Researcher at the Bethge Lab, Tübingen AI Center, where he works on developing frontier benchmarks for foundation models with a broader focus on automated scientific discovery. He received his PhD in Artificial Intelligence from the University of Oxford in 2024, working on continual learning and robustness, including contributions such as GDumb and RanDumb. He previously held research roles at Intel Labs, Verisk, IBM, and WizCal, spanning topics from large-scale continual learning to neural architecture search and uncertainty estimation. Before Oxford, he completed a dual Bachelor’s and Master’s by Research in Computer Science at IIIT Hyderabad. His work has been published at NeurIPS, ICML, ICCV, EMNLP, and TMLR.",
+        "This talk discusses the latest advancements in continual learning for foundation models.",
+        "",
+        [],
+        new Date("2025-12-02")
     )
 ];
 
