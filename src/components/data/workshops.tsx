@@ -3,6 +3,7 @@ import type { ImageMetadata } from "astro";
 import neo4jLogo from "../../images/partners/neo4j.png";
 import instadeepLogo from "../../images/partners/instadeep.png";
 import googleLogo from "../../images/partners/google-white.png";
+import didaLogo from "../../images/partners/dida.png"
 
 class Workshop {
     public next = false
@@ -20,7 +21,7 @@ const workshopsRaw = [
     new Workshop(new Date("2025-07-08"), "BLISS x Neo4j: Hands-On with GraphRAG - Powering GenAI with Knowledge Graphs", "Martin", "Neo4j", "https://luma.com/7j77q70m?tk=XSoFkG", "A hands-on workshop focused on integrating Knowledge Graphs and Retrieval Augmented Generation (RAG) to enhance Generative AI projects by reducing hallucinations and providing access to reliable data.", false, false, neo4jLogo),
     // new Workshop(new Date("2025-11-26"), "BLISS x Dida: tbd", "...", "Dida", "https://...", "More infos coming soon!", false, false, undefined),
     new Workshop(new Date("2025-12-11"), "BLISS x InstaDeep: Foundational Models for Genomics: Decoding Genomic Sequences", "Miguel Arbesú, Bernardo Almeida, Jonas Hirsch", "InstaDeep", "https://luma.com/f3yb8zn2", "Genomics foundation models have emerged as powerful tools to decode the human genome and understand how genetic variants affect disease and traits. In this hands-on workshop, we will provide an overview of how these models learn the regulatory code of the genome, discuss specific models and applications, and get hands-on experience implementing them.", false, false, instadeepLogo),
-    // new Workshop(new Date("2026-01-07"), "BLISS x Dida: tbd", "...", "Dida", "https://...", "More infos coming soon!", false, false, undefined),
+    new Workshop(new Date("2026-01-07"), "BLISS x dida: Theory Meets Practice #1: Opening the Black Box: A Hands-On Guide to Explainable AI for LLMs", "Reduan Achtibat", "dida", "https://luma.com/6n2o37qh", "While Large Language Models have demonstrated unprecedented capabilities in reasoning and retrieval, their internal decision-making processes remain largely opaque. As they grow in complexity, treating these models as 'black boxes' is no longer sufficient for building reliable, safe, and transparent systems.", false, false, didaLogo),
     // new Workshop(new Date("2026-01-21"), "BLISS x Neo4J: tbd", "...", "Neo4J", "https://...", "More infos coming soon!", false, false, undefined),
     // new Workshop(new Date("2026-02-04"), "BLISS x Google: tbd", "...", "Google", "https://...", "More infos coming soon!", false, false, googleLogo),
 ];
