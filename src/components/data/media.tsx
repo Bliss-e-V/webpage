@@ -353,7 +353,11 @@ const mediaItems = [
         "Dilara is a Research Engineer at Google DeepMind in London, working on video understanding. She received her MSc in Computer Science from the Technical University of Munich in 2022, specializing in computer vision and graphics as a TEV/DAAD scholar, and her BSc in Computer Engineering from Boğaziçi University, where she graduated with high honors. Previously, she held engineering roles at Facebook Reality Labs, Microsoft, and X (The Everyday Robot Project), as well as a site reliability internship at Google.",
         "Real-world understanding necessitates modeling complex temporal and motion cues, yet current image-first approaches often fall short in capturing \"what is happening\" in favor of \"what\" is merely present. Furthermore, convincingly demonstrating scaling for pure self-supervised learning from video has remained a challenge, largely because prior evaluation has focused on semantic tasks like action classification. This talk addresses these limitations by introducing a scalable, video-native approach built on masked auto-encoding. We demonstrate that by focusing evaluation on challenging non-semantic 4D vision tasks—such as point and object tracking, camera pose, and depth estimation—MAE with transformer video models actually scales. Specifically, we show consistent performance improvements as the model size is increased from 20 million up to a new industry record of 22 billion parameters, rigorously confirming the benefits of scaling 4D representations.",
         "",
-        [],
+        [
+            "/images/media/ws2526/20251216_goekay/goekay_1.jpeg",
+            "/images/media/ws2526/20251216_goekay/goekay_2.jpeg",
+            "/images/media/ws2526/20251216_goekay/goekay_3.jpeg",
+        ],
         new Date("2025-12-16")
     )
 ];
