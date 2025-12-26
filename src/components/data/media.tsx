@@ -343,9 +343,18 @@ const mediaItems = [
         "Ameya Prabhu (Tübingen AI Center)",
         "Ameya is a Postdoctoral Researcher at the Bethge Lab, Tübingen AI Center, where he works on developing frontier benchmarks for foundation models with a broader focus on automated scientific discovery. He received his PhD in Artificial Intelligence from the University of Oxford in 2024, working on continual learning and robustness, including contributions such as GDumb and RanDumb. He previously held research roles at Intel Labs, Verisk, IBM, and WizCal, spanning topics from large-scale continual learning to neural architecture search and uncertainty estimation. Before Oxford, he completed a dual Bachelor’s and Master’s by Research in Computer Science at IIIT Hyderabad. His work has been published at NeurIPS, ICML, ICCV, EMNLP, and TMLR.",
         "This talk discusses the latest advancements in continual learning for foundation models.",
-        "",
+        "https://www.youtube.com/embed/2Bfvmi4ySBs",
         [],
         new Date("2025-12-02")
+    ),
+    new MediaItem(
+        "Insights into Training Video Models",
+        "Dilara Gökay (Google DeepMind)",
+        "Dilara is a Research Engineer at Google DeepMind in London, working on video understanding. She received her MSc in Computer Science from the Technical University of Munich in 2022, specializing in computer vision and graphics as a TEV/DAAD scholar, and her BSc in Computer Engineering from Boğaziçi University, where she graduated with high honors. Previously, she held engineering roles at Facebook Reality Labs, Microsoft, and X (The Everyday Robot Project), as well as a site reliability internship at Google.",
+        "Real-world understanding necessitates modeling complex temporal and motion cues, yet current image-first approaches often fall short in capturing \"what is happening\" in favor of \"what\" is merely present. Furthermore, convincingly demonstrating scaling for pure self-supervised learning from video has remained a challenge, largely because prior evaluation has focused on semantic tasks like action classification. This talk addresses these limitations by introducing a scalable, video-native approach built on masked auto-encoding. We demonstrate that by focusing evaluation on challenging non-semantic 4D vision tasks—such as point and object tracking, camera pose, and depth estimation—MAE with transformer video models actually scales. Specifically, we show consistent performance improvements as the model size is increased from 20 million up to a new industry record of 22 billion parameters, rigorously confirming the benefits of scaling 4D representations.",
+        "",
+        [],
+        new Date("2025-12-16")
     )
 ];
 
