@@ -329,7 +329,7 @@ const mediaItems = [
         "Ashley Edwards (Google DeepMind)",
         "Ashley is a Senior Research Scientist at Google DeepMind, where she works on reinforcement learning and foundational world models. She received her PhD in Computer Science from Georgia Tech in 2019, where she developed models for inferring latent actions, rewards, and policies from videos. Previously, she was a Research Scientist at Uber AI Labs and an intern at Google Brain. She holds a BSc in Computer Science from the University of Georgia.",
         "Training models on large-scale data has given us powerful generative capabilities for text, images, and video. However, this success has not yet extended to training generalist embodied agents. This talk tackles this gap by focusing on a potential solution to this problem: scalable world models. We'll trace the idea of planning in predictive models, from its origins to modern efforts on building world models directly from pixels. I'll discuss the primary challenge of scaling these models and present our work, Genie, which enables us to learn world models without explicit action labels at scale, demonstrating a new path forward for training the generalist agents of the future.",
-        "",
+        "https://www.youtube.com/embed/e6echhvqxhM",
         [
             "/images/media/ws2526/20251118_edwards/edwards_1.jpeg",
             "/images/media/ws2526/20251118_edwards/edwards_2.jpeg",
