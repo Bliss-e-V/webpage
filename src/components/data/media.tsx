@@ -359,6 +359,15 @@ const mediaItems = [
             "/images/media/ws2526/20251216_goekay/goekay_3.jpeg",
         ],
         new Date("2025-12-16")
+    ),
+    new MediaItem(
+        "Test-Time Training Agents for Deep Exploration",
+        "Jonas Hübotter (ETH Zurich)",
+        "Jonas is a PhD student in the Learning and Adaptive Systems Group at ETH Zurich, advised by Andreas Krause. His research focuses on test-time training and reinforcement learning, with broader interests in probabilistic inference, optimization, and online learning. He received an MSc in Theoretical Computer Science and Machine Learning from ETH Zurich, where he was awarded the ETH Medal, and a BSc in Computer Science and Mathematics from the Technical University of Munich. His work has been published at NeurIPS, ICLR, ICML, and COLM.",
+        "The standard paradigm of machine learning separates training and testing. Training aims to learn a model by extracting general rules from data, and testing applies this model to new, unseen data. We study an alternative paradigm where the model is trained at test-time specifically for the given task. We investigate why such test-time training can effectively specialize a model to individual tasks. Further, we demonstrate that such test-time training enables models to continually improve and eventually solve challenging tasks, which are out of reach for the initial model.",
+        "",
+        [],
+        new Date("2026-01-13")
     )
 ];
 
