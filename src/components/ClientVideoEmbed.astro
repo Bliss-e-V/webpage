@@ -1,23 +1,19 @@
 ---
 interface Props {
-  src: string;
+  videoId: string;
   title: string;
   class?: string;
 }
 
-const { src, title, class: className = "" } = Astro.props;
-
-// Extract video ID from embed URL (e.g., https://www.youtube.com/embed/VIDEO_ID)
-const videoId = src?.match(/youtube\.com\/embed\/([^?&]+)/)?.[1];
-const youtubeUrl = videoId ? `https://www.youtube.com/watch?v=${videoId}` : null;
+const { videoId, title, class: className = "" } = Astro.props;
 ---
 
-{src && (
+{videoId && (
   <div class="video-wrapper">
     <iframe
       width="100%"
       height="200"
-      src={src}
+      src={`https://www.youtube-nocookie.com/embed/${videoId}`}
       title={title}
       class={className}
       loading="lazy"
@@ -25,21 +21,19 @@ const youtubeUrl = videoId ? `https://www.youtube.com/watch?v=${videoId}` : null
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin"
     />
-    {youtubeUrl && (
-      <a
-        href={youtubeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="youtube-link"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-          <polyline points="15 3 21 3 21 9" />
-          <line x1="10" y1="14" x2="21" y2="3" />
-        </svg>
-        Watch on YouTube
-      </a>
-    )}
+    <a
+      href={`https://www.youtube.com/watch?v=${videoId}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="youtube-link"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        <polyline points="15 3 21 3 21 9" />
+        <line x1="10" y1="14" x2="21" y2="3" />
+      </svg>
+      Watch on YouTube
+    </a>
   </div>
 )}
 
