@@ -1,26 +1,61 @@
 ---
-const { src, title, class: className = "" } = Astro.props;
-
-// Process YouTube URL to ensure it has proper origin parameter
-let processedSrc = src;
-if (src && src.includes("youtube.com/embed/")) {
-  const baseUrl = src.split('?')[0];
-  const params = new URLSearchParams(src.includes('?') ? src.split('?')[1] : '');
-  
-  // Set essential parameters for CORS
-  // Use Astro.site?.origin as the primary source, with a fallback
-  params.set('origin', Astro.site?.origin || 'https://www.bliss.berlin');
-  params.set('enablejsapi', '1');
-  
-  processedSrc = `${baseUrl}?${params.toString()}`;
+interface Props {
+  videoId: string;
+  title: string;
+  class?: string;
 }
+
+const { videoId, title, class: className = "" } = Astro.props;
 ---
-<iframe
-  width="100%"
-  height="200"
-  src={processedSrc}
-  title={title}
-  allowfullscreen
-  class={className}
-  loading="lazy"
-/>
+
+{videoId && (
+  <div class="video-wrapper">
+    <iframe
+      width="100%"
+      height="200"
+      src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+      title={title}
+      class={className}
+      loading="lazy"
+      allowfullscreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+    />
+    <a
+      href={`https://www.youtube.com/watch?v=${videoId}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="youtube-link"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        <polyline points="15 3 21 3 21 9" />
+        <line x1="10" y1="14" x2="21" y2="3" />
+      </svg>
+      Watch on YouTube
+    </a>
+  </div>
+)}
+
+<style>
+  .video-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .youtube-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.2s;
+    width: fit-content;
+  }
+
+  .youtube-link:hover {
+    color: #fff;
+  }
+</style>
