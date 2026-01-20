@@ -371,40 +371,6 @@ const mediaItems = [
     )
 ];
 
-function addOrigin(url: string): string {
-    if (!url || typeof url !== 'string') return url;
-
-    if (url.includes("youtube.com/embed/")) {
-        try {
-            // Parse URL properly
-            const baseUrl = url.split('?')[0];
-            const params = new URLSearchParams(url.includes('?') ? url.split('?')[1] : '');
-
-            // Set the essential YouTube iframe API parameters
-            params.set('origin', 'https://www.bliss.berlin');
-            params.set('enablejsapi', '1');
-
-            // Remove any potentially problematic parameters
-            if (params.has('data')) {
-                params.delete('data');
-            }
-
-            return `${baseUrl}?${params.toString()}`;
-        } catch (error) {
-            console.error("Error processing YouTube URL:", error);
-            return url;
-        }
-    }
-    return url;
-}
-
-// After defining mediaItems, update videoLink for each item.
-mediaItems.forEach(item => {
-    if (item.videoLink) {
-        item.videoLink = addOrigin(item.videoLink);
-    }
-});
-
 const mediaItemsToObject = (mediaItems: MediaItem[]) => {
     const obj: Record<string, MediaItem[]> = {};
 
