@@ -10,7 +10,6 @@ export class MediaItem {
     ) { }
 }
 
-// Test media items
 const mediaItems = [
     new MediaItem(
         "Set Learning for Accurate and Calibrated Models",
