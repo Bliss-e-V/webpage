@@ -36,66 +36,68 @@ const events = allEvents
   });
 ---
 
-<div class="event-carousel-container">
-  <div class="event-carousel">
-    <div class="event-slides-container" id="slidesContainer">
-      {events.map((event, index) => (
-        <div class="event-slide" data-index={index}>
-          <a 
-            href={event.link}
-            class={`event-card ${event.color} ${event.textColor} block rounded-lg p-4 transition-all duration-300 hover:shadow-lg`}
-            target={event.link.startsWith('http') ? '_blank' : '_self'}
-            rel={event.link.startsWith('http') ? 'noopener noreferrer' : ''}
-          >
-            <div class="event-content">
-              <div class="flex justify-between items-start">
-                <div class="flex-1">
-                  <h3 class="event-title text-xl font-bold mb-1">Upcoming: {event.title}</h3>
-                  <p class="event-description text-sm">{event.description}</p>
-                  <p class="event-date text-xs mb-2">{event.displayDate}</p>
-                </div>
-                {event.link.startsWith('http') && (
-                  <div class="external-link-icon ml-3 flex-shrink-0">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                    </svg>
+{events.length > 0 && (
+  <div class="event-carousel-container">
+    <div class="event-carousel">
+      <div class="event-slides-container" id="slidesContainer">
+        {events.map((event, index) => (
+          <div class="event-slide" data-index={index}>
+            <a 
+              href={event.link}
+              class={`event-card ${event.color} ${event.textColor} block rounded-lg p-4 transition-all duration-300 hover:shadow-lg`}
+              target={event.link.startsWith('http') ? '_blank' : '_self'}
+              rel={event.link.startsWith('http') ? 'noopener noreferrer' : ''}
+            >
+              <div class="event-content">
+                <div class="flex justify-between items-start">
+                  <div class="flex-1">
+                    <h3 class="event-title text-xl font-bold mb-1">Upcoming: {event.title}</h3>
+                    <p class="event-description text-sm">{event.description}</p>
+                    <p class="event-date text-xs mb-2">{event.displayDate}</p>
                   </div>
-                )}
+                  {event.link.startsWith('http') && (
+                    <div class="external-link-icon ml-3 flex-shrink-0">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                      </svg>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </a>
-        </div>
-      ))}
-    </div>
-  </div>
-  
-  {events.length > 1 && (
-    <>
-      <!-- Navigation dots -->
-      <div class="carousel-dots">
-        {events.map((_, index) => (
-          <button 
-            class="carousel-dot" 
-            data-index={index}
-            aria-label={`Go to slide ${index + 1}`}
-          ></button>
+            </a>
+          </div>
         ))}
       </div>
-      
-      <!-- Navigation arrows -->
-      <button class="carousel-arrow carousel-arrow-left" aria-label="Previous slide">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-        </svg>
-      </button>
-      <button class="carousel-arrow carousel-arrow-right" aria-label="Next slide">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-        </svg>
-      </button>
-    </>
-  )}
-</div>
+    </div>
+    
+    {events.length > 1 && (
+      <>
+        <!-- Navigation dots -->
+        <div class="carousel-dots">
+          {events.map((_, index) => (
+            <button 
+              class="carousel-dot" 
+              data-index={index}
+              aria-label={`Go to slide ${index + 1}`}
+            ></button>
+          ))}
+        </div>
+        
+        <!-- Navigation arrows -->
+        <button class="carousel-arrow carousel-arrow-left" aria-label="Previous slide">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button class="carousel-arrow carousel-arrow-right" aria-label="Next slide">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </>
+    )}
+  </div>
+)}
 
 <script>
   class EventCarousel {
