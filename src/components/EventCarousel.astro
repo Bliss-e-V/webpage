@@ -1,9 +1,9 @@
 ---
 // Event data for the carousel
-const events = [
+const allEvents = [
   {
     title: "Engineering Multimodal Agents with Haystack",
-    date: "Wed, Jan 21",
+    date: "2026-01-21",
     description: "Workshop by BLISS x dida: Theory Meets Practice #2: Giving Eyes to your AI: Engineering Multimodal Agents with Haystack",
     link: "https://luma.com/isat12k0?utm_source=blisswebsite",
     color: "bg-blue-900/50",
@@ -11,13 +11,29 @@ const events = [
   },
   {
     title: "Unleash the Power of Agentic AI",
-    date: "Tue, Feb 3",
+    date: "2026-02-03",
     description: "Workshop by BLISS x Google: Unleash the Power of Agentic AI using Knowledge Graphs and RAG",
     link: "https://luma.com/sd7cl8ft?utm_source=blisswebsite",
     color: "bg-green-900/50",
     textColor: "text-green-200"
   }
 ];
+
+// Filter out past events and format dates for display
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const events = allEvents
+  .filter(event => new Date(event.date) >= today)
+  .map(event => {
+    const eventDate = new Date(event.date);
+    const formattedDate = eventDate.toLocaleDateString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric'
+    });
+    return { ...event, displayDate: formattedDate };
+  });
 ---
 
 <div class="event-carousel-container">
@@ -36,7 +52,7 @@ const events = [
                 <div class="flex-1">
                   <h3 class="event-title text-xl font-bold mb-1">Upcoming: {event.title}</h3>
                   <p class="event-description text-sm">{event.description}</p>
-                  <p class="event-date text-xs mb-2">{event.date}</p>
+                  <p class="event-date text-xs mb-2">{event.displayDate}</p>
                 </div>
                 {event.link.startsWith('http') && (
                   <div class="external-link-icon ml-3 flex-shrink-0">
