@@ -1,7 +1,5 @@
 ---
 import Badge from "@components/Badge";
-
-const showHackathon = false;
 ---
 
 <div
@@ -24,33 +22,34 @@ const showHackathon = false;
         </p>
       </a>
     </div>
-    <div id="menu" class="flex items-center space-x-7">
-      {
-        showHackathon && (
-          <a
-            id={`HackathonLink`}
-            href={`/blissathon`}
-            class="hidden text-sm tracking-wider sm:text-base no-underline sm:block text-secondary hover:text-primary transition-colors duration-300"
-          >
-            <p class="bg-accent-dark text-accent rounded-md px-2 text-lg hover:shadow-accent-small transition-shadow">
-              Hackathon
-            </p>
-          </a>
-        )
-      }
+    <div id="menu" class="flex items-center space-x-4 md:space-x-7 pl-4 md:pl-0">
+      <a
+        id="speakerSeriesLink"
+        href="/"
+        class="hidden md:block tracking-wider no-underline text-secondary hover:text-primary transition-colors"
+      >
+        <p class="text-center">Speaker Series</p>
+      </a>
       <a
         id="readingGroupLink"
         href="/reading-group"
         class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
       >
-        <p>Reading Group</p>
+        <p class="text-center">Reading Group</p>
       </a>
       <a
-        id="mediaLink"
-        href="/media"
+        id="workshopsLink"
+        href="/workshops"
         class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
       >
-        <p>Media</p>
+        <p class="text-center">Workshops</p>
+      </a>
+      <a
+        id="pastEventsLink"
+        href="/past-events"
+        class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
+      >
+        <p class="text-center">Past Events</p>
       </a>
       <a
         id="teamLink"
@@ -76,13 +75,12 @@ const showHackathon = false;
   const header = document.getElementById("header")!;
 
   // link animation
-  const readingGroupLink: HTMLElement =
-    document.getElementById("readingGroupLink")!;
-  const mediaLink: HTMLElement = document.getElementById("mediaLink")!;
+  const speakerSeriesLink: HTMLElement = document.getElementById("speakerSeriesLink")!;
+  const readingGroupLink: HTMLElement = document.getElementById("readingGroupLink")!;
+  const workshopsLink: HTMLElement = document.getElementById("workshopsLink")!;
+  const pastEventsLink: HTMLElement = document.getElementById("pastEventsLink")!;
   const teamLink: HTMLElement = document.getElementById("teamLink")!;
-  const hackathonLink: HTMLElement | null = document.getElementById("HackathonLink");
-  const allLinks: HTMLElement[] = [readingGroupLink, mediaLink, teamLink];
-  if (hackathonLink) allLinks.push(hackathonLink);
+  const allLinks: HTMLElement[] = [speakerSeriesLink, readingGroupLink, workshopsLink, pastEventsLink];
 
   function animateHeader() {
     if (window.scrollY > 0) {
@@ -117,10 +115,11 @@ const showHackathon = false;
   function handleRoute() {
     // Set active link based on URL path
     const linkMap = {
+      "/": speakerSeriesLink,
       "/reading-group": readingGroupLink,
-      "/media": mediaLink,
+      "/workshops": workshopsLink,
+      "/past-events": pastEventsLink,
       "/team": teamLink,
-      "/blissathon": hackathonLink,
     }
     setActiveLink(linkMap[window.location.pathname as keyof typeof linkMap]);
   }

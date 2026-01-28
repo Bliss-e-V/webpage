@@ -14,7 +14,7 @@ export default function AuthorList({ authors }: Props) {
         />
       ))}
       <p className="px-2 tracking-wider truncate text-md text-secondary">
-        {authors.join(", ")}
+        {authors.length >= 10 ? authors.slice(0, 8).join(", ") + " et al." : authors.join(", ")}
       </p>
     </div>
   );

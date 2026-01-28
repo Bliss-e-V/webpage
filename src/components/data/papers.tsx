@@ -61,6 +61,21 @@ import gasteiger from "../../images/posts/images/20250623_gasteiger20.png";
 import satorras from "../../images/posts/images/20250630_satorras22.png";
 import hu from "../../images/posts/images/20250707_hu21.png";
 import joshi from "../../images/posts/images/20250714_joshi24.png";
+import ronneberger from "../../images/posts/images/20251020_ronneberger.png"
+import arnoldt from "../../images/posts/images/20251027_arnoldt.png"
+import huang from "../../images/posts/images/20251103_huang.png"
+import hegselmann from "../../images/posts/images/20251110_hegselmann.png"
+import richard from "../../images/posts/images/20251117_richard.png"
+import duan from "../../images/posts/images/20251117_duan.png"
+import erturk from "../../images/posts/images/20251124_erturk.png"
+import saporta from "../../images/posts/images/20251201_saporta.png"
+import ouyang from "../../images/posts/images/20251208_ouyang.png"
+import bai from "../../images/posts/images/20251215_bai.png"
+import ziegler from "../../images/posts/images/20260112_ziegler.png"
+import langosco from "../../images/posts/images/20260119_langosco.png"
+import lin from "../../images/posts/images/20260126_lin.png"
+import greenblatt from "../../images/posts/images/20260202_greenblatt.png"
+import betley from "../../images/posts/images/20260209_betley.png"
 
 export class Paper {
     constructor(public name: string, public authors: string[], public link: string, public image: ImageMetadata, public readingDay: Date) {
@@ -143,6 +158,20 @@ const sections: Section[] = [
         new Date("2025-09-30"),
         "This reading group investigates the theoretical foundations and architectural design space of Geometric Graph Neural Networks for 3D atomic systems."
     ),
+    new Section(
+        "Variety of Machine Learning in Healthcare",
+        "Tillmann Rheude und Leonhard Kohleick",
+        new Date("2025-10-20"),
+        new Date("2025-12-01"),
+        "A tour through the variety of machine learning in healthcare, from images and cells to genes and multimodal data."
+    ),
+    new Section(
+        "Technical Alignment in AI",
+        "Craig Dickson",
+        new Date("2025-12-08"),
+        new Date("2026-02-09"),
+        "A tour through the alignment of large language models."
+    )
 ]
 
 // --------------------------------------------------
@@ -210,6 +239,21 @@ const papers = [
     new Paper("E(n) Equivariant Graph Neural Networks", ["Victor Garcia Satorras", "Emiel Hoogeboom", "Max Welling"], "https://arxiv.org/pdf/2102.09844", satorras, new Date("2025-06-30")),
     new Paper("ForceNet: A Graph Neural Network for Large-Scale Quantum Calculations", ["Weihua Hu", "Muhammed Shuaibi", "Abhishek Das", "Siddharth Goyal", "Anuroop Sriram", "Jure Leskovec", "Devi Parikh", "C. Lawrence Zitnick"], "https://arxiv.org/pdf/2103.01436", hu, new Date("2025-07-07")),
     new Paper("On the Expressive Power of Geometric Graph Neural Networks", ["Chaitanya K. Joshi", "Cristian Bodnar", "Simon V. Mathis", "Taco Cohen", "Pietro Liò"], "https://arxiv.org/pdf/2301.09308", joshi, new Date("2025-07-14")),
+    new Paper("U-Net: Convolutional Networks for Biomedical Image Segmentation", ["Olaf Ronneberger", "Philipp Fischer", "Thomas Brox"], "https://arxiv.org/pdf/1505.04597.pdf", ronneberger, new Date("2025-10-20")),
+    new Paper("Biologically Guided Variational Inference for Interpretable Multimodal Single-Cell Integration and Mechanistic Discovery", ["Lucas Arnoldt", "Julius Upmeier zu Belzen", "Luis Herrmann", "Khue Nguyen", "Fabian Theis", "Benjamin Wild", "Roland Eils"], "https://www.biorxiv.org/content/10.1101/2025.06.10.657924v1.full.pdf", arnoldt, new Date("2025-10-27")),
+    new Paper("A foundation model for clinician-centered drug repurposing", ["Kexin Huang", "Payal Chandak", "Qianwen Wang", "Shreyas Havaldar", "Akhil Vaid", "Jure Leskovec", "Girish Nadkarni", "Benjamin S. Glicksberg", "Nils Gehlenborg", "Marinka Zitnik"], "https://www.medrxiv.org/content/10.1101/2023.03.19.23287458v4.full.pdf", huang, new Date("2025-11-03")),
+    new Paper("Large Language Models are Powerful Electronic Health Record Encoders", ["Stefan Hegselmann", "Georg von Arnim", "Tillmann Rheude", "Noel Kronenberg", "David Sontag", "Gerhard Hindricks", "Roland Eils", "Benjamin Wild"], "https://arxiv.org/pdf/2502.17403.pdf", hegselmann, new Date("2025-11-10")),
+    // new Paper("ChatNT: A Multimodal Conversational Agent for DNA, RNA and Protein Tasks", ["Guillaume Richard", "Bernardo P. de Almeida", "Hugo Dalla-Torre", "Christopher Blum", "Lorenz Hexemer", "Priyanka Pandey", "Stefan Laurent", "Marie Lopez", "Alexandre Laterre", "Maren Lang", "Ugur Sahin", "Karim Beguir", "Thomas Pierrot"], "https://www.biorxiv.org/content/10.1101/2024.04.30.591835v1.full.pdf", richard, new Date("2025-11-17")),  // cancelled
+    new Paper("JanusDNA: A Powerful Bi-directional Hybrid DNA Foundation Model", ["Qihao Duan", "Bingding Huang", "Zhenqiao Song", "Irina Lehmann", "Lei Gu", "Roland Eils", "Benjamin Wild"], "https://arxiv.org/abs/2505.17257", duan, new Date("2025-11-17")),
+    new Paper("Beyond Sensor Data: Foundation Models of Behavioral Data from Wearables Improve Health Predictions", ["Eray Erturk", "Fahad Kamran", "Salar Abbaspourazad", "Sean Jewell", "Harsh Sharma", "Yujie Li", "Sinead Williamson", "Nicholas J. Foti", "Joseph Futoma"], "https://arxiv.org/pdf/2507.00191.pdf", erturk, new Date("2025-11-24")),
+    new Paper("Contrasting with Symile: Simple Model-Agnostic Representation Learning for Unlimited Modalities", ["Adriel Saporta", "Aahlad Puli", "Mark Goldstein", "Rajesh Ranganath"], "https://arxiv.org/pdf/2411.01053.pdf", saporta, new Date("2025-12-01")),
+    new Paper("Training Language Models to Follow Instructions with Human Feedback", ["Long Ouyang", "Jeff Wu", "Xu Jiang", "Diogo Almeida", "Carroll L. Wainwright", "Pamela Mishkin", "Chong Zhang", "Sandhini Agarwal", "Katarina Slama", "Alex Ray", "John Schulman", "Jacob Hilton", "Fraser Kelton", "Luke Miller", "Maddie Simens", "Amanda Askell", "Peter Welinder", "Paul Christiano", "Jan Leike", "Ryan Lowe"], "https://luma.com/8srmkzqy", ouyang, new Date("2025-12-08")),  // https://arxiv.org/abs/2203.02155
+    new Paper("Constitutional AI: Harmlessness from AI Feedback", ["Yuntao Bai", "Saurav Kadavath", "Sandipan Kundu", "Amanda Askell", "Jackson Kernion", "Andy Jones", "Anna Chen", "Anna Goldie", "Azalia Mirhoseini", "Cameron McKinnon", "Carol Chen", "Catherine Olsson", "Christopher Olah", "Danny Hernandez", "Dawn Drain", "Deep Ganguli", "Dustin Li", "Eli Tran-Johnson", "Ethan Perez", "Jamie Kerr", "Jared Mueller", "Jeffrey Ladish", "Joshua Landau", "Kamal Ndousse", "Kamile Lukosuite", "Liane Lovitt", "Michael Sellitto", "Nelson Elhage", "Nicholas Schiefer", "Noemi Mercado", "Nova DasSarma", "Robert Lasenby", "Robin Larson", "Sam Ringer", "Scott Johnston", "Shauna Kravec", "Sheer El Showk", "Stanislav Fort", "Tamera Lanham", "Timothy Telleen-Lawton", "Tom Conerly", "Tom Henighan", "Tristan Hume", "Samuel R. Bowman", "Zac Hatfield-Dodds", "Ben Mann", "Dario Amodei", "Nicholas Joseph", "Sam McCandlish", "Tom Brown", "Jared Kaplan"], "https://luma.com/1ta19ld6", bai, new Date("2025-12-15")),  // https://arxiv.org/abs/2212.08073
+    new Paper("Adversarial Training for High-Stakes Reliability", ["Daniel M. Ziegler", "Seraphina Nix", "Lawrence Chan", "Tim Bauman", "Peter Schmidt-Nielsen", "Tao Lin", "Adam Scherlis", "Noa Nabeshima", "Ben Weinstein-Raun", "Daniel de Haas", "Buck Shlegeris", "Nate Thomas"], "https://luma.com/07fakgvs", ziegler, new Date("2026-01-12")),  // https://arxiv.org/abs/2205.01663
+    new Paper("Goal Misgeneralization in Deep Reinforcement Learning", ["Lauro Langosco", "Jack Koch", "Lee Sharkey", "Jacob Pfau", "Laurent Orseau", "David Krueger"], "https://luma.com/dhuyfbg0", langosco, new Date("2026-01-19")),  // https://arxiv.org/abs/2105.14111
+    new Paper("TruthfulQA: Measuring How Models Mimic Human Falsehoods", ["Stephanie Lin", "Jacob Hilton", "Owain Evans"], "https://luma.com/eepv5hz4", lin, new Date("2026-01-26")),  // https://arxiv.org/abs/2109.07958
+    new Paper("Alignment Faking in Large Language Models", ["Ryan Greenblatt", "Carson Denison", "Benjamin Wright", "Fabien Roger", "Monte MacDiarmid", "Sam Marks", "Johannes Treutlein", "Tim Belonax", "Jack Chen", "David Duvenaud", "Akbir Khan", "Julian Michael", "Sören Mindermann", "Ethan Perez", "Linda Petrini", "Jonathan Uesato", "Jared Kaplan", "Buck Shlegeris", "Samuel R. Bowman", "Evan Hubinger"], "https://luma.com/83ava297", greenblatt, new Date("2026-02-02")),  // https://arxiv.org/abs/2412.14093
+    new Paper("Emergent Misalignment", ["Jan Betley", "Daniel Tan", "Niels Warncke", "Anna Sztyber-Betley", "Xuchan Bao", "Martín Soto", "Nathan Labenz", "Owain Evans"], "https://luma.com/0n59u1mc", betley, new Date("2026-02-09")),  // https://arxiv.org/abs/2502.17424
 ];
 
 // --------------------------------------------------

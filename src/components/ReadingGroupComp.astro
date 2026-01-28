@@ -13,7 +13,7 @@ const futurePapers = Object.entries(dayToPapers)
     .reduce((obj, [date, papers]) => {
         obj[date] = papers;
         return obj;
-    }, {});
+    }, {} as Record<string, any>);
 const futurePaperList = Object.entries(futurePapers)
     .sort(([date1], [date2]) => date1.localeCompare(date2))
     .map(([, event]) => event)
@@ -24,7 +24,7 @@ const pastPapers = Object.entries(dayToPapers)
     .reduce((obj, [date, papers]) => {
         obj[date] = papers;
         return obj;
-    }, {});
+    }, {} as Record<string, any>);
 const pastPaperList = Object.entries(pastPapers)
     .sort(([date1], [date2]) => date2.localeCompare(date1))
     .map(([, event]) => event) as Paper[][];
@@ -54,15 +54,20 @@ const getPapersInDateRange = (
     </div>
 
     <div class="mb-10">
-        <div class="text-lg mb-4">
-            <strong>Get ready for the Winter Semester 2025/26!</strong>
-        </div>
         <div class="mb-4">
-            Our AI Reading Group will be back with exciting new papers and discussions. 
-            We're currently planning the schedule and selecting fascinating topics to explore together.
-        </div>
-        <div class="text-secondary">
-            📅 <strong>Details coming soon, stay tuned!
+            Get ready for Winter Semester 2025/26!
+        </div><div class="mb-4">
+            In the second half of this semester, Craig Dickson will host a reading group on <strong>Technical Alignment in AI</strong>. Join us for discussions about state of the art research on aligning large language models, including RLHF, constitutional AI, adversarial training, goal misgeneralization, and more!
+        </div><div class="mb-4">
+            📍 <a href="https://maps.app.goo.gl/4eqs9zTgEi9E9pbv5" target="_blank"><strong>Merantix AI Campus</strong> (Max-Urich-Straße 3, 13355 Berlin)</a>
+        </div><div class="mb-4">
+            🕖 <a
+                href=""
+                id="download-ical"
+                title="Download calendar events"
+            >
+                <strong>Every Monday, 18:45</strong> (Add to Calendar)
+            </a>
         </div>
     </div>
 
@@ -169,3 +174,162 @@ const getPapersInDateRange = (
         display: none;
     }
 </style>
+
+<script define:vars={{ upcomingPapers: futurePaperList }}>
+    // iCal generation utility functions
+    function formatDateForICal(date) {
+        // Use a more reliable date formatting approach
+        const d = new Date(date);
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const hours = String(d.getHours()).padStart(2, '0');
+        const minutes = String(d.getMinutes()).padStart(2, '0');
+        const seconds = String(d.getSeconds()).padStart(2, '0');
+        return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+    }
+
+    function escapeICalText(text) {
+        return text
+            .replace(/\\/g, '\\\\')
+            .replace(/;/g, '\\;')
+            .replace(/,/g, '\\,')
+            .replace(/\n/g, '\\n')
+            .replace(/\r/g, '');
+    }
+
+    function foldLine(line, maxLength = 75) {
+        if (line.length <= maxLength) return line;
+        const lines = [];
+        let current = line;
+        while (current.length > maxLength) {
+            lines.push(current.substring(0, maxLength));
+            current = ' ' + current.substring(maxLength);
+        }
+        if (current.length > 0) {
+            lines.push(current);
+        }
+        return lines.join('\r\n');
+    }
+
+    function generateEventICal(event) {
+        const startDate = formatDateForICal(event.startDate);
+        const endDate = formatDateForICal(event.endDate);
+
+        // Create a reproducible UID based on date only (i.e. max one reading group per day)
+        const eventKey = event.startDate.toISOString().split('T')[0];
+        const uid = `${eventKey}@bliss-reading-group`;
+        const timestamp = formatDateForICal(new Date());
+
+        const lines = [
+            'BEGIN:VEVENT',
+            `UID:${uid}`,
+            `DTSTAMP:${timestamp}`,
+            `DTSTART;TZID=Europe/Berlin:${startDate}`,
+            `DTEND;TZID=Europe/Berlin:${endDate}`,
+            `SUMMARY:${escapeICalText(event.title)}`,
+            `DESCRIPTION:${escapeICalText(event.description)}`,
+            `LOCATION:${escapeICalText(event.location)}`,
+            'ORGANIZER:CN=BLISS',
+            'STATUS:CONFIRMED',
+            'TRANSP:OPAQUE',
+            'SEQUENCE:0'
+        ];
+
+        if (event.url) {
+            lines.push(`URL:${event.url}`);
+        }
+
+        lines.push('END:VEVENT');
+
+        return lines.map(line => foldLine(line)).join('\r\n');
+    }
+
+    function generateICalContent(events) {
+        const header = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//BLISS Reading Group//Reading Group Events//EN',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+            'X-WR-CALNAME:BLISS Reading Group',
+            'X-WR-CALDESC:Reading Group Events',
+            'X-WR-TIMEZONE:Europe/Berlin'
+        ].join('\r\n');
+
+        const eventContent = events.map(generateEventICal).join('\r\n');
+
+        const footer = 'END:VCALENDAR';
+
+        return [header, eventContent, footer].join('\r\n');
+    }
+
+    function downloadICal(content, filename = 'bliss-reading-group.ics') {
+        const blob = new Blob([content], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.style.display = 'none';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+    }
+
+    function generateReadingGroupEvents(papers, location = 'Merantix AI Campus, Max-Urich-Straße 3, 13355 Berlin', startTime = '18:45', duration = 75) {
+        return papers.map(paper => {
+            // Ensure we have a proper Date object
+            const paperDate = new Date(paper.readingDay);
+            if (isNaN(paperDate.getTime())) {
+                console.error('Invalid date for paper:', paper.name, paper.readingDay);
+                return null;
+            }
+
+            const startDate = new Date(paperDate);
+            const [hours, minutes] = startTime.split(':').map(Number);
+            startDate.setHours(hours, minutes, 0, 0);
+
+            const endDate = new Date(startDate);
+            endDate.setMinutes(endDate.getMinutes() + duration);
+
+            const description = [
+                `BLISS Reading Group: ${paper.name}`,
+                '',
+                `Paper: ${paper.link}`,
+                '',
+                'Please check the website for updates: https://bliss.berlin/reading-group',
+            ].join('\n');
+
+            return {
+                title: `BLISS Reading Group: ${paper.name}`,
+                description,
+                startDate,
+                endDate,
+                location,
+                url: paper.link
+            };
+        }).filter(event => event !== null);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const downloadButton = document.getElementById('download-ical');
+
+        if (downloadButton && upcomingPapers && upcomingPapers.length > 0) {
+            downloadButton.addEventListener('click', () => {
+                const events = generateReadingGroupEvents(
+                    upcomingPapers,
+                    'Merantix AI Campus, Max-Urich-Straße 3, 13355 Berlin',
+                    '18:45',
+                    75
+                );
+
+                const icalContent = generateICalContent(events);
+                downloadICal(icalContent, 'bliss-reading-group-upcoming.ics');
+            });
+        }
+    });
+</script>

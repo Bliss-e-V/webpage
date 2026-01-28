@@ -6,6 +6,11 @@
       "source": "/blog/:page*",
       "destination": "/blog/:page",
       "statusCode": 410
+    },
+    {
+      "source": "/get-to-know",
+      "destination": "https://docs.google.com/forms/d/e/1FAIpQLScAQf4cvU3DlB35vPEHcU1Ga8AfxDSRPjPJGHHaKXtyUtcq5A/viewform?usp=header",
+      "statusCode": 307
     }
   ]
 }
