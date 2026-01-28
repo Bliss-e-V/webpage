@@ -367,6 +367,15 @@ const mediaItems = [
         "7EsrcXXPBRU",
         [],
         new Date("2026-01-13")
+    ),
+    new MediaItem(
+        "Can Humans Flourish in the Age of AI?",
+        "David Watson (King's College London)",
+        "David is a Lecturer in Artificial Intelligence at King’s College London, where his research spans machine learning, philosophy of science, and computational biology. He received his DPhil from the University of Oxford, focusing on algorithmic fairness and explainability, and was previously a Postdoctoral Research Fellow in the Department of Statistical Science at University College London, working on causal discovery and inference. He also serves as an Associate Editor at Minds & Machines and contributes as a Data Scientist at Queen Mary University’s Centre for Translational Bioinformatics.",
+        "The \"alignment problem\" in AI ethics refers to the challenge of instilling human values into automated systems. This is difficult for many reasons, not least because humans themselves are poorly aligned—our behavior as individuals and societies routinely deviates from our stated values. I propose a different challenge, which I argue is simpler to solve and more immediately beneficial. \"Inverse alignment\" is the task of using AI to help us live up to our own values. I examine two questions: Could AI help us become better individuals? Could AI help us build more just societies? Focusing on weakness of will and coordination failures, I explore whether and how AI might address these pervasive moral dilemmas. I argue that the primary obstacles are not technological but rather individual and structural vices that drive poor decision-making. While AI-enabled interventions could potentially help under the right conditions, there are real risks associated with overreliance on inverse alignment strategies. Any serious AI ethics discourse must nevertheless grapple with this possibility, given its profound implications for human flourishing.",
+        "",
+        [],
+        new Date("2026-01-27")
     )
 ];
 
