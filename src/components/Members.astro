@@ -3,6 +3,7 @@ import { members } from "./data/members";
 import { Image } from "astro:assets";
 import { Headline } from "./Headline";
 import MemberCard from "./MemberCard.astro";
+import BigButton from "./BigButton.tsx";
 ---
 
 <div class="flex items-center flex-col justify-center mb-40">
@@ -19,6 +20,13 @@ import MemberCard from "./MemberCard.astro";
                 : <span><MemberCard member={member}/></span>
             )
         }
+    </div>
+    <div class="mt-8">
+        <BigButton hover={true} className="mx-auto">
+            <a href="/team" class="no-underline">
+                View Team and Alumni
+            </a>
+        </BigButton>
     </div>
 </div>
 

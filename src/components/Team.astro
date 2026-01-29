@@ -1,0 +1,63 @@
+---
+import { currentMembers, alumniMembers } from "./data/members";
+import { Headline } from "./Headline";
+import MemberCard from "./MemberCard.astro";
+---
+
+<div class="flex items-center flex-col justify-center mb-40">
+    <!-- Current Members Section -->
+    <div id="current-members" class="text-center pt-32 mb-6">
+        <Headline level={2}>Current Team</Headline>
+    </div>
+    <div
+        class="membersContainer flex flex-wrap justify-center flex-row flex-grow-0 mb-20"
+    >
+        {
+            currentMembers.map((member) =>
+                member.link
+                ? <a href={member.link}><MemberCard member={member}/></a>
+                : <span><MemberCard member={member}/></span>
+            )
+        }
+    </div>
+
+    <!-- Alumni Section -->
+    <div id="alumni-members" class="text-center mb-6">
+        <Headline level={2}>Alumni</Headline>
+    </div>
+    <div
+        class="alumniContainer flex flex-wrap justify-center flex-row flex-grow-0"
+    >
+        {
+            alumniMembers.map((member) =>
+                member.link
+                ? <a href={member.link}><MemberCard member={member}/></a>
+                : <span><MemberCard member={member}/></span>
+            )
+        }
+    </div>
+</div>
+
+<!-- Client-side Shuffle Script -->
+<script>
+    // Wait for the DOM to be fully parsed
+    window.addEventListener("DOMContentLoaded", () => {
+        // Shuffle current members
+        const currentContainer = document.querySelector(".membersContainer");
+        if (currentContainer) {
+            const childrenArray = Array.from(currentContainer.children);
+            childrenArray.sort(() => Math.random() - 0.5);
+            currentContainer.innerHTML = "";
+            childrenArray.forEach((child) => currentContainer.appendChild(child));
+        }
+
+        // Shuffle alumni members
+        const alumniContainer = document.querySelector(".alumniContainer");
+        if (alumniContainer) {
+            const childrenArray = Array.from(alumniContainer.children);
+            childrenArray.sort(() => Math.random() - 0.5);
+            alumniContainer.innerHTML = "";
+            childrenArray.forEach((child) => alumniContainer.appendChild(child));
+        }
+    });
+</script>
