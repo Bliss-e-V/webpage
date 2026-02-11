@@ -74,6 +74,8 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
     const [lightboxState, setLightboxState] = useState<{ images: string[], index: number } | null>(null);
     const [expandedDetails, setExpandedDetails] = useState<string[]>([]);
+    // Notification state
+    const [notification, setNotification] = useState<{ show: boolean, message: string, id: string | null }>({ show: false, message: '', id: null });
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -97,24 +99,41 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
         );
     };
 
-    // Check for hash in URL to expand event on load
-    useState(() => {
+    // Check for query param 'id' in URL to expand event on load
+    useEffect(() => {
         if (typeof window !== 'undefined') {
-            const hash = window.location.hash.substring(1);
-            if (hash) {
-                // Try to match hash to date or videoId (simplistic approach: try comparing videoId)
-                const targetEvent = speakers.find(s => s.videoId === hash || s.date.toISOString() === hash);
+            const searchParams = new URLSearchParams(window.location.search);
+            const id = searchParams.get('id');
+            if (id) {
+                // Try to match id to videoId, date (YYYY-MM-DD or ISO), or episode number (index + 1)
+                const targetEvent = speakers.find((s, index) => 
+                    s.videoId === id || 
+                    s.date.toISOString() === id || 
+                    s.date.toISOString().split("T")[0] === id ||
+                    (index + 1).toString() === id
+                );
+                
                 if (targetEvent) {
-                    setExpandedEvents([targetEvent.date.toISOString()]);
+                    // Use the episode number as the unique ID for scrolling/expanding
+                    const episodeNumber = speakers.indexOf(targetEvent) + 1;
+                    const eventId = episodeNumber.toString();
+                    
+                    setExpandedEvents([eventId]);
+                    
                     // Scroll to element after a short delay
                     setTimeout(() => {
-                        const el = document.getElementById(hash);
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        const el = document.getElementById(eventId);
+                        if (el) {
+                            // Add scroll-margin-top logic via JS or use scrollIntoView options
+                            // The header is roughly 160px (pt-40), so 'center' might be safer, or just rely on CSS scroll-margin if added.
+                            // For now, let's try centering it which usually avoids the header issue.
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
                     }, 500);
                 }
             }
         }
-    });
+    }, []);
 
     const toggleEvent = (id: string) => {
         setExpandedEvents(prev =>
@@ -126,9 +145,14 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
 
     const copyLink = (e: React.MouseEvent, id: string) => {
         e.stopPropagation();
-        const url = `${window.location.origin}${window.location.pathname}#${id}`;
-        navigator.clipboard.writeText(url).then(() => {
-            alert('Link copied to clipboard!');
+        // Construct URL from origin and pathname to ensure no potentially existing hash is included
+        const url = new URL(window.location.origin + window.location.pathname);
+        url.searchParams.set('id', id);
+        navigator.clipboard.writeText(url.toString()).then(() => {
+            setNotification({ show: true, message: 'Link copied!', id });
+            setTimeout(() => {
+                setNotification(prev => ({ ...prev, show: false }));
+            }, 2000);
         });
     };
 
@@ -158,17 +182,18 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
 
                                 {/* Events in this semester */}
                                 {semesterGroup.events.map((event) => {
-                                    // Use videoId as ID if available, else date in YYYY-MM-DD
-                                    const eventId = event.videoId || event.date.toISOString().split("T")[0];
-                                    const isExpanded = expandedEvents.includes(eventId);
+                                    // Calculate episode number based on the original speakers array
                                     const episodeNumber = speakers.indexOf(event) + 1;
+                                    // Use episode number as the ID for consistency
+                                    const eventId = episodeNumber.toString();
+                                    const isExpanded = expandedEvents.includes(eventId);
 
                                     return (
                                         <li
                                             key={eventId}
                                             id={eventId}
                                             onClick={() => toggleEvent(eventId)}
-                                            className={`py-1 mt-6 rounded-md duration-200 relative cursor-pointer ${event.past ? "" : "hover:bg-li"}`}
+                                            className={`py-1 mt-6 rounded-md duration-200 relative cursor-pointer scroll-mt-48 ${event.past ? "" : "hover:bg-li"}`}
                                         >
                                             {/* Logo handling */}
                                             {event.logo && (
@@ -230,16 +255,25 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                                             {event.title}
                                                         </p>
                                                         {/* Link Icon for Copying URL */}
-                                                        <button
-                                                            className="opacity-60 hover:opacity-100 transition-opacity p-1 text-gray-400 hover:text-white"
-                                                            title="Copy link to event"
-                                                            onClick={(e) => copyLink(e, eventId)}
-                                                        >
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                                <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" />
-                                                                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z" />
-                                                            </svg>
-                                                        </button>
+                                                        <div className="relative">
+                                                            <button
+                                                                className="opacity-60 hover:opacity-100 transition-opacity p-1 text-gray-400 hover:text-white"
+                                                                title="Copy link to event"
+                                                                onClick={(e) => copyLink(e, eventId)}
+                                                            >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                                    <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" />
+                                                                    <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z" />
+                                                                </svg>
+                                                            </button>
+                                                            {/* Tooltip Notification */}
+                                                            {notification.show && notification.id === eventId && (
+                                                                <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap animate-in fade-in slide-in-from-bottom-1 z-10">
+                                                                    Link copied!
+                                                                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                                                                </div>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                     <span className="ml-2 text-gray-500 transform transition-transform duration-200" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
                                                         ▼
