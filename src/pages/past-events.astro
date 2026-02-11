@@ -1,0 +1,17 @@
+---
+export const prerender = true;
+---
+
+<script>
+  // Redirect to the new speaker series page, preserving query params (?id=...) and hash (#...)
+  const search = window.location.search;
+  const hash = window.location.hash;
+  const newUrl = '/speaker-series' + search + hash;
+  window.location.replace(newUrl);
+</script>
+
+<!-- Fallback for users with JavaScript disabled -->
+<meta http-equiv="refresh" content="0; url=/speaker-series">
+<noscript>
+  <p>This page has moved. <a href="/speaker-series">Click here to go to Speaker Series</a>.</p>
+</noscript>
