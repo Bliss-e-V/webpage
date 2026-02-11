@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { speakers } from "./data/speakers";
+import meetupLogo from "../images/logos/meetup.png"; // Adjust path if necessary based on your folder structure
 
 export interface SpeakerSeriesCompProps {
     renderPastEvents?: boolean;
@@ -15,13 +16,13 @@ function getSemester(date: Date): string {
     // Summer Semester: April (4) - September (9)
     if (month >= 10) {
         // October, November, December -> Winter Semester of current year/next year
-        return `WS${shortYear}/${(shortYear + 1).toString().padStart(2, '0')}`;
+        return `Winter Semester ${year}/${(shortYear + 1).toString().padStart(2, '0')}`;
     } else if (month >= 4) {
         // April - September -> Summer Semester of current year
-        return `SS${shortYear}`;
+        return `Summer Semester ${year}`;
     } else {
         // January - March -> Winter Semester of previous year/current year
-        return `WS${shortYear - 1}/${shortYear.toString().padStart(2, '0')}`;
+        return `Winter Semester ${year - 1}/${shortYear.toString().padStart(2, '0')}`;
     }
 }
 
@@ -106,20 +107,20 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
             const id = searchParams.get('id');
             if (id) {
                 // Try to match id to videoId, date (YYYY-MM-DD or ISO), or episode number (index + 1)
-                const targetEvent = speakers.find((s, index) => 
-                    s.videoId === id || 
-                    s.date.toISOString() === id || 
+                const targetEvent = speakers.find((s, index) =>
+                    s.videoId === id ||
+                    s.date.toISOString() === id ||
                     s.date.toISOString().split("T")[0] === id ||
                     (index + 1).toString() === id
                 );
-                
+
                 if (targetEvent) {
                     // Use the episode number as the unique ID for scrolling/expanding
                     const episodeNumber = speakers.indexOf(targetEvent) + 1;
                     const eventId = episodeNumber.toString();
-                    
+
                     setExpandedEvents([eventId]);
-                    
+
                     // Scroll to element after a short delay
                     setTimeout(() => {
                         const el = document.getElementById(eventId);
@@ -158,12 +159,22 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
 
     return (
         <div className="flex flex-col items-center justify-center">
-            <div className="text-secondary text-sm mb-8 bg-gray-900 border border-gray-700 px-4 py-2 rounded-full inline-flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" />
-                    <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z" />
-                </svg>
-                <span>Pro tip: Click the link icon on any event to copy a direct link for sharing.</span>
+
+            {/* General Meetup Link */}
+            <div className="mb-8">
+                <a
+                    href="https://www.meetup.com/bliss-speaker-series/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#f64060] text-white font-bold rounded-lg hover:bg-[#d63853] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200"
+                >
+                    Join us on
+                    <img
+                        src={meetupLogo.src}
+                        alt="Meetup"
+                        className="h-8 w-auto brightness-0 invert"
+                    />
+                </a>
             </div>
 
             <div className="text-center w-full max-w-4xl sm:ml-32">
@@ -172,9 +183,13 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                         eventsBySemester.map((semesterGroup, semesterIndex) => (
                             <div key={semesterGroup.semester}>
                                 {/* Semester separator/label */}
-                                <li className={`${semesterIndex > 0 ? "mt-8" : ""} mb-4`}>
-                                    <div className="pl-4">
-                                        <div className="text-secondary text-sm sm:text-base font-semibold uppercase tracking-wider">
+                                <li className={`${semesterIndex > 0 ? "mt-16" : ""} mb-6`}>
+                                    <div className="pl-6 text-left">
+                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <polyline points="19 12 12 19 5 12"></polyline>
+                                            </svg>
                                             {semesterGroup.semester}
                                         </div>
                                     </div>
@@ -193,7 +208,7 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                             key={eventId}
                                             id={eventId}
                                             onClick={() => toggleEvent(eventId)}
-                                            className={`py-1 mt-6 rounded-md duration-200 relative cursor-pointer scroll-mt-48 ${event.past ? "" : "hover:bg-li"}`}
+                                            className={`py-1 mt-10 rounded-md duration-200 relative cursor-pointer scroll-mt-48 ${event.past ? "" : "hover:bg-li"}`}
                                         >
                                             {/* Logo handling */}
                                             {event.logo && (
@@ -234,7 +249,7 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                                         : "text-gray-300"
                                                         }`}
                                                 >
-                                                    <span className="mr-2 font-mono text-lg sm:text-xl font-bold text-white">#{episodeNumber}</span>
+                                                    <span className="mr-2 font-mono font-bold">#{episodeNumber}</span>
                                                     {event.date.toLocaleDateString(
                                                         "en-US",
                                                         {
@@ -244,7 +259,7 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                                         },
                                                     )}
                                                 </p>
-                                                <div className="flex justify-between items-start group">
+                                                <div className="flex justify-between items-start group mt-1">
                                                     <div className="flex items-center gap-2">
                                                         <p
                                                             className={`text-xl sm:text-2xl font-bold ${event.past
@@ -282,13 +297,12 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
 
                                                 {!event.undefinedEvent && (
                                                     <p
-                                                        className={`text-lg sm:text-xl mt-2 font-normal ${event.past
+                                                        className={`text-base sm:text-lg mt-1 font-normal ${event.past
                                                             ? "text-gray-300"
                                                             : "text-white"
                                                             }`}
                                                     >
-                                                        {event.name} - {" "}
-                                                        <span className="font-bold">{event.affiliation}</span>
+                                                        {event.name} - {event.affiliation}
                                                     </p>
                                                 )}
 
@@ -388,7 +402,7 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                                                     rel="noopener noreferrer"
                                                                     className="inline-block px-4 py-2 border border-primary text-primary hover:bg-primary hover:text-black transition-colors rounded-md"
                                                                 >
-                                                                    Meetup Link
+                                                                    Meetup Event
                                                                 </a>
                                                             </div>
                                                         )}

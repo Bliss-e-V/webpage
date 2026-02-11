@@ -15,7 +15,7 @@ import merantixImg from "../../images/logos/merantix-white.png";
 import metaImg from "../../images/logos/meta-white.png";
 import oxfordImg from "../../images/logos/oxford-white.png";
 import cohereImg from "../../images/logos/cohere-white.png";
-import tuebingenImg from "../../images/logos/tuebingen_ai.png";
+import tuebingenImg from "../../images/logos/tuebingen-white.png";
 import ethImg from "../../images/logos/eth-white.png";
 import kingsImg from "../../images/logos/kings_college.png";
 
