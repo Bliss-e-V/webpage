@@ -1,0 +1,35 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import { SpeakerSeriesComp } from "@components/SpeakerSeriesComp";
+import Breadcrumb from "@components/Breadcrumb.astro";
+---
+
+<Layout
+    title="Speaker Series | BLISS Berlin"
+    description="Join BLISS Berlin's Speaker Series featuring top researchers and practitioners in AI and machine learning. Explore upcoming talks and our archive of past events."
+    ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
+>
+    <Breadcrumb
+        crumbs={[
+            { name: "Speaker Series", href: "/speaker-series" }
+        ]}
+    />
+    <h1
+        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+    >
+        Speaker Series
+    </h1>
+    <div
+        class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."
+    >
+    </div>
+    <div class="mb-10">
+        <p class="text-secondary text-md sm:text-lg">
+            During the semester, we biweekly host leading experts in AI.
+            Join us to learn from the best in the field and connect with the community.
+        </p>
+    </div>
+    <SpeakerSeriesComp client:load />
+</Layout>
