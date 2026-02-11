@@ -143,8 +143,8 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                             <div className={"text-left pl-4 pr-8 border-left " + (workshop.canceled ? "line-through" : "")}>
                                                 <p
                                                     className={`text-base sm:text-lg ${workshop.past
-                                                        ? "text-gray-500"
-                                                        : (workshop.next ? "text-white" : "text-secondary")
+                                                        ? "text-gray-400"
+                                                        : "text-gray-300"
                                                         }`}
                                                 >
                                                     {workshop.date.toLocaleDateString(
@@ -158,8 +158,8 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                 </p>
                                                 <p
                                                     className={`text-xl sm:text-2xl font-bold ${workshop.past
-                                                        ? "text-gray-500"
-                                                        : "text-transparent bg-clip-text bg-red-right"
+                                                        ? "text-gray-300"
+                                                        : "text-white"
                                                         }`}
                                                 >
                                                     {workshop.title}
@@ -168,7 +168,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                     <p
                                                         className={`text-sm sm:text-base mt-2 ${workshop.past
                                                             ? "text-gray-400"
-                                                            : "text-secondary"
+                                                            : "text-gray-200"
                                                             }`}
                                                     >
                                                         {workshop.description}
@@ -176,9 +176,9 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                 )}
                                                 {!workshop.undefinedEvent && (
                                                     <p
-                                                        className={`text-lg sm:text-xl mt-2 ${workshop.past
-                                                            ? "text-gray-500"
-                                                            : "text-secondary"
+                                                        className={`text-lg sm:text-xl mt-2 font-normal ${workshop.past
+                                                            ? "text-gray-300"
+                                                            : "text-white"
                                                             }`}
                                                     >
                                                         {workshop.name} - {" "}
