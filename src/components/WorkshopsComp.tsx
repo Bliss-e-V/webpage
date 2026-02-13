@@ -14,13 +14,13 @@ function getSemester(date: Date): string {
     // Summer Semester: April (4) - September (9)
     if (month >= 10) {
         // October, November, December -> Winter Semester of current year/next year
-        return `WS${shortYear}/${(shortYear + 1).toString().padStart(2, '0')}`;
+        return `Winter Semester ${year}/${(shortYear + 1).toString().padStart(2, '0')}`;
     } else if (month >= 4) {
         // April - September -> Summer Semester of current year
-        return `SS${shortYear}`;
+        return `Summer Semester ${year}`;
     } else {
         // January - March -> Winter Semester of previous year/current year
-        return `WS${shortYear - 1}/${shortYear.toString().padStart(2, '0')}`;
+        return `Winter Semester ${year - 1}/${shortYear.toString().padStart(2, '0')}`;
     }
 }
 
@@ -70,7 +70,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
     }
 
     return (
-        <div className="flex items-center flex-wrap justify-center">
+        <div className="flex flex-col items-center justify-center">
             <div className="text-center w-full max-w-4xl sm:ml-32">
                 <div className="mt-6 text-center">
                 </div>
@@ -79,35 +79,28 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                         workshopsBySemester.map((semesterGroup, semesterIndex) => (
                             <div key={semesterGroup.semester}>
                                 {/* Semester separator/label */}
-                                {semesterIndex > 0 && (
-                                    <li className="mt-8 mb-4">
-                                        <div className="pl-4">
-                                            <div className="text-secondary text-sm sm:text-base font-semibold uppercase tracking-wider">
-                                                {semesterGroup.semester}
-                                            </div>
+                                <li className={`${semesterIndex > 0 ? "mt-16" : ""} mb-6`}>
+                                    <div className="pl-6 text-left">
+                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <polyline points="19 12 12 19 5 12"></polyline>
+                                            </svg>
+                                            {semesterGroup.semester}
                                         </div>
-                                    </li>
-                                )}
-                                {/* First semester label */}
-                                {semesterIndex === 0 && (
-                                    <li className="mb-4">
-                                        <div className="pl-4">
-                                            <div className="text-secondary text-sm sm:text-base font-semibold uppercase tracking-wider">
-                                                {semesterGroup.semester}
-                                            </div>
-                                        </div>
-                                    </li>
-                                )}
+                                    </div>
+                                </li>
+
                                 {/* Workshops in this semester */}
                                 {semesterGroup.workshops.map((workshop) => (
                                     <a
                                         href={workshop.url}
                                         key={workshop.date.toISOString()}
                                         aria-label="Event details"
-                                        className="no-underline"
+                                        className="no-underline block"
                                     >
                                         <li
-                                            className={`py-1 mt-6 rounded-md duration-200 relative ${workshop.past ? "" : "hover:bg-li"
+                                            className={`py-1 mt-10 rounded-md duration-200 relative ${workshop.past ? "" : "hover:bg-li"
                                                 }`}
                                         >
                                             {workshop.image && (
@@ -143,8 +136,8 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                             <div className={"text-left pl-4 pr-8 border-left " + (workshop.canceled ? "line-through" : "")}>
                                                 <p
                                                     className={`text-base sm:text-lg ${workshop.past
-                                                        ? "text-gray-500"
-                                                        : (workshop.next ? "text-white" : "text-secondary")
+                                                        ? "text-gray-400"
+                                                        : "text-gray-300"
                                                         }`}
                                                 >
                                                     {workshop.date.toLocaleDateString(
@@ -158,8 +151,8 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                 </p>
                                                 <p
                                                     className={`text-xl sm:text-2xl font-bold ${workshop.past
-                                                        ? "text-gray-500"
-                                                        : "text-transparent bg-clip-text bg-red-right"
+                                                        ? "text-gray-300"
+                                                        : "text-white"
                                                         }`}
                                                 >
                                                     {workshop.title}
@@ -168,7 +161,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                     <p
                                                         className={`text-sm sm:text-base mt-2 ${workshop.past
                                                             ? "text-gray-400"
-                                                            : "text-secondary"
+                                                            : "text-gray-200"
                                                             }`}
                                                     >
                                                         {workshop.description}
@@ -176,13 +169,12 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                 )}
                                                 {!workshop.undefinedEvent && (
                                                     <p
-                                                        className={`text-lg sm:text-xl mt-2 ${workshop.past
-                                                            ? "text-gray-500"
-                                                            : "text-secondary"
+                                                        className={`text-base sm:text-lg mt-3 font-normal ${workshop.past
+                                                            ? "text-gray-300"
+                                                            : "text-white"
                                                             }`}
                                                     >
-                                                        {workshop.name} - {" "}
-                                                        <span className="font-bold">{workshop.affiliation}</span>
+                                                        {workshop.name} - {workshop.affiliation}
                                                     </p>
                                                 )}
                                             </div>

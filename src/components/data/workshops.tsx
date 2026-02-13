@@ -1,9 +1,9 @@
 import type { ImageMetadata } from "astro";
 // Import partner logos - add logo files to src/images/partners/ as needed
-import neo4jLogo from "../../images/partners/neo4j.png";
-import instadeepLogo from "../../images/partners/instadeep.png";
-import googleLogo from "../../images/partners/google-white.png";
-import didaLogo from "../../images/partners/dida.png"
+import neo4jLogo from "../../images/logos/neo4j.png";
+import instadeepLogo from "../../images/logos/instadeep.png";
+import googleLogo from "../../images/logos/google-white.png";
+import didaLogo from "../../images/logos/dida.png"
 
 class Workshop {
     public next = false

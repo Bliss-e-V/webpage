@@ -1,19 +1,17 @@
 ---
 export const prerender = true;
-
-import Layout from "../layouts/Layout.astro";
-import MediaComp from "@components/MediaComp.astro";
-import Breadcrumb from "@components/Breadcrumb.astro";
 ---
 
-<Layout
-    title="Past Events | BLISS Berlin"
-    description="Explore BLISS Berlin's archive of past AI events including speaker series recordings. Watch past presentations and stay updated on our latest tech community activities."
-    ogImage="https://www.bliss.berlin/assets/bliss-banner.png">
-    <Breadcrumb
-        crumbs={[
-            { name: "Past Events", href: "/past-events" }
-        ]}
-    />
-    <MediaComp />
-</Layout>
+<script>
+  // Redirect to the new speaker series page, preserving query params (?id=...) and hash (#...)
+  const search = window.location.search;
+  const hash = window.location.hash;
+  const newUrl = '/speaker-series' + search + hash;
+  window.location.replace(newUrl);
+</script>
+
+<!-- Fallback for users with JavaScript disabled -->
+<meta http-equiv="refresh" content="0; url=/speaker-series">
+<noscript>
+  <p>This page has moved. <a href="/speaker-series">Click here to go to Speaker Series</a>.</p>
+</noscript>

@@ -3,14 +3,14 @@ export const prerender = true;
 ---
 
 <script>
-  // Redirect to the new past-events page, preserving any anchor
+  // Redirect to the new speaker series page, preserving any anchor
   const currentHash = window.location.hash;
-  const newUrl = '/past-events' + currentHash;
+  const newUrl = '/speaker-series' + currentHash;
   window.location.replace(newUrl);
 </script>
 
 <!-- Fallback for users with JavaScript disabled -->
-<meta http-equiv="refresh" content="0; url=/past-events">
+<meta http-equiv="refresh" content="0; url=/speaker-series">
 <noscript>
-  <p>This page has moved. <a href="/past-events">Click here to go to Past Events</a>.</p>
+  <p>This page has moved. <a href="/speaker-series">Click here to go to Speaker Series</a>.</p>
 </noscript>

@@ -25,7 +25,7 @@ import Badge from "@components/Badge";
     <div id="menu" class="flex items-center space-x-4 md:space-x-7 pl-4 md:pl-0">
       <a
         id="speakerSeriesLink"
-        href="/"
+        href="/speaker-series"
         class="hidden md:block tracking-wider no-underline text-secondary hover:text-primary transition-colors"
       >
         <p class="text-center">Speaker Series</p>
@@ -44,20 +44,7 @@ import Badge from "@components/Badge";
       >
         <p class="text-center">Workshops</p>
       </a>
-      <a
-        id="pastEventsLink"
-        href="/past-events"
-        class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
-      >
-        <p class="text-center">Past Events</p>
-      </a>
-      <!-- <a
-        id="teamLink"
-        href="/team"
-        class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
-      >
-        <p>Team</p>
-      </a> -->
+
     </div>
   </div>
 </div>
@@ -78,9 +65,9 @@ import Badge from "@components/Badge";
   const speakerSeriesLink: HTMLElement = document.getElementById("speakerSeriesLink")!;
   const readingGroupLink: HTMLElement = document.getElementById("readingGroupLink")!;
   const workshopsLink: HTMLElement = document.getElementById("workshopsLink")!;
-  const pastEventsLink: HTMLElement = document.getElementById("pastEventsLink")!;
   // const teamLink: HTMLElement = document.getElementById("teamLink")!;
-  const allLinks: HTMLElement[] = [speakerSeriesLink, readingGroupLink, workshopsLink, pastEventsLink];
+
+  const allLinks: HTMLElement[] = [speakerSeriesLink, readingGroupLink, workshopsLink];
 
   function animateHeader() {
     if (window.scrollY > 0) {
@@ -114,14 +101,15 @@ import Badge from "@components/Badge";
 
   function handleRoute() {
     // Set active link based on URL path
-    const linkMap = {
-      "/": speakerSeriesLink,
+    const linkMap: Record<string, HTMLElement> = {
+      "/speaker-series": speakerSeriesLink,
       "/reading-group": readingGroupLink,
       "/workshops": workshopsLink,
-      "/past-events": pastEventsLink,
       // "/team": teamLink,
     }
-    setActiveLink(linkMap[window.location.pathname as keyof typeof linkMap]);
+
+    const path = window.location.pathname;
+    setActiveLink(linkMap[path]);
   }
 
   function handleScroll() {
