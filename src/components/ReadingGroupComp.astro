@@ -59,13 +59,9 @@ const getPapersInDateRange = (
         </div><div class="mb-4">
             📍 <a href="https://maps.app.goo.gl/4eqs9zTgEi9E9pbv5" target="_blank"><strong>Merantix AI Campus</strong> (Max-Urich-Straße 3, 13355 Berlin)</a>
         </div><div class="mb-4">
-            🕖 <a
-                href=""
-                id="download-ical"
-                title="Download calendar events"
-            >
-                <strong>Every Monday during the semester, 18:45</strong> (Add to Calendar)
-            </a>
+            🕖 <strong>Every Monday, 6:45pm</strong></div>
+        <div class="mb-4 text-sm text-secondary">
+            Note: Registration via <a href="https://lu.ma/user/bliss_ev_berlin" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-white underline">Luma</a> might be necessary (check details below).
         </div>
     </div>
 
@@ -105,7 +101,9 @@ const getPapersInDateRange = (
                     );
 
                     if (sectionPapers.length === 0) return null;
-                    const years = section.startDate.getFullYear() === section.endDate.getFullYear() ? section.startDate.getFullYear() : `${section.startDate.getFullYear()} - ${section.endDate.getFullYear()}`;
+                    const years = section.startDate.getFullYear() === section.endDate.getFullYear()
+                        ? section.startDate.getFullYear()
+                        : `${section.startDate.getFullYear()}/${section.endDate.getFullYear().toString().slice(-2)}`;
 
                     return (
                         <div class="w-10/12 border border-gray-200 rounded-lg p-4 m-4 bg-neutral-950">
