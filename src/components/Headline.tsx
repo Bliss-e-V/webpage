@@ -7,7 +7,7 @@ export const Headline = (props: HeadlineProps) => {
         {
             props.level === 1 &&
             <h1
-                className={"text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold " + props.className}
+                className={"text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold pb-2 " + props.className}
             >
                 {props.children}
             </h1>
@@ -15,7 +15,7 @@ export const Headline = (props: HeadlineProps) => {
         {
             props.level === 2 &&
             <h2
-                className={"text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold " + props.className}
+                className={"text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold pb-2 " + props.className}
             >
                 {props.children}
             </h2>
