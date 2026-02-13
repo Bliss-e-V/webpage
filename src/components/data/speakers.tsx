@@ -522,6 +522,16 @@ const speakersRaw = [
         microsoftImg,
         ""
     ),
+    new Speaker(
+        new Date("2026-03-06T18:00:00"),
+        "Template Series",
+        "Template Speaker",
+        "Template Affiliation",
+        "https://www.meetup.com/bliss-speaker-series",
+        "A deep dive into the future of Artificial Intelligence and what it holds for humanity.",
+        "",
+        googleImg
+    ),
 ];
 
 // --------------------------------------------------
