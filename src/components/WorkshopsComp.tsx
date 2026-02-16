@@ -105,21 +105,21 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                 <>
                                                     {/* Mobile: logo above content */}
                                                     <div className="md:hidden mb-1 flex justify-start pl-4">
-                                                        <div className="w-28">
+                                                        <div className="w-28 h-12 flex items-center">
                                                             <img
                                                                 src={workshop.image.src}
                                                                 alt={workshop.affiliation + " logo"}
-                                                                className="w-full h-auto object-contain"
+                                                                className="max-w-full max-h-full object-contain"
                                                                 loading="lazy"
                                                             />
                                                         </div>
                                                     </div>
                                                     {/* Desktop: logo to the left */}
-                                                    <div className="hidden md:block absolute -left-32 w-32 h-32 top-0 pr-4">
+                                                    <div className="hidden md:flex absolute -left-32 w-32 h-16 top-0 pr-4 items-center justify-end">
                                                         <img
                                                             src={workshop.image.src}
                                                             alt={workshop.affiliation + " logo"}
-                                                            className="w-full h-full object-contain"
+                                                            className="max-w-full max-h-full object-contain"
                                                             loading="lazy"
                                                         />
                                                     </div>
