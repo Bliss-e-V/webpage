@@ -77,7 +77,16 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
 
     const scrollIntoView = (id: string) => {
         const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (el) {
+            const headerOffset = 350;
+            const elementPosition = el.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
     };
 
     // State for expanded items
@@ -205,17 +214,27 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                             style={{ transform: 'translateX(-50%)' }}
                                             onClick={() => scrollIntoView(nextEventId)}
                                         >
-                                            <div className="absolute -top-1 left-0 translate-x-[2.1rem] bg-accent text-white text-xs font-bold px-2 py-1 rounded shadow-md whitespace-nowrap opacity-80 group-hover:opacity-100 transition-opacity">
+                                            <div className="absolute top-1 left-[1.5rem] inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm whitespace-nowrap hover:bg-gray-700/80 transition-colors z-10 w-fit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M12 5v14M19 12l-7 7-7-7" />
+                                                </svg>
                                                 Scroll to Upcoming
                                             </div>
-                                            <div className="w-[1px] h-12 bg-gray-200 dark:bg-gray-700 absolute top-3"></div>
-                                            <div className="w-3 h-3 rounded-full bg-accent animate-ping absolute top-0 opacity-75"></div>
-                                            <div className="w-3 h-3 rounded-full bg-accent relative z-10 shadow-[0_0_10px_rgba(255,107,107,0.7)]"></div>
+                                            <div className="w-[1px] h-14 bg-gray-200 dark:bg-gray-700 absolute top-0 left-1/2 -translate-x-1/2"></div>
                                         </div>
                                     )}
 
                                     <div className="pl-6 text-left relative">
-                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm relative z-10">
+                                        <div
+                                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm relative z-10 cursor-pointer hover:bg-gray-700/80 transition-colors"
+                                            onClick={() => {
+                                                const firstEvent = semesterGroup.events[0];
+                                                if (firstEvent) {
+                                                    const episodeNumber = speakers.indexOf(firstEvent) + 1;
+                                                    scrollIntoView(episodeNumber.toString());
+                                                }
+                                            }}
+                                        >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                                 <polyline points="19 12 12 19 5 12"></polyline>
@@ -272,7 +291,7 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                             <div
                                                 className={`absolute left-[calc(-0.375rem-1px)] top-1.5 w-3 h-3 rounded-full border-2 z-10
                                                     ${event.next
-                                                        ? "bg-accent border-accent shadow-[0_0_10px_rgba(255,107,107,0.7)] animate-pulse"
+                                                        ? "bg-accent border-accent shadow-[0_0_10px_rgba(255,107,107,0.7)]"
                                                         : "bg-gray-200 border-gray-900"
                                                     }
                                                     ${event.past ? "bg-gray-700 border-gray-900" : ""}
@@ -298,7 +317,7 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                                         )}
                                                     </p>
                                                     {event.next && (
-                                                        <span className="ml-3 px-2 py-0.5 text-xs font-bold text-white bg-accent rounded-full animate-pulse">
+                                                        <span className="ml-3 px-2 py-0.5 text-xs font-bold text-white bg-accent rounded-full">
                                                             Next Up
                                                         </span>
                                                     )}
