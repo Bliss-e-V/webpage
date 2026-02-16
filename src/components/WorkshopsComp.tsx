@@ -71,7 +71,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
 
     return (
         <div className="flex flex-col items-center justify-center">
-            <div className="text-center w-full max-w-4xl sm:ml-32">
+            <div className="text-center w-full max-w-5xl px-4 md:pl-48 md:pr-12">
                 <div className="mt-6 text-center">
                 </div>
                 <ol className="relative border-l border-gray-200 dark:border-gray-700">
@@ -106,7 +106,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                             {workshop.image && (
                                                 <>
                                                     {/* Mobile: logo above content */}
-                                                    <div className="sm:hidden mb-1 flex justify-start pl-4">
+                                                    <div className="md:hidden mb-1 flex justify-start pl-4">
                                                         <div className="w-28">
                                                             <img
                                                                 src={workshop.image.src}
@@ -117,7 +117,7 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                         </div>
                                                     </div>
                                                     {/* Desktop: logo to the left */}
-                                                    <div className="hidden sm:block absolute -left-32 w-32 h-32 top-0 pr-4">
+                                                    <div className="hidden md:block absolute -left-32 w-32 h-32 top-0 pr-4">
                                                         <img
                                                             src={workshop.image.src}
                                                             alt={workshop.affiliation + " logo"}
