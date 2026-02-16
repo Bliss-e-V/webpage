@@ -191,17 +191,9 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                 </a>
             </div>
 
-            {/* Scroll to next event button if available */}
-            {nextEventId && (
-                <div
-                    className="fixed bottom-10 right-10 z-50 md:hidden bg-accent text-white p-3 rounded-full shadow-lg cursor-pointer animate-bounce"
-                    onClick={() => scrollIntoView(nextEventId)}
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
-                </div>
-            )}
+
             {/* Scroll to upcoming CTA */}
-            {nextEventId && (
+            {nextEventId && futureEvents.length > 1 && (
                 <div
                     className="mb-12 cursor-pointer"
                     onClick={() => scrollIntoView(nextEventId)}
