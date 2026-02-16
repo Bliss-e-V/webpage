@@ -71,6 +71,15 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
         eventsBySemester.push({ semester: currentSemester, events: [...currentGroup] });
     }
 
+    // Find the next episode ID
+    const nextEvent = speakers.find(s => s.next);
+    const nextEventId = nextEvent ? (speakers.indexOf(nextEvent) + 1).toString() : null;
+
+    const scrollIntoView = (id: string) => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
     // State for expanded items
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
     const [lightboxState, setLightboxState] = useState<{ images: string[], index: number } | null>(null);
@@ -161,7 +170,7 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
         <div className="flex flex-col items-center justify-center">
 
             {/* General Meetup Link */}
-            <div className="mb-8">
+            <div className="mb-24">
                 <a
                     href="https://www.meetup.com/bliss-speaker-series/"
                     target="_blank"
@@ -169,23 +178,44 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                     className="inline-flex items-center gap-2 px-6 py-3 bg-[#f64060] text-white font-bold rounded-lg hover:bg-[#d63853] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200"
                 >
                     Join us on
-                    <img
-                        src={meetupLogo.src}
-                        alt="Meetup"
-                        className="h-8 w-auto brightness-0 invert"
-                    />
+                    <img src={meetupLogo.src} alt="Meetup Logo" className="h-8 w-auto invert brightness-0" />
                 </a>
             </div>
 
-            <div className="text-center w-full max-w-4xl sm:ml-32">
+            {/* Scroll to next event button if available */}
+            {nextEventId && (
+                <div
+                    className="fixed bottom-10 right-10 z-50 md:hidden bg-accent text-white p-3 rounded-full shadow-lg cursor-pointer animate-bounce"
+                    onClick={() => scrollIntoView(nextEventId)}
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
+                </div>
+            )}
+            <div className="text-center w-full max-w-5xl px-4 md:pl-48 md:pr-12">
                 <ol className="relative border-l border-gray-200 dark:border-gray-700">
                     {
                         eventsBySemester.map((semesterGroup, semesterIndex) => (
                             <div key={semesterGroup.semester}>
                                 {/* Semester separator/label */}
-                                <li className={`${semesterIndex > 0 ? "mt-16" : ""} mb-6`}>
-                                    <div className="pl-6 text-left">
-                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm">
+                                <li className={`${semesterIndex > 0 ? "mt-16" : ""} mb-6 relative`}>
+                                    {/* If this is the first group and we have a next event, show the top tag logic here? */}
+                                    {semesterIndex === 0 && nextEventId && (
+                                        <div
+                                            className="absolute -left-[0.5px] -top-12 flex flex-col items-center cursor-pointer group z-20"
+                                            style={{ transform: 'translateX(-50%)' }}
+                                            onClick={() => scrollIntoView(nextEventId)}
+                                        >
+                                            <div className="absolute -top-1 left-0 translate-x-[2.1rem] bg-accent text-white text-xs font-bold px-2 py-1 rounded shadow-md whitespace-nowrap opacity-80 group-hover:opacity-100 transition-opacity">
+                                                Scroll to Upcoming
+                                            </div>
+                                            <div className="w-[1px] h-12 bg-gray-200 dark:bg-gray-700 absolute top-3"></div>
+                                            <div className="w-3 h-3 rounded-full bg-accent animate-ping absolute top-0 opacity-75"></div>
+                                            <div className="w-3 h-3 rounded-full bg-accent relative z-10 shadow-[0_0_10px_rgba(255,107,107,0.7)]"></div>
+                                        </div>
+                                    )}
+
+                                    <div className="pl-6 text-left relative">
+                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm relative z-10">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                                 <polyline points="19 12 12 19 5 12"></polyline>
@@ -208,16 +238,17 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                             key={eventId}
                                             id={eventId}
                                             onClick={() => toggleEvent(eventId)}
-                                            className={`py-1 mt-10 rounded-md duration-200 relative cursor-pointer scroll-mt-48 ${event.past ? "" : "hover:bg-li"}`}
+                                            className={`py-1 mt-10 rounded-md duration-200 relative cursor-pointer scroll-mt-48 hover:bg-gray-800/30`}
                                         >
                                             {/* Logo handling */}
                                             {event.logo && (
                                                 <>
                                                     {/* Mobile: logo above content */}
-                                                    <div className="sm:hidden mb-1 flex justify-start pl-4">
+                                                    <div className="md:hidden mb-1 flex justify-start pl-4">
                                                         <div className="w-28">
+                                                            {/* @ts-ignore */}
                                                             <img
-                                                                src={typeof event.logo === 'string' ? event.logo : event.logo.src}
+                                                                src={typeof event.logo === 'string' ? event.logo : (event.logo as any).src}
                                                                 alt={event.affiliation + " logo"}
                                                                 className="w-full h-auto object-contain"
                                                                 loading="lazy"
@@ -225,9 +256,10 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                                         </div>
                                                     </div>
                                                     {/* Desktop: logo to the left */}
-                                                    <div className="hidden sm:block absolute -left-32 w-32 h-32 top-0 pr-4">
+                                                    <div className="hidden md:block absolute -left-32 w-32 h-32 top-0 pr-4">
+                                                        {/* @ts-ignore */}
                                                         <img
-                                                            src={typeof event.logo === 'string' ? event.logo : event.logo.src}
+                                                            src={typeof event.logo === 'string' ? event.logo : (event.logo as any).src}
                                                             alt={event.affiliation + " logo"}
                                                             className="w-full h-full object-contain"
                                                             loading="lazy"
@@ -236,29 +268,41 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                                 </>
                                             )}
 
+                                            {/* Timeline dot/circle */}
                                             <div
-                                                className={`absolute -left-1.5 w-3 h-3 bg-gray-200 rounded-full mt-1.5 border ${event.next
-                                                    ? "border-white"
-                                                    : "border-gray-900 bg-gray-700"
-                                                    }`}
+                                                className={`absolute left-[calc(-0.375rem-1px)] top-1.5 w-3 h-3 rounded-full border-2 z-10
+                                                    ${event.next
+                                                        ? "bg-accent border-accent shadow-[0_0_10px_rgba(255,107,107,0.7)] animate-pulse"
+                                                        : "bg-gray-200 border-gray-900"
+                                                    }
+                                                    ${event.past ? "bg-gray-700 border-gray-900" : ""}
+                                                `}
                                             />
+
                                             <div className={"text-left pl-4 pr-8 border-left " + (event.canceled ? "line-through" : "")}>
-                                                <p
-                                                    className={`text-base sm:text-lg ${event.past
-                                                        ? "text-gray-400"
-                                                        : "text-gray-300"
-                                                        }`}
-                                                >
-                                                    <span className="mr-2 font-mono font-bold">#{episodeNumber}</span>
-                                                    {event.date.toLocaleDateString(
-                                                        "en-US",
-                                                        {
-                                                            year: "numeric",
-                                                            month: "long",
-                                                            day: "numeric",
-                                                        },
+                                                <div className="flex items-center">
+                                                    <p
+                                                        className={`text-base sm:text-lg ${event.past
+                                                            ? "text-gray-400"
+                                                            : "text-gray-300"
+                                                            }`}
+                                                    >
+                                                        <span className="mr-2 font-mono font-bold">#{episodeNumber}</span>
+                                                        {event.date.toLocaleDateString(
+                                                            "en-US",
+                                                            {
+                                                                year: "numeric",
+                                                                month: "long",
+                                                                day: "numeric",
+                                                            },
+                                                        )}
+                                                    </p>
+                                                    {event.next && (
+                                                        <span className="ml-3 px-2 py-0.5 text-xs font-bold text-white bg-accent rounded-full animate-pulse">
+                                                            Next Up
+                                                        </span>
                                                     )}
-                                                </p>
+                                                </div>
                                                 <div className="flex justify-between items-start group mt-1">
                                                     <div className="flex items-center gap-2">
                                                         <p
@@ -419,54 +463,56 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
             </div>
 
             {/* Lightbox Overlay */}
-            {lightboxState && (
-                <div
-                    className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
-                    onClick={() => setLightboxState(null)}
-                >
-                    <button
-                        className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
+            {
+                lightboxState && (
+                    <div
+                        className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
                         onClick={() => setLightboxState(null)}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
-                    {lightboxState.images.length > 1 && (
-                        <>
-                            <button
-                                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setLightboxState(prev => prev ? ({ ...prev, index: (prev.index - 1 + prev.images.length) % prev.images.length }) : null);
-                                }}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="15 18 9 12 15 6"></polyline>
-                                </svg>
-                            </button>
-                            <button
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setLightboxState(prev => prev ? ({ ...prev, index: (prev.index + 1) % prev.images.length }) : null);
-                                }}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </button>
-                        </>
-                    )}
-                    <img
-                        src={lightboxState.images[lightboxState.index]}
-                        alt={`Full size view ${lightboxState.index + 1}`}
-                        className="max-w-[95vw] max-h-[95vh] object-contain shadow-2xl rounded-sm"
-                        onClick={(e) => e.stopPropagation()}
-                    />
-                </div>
-            )}
-        </div>
+                        <button
+                            className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
+                            onClick={() => setLightboxState(null)}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                        {lightboxState.images.length > 1 && (
+                            <>
+                                <button
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setLightboxState(prev => prev ? ({ ...prev, index: (prev.index - 1 + prev.images.length) % prev.images.length }) : null);
+                                    }}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                </button>
+                                <button
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setLightboxState(prev => prev ? ({ ...prev, index: (prev.index + 1) % prev.images.length }) : null);
+                                    }}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </button>
+                            </>
+                        )}
+                        <img
+                            src={lightboxState.images[lightboxState.index]}
+                            alt={`Full size view ${lightboxState.index + 1}`}
+                            className="max-w-[95vw] max-h-[95vh] object-contain shadow-2xl rounded-sm"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </div>
+                )
+            }
+        </div >
     );
 }
