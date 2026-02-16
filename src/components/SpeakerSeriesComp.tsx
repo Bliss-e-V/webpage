@@ -200,6 +200,20 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
                 </div>
             )}
+            {/* Scroll to upcoming CTA */}
+            {nextEventId && (
+                <div
+                    className="mb-12 cursor-pointer"
+                    onClick={() => scrollIntoView(nextEventId)}
+                >
+                    <div className="inline-flex items-center gap-2 text-sm sm:text-base font-bold tracking-wider whitespace-nowrap text-transparent bg-clip-text bg-red-right hover:opacity-80 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef473a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 5v14M19 12l-7 7-7-7" />
+                        </svg>
+                        Scroll to Upcoming
+                    </div>
+                </div>
+            )}
             <div className="text-center w-full max-w-5xl px-4 md:pl-48 md:pr-12">
                 <ol className="relative border-l border-gray-200 dark:border-gray-700">
                     {
@@ -207,26 +221,10 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                             <div key={semesterGroup.semester}>
                                 {/* Semester separator/label */}
                                 <li className={`${semesterIndex > 0 ? "mt-16" : ""} mb-6 relative`}>
-                                    {/* If this is the first group and we have a next event, show the top tag logic here? */}
-                                    {semesterIndex === 0 && nextEventId && (
-                                        <div
-                                            className="absolute -left-[0.5px] -top-12 flex flex-col items-center cursor-pointer group z-20"
-                                            style={{ transform: 'translateX(-50%)' }}
-                                            onClick={() => scrollIntoView(nextEventId)}
-                                        >
-                                            <div className="absolute top-1 left-[1.5rem] inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm whitespace-nowrap hover:bg-gray-700/80 transition-colors z-10 w-fit">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <path d="M12 5v14M19 12l-7 7-7-7" />
-                                                </svg>
-                                                Scroll to Upcoming
-                                            </div>
-                                            <div className="w-[1px] h-14 bg-gray-200 dark:bg-gray-700 absolute top-0 left-1/2 -translate-x-1/2"></div>
-                                        </div>
-                                    )}
 
                                     <div className="pl-6 text-left relative">
                                         <div
-                                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm relative z-10 cursor-pointer hover:bg-gray-700/80 transition-colors"
+                                            className="relative z-10 cursor-pointer group"
                                             onClick={() => {
                                                 const firstEvent = semesterGroup.events[0];
                                                 if (firstEvent) {
@@ -235,11 +233,10 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                                 }
                                             }}
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <polyline points="19 12 12 19 5 12"></polyline>
-                                            </svg>
-                                            {semesterGroup.semester}
+                                            <span className="text-sm sm:text-base font-semibold uppercase tracking-widest text-gray-400 group-hover:text-gray-200 transition-colors">
+                                                {semesterGroup.semester}
+                                            </span>
+                                            <div className="h-[1px] w-full mt-1.5" style={{ backgroundImage: 'linear-gradient(to right, rgba(156,163,175,0.5), transparent)' }}></div>
                                         </div>
                                     </div>
                                 </li>
