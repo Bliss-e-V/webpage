@@ -71,6 +71,24 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
         eventsBySemester.push({ semester: currentSemester, events: [...currentGroup] });
     }
 
+    // Find the next episode ID
+    const nextEvent = speakers.find(s => s.next);
+    const nextEventId = nextEvent ? (speakers.indexOf(nextEvent) + 1).toString() : null;
+
+    const scrollIntoView = (id: string) => {
+        const el = document.getElementById(id);
+        if (el) {
+            const headerOffset = 350;
+            const elementPosition = el.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+    };
+
     // State for expanded items
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
     const [lightboxState, setLightboxState] = useState<{ images: string[], index: number } | null>(null);
@@ -161,7 +179,7 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
         <div className="flex flex-col items-center justify-center">
 
             {/* General Meetup Link */}
-            <div className="mb-8">
+            <div className="mb-24">
                 <a
                     href="https://www.meetup.com/bliss-speaker-series/"
                     target="_blank"
@@ -169,28 +187,48 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                     className="inline-flex items-center gap-2 px-6 py-3 bg-[#f64060] text-white font-bold rounded-lg hover:bg-[#d63853] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200"
                 >
                     Join us on
-                    <img
-                        src={meetupLogo.src}
-                        alt="Meetup"
-                        className="h-8 w-auto brightness-0 invert"
-                    />
+                    <img src={meetupLogo.src} alt="Meetup Logo" className="h-8 w-auto invert brightness-0" />
                 </a>
             </div>
 
-            <div className="text-center w-full max-w-4xl sm:ml-32">
+
+            {/* Scroll to upcoming CTA */}
+            {nextEventId && futureEvents.length > 1 && (
+                <div
+                    className="mb-12 cursor-pointer"
+                    onClick={() => scrollIntoView(nextEventId)}
+                >
+                    <div className="inline-flex items-center gap-2 text-sm sm:text-base font-bold tracking-wider whitespace-nowrap text-transparent bg-clip-text bg-red-right hover:opacity-80 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef473a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 5v14M19 12l-7 7-7-7" />
+                        </svg>
+                        Scroll to Upcoming
+                    </div>
+                </div>
+            )}
+            <div className="text-center w-full max-w-5xl px-4 md:pl-48 md:pr-12">
                 <ol className="relative border-l border-gray-200 dark:border-gray-700">
                     {
                         eventsBySemester.map((semesterGroup, semesterIndex) => (
                             <div key={semesterGroup.semester}>
                                 {/* Semester separator/label */}
-                                <li className={`${semesterIndex > 0 ? "mt-16" : ""} mb-6`}>
-                                    <div className="pl-6 text-left">
-                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-gray-300 text-sm sm:text-base font-bold tracking-wider shadow-sm backdrop-blur-sm">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <polyline points="19 12 12 19 5 12"></polyline>
-                                            </svg>
-                                            {semesterGroup.semester}
+                                <li className={`${semesterIndex > 0 ? "mt-16" : ""} mb-6 relative`}>
+
+                                    <div className="pl-6 text-left relative">
+                                        <div
+                                            className="relative z-10 cursor-pointer group"
+                                            onClick={() => {
+                                                const firstEvent = semesterGroup.events[0];
+                                                if (firstEvent) {
+                                                    const episodeNumber = speakers.indexOf(firstEvent) + 1;
+                                                    scrollIntoView(episodeNumber.toString());
+                                                }
+                                            }}
+                                        >
+                                            <span className="text-sm sm:text-base font-semibold uppercase tracking-widest text-gray-400 group-hover:text-gray-200 transition-colors">
+                                                {semesterGroup.semester}
+                                            </span>
+                                            <div className="h-[1px] w-full mt-1.5" style={{ backgroundImage: 'linear-gradient(to right, rgba(156,163,175,0.5), transparent)' }}></div>
                                         </div>
                                     </div>
                                 </li>
@@ -208,57 +246,71 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
                                             key={eventId}
                                             id={eventId}
                                             onClick={() => toggleEvent(eventId)}
-                                            className={`py-1 mt-10 rounded-md duration-200 relative cursor-pointer scroll-mt-48 ${event.past ? "" : "hover:bg-li"}`}
+                                            className={`py-1 mt-10 rounded-md duration-200 relative cursor-pointer scroll-mt-48 hover:bg-gray-800/30`}
                                         >
                                             {/* Logo handling */}
                                             {event.logo && (
                                                 <>
                                                     {/* Mobile: logo above content */}
-                                                    <div className="sm:hidden mb-1 flex justify-start pl-4">
-                                                        <div className="w-28">
+                                                    <div className="md:hidden mb-1 flex justify-start pl-4">
+                                                        <div className="w-28 h-12 flex items-center">
+                                                            {/* @ts-ignore */}
                                                             <img
-                                                                src={typeof event.logo === 'string' ? event.logo : event.logo.src}
+                                                                src={typeof event.logo === 'string' ? event.logo : (event.logo as any).src}
                                                                 alt={event.affiliation + " logo"}
-                                                                className="w-full h-auto object-contain"
+                                                                className="max-w-full max-h-full object-contain"
                                                                 loading="lazy"
                                                             />
                                                         </div>
                                                     </div>
                                                     {/* Desktop: logo to the left */}
-                                                    <div className="hidden sm:block absolute -left-32 w-32 h-32 top-0 pr-4">
+                                                    <div className="hidden md:flex absolute -left-32 w-32 h-16 top-0 pr-4 items-center justify-end">
+                                                        {/* @ts-ignore */}
                                                         <img
-                                                            src={typeof event.logo === 'string' ? event.logo : event.logo.src}
+                                                            src={typeof event.logo === 'string' ? event.logo : (event.logo as any).src}
                                                             alt={event.affiliation + " logo"}
-                                                            className="w-full h-full object-contain"
+                                                            className="max-w-full max-h-full object-contain"
                                                             loading="lazy"
                                                         />
                                                     </div>
                                                 </>
                                             )}
 
+                                            {/* Timeline dot/circle */}
                                             <div
-                                                className={`absolute -left-1.5 w-3 h-3 bg-gray-200 rounded-full mt-1.5 border ${event.next
-                                                    ? "border-white"
-                                                    : "border-gray-900 bg-gray-700"
-                                                    }`}
+                                                className={`absolute left-[calc(-0.375rem-1px)] top-1.5 w-3 h-3 rounded-full border-2 z-10
+                                                    ${event.next
+                                                        ? "bg-accent border-accent shadow-[0_0_10px_rgba(255,107,107,0.7)]"
+                                                        : "bg-gray-200 border-gray-900"
+                                                    }
+                                                    ${event.past ? "bg-gray-700 border-gray-900" : ""}
+                                                `}
                                             />
+
                                             <div className={"text-left pl-4 pr-8 border-left " + (event.canceled ? "line-through" : "")}>
-                                                <p
-                                                    className={`text-base sm:text-lg ${event.past
-                                                        ? "text-gray-400"
-                                                        : "text-gray-300"
-                                                        }`}
-                                                >
-                                                    <span className="mr-2 font-mono font-bold">#{episodeNumber}</span>
-                                                    {event.date.toLocaleDateString(
-                                                        "en-US",
-                                                        {
-                                                            year: "numeric",
-                                                            month: "long",
-                                                            day: "numeric",
-                                                        },
+                                                <div className="flex items-center">
+                                                    <p
+                                                        className={`text-base sm:text-lg ${event.past
+                                                            ? "text-gray-400"
+                                                            : "text-gray-300"
+                                                            }`}
+                                                    >
+                                                        <span className="mr-2 font-mono font-bold">#{episodeNumber}</span>
+                                                        {event.date.toLocaleDateString(
+                                                            "en-US",
+                                                            {
+                                                                year: "numeric",
+                                                                month: "long",
+                                                                day: "numeric",
+                                                            },
+                                                        )}
+                                                    </p>
+                                                    {event.next && (
+                                                        <span className="ml-3 px-2 py-0.5 text-xs font-bold text-white bg-accent rounded-full">
+                                                            Next Up
+                                                        </span>
                                                     )}
-                                                </p>
+                                                </div>
                                                 <div className="flex justify-between items-start group mt-1">
                                                     <div className="flex items-center gap-2">
                                                         <p
@@ -419,54 +471,56 @@ export const SpeakerSeriesComp = (props: SpeakerSeriesCompProps) => {
             </div>
 
             {/* Lightbox Overlay */}
-            {lightboxState && (
-                <div
-                    className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
-                    onClick={() => setLightboxState(null)}
-                >
-                    <button
-                        className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
+            {
+                lightboxState && (
+                    <div
+                        className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
                         onClick={() => setLightboxState(null)}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
-                    {lightboxState.images.length > 1 && (
-                        <>
-                            <button
-                                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setLightboxState(prev => prev ? ({ ...prev, index: (prev.index - 1 + prev.images.length) % prev.images.length }) : null);
-                                }}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="15 18 9 12 15 6"></polyline>
-                                </svg>
-                            </button>
-                            <button
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setLightboxState(prev => prev ? ({ ...prev, index: (prev.index + 1) % prev.images.length }) : null);
-                                }}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </button>
-                        </>
-                    )}
-                    <img
-                        src={lightboxState.images[lightboxState.index]}
-                        alt={`Full size view ${lightboxState.index + 1}`}
-                        className="max-w-[95vw] max-h-[95vh] object-contain shadow-2xl rounded-sm"
-                        onClick={(e) => e.stopPropagation()}
-                    />
-                </div>
-            )}
-        </div>
+                        <button
+                            className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
+                            onClick={() => setLightboxState(null)}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                        {lightboxState.images.length > 1 && (
+                            <>
+                                <button
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setLightboxState(prev => prev ? ({ ...prev, index: (prev.index - 1 + prev.images.length) % prev.images.length }) : null);
+                                    }}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                </button>
+                                <button
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full transition-colors z-50"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setLightboxState(prev => prev ? ({ ...prev, index: (prev.index + 1) % prev.images.length }) : null);
+                                    }}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </button>
+                            </>
+                        )}
+                        <img
+                            src={lightboxState.images[lightboxState.index]}
+                            alt={`Full size view ${lightboxState.index + 1}`}
+                            className="max-w-[95vw] max-h-[95vh] object-contain shadow-2xl rounded-sm"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </div>
+                )
+            }
+        </div >
     );
 }

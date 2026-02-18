@@ -1,0 +1,133 @@
+---
+import { Headline } from "./Headline";
+import { speakers } from "./data/speakers";
+import { workshops } from "./data/workshops";
+import { dayToPapers } from "./data/papers";
+
+const currentDate = new Date();
+currentDate.setHours(0, 0, 0, 0);
+
+const fourWeeksFuture = new Date(currentDate);
+fourWeeksFuture.setDate(currentDate.getDate() + 28);
+
+
+interface TimelineEvent {
+  date: Date;
+  title: string;
+  type: "Reading Group" | "Speaker Series" | "Workshop";
+  link?: string;
+  description?: string;
+  subtitle?: string;
+  seriesNumber?: number;
+}
+
+const events: TimelineEvent[] = [];
+
+// Process Speakers
+speakers.forEach((s, index) => {
+  events.push({
+    date: s.date,
+    title: s.title,
+    subtitle: `${s.name} - ${s.affiliation}`,
+    type: "Speaker Series",
+    link: `/speaker-series?id=${index + 1}`,
+    seriesNumber: index + 1,
+  });
+});
+
+// Process Workshops
+workshops.forEach((w) => {
+  events.push({
+    date: w.date,
+    title: w.title,
+    subtitle: `${w.name} - ${w.affiliation}`,
+    type: "Workshop",
+    link: w.url,
+  });
+});
+
+// Process Papers (Reading Group)
+Object.entries(dayToPapers).forEach(([dateStr, paperList]) => {
+  const date = new Date(dateStr);
+  const titles = (paperList as any[]).map((p) => p.name).join(", ");
+  events.push({
+    date: date,
+    title: titles,
+    type: "Reading Group",
+    link: "/reading-group",
+  });
+});
+
+// Filter and Sort
+const sortedEvents = events.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+// Show next 5 upcoming events
+const futureEvents = sortedEvents
+  .filter((e) => e.date >= currentDate)
+  .slice(0, 5);
+
+const filteredEvents = futureEvents;
+
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+function getEventTypeColor(type: string) {
+    return "bg-gray-200";
+}
+---
+
+<div class="relative flex flex-col items-center justify-center py-10 sm:my-10">
+  <div id="speaker Series" class="absolute top-1/2 left-0 w-full h-px pointer-events-none opacity-0"></div>
+  <Headline level={2} className="mb-10 text-center">Upcoming Events</Headline>
+
+  <div class={`text-center w-full max-w-4xl px-4 ${filteredEvents.length > 0 ? "sm:ml-32" : ""}`}>
+    {filteredEvents.length === 0 ? (
+      <p class="text-center text-secondary">No upcoming events scheduled. Stay tuned!</p>
+    ) : (
+      <ol class="relative border-l border-gray-200 dark:border-gray-700">
+        {filteredEvents.map((event) => {
+          const isPast = false;
+
+          return (
+            <li class="mb-10 ml-0 hover:bg-gray-800/10 rounded-md transition-colors duration-200">
+              <div
+                class={`absolute -left-1.5 w-3 h-3 bg-gray-200 rounded-full mt-1.5 border border-white`}
+              >
+              </div>
+
+              <div class={`text-left pl-4 pr-8`}>
+                <p class="text-base sm:text-lg text-gray-300">
+                    <span class="mr-2">{dateFormat.format(event.date)}</span>
+                </p>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-2 mt-1">
+                    <p class="text-xl sm:text-2xl font-bold text-white">
+                        {event.link ? (
+                            <a href={event.link} target={event.link.startsWith("http") ? "_blank" : "_self"} class="hover:text-primary transition-colors">
+                                {event.title}
+                            </a>
+                        ) : (
+                            event.title
+                        )}
+                    </p>
+                    <span class="inline-block bg-gray-800 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-700 self-start sm:self-center">
+                        {event.type}{event.seriesNumber ? ` #${event.seriesNumber}` : ""}
+                    </span>
+                </div>
+
+                {event.subtitle && (
+                   <p class="text-base sm:text-lg mt-1 font-normal text-white">
+                    {event.subtitle}
+                  </p>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    )}
+  </div>
+</div>

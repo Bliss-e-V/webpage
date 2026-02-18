@@ -3,7 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import BackgroundAnimation from "../components/BackgroundAnimation.astro";
 import Landing from "../components/Landing.astro";
 import AboutUs from "@components/AboutUs.astro";
-import { SpeakerSeries } from "@components/SpeakerSeries";
+import Events from "@components/EventsSection.astro";
+import LookingBack from "@components/LookingBackSection.astro";
 import Arrow from "@components/Arrow.astro";
 import NewsletterLink from "@components/NewsletterLink.astro";
 import Partners from "@components/Partners.astro";
@@ -20,8 +21,8 @@ import EventCarousel from "@components/EventCarousel.astro";
     <BackgroundAnimation />
     <EventCarousel />
     <Landing />
-    <SpeakerSeries client:load renderPastEvents={false} />
-    <NewsletterLink />
+    <Events />
+    <LookingBack />
     <AboutUs />
     <Members />
     <Partners />
