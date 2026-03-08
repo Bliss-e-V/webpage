@@ -30,6 +30,84 @@ const fullTitle = title === siteTitle ? title : `${title} | BLISS`;
 
 // Current date in ISO format for freshness indication
 const currentDate = new Date().toISOString();
+
+// Canonical @id anchors used to link all schemas together
+const orgId = "https://bliss.berlin/#organization";
+const siteId = "https://bliss.berlin/#website";
+
+// JSON-LD: merged Organization + EducationalOrganization (canonical entity)
+const orgSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": ["Organization", "EducationalOrganization"],
+  "@id": orgId,
+  "name": "BLISS e.V.",
+  "alternateName": "BLISS Berlin",
+  "legalName": "Berlin Learning & Intelligent Systems Society e.V.",
+  "url": "https://bliss.berlin",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.bliss.berlin/assets/bliss-logo.png"
+  },
+  "image": "https://www.bliss.berlin/assets/bliss-banner.png",
+  "description": "Berlin's research-focused AI non-profit organization connecting passionate individuals in machine learning through weekly reading groups, speaker and diversity events, and hackathons.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Berlin",
+    "addressRegion": "Berlin",
+    "addressCountry": "DE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "52.5200",
+    "longitude": "13.4050"
+  },
+  "sameAs": [
+    "https://github.com/Bliss-e-V",
+    "https://www.linkedin.com/company/bliss-berlin/",
+    "https://www.meetup.com/bliss-speaker-series/",
+    "https://www.youtube.com/@bliss.ev.berlin",
+    "https://www.instagram.com/blissaicommunity",
+    "https://discord.gg/thqcWXPTT"
+  ]
+});
+
+// JSON-LD: WebSite (references Organization via @id)
+const websiteSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": siteId,
+  "name": "BLISS e.V.",
+  "url": "https://bliss.berlin",
+  "publisher": { "@id": orgId }
+});
+
+// JSON-LD: WebPage (references WebSite and Organization via @id)
+const webpageSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonicalURL}#webpage`,
+  "url": canonicalURL,
+  "name": fullTitle,
+  "description": description,
+  "dateModified": currentDate,
+  "isPartOf": { "@id": siteId },
+  "about": { "@id": orgId }
+});
+
+// JSON-LD: Article (only emitted on article pages)
+const articleSchema = article && publishDate
+  ? JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "image": ogImage ? ogImage : "https://www.bliss.berlin/assets/bliss-banner.png",
+      "datePublished": publishDate,
+      "dateModified": modifiedDate || currentDate,
+      "publisher": { "@id": orgId },
+      "mainEntityOfPage": { "@id": `${canonicalURL}#webpage` }
+    })
+  : null;
 ---
 
 <!doctype html>
@@ -75,94 +153,17 @@ const currentDate = new Date().toISOString();
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap-index.xml" />
 
-    <!-- Structured data for Organization -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "BLISS Berlin",
-        "url": "https://bliss.berlin",
-        "logo": "https://www.bliss.berlin/assets/bliss-logo.png",
-        "description": "Berlin Learning & Intelligent Systems Society - Research-focused non-profit organization for AI and machine learning in Berlin",
-        "sameAs": [
-          "https://github.com/Bliss-e-V",
-          "https://www.linkedin.com/company/bliss-berlin"
-        ]
-      }
-    </script>
+    <!-- Structured data: Organization + EducationalOrganization (canonical entity) -->
+    <script type="application/ld+json" set:html={orgSchema}></script>
 
-    <!-- Add webpage structured data -->
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "url": canonicalURL,
-        "name": fullTitle,
-        "description": description,
-        "dateModified": currentDate,
-        "isPartOf": {
-          "@type": "WebSite",
-          "name": "BLISS Berlin",
-          "url": "https://bliss.berlin"
-        }
-      })}
-    </script>
+    <!-- Structured data: WebSite -->
+    <script type="application/ld+json" set:html={websiteSchema}></script>
 
-    <!-- LocalBusiness structured data for local SEO -->
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "EducationalOrganization",
-        "name": "BLISS Berlin",
-        "alternateName": "Berlin Learning & Intelligent Systems Society",
-        "url": "https://bliss.berlin",
-        "logo": "https://www.bliss.berlin/assets/bliss-logo.png",
-        "image": "https://www.bliss.berlin/assets/bliss-banner.png",
-        "description": "Berlin's research-focused AI non-profit organization connecting passionate individuals in machine learning through weekly reading groups, speaker and diversity events, and hackathons.",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Berlin",
-          "addressRegion": "Berlin",
-          "addressCountry": "DE"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": "52.5200",
-          "longitude": "13.4050"
-        },
-        "sameAs": [
-          "https://github.com/Bliss-e-V",
-          "https://www.linkedin.com/company/bliss-berlin"
-        ]
-      })}
-    </script>
+    <!-- Structured data: WebPage -->
+    <script type="application/ld+json" set:html={webpageSchema}></script>
 
-    <!-- If this is an article page, add Article structured data -->
-    {article && publishDate && (
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": title,
-          "description": description,
-          "image": ogImage ? ogImage : "https://www.bliss.berlin/assets/bliss-banner.png",
-          "datePublished": publishDate,
-          "dateModified": modifiedDate || currentDate,
-          "publisher": {
-            "@type": "Organization",
-            "name": "BLISS Berlin",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://www.bliss.berlin/assets/bliss-logo.png"
-            }
-          },
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": canonicalURL
-          }
-        })}
-      </script>
-    )}
+    <!-- Structured data: Article (article pages only) -->
+    {articleSchema && <script type="application/ld+json" set:html={articleSchema}></script>}
   </head>
 
   <body>
