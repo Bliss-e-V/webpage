@@ -520,7 +520,7 @@ const speakersRaw = [
         "",
         "",
         microsoftImg,
-        ""
+        "FbaaKi1cgWg",
     ),
 ];
 
