@@ -18,6 +18,8 @@ import cohereImg from "../../images/logos/cohere-white.png";
 import tuebingenImg from "../../images/logos/tuebingen-white.png";
 import ethImg from "../../images/logos/eth-white.png";
 import kingsImg from "../../images/logos/kings_college.png";
+import huggingfaceImg from "../../images/logos/huggingface.svg";
+import stanfordImg from "../../images/logos/stanford.svg";
 
 export class Speaker {
     public next = false
@@ -529,11 +531,11 @@ const speakersRaw = [
         new Date("2026-04-21"),
         "TBD",  // title
         "TBD",  // speaker
-        "TBD",  // affiliation
+        "HuggingFace",  // affiliation
         "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "TBD",  // description
-        "TBD",  // speaker details
-        undefined,  // logo
+        "More details are coming soon!",  // description
+        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        huggingfaceImg,
         "",  // youtube id
         [],  // images
     ),
@@ -542,11 +544,11 @@ const speakersRaw = [
         new Date("2026-05-05"),
         "TBD",  // title
         "TBD",  // speaker
-        "TBD",  // affiliation
+        "Cohere Labs",  // affiliation
         "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "TBD",  // description
-        "TBD",  // speaker details
-        undefined,  // logo
+        "More details are coming soon!",  // description
+        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        cohereImg,
         "",  // youtube id
         [],  // images
     ),
@@ -555,37 +557,37 @@ const speakersRaw = [
         new Date("2026-05-19"),
         "TBD",  // title
         "TBD",  // speaker
-        "TBD",  // affiliation
+        "Oxford",  // affiliation
         "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "TBD",  // description
-        "TBD",  // speaker details
-        undefined,  // logo
+        "More details are coming soon!",  // description
+        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        oxfordImg,
         "",  // youtube id
         [],  // images
     ),
 
     new Speaker(
-        new Date("2025-06-02"),
+        new Date("2026-06-02"),
         "TBD",  // title
         "TBD",  // speaker
-        "TBD",  // affiliation
+        "HuggingFace / Oxford",  // affiliation
         "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "TBD",  // description
-        "TBD",  // speaker details
-        undefined,  // logo
+        "More details are coming soon!",  // description
+        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        huggingfaceImg,
         "",  // youtube id
         [],  // images
     ),
 
     new Speaker(
-        new Date("2025-06-16"),
+        new Date("2026-06-16"),
         "TBD",  // title
         "TBD",  // speaker
-        "TBD",  // affiliation
+        "ETH / Max Planck",  // affiliation
         "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "TBD",  // description
-        "TBD",  // speaker details
-        undefined,  // logo
+        "More details are coming soon!",  // description
+        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        ethImg,
         "",  // youtube id
         [],  // images
     ),
@@ -594,11 +596,11 @@ const speakersRaw = [
         new Date("2026-06-30"),
         "TBD",  // title
         "TBD",  // speaker
-        "TBD",  // affiliation
+        "Oxford",  // affiliation
         "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "TBD",  // description
-        "TBD",  // speaker details
-        undefined,  // logo
+        "More details are coming soon!",  // description
+        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        oxfordImg,
         "",  // youtube id
         [],  // images
     ),
@@ -607,11 +609,11 @@ const speakersRaw = [
         new Date("2026-07-14"),
         "TBD",  // title
         "TBD",  // speaker
-        "TBD",  // affiliation
+        "Stanford",  // affiliation
         "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "TBD",  // description
-        "TBD",  // speaker details
-        undefined,  // logo
+        "More details are coming soon!",  // description
+        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        stanfordImg,
         "",  // youtube id
         [],  // images
     ),
