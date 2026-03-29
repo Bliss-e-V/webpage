@@ -517,11 +517,105 @@ const speakersRaw = [
         "Ahmed Salem",
         "Microsoft Security Response Center (MSRC)",
         "https://www.meetup.com/bliss-speaker-series/events/311344223",
-        "",
-        "",
+        "As LLMs move from passive assistants to action taking agents, the price of intelligence is increasingly paid in control failures: what the model treats as instruction, how behavior shifts across time and context, and how fragile safety properties can become under downstream adaptation. In this talk, we begin with indirect prompt injection as an end‑to‑end problem, where untrusted content can steer downstream actions in realistic pipelines. We then discuss a defense direction that secures agent planning through deterministic policy enforcement and principled control over what information is exposed during planning. Finally, we turn to a practical question that underlies all of these results: how do we know when an agent/LLM is actually safe, rather than merely scoring well on an evaluation? We highlight two factors that can systematically distort safety measurement in agent settings. First, reasoning models can change compliance when they infer they are being evaluated (“test awareness”), which can bias apparent robustness and complicate safety audits. Second, we discuss implicit memory as a hidden channel that challenges the “stateless” assumption and enables temporal behaviors that standard evaluation setups may fail to surface.",
+        "Ahmed is a Researcher at the Microsoft Security Response Center (MSRC), focusing on machine learning privacy, biomedical data privacy, and applied cryptography. He was previously a Postdoctoral Researcher at Microsoft Research Cambridge (2022–2024). He received his PhD in Computer Science from CISPA Helmholtz Center for Information Security, Saarland University, under the supervision of Michael Backes and Yang Zhang, graduating summa cum laude. Before that, he earned his MSc in Computer Science from Saarland University with high honors and his BSc in Digital Media Engineering from the German University in Cairo. His work has appeared at ICML, USENIX Security, CCS, NDSS, and Oakland.",
         microsoftImg,
         "FbaaKi1cgWg",
+        [],
     ),
+
+    // === Summer Semester 2026 ===
+    new Speaker(
+        new Date("2026-04-21"),
+        "TBD",  // title
+        "TBD",  // speaker
+        "TBD",  // affiliation
+        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
+        "TBD",  // description
+        "TBD",  // speaker details
+        undefined,  // logo
+        "",  // youtube id
+        [],  // images
+    ),
+
+    new Speaker(
+        new Date("2026-05-05"),
+        "TBD",  // title
+        "TBD",  // speaker
+        "TBD",  // affiliation
+        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
+        "TBD",  // description
+        "TBD",  // speaker details
+        undefined,  // logo
+        "",  // youtube id
+        [],  // images
+    ),
+
+    new Speaker(
+        new Date("2026-05-19"),
+        "TBD",  // title
+        "TBD",  // speaker
+        "TBD",  // affiliation
+        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
+        "TBD",  // description
+        "TBD",  // speaker details
+        undefined,  // logo
+        "",  // youtube id
+        [],  // images
+    ),
+
+    new Speaker(
+        new Date("2025-06-02"),
+        "TBD",  // title
+        "TBD",  // speaker
+        "TBD",  // affiliation
+        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
+        "TBD",  // description
+        "TBD",  // speaker details
+        undefined,  // logo
+        "",  // youtube id
+        [],  // images
+    ),
+
+    new Speaker(
+        new Date("2025-06-16"),
+        "TBD",  // title
+        "TBD",  // speaker
+        "TBD",  // affiliation
+        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
+        "TBD",  // description
+        "TBD",  // speaker details
+        undefined,  // logo
+        "",  // youtube id
+        [],  // images
+    ),
+
+    new Speaker(
+        new Date("2026-06-30"),
+        "TBD",  // title
+        "TBD",  // speaker
+        "TBD",  // affiliation
+        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
+        "TBD",  // description
+        "TBD",  // speaker details
+        undefined,  // logo
+        "",  // youtube id
+        [],  // images
+    ),
+
+    new Speaker(
+        new Date("2026-07-14"),
+        "TBD",  // title
+        "TBD",  // speaker
+        "TBD",  // affiliation
+        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
+        "TBD",  // description
+        "TBD",  // speaker details
+        undefined,  // logo
+        "",  // youtube id
+        [],  // images
+    ),
+
 ];
 
 // --------------------------------------------------
