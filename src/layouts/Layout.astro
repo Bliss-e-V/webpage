@@ -176,12 +176,17 @@ const articleSchema = article && publishDate
 </html>
 
 <script>
-  // enable web analytics via vercel
+  // enable web analytics via vercel (deferred to avoid main-thread work during first paint)
   import { inject } from "@vercel/analytics";
 
   // @ts-ignore
   globalThis.process = { env: { NODE_ENV: import.meta.env.MODE } };
-  inject();
+  const run = () => inject();
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(run, { timeout: 2500 });
+  } else {
+    window.addEventListener("load", run, { once: true });
+  }
 </script>
 
 <style is:global>
@@ -195,7 +200,7 @@ const articleSchema = article && publishDate
     --background-secondary: #101010;
     --primary: #ffffff;
     --secondary: #adb5bd;
-    --tertiary: #6c757d;
+    --tertiary: #77808d;
     --border: #3b424d;
   }
 

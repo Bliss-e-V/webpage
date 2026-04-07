@@ -503,7 +503,9 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
     if (!recent) return;
 
     const scroll = window.scrollY;
-    const distanceToRecent = recent.getBoundingClientRect().top - window.innerHeight;
+    const recentTop = recent.getBoundingClientRect().top;
+    const vh = window.innerHeight;
+    const distanceToRecent = recentTop - vh;
     const denom = scroll + distanceToRecent;
     const fractionToRecent = denom > 1e-6 ? scroll / denom : 0;
 
@@ -519,11 +521,7 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
       canvas.style.marginLeft = `calc(${margin}px - 50%)`;
       canvas.style.opacity = `${Math.max(
         20,
-        100 -
-          Math.abs(
-            recent.getBoundingClientRect().top - window.innerHeight,
-          ) /
-            8,
+        100 - Math.abs(recentTop - vh) / 8,
       )}%`;
     }
   }

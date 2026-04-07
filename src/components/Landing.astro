@@ -45,17 +45,28 @@ import { Headline } from "./Headline";
     opacity: 0;
     transform: translatey(10px);
     animation-name: animation;
-    animation-duration: 1s;
+    animation-duration: 0.55s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     animation-fill-mode: forwards;
   }
 
   #title {
-    animation-delay: 1s;
+    animation-delay: 0.05s;
   }
   #subtitle {
-    animation-delay: 1.4s;
+    animation-delay: 0.12s;
   }
   #linktree {
-    animation-delay: 1.4s;
+    animation-delay: 0.18s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #title,
+    #subtitle,
+    #linktree {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
   }
 </style>
