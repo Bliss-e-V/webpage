@@ -89,6 +89,8 @@ uniform float u_maxVelocity;
 uniform float u_gravityStrength;
 uniform float u_gravityEq;
 uniform vec3 u_noiseOffset;
+/** 1 = normal; >1 briefly scales speed (each particle keeps its own heading). */
+uniform float u_velBoost;
 uniform int u_numParticles;
 
 ${PERLIN_GLSL}
@@ -134,6 +136,7 @@ void main() {
   float dy = sin(a) + g.y;
   vel.x += dx - u_velocityDecay * vel.x;
   vel.y += dy - u_velocityDecay * vel.y;
+  vel *= u_velBoost;
   vel = clamp(vel, vec2(-u_maxVelocity), vec2(u_maxVelocity));
   pos += u_dt * vel;
 
@@ -421,6 +424,7 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
     gravityStrength: gl.getUniformLocation(progSim, "u_gravityStrength"),
     gravityEq: gl.getUniformLocation(progSim, "u_gravityEq"),
     noiseOffset: gl.getUniformLocation(progSim, "u_noiseOffset"),
+    velBoost: gl.getUniformLocation(progSim, "u_velBoost"),
     numParticles: gl.getUniformLocation(progSim, "u_numParticles"),
   };
 
@@ -438,6 +442,8 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
 
   let frame = 0;
   let noiseOff = [0, 0, 0] as [number, number, number];
+  let velBoost = 1;
+  let clearTrailsNext = false;
   let raf = 0;
 
   let windowW = window.innerWidth;
@@ -489,6 +495,8 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
     }
     gl.bindTexture(gl.TEXTURE_2D, null);
     frame = 0;
+    velBoost = 1;
+    clearTrailsNext = false;
     readTex = pairA.tex;
     writeTex = pairB.tex;
     writeFbo = pairB.fbo;
@@ -552,6 +560,7 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
     gl.uniform1f(locSim.gravityStrength, gravityStrength);
     gl.uniform1f(locSim.gravityEq, gravityEq);
     gl.uniform3f(locSim.noiseOffset, noiseOff[0], noiseOff[1], noiseOff[2]);
+    gl.uniform1f(locSim.velBoost, velBoost);
     gl.uniform1i(locSim.numParticles, numParticles);
 
     gl.bindVertexArray(quadVao);
@@ -560,6 +569,10 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
     // --- fade + draw to screen (sample freshly written writeTex) ---
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.viewport(0, 0, w, h);
+    if (clearTrailsNext) {
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      clearTrailsNext = false;
+    }
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
@@ -585,6 +598,11 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
     writeFbo = fboForTex(writeTex);
 
     frame++;
+    if (velBoost > 1.0005) {
+      velBoost = 1 + (velBoost - 1) * 0.76;
+    } else {
+      velBoost = 1;
+    }
 
     raf = requestAnimationFrame(frameLoop);
   }
@@ -595,10 +613,12 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
 
   const onPointerUp = () => {
     noiseOff = [
-      Math.random() * 500,
-      Math.random() * 500,
-      Math.random() * 500,
+      (Math.random() - 0.5) * 4000,
+      (Math.random() - 0.5) * 4000,
+      (Math.random() - 0.5) * 4000,
     ];
+    velBoost = Math.max(velBoost, 1.2 + Math.random() * 0.14);
+    clearTrailsNext = true;
   };
 
   if (!renderMobile()) {
