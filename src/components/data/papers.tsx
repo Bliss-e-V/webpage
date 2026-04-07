@@ -171,7 +171,14 @@ const sections: Section[] = [
         new Date("2025-12-08"),
         new Date("2026-02-09"),
         "A tour through the alignment of large language models."
-    )
+    ),
+    new Section(
+        "Blissful AI",
+        "Various Bliss members",
+        new Date("2026-04-01"),
+        new Date("2026-09-30"),
+        "Various topics in AI related to the research of some Bliss members."
+    ),
 ]
 
 // --------------------------------------------------
@@ -254,6 +261,7 @@ const papers = [
     new Paper("TruthfulQA: Measuring How Models Mimic Human Falsehoods", ["Stephanie Lin", "Jacob Hilton", "Owain Evans"], "https://luma.com/eepv5hz4", lin, new Date("2026-01-26")),  // https://arxiv.org/abs/2109.07958
     new Paper("Alignment Faking in Large Language Models", ["Ryan Greenblatt", "Carson Denison", "Benjamin Wright", "Fabien Roger", "Monte MacDiarmid", "Sam Marks", "Johannes Treutlein", "Tim Belonax", "Jack Chen", "David Duvenaud", "Akbir Khan", "Julian Michael", "Sören Mindermann", "Ethan Perez", "Linda Petrini", "Jonathan Uesato", "Jared Kaplan", "Buck Shlegeris", "Samuel R. Bowman", "Evan Hubinger"], "https://luma.com/83ava297", greenblatt, new Date("2026-02-02")),  // https://arxiv.org/abs/2412.14093
     new Paper("Emergent Misalignment", ["Jan Betley", "Daniel Tan", "Niels Warncke", "Anna Sztyber-Betley", "Xuchan Bao", "Martín Soto", "Nathan Labenz", "Owain Evans"], "https://luma.com/0n59u1mc", betley, new Date("2026-02-09")),  // https://arxiv.org/abs/2502.17424
+    new Paper("Topic to be announced", ["BLISS Reading Group"], "https://bliss.berlin/reading-group", nlpIntroImage, new Date("2026-04-27")),
 ];
 
 // --------------------------------------------------
