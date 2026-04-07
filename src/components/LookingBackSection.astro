@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { Headline } from "./Headline";
+import teamImage from "../images/media/ws2526/20260210_salem/team.jpg";
 ---
 
 <div class="flex flex-col items-center justify-center py-20 bg-black/30">
@@ -28,10 +30,14 @@ import { Headline } from "./Headline";
     {/* Team Image Section */}
     <div class="flex flex-col items-center">
       <div class="relative w-full rounded-md overflow-hidden aspect-video">
-        <img
-          src="/images/media/ws2526/20260210_salem/team.jpg"
+        <Image
+          src={teamImage}
           alt="BLISS Team"
           class="w-full h-full object-cover"
+          inferSize
+          quality="mid"
+          loading="lazy"
+          decoding="async"
         />
       </div>
       <p class="mt-4 text-center text-secondary">
