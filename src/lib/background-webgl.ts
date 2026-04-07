@@ -468,7 +468,8 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
     if (mob) o.canvas.style.opacity = "0.5";
     else {
       o.canvas.style.opacity = "1";
-      updatePosition();
+      // Avoid forced reflow: layout reads after canvas dimension writes run next frame.
+      requestAnimationFrame(() => updatePosition());
     }
 
     const initial = fillInitialState(numParticles, px, maxVelocity);
