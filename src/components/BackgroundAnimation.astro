@@ -10,8 +10,18 @@
 </div>
 
 <script>
-  import { initBackgroundWebGL } from "../lib/background-webgl";
+  const canvas = document.getElementById("bgWebglCanvas") as HTMLCanvasElement | null;
+  if (!canvas) throw new Error("bgWebglCanvas missing");
 
-  const canvas = document.getElementById("bgWebglCanvas") as HTMLCanvasElement;
-  initBackgroundWebGL({ canvas });
+  const start = () => {
+    void import("../lib/background-webgl").then(({ initBackgroundWebGL }) => {
+      initBackgroundWebGL({ canvas });
+    });
+  };
+
+  if (typeof globalThis.requestIdleCallback === "function") {
+    globalThis.requestIdleCallback(start, { timeout: 2000 });
+  } else {
+    globalThis.addEventListener("load", start, { once: true });
+  }
 </script>
