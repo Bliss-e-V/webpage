@@ -2,21 +2,29 @@
 // Event data for the carousel
 const allEvents = [
   {
-    title: "Engineering Multimodal Agents with Haystack",
-    date: "2026-01-21",
-    description: "Workshop by BLISS x dida: Theory Meets Practice #2: Giving Eyes to your AI: Engineering Multimodal Agents with Haystack",
-    link: "https://luma.com/isat12k0?utm_source=blisswebsite",
-    color: "bg-blue-900/50",
-    textColor: "text-blue-200"
+    title: "Operating Agentic AI in Production",
+    date: "2026-04-16",
+    description: "Workshop by BLISS x Semrush: Building reliable agentic systems with testing, observability, and operations.",
+    link: "https://luma.com/nklicoct?utm_source=blisswebsite",
+    color: "bg-orange-900/50",
+    textColor: "text-orange-200"
   },
   {
-    title: "Unleash the Power of Agentic AI",
-    date: "2026-02-03",
-    description: "Workshop by BLISS x Google: Unleash the Power of Agentic AI using Knowledge Graphs and RAG",
-    link: "https://luma.com/sd7cl8ft?utm_source=blisswebsite",
-    color: "bg-green-900/50",
-    textColor: "text-green-200"
-  }
+    title: "Scaling LLM Training to Thousands of GPUs",
+    date: "2026-04-21",
+    description: "BLISS Speaker Series: Nouamane Tazi (Hugging Face) on SmolLM, LLM engineering, and training at scale.",
+    link: "/speaker-series?id=31",
+    color: "bg-emerald-900/50",
+    textColor: "text-emerald-200"
+  },
+  // {
+  //   title: "Master LLMs for Code Gen",
+  //   date: "2026-04-30",
+  //   description: "Workshop by BLISS x JetBrains with Ivan Dolgov — for women & underrepresented genders in tech.",
+  //   link: "https://luma.com/1rmr2buu?utm_source=blisswebsite",
+  //   color: "bg-violet-900/50",
+  //   textColor: "text-violet-200"
+  // }
 ];
 
 // Filter out past events and format dates for display
@@ -24,8 +32,8 @@ const today = new Date();
 today.setHours(0, 0, 0, 0);
 
 const events = allEvents
-  .filter(event => new Date(event.date) >= today)
-  .map(event => {
+  .filter((event) => new Date(event.date) >= today)
+  .map((event) => {
     const eventDate = new Date(event.date);
     const formattedDate = eventDate.toLocaleDateString('en-US', {
       weekday: 'short',
@@ -34,14 +42,23 @@ const events = allEvents
     });
     return { ...event, displayDate: formattedDate };
   });
+
+const nSlides = events.length;
+const slidesContainerWidthPct = nSlides * 100;
+const slideWidthPct = nSlides > 0 ? 100 / nSlides : 100;
 ---
 
 {events.length > 0 && (
   <div class="event-carousel-container">
     <div class="event-carousel">
-      <div class="event-slides-container" id="slidesContainer">
+      <div
+        class="event-slides-container"
+        id="slidesContainer"
+        style={`width: ${slidesContainerWidthPct}%;`}
+        data-slide-percent={100 / Math.max(nSlides, 1)}
+      >
         {events.map((event, index) => (
-          <div class="event-slide" data-index={index}>
+          <div class="event-slide" data-index={index} style={`width: ${slideWidthPct}%;`}>
             <a 
               href={event.link}
               class={`event-card ${event.color} ${event.textColor} block rounded-lg p-4 transition-all duration-300 hover:shadow-lg`}
@@ -202,8 +219,8 @@ const events = allEvents
     }
 
     private updateDisplay() {
-      // Update slides container position
-      const translateX = -this.currentIndex * 33.333; // 33.333% per slide
+      const step = parseFloat(this.slidesContainer.dataset.slidePercent || '33.333');
+      const translateX = -this.currentIndex * step;
       this.slidesContainer.style.transform = `translateX(${translateX}%)`;
 
       // Update dots
@@ -258,12 +275,10 @@ const events = allEvents
 
   .event-slides-container {
     display: flex;
-    width: 300%; /* 3 slides * 100% */
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .event-slide {
-    width: 33.333%; /* 100% / 3 slides */
     flex-shrink: 0;
   }
 

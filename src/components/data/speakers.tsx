@@ -529,93 +529,93 @@ const speakersRaw = [
     // === Summer Semester 2026 ===
     new Speaker(
         new Date("2026-04-21"),
-        "TBD",  // title
-        "TBD",  // speaker
-        "HuggingFace",  // affiliation
-        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "More details are coming soon!",  // description
-        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        "Scaling LLM Training to Thousands of GPUs",
+        "Nouamane Tazi",
+        "Hugging Face",
+        "https://www.meetup.com/bliss-speaker-series/events/314165256",
+        "Training and engineering large language models at scale, including work on SmolLM and related systems. More details are coming soon!",
+        "Nouamane Tazi works on LLM training and engineering at Hugging Face.",
         huggingfaceImg,
-        "",  // youtube id
-        [],  // images
+        "",
+        [],
     ),
 
     new Speaker(
         new Date("2026-05-05"),
-        "TBD",  // title
-        "TBD",  // speaker
-        "Cohere Labs",  // affiliation
-        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "More details are coming soon!",  // description
-        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        "What Multilingual Models Reveal About Scale and Balance",
+        "Marzieh Fadaee",
+        "Cohere Labs",
+        "https://www.meetup.com/bliss-speaker-series/events/314165467",
+        "LLM safety, evaluation, and multilinguality—what multilingual models show about scale and balance across languages. More details are coming soon!",
+        "Marzieh Fadaee is Head of Cohere Labs in Amsterdam.",
         cohereImg,
-        "",  // youtube id
-        [],  // images
+        "",
+        [],
     ),
 
     new Speaker(
         new Date("2026-05-19"),
-        "TBD",  // title
-        "TBD",  // speaker
-        "Oxford",  // affiliation
-        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "More details are coming soon!",  // description
-        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        "AI and Human Agency",
+        "Christopher Summerfield",
+        "University of Oxford",
+        "https://www.meetup.com/bliss-speaker-series/events/314165592",
+        "A talk on AI and human agency. More details are coming soon!",
+        "Christopher Summerfield is at the University of Oxford.",
         oxfordImg,
-        "",  // youtube id
-        [],  // images
+        "",
+        [],
     ),
 
     new Speaker(
         new Date("2026-06-02"),
-        "TBD",  // title
-        "TBD",  // speaker
-        "HuggingFace / Oxford",  // affiliation
-        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "More details are coming soon!",  // description
-        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        "When Silicon Meets Carbon: Bringing Synthetic Biology to Life",
+        "Georgia Channing",
+        "Hugging Face / University of Oxford",
+        "https://www.meetup.com/bliss-speaker-series/events/314165625",
+        "Machine learning for science, with a focus on synthetic biology and bringing computational tools to living systems. More details are coming soon!",
+        "Georgia Channing is affiliated with Hugging Face and the University of Oxford.",
         huggingfaceImg,
-        "",  // youtube id
-        [],  // images
+        "",
+        [],
     ),
 
     new Speaker(
         new Date("2026-06-16"),
-        "TBD",  // title
-        "TBD",  // speaker
-        "ETH / Max Planck",  // affiliation
-        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "More details are coming soon!",  // description
-        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        "Beyond Patches: Learning Dense Visual Features",
+        "Thomas Wimmer",
+        "ETH Zurich / Max Planck",
+        "https://www.meetup.com/bliss-speaker-series/events/314165746",
+        "Vision and representation learning: dense visual features beyond patch-based paradigms. More details are coming soon!",
+        "Thomas Wimmer is affiliated with ETH Zurich and the Max Planck Society.",
         ethImg,
-        "",  // youtube id
-        [],  // images
+        "",
+        [],
     ),
 
     new Speaker(
         new Date("2026-06-30"),
-        "TBD",  // title
-        "TBD",  // speaker
-        "Oxford",  // affiliation
-        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "More details are coming soon!",  // description
-        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        "Towards Automated Interpretability for AI Safety",
+        "Fazl Barez",
+        "University of Oxford",
+        "https://www.meetup.com/bliss-speaker-series/events/314165858",
+        "Interpretability with an eye toward AI safety and automated methods for understanding model behavior. More details are coming soon!",
+        "Fazl Barez is at the University of Oxford.",
         oxfordImg,
-        "",  // youtube id
-        [],  // images
+        "",
+        [],
     ),
 
     new Speaker(
         new Date("2026-07-14"),
-        "TBD",  // title
-        "TBD",  // speaker
-        "Stanford",  // affiliation
-        "https://www.meetup.com/bliss-speaker-series/events/",  // meetup link
-        "More details are coming soon!",  // description
-        "A top researcher will be talking about their state-of-the-art research.",  // speaker details
+        "Virtual Neuroscience with Neural Digital Twins",
+        "Sophia Sanborn",
+        "Stanford University",
+        "https://www.meetup.com/bliss-speaker-series/events/314165912",
+        "Neuroscience meets machine learning. More details are coming soon!",
+        "Sophia Sanborn is at Stanford University.",
         stanfordImg,
-        "",  // youtube id
-        [],  // images
+        "",
+        [],
     ),
 
 ];
