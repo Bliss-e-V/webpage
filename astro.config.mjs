@@ -20,6 +20,11 @@ dotenv.config();
 // https://astro.build/config
 export default defineConfig({
   site: "https://bliss.berlin",
+  build: {
+    // Default `auto` only inlines CSS under Vite's assetsInlineLimit (~4kB); our chunks stay external.
+    // Inlining removes extra render-blocking stylesheet requests on each page (small total CSS).
+    inlineStylesheets: "always",
+  },
   integrations: [
     react(),
     sitemap({

@@ -12,10 +12,8 @@ project setup. It utilises native HTML, CSS, and JS (in .astro files) as much as
 possible. The packages used are:
 
 - [Tailwind](https://www.tailwindcss.com) for styling
-- [ThreeJS](https://www.threejs.org) for 3d rendering
-- [Three Noise](https://www.npmjs.com/package/three-noise) for creating Perlin
-  noise vector field
-- [Fontsource DM-Sans](https://fontsource.org/fonts/dm-sans) for custom font
+- **WebGL 2** (custom shaders in `src/lib/background-webgl.ts`) for the homepage particle background
+- [@fontsource/righteous](https://fontsource.org/fonts/righteous) for the landing display font
  
 We also use
 [@astrojs/tailwind](https://docs.astro.build/en/guides/integrations-guide/tailwind/)

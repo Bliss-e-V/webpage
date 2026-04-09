@@ -9,12 +9,17 @@ import Badge from "@components/Badge";
   <div class="container flex justify-between">
     <div class="flex items-center justify-start space-x-[50px]">
       <a id="logo" href="/" class="relative group">
-        <img
-          alt="bliss logo"
-          src="/assets/bliss-logo.png"
-          height={80}
-          width={80}
-        />
+        <picture>
+          <source srcset="/assets/bliss-logo.webp" type="image/webp" />
+          <img
+            alt="bliss logo"
+            src="/assets/bliss-logo.png"
+            width={80}
+            height={22}
+            decoding="async"
+            fetchpriority="high"
+          />
+        </picture>
         <p
           class="absolute left-0 right-0 mx-auto text-sm font-medium text-center opacity-0 bg-accent-dark text-accent rounded-md group-hover:opacity-100 transition-opacity duration-300"
         >

@@ -2,6 +2,7 @@
 export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
 import meetupLogo from "../images/logos/meetup.png";
 
 ---
@@ -43,9 +44,14 @@ import meetupLogo from "../images/logos/meetup.png";
         </svg>
         <span class="flex items-center gap-2">
           Speaker Series on
-          <img
-            src={meetupLogo.src}
+          <Image
+            src={meetupLogo}
             alt="Meetup"
+            width={48}
+            height={48}
+            densities={[1, 2]}
+            loading="lazy"
+            decoding="async"
             class="h-6 w-auto brightness-0 invert"
           />
         </span>
