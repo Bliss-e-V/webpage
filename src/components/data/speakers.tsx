@@ -607,7 +607,7 @@ const speakersRaw = [
 
     new Speaker(
         new Date("2026-07-14"),
-        "TBA",
+        "Virtual Neuroscience with Neural Digital Twins",
         "Sophia Sanborn",
         "Stanford University",
         "https://www.meetup.com/bliss-speaker-series/events/314165912",
