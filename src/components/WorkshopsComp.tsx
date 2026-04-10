@@ -183,7 +183,9 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                             : "text-white"
                                                             }`}
                                                     >
-                                                        {workshop.name} - {workshop.affiliation}
+                                                        {workshop.name
+                                                            ? `${workshop.name} - ${workshop.affiliation}`
+                                                            : workshop.affiliation}
                                                     </p>
                                                 )}
                                             </div>

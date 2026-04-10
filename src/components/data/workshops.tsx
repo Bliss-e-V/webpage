@@ -7,6 +7,7 @@ import didaLogo from "../../images/logos/dida.png";
 import semrushLogo from "../../images/logos/semrush.svg";
 import quantcoLogo from "../../images/logos/quantco.png";
 import jetbrainsLogo from "../../images/logos/jetbrains-white.svg";
+import gResearchLogo from "../../images/logos/g-research-dark-bg.svg";
 
 class Workshop {
     public next = false
@@ -28,6 +29,7 @@ const workshopsRaw = [
     new Workshop(new Date("2026-02-03"), "BLISS x Google: Unleash the Power of Agentic AI", "Diana Nanova", "Google", "https://luma.com/sd7cl8ft?utm_source=blisswebsite", "Generative AI models have the potential to increase productivity and provide access to data, but they need good context to be truly useful. In this hands-on workshop, you will learn how Knowledge Graphs and Retrieval Augmented Generation (RAG) can help your GenAI projects avoid hallucination and provide access to reliable data.", false, false, googleLogo),
     new Workshop(new Date("2026-04-16"), "BLISS x Semrush: Operating Agentic AI in Production", "Saeid Nobakht", "Semrush", "https://luma.com/nklicoct?utm_source=blisswebsite", "Building reliable agentic systems requires more than evaluating individual LLM outputs — it demands a systems-level approach to testing, observability, and operations.", false, false, semrushLogo),
     new Workshop(new Date("2026-04-30"), "BLISS x JetBrains: Master LLMs for Code Gen", "Ivan Dolgov", "JetBrains", "https://luma.com/1rmr2buu?utm_source=blisswebsite", "For women and underrepresented genders in tech. An interactive session on code LLMs: model architecture, prompt engineering for developers, evaluating generated code, and how JetBrains IDEs integrate these models. Foundational Python recommended; bring your laptop.", false, false, jetbrainsLogo),
+    new Workshop(new Date("2026-05-08"), "BLISS x G-Research: Pub Quiz", "", "G-Research", "https://share-eu1.hsforms.com/1GfuPr7ijQl6AKWQbD5qw-A2b8apt?utm_source=blisswebsite", "Take on maths-based brain teasers in our unique take on a pub quiz. Test your skills and learn more about the world of quantitative Finance.", false, false, gResearchLogo),
     // new Workshop(new Date("2026-04-29"), "BLISS x dida: To be announced", "TBA", "dida", "https://bliss.berlin/workshops?utm_source=blisswebsite", "", false, false, didaLogo),
     // new Workshop(new Date("2026-05-27"), "BLISS x dida: To be announced", "TBA", "dida", "https://bliss.berlin/workshops?utm_source=blisswebsite", "", false, false, didaLogo),
     // new Workshop(new Date("2026-06-10"), "BLISS x QuantCo: To be announced", "TBA", "QuantCo", "https://bliss.berlin/workshops?utm_source=blisswebsite", "", false, false, quantcoLogo),
