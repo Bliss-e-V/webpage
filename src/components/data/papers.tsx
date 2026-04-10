@@ -173,11 +173,11 @@ const sections: Section[] = [
         "A tour through the alignment of large language models."
     ),
     new Section(
-        "Blissful AI",
-        "Various Bliss members",
+        "BLISSful AI",
+        "Various BLISS members",
         new Date("2026-04-01"),
         new Date("2026-09-30"),
-        "Various topics in AI related to the research of some Bliss members."
+        "Various topics in AI related to the research of some BLISS members."
     ),
 ]
 
