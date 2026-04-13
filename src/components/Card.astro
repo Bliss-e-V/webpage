@@ -14,7 +14,7 @@ const { paper, hasBorder } = Astro.props as Props;
 
 <div class="group no-underline w-full">
   <div class="hover:bg-li py-1">
-    <a href={paper.link} class="no-underline rounded-lg">
+    <a href={paper.eventLink ?? paper.link} class="no-underline rounded-lg">
       <div
         class="flex flex-col sm:flex-row sm:space-x-10 sm:items-center sm:max-h-min no-underline"
       >
@@ -48,6 +48,30 @@ const { paper, hasBorder } = Astro.props as Props;
             {paper.name}
           </div>
           <p class="text-gray-300 text-md">{paper.authors.length >= 10 ? paper.authors.slice(0, 8).join(", ") + " et al." : paper.authors.join(", ")}</p>
+          <div class="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-sm text-secondary">
+            <a
+              href={paper.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline hover:text-white"
+              onclick="event.stopPropagation()"
+            >
+              Paper
+            </a>
+            {
+              paper.eventLink && (
+                <a
+                  href={paper.eventLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="underline hover:text-white"
+                  onclick="event.stopPropagation()"
+                >
+                  Registration
+                </a>
+              )
+            }
+          </div>
         </div>
       </div>
     </a>

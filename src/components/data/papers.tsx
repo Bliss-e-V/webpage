@@ -77,8 +77,22 @@ import lin from "../../images/posts/images/20260126_lin.png"
 import greenblatt from "../../images/posts/images/20260202_greenblatt.png"
 import betley from "../../images/posts/images/20260209_betley.png"
 
+import personaFeaturesControlImage from "../../images/posts/images/20260427_persona-features-control.png";
+import llmsAwareBehaviorsImage from "../../images/posts/images/20260504_llms-aware-behaviors.png";
+import representationalAlignmentImage from "../../images/posts/images/20260511_representational-alignment.png";
+import masteringGamesPlanningImage from "../../images/posts/images/20260518_mastering-games-planning.png";
+import genieImage from "../../images/posts/images/20260601_genie.png";
+import videoGenerationPhysicalLawsImage from "../../images/posts/images/20260608_video-generation-physical-laws.png";
+
 export class Paper {
-    constructor(public name: string, public authors: string[], public link: string, public image: ImageMetadata, public readingDay: Date) {
+    constructor(
+        public name: string,
+        public authors: string[],
+        public link: string,
+        public image: ImageMetadata,
+        public readingDay: Date,
+        public eventLink?: string,
+    ) {
     }
 }
 
@@ -254,22 +268,69 @@ const papers = [
     new Paper("JanusDNA: A Powerful Bi-directional Hybrid DNA Foundation Model", ["Qihao Duan", "Bingding Huang", "Zhenqiao Song", "Irina Lehmann", "Lei Gu", "Roland Eils", "Benjamin Wild"], "https://arxiv.org/abs/2505.17257", duan, new Date("2025-11-17")),
     new Paper("Beyond Sensor Data: Foundation Models of Behavioral Data from Wearables Improve Health Predictions", ["Eray Erturk", "Fahad Kamran", "Salar Abbaspourazad", "Sean Jewell", "Harsh Sharma", "Yujie Li", "Sinead Williamson", "Nicholas J. Foti", "Joseph Futoma"], "https://arxiv.org/pdf/2507.00191.pdf", erturk, new Date("2025-11-24")),
     new Paper("Contrasting with Symile: Simple Model-Agnostic Representation Learning for Unlimited Modalities", ["Adriel Saporta", "Aahlad Puli", "Mark Goldstein", "Rajesh Ranganath"], "https://arxiv.org/pdf/2411.01053.pdf", saporta, new Date("2025-12-01")),
-    new Paper("Training Language Models to Follow Instructions with Human Feedback", ["Long Ouyang", "Jeff Wu", "Xu Jiang", "Diogo Almeida", "Carroll L. Wainwright", "Pamela Mishkin", "Chong Zhang", "Sandhini Agarwal", "Katarina Slama", "Alex Ray", "John Schulman", "Jacob Hilton", "Fraser Kelton", "Luke Miller", "Maddie Simens", "Amanda Askell", "Peter Welinder", "Paul Christiano", "Jan Leike", "Ryan Lowe"], "https://luma.com/8srmkzqy", ouyang, new Date("2025-12-08")),  // https://arxiv.org/abs/2203.02155
-    new Paper("Constitutional AI: Harmlessness from AI Feedback", ["Yuntao Bai", "Saurav Kadavath", "Sandipan Kundu", "Amanda Askell", "Jackson Kernion", "Andy Jones", "Anna Chen", "Anna Goldie", "Azalia Mirhoseini", "Cameron McKinnon", "Carol Chen", "Catherine Olsson", "Christopher Olah", "Danny Hernandez", "Dawn Drain", "Deep Ganguli", "Dustin Li", "Eli Tran-Johnson", "Ethan Perez", "Jamie Kerr", "Jared Mueller", "Jeffrey Ladish", "Joshua Landau", "Kamal Ndousse", "Kamile Lukosuite", "Liane Lovitt", "Michael Sellitto", "Nelson Elhage", "Nicholas Schiefer", "Noemi Mercado", "Nova DasSarma", "Robert Lasenby", "Robin Larson", "Sam Ringer", "Scott Johnston", "Shauna Kravec", "Sheer El Showk", "Stanislav Fort", "Tamera Lanham", "Timothy Telleen-Lawton", "Tom Conerly", "Tom Henighan", "Tristan Hume", "Samuel R. Bowman", "Zac Hatfield-Dodds", "Ben Mann", "Dario Amodei", "Nicholas Joseph", "Sam McCandlish", "Tom Brown", "Jared Kaplan"], "https://luma.com/1ta19ld6", bai, new Date("2025-12-15")),  // https://arxiv.org/abs/2212.08073
-    new Paper("Adversarial Training for High-Stakes Reliability", ["Daniel M. Ziegler", "Seraphina Nix", "Lawrence Chan", "Tim Bauman", "Peter Schmidt-Nielsen", "Tao Lin", "Adam Scherlis", "Noa Nabeshima", "Ben Weinstein-Raun", "Daniel de Haas", "Buck Shlegeris", "Nate Thomas"], "https://luma.com/07fakgvs", ziegler, new Date("2026-01-12")),  // https://arxiv.org/abs/2205.01663
-    new Paper("Goal Misgeneralization in Deep Reinforcement Learning", ["Lauro Langosco", "Jack Koch", "Lee Sharkey", "Jacob Pfau", "Laurent Orseau", "David Krueger"], "https://luma.com/dhuyfbg0", langosco, new Date("2026-01-19")),  // https://arxiv.org/abs/2105.14111
-    new Paper("TruthfulQA: Measuring How Models Mimic Human Falsehoods", ["Stephanie Lin", "Jacob Hilton", "Owain Evans"], "https://luma.com/eepv5hz4", lin, new Date("2026-01-26")),  // https://arxiv.org/abs/2109.07958
-    new Paper("Alignment Faking in Large Language Models", ["Ryan Greenblatt", "Carson Denison", "Benjamin Wright", "Fabien Roger", "Monte MacDiarmid", "Sam Marks", "Johannes Treutlein", "Tim Belonax", "Jack Chen", "David Duvenaud", "Akbir Khan", "Julian Michael", "Sören Mindermann", "Ethan Perez", "Linda Petrini", "Jonathan Uesato", "Jared Kaplan", "Buck Shlegeris", "Samuel R. Bowman", "Evan Hubinger"], "https://luma.com/83ava297", greenblatt, new Date("2026-02-02")),  // https://arxiv.org/abs/2412.14093
-    new Paper("Emergent Misalignment", ["Jan Betley", "Daniel Tan", "Niels Warncke", "Anna Sztyber-Betley", "Xuchan Bao", "Martín Soto", "Nathan Labenz", "Owain Evans"], "https://luma.com/0n59u1mc", betley, new Date("2026-02-09")),  // https://arxiv.org/abs/2502.17424
-    new Paper("Topic to be announced", ["BLISS Reading Group"], "https://bliss.berlin/reading-group", nlpIntroImage, new Date("2026-04-27")),
+    new Paper("Training Language Models to Follow Instructions with Human Feedback", ["Long Ouyang", "Jeff Wu", "Xu Jiang", "Diogo Almeida", "Carroll L. Wainwright", "Pamela Mishkin", "Chong Zhang", "Sandhini Agarwal", "Katarina Slama", "Alex Ray", "John Schulman", "Jacob Hilton", "Fraser Kelton", "Luke Miller", "Maddie Simens", "Amanda Askell", "Peter Welinder", "Paul Christiano", "Jan Leike", "Ryan Lowe"], "https://arxiv.org/abs/2203.02155", ouyang, new Date("2025-12-08"), "https://luma.com/8srmkzqy"),
+    new Paper("Constitutional AI: Harmlessness from AI Feedback", ["Yuntao Bai", "Saurav Kadavath", "Sandipan Kundu", "Amanda Askell", "Jackson Kernion", "Andy Jones", "Anna Chen", "Anna Goldie", "Azalia Mirhoseini", "Cameron McKinnon", "Carol Chen", "Catherine Olsson", "Christopher Olah", "Danny Hernandez", "Dawn Drain", "Deep Ganguli", "Dustin Li", "Eli Tran-Johnson", "Ethan Perez", "Jamie Kerr", "Jared Mueller", "Jeffrey Ladish", "Joshua Landau", "Kamal Ndousse", "Kamile Lukosuite", "Liane Lovitt", "Michael Sellitto", "Nelson Elhage", "Nicholas Schiefer", "Noemi Mercado", "Nova DasSarma", "Robert Lasenby", "Robin Larson", "Sam Ringer", "Scott Johnston", "Shauna Kravec", "Sheer El Showk", "Stanislav Fort", "Tamera Lanham", "Timothy Telleen-Lawton", "Tom Conerly", "Tom Henighan", "Tristan Hume", "Samuel R. Bowman", "Zac Hatfield-Dodds", "Ben Mann", "Dario Amodei", "Nicholas Joseph", "Sam McCandlish", "Tom Brown", "Jared Kaplan"], "https://arxiv.org/abs/2212.08073", bai, new Date("2025-12-15"), "https://luma.com/1ta19ld6"),
+    new Paper("Adversarial Training for High-Stakes Reliability", ["Daniel M. Ziegler", "Seraphina Nix", "Lawrence Chan", "Tim Bauman", "Peter Schmidt-Nielsen", "Tao Lin", "Adam Scherlis", "Noa Nabeshima", "Ben Weinstein-Raun", "Daniel de Haas", "Buck Shlegeris", "Nate Thomas"], "https://arxiv.org/abs/2205.01663", ziegler, new Date("2026-01-12"), "https://luma.com/07fakgvs"),
+    new Paper("Goal Misgeneralization in Deep Reinforcement Learning", ["Lauro Langosco", "Jack Koch", "Lee Sharkey", "Jacob Pfau", "Laurent Orseau", "David Krueger"], "https://arxiv.org/abs/2105.14111", langosco, new Date("2026-01-19"), "https://luma.com/dhuyfbg0"),
+    new Paper("TruthfulQA: Measuring How Models Mimic Human Falsehoods", ["Stephanie Lin", "Jacob Hilton", "Owain Evans"], "https://arxiv.org/abs/2109.07958", lin, new Date("2026-01-26"), "https://luma.com/eepv5hz4"),
+    new Paper("Alignment Faking in Large Language Models", ["Ryan Greenblatt", "Carson Denison", "Benjamin Wright", "Fabien Roger", "Monte MacDiarmid", "Sam Marks", "Johannes Treutlein", "Tim Belonax", "Jack Chen", "David Duvenaud", "Akbir Khan", "Julian Michael", "Sören Mindermann", "Ethan Perez", "Linda Petrini", "Jonathan Uesato", "Jared Kaplan", "Buck Shlegeris", "Samuel R. Bowman", "Evan Hubinger"], "https://arxiv.org/abs/2412.14093", greenblatt, new Date("2026-02-02"), "https://luma.com/83ava297"),
+    new Paper("Emergent Misalignment", ["Jan Betley", "Daniel Tan", "Niels Warncke", "Anna Sztyber-Betley", "Xuchan Bao", "Martín Soto", "Nathan Labenz", "Owain Evans"], "https://arxiv.org/abs/2502.17424", betley, new Date("2026-02-09"), "https://luma.com/0n59u1mc"),
+    new Paper(
+        "Persona Features Control Emergent Misalignment",
+        ["Jonas Loos"],
+        "https://arxiv.org/abs/2506.19823",
+        personaFeaturesControlImage,
+        new Date("2026-04-27"),
+        "https://luma.com/ukdihom1",
+    ),
+    new Paper(
+        "Tell me about yourself: LLMs are aware of their learned behaviors",
+        ["Jonas Loos"],
+        "https://arxiv.org/abs/2501.11120",
+        llmsAwareBehaviorsImage,
+        new Date("2026-05-04"),
+        "https://luma.com/x3ype3bl",
+    ),
+    new Paper(
+        "Getting aligned on representational alignment",
+        ["Tom Neuhäuser"],
+        "https://arxiv.org/abs/2310.13018",
+        representationalAlignmentImage,
+        new Date("2026-05-11"),
+        "https://luma.com/f1pvnd6c",
+    ),
+    new Paper(
+        "Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model",
+        ["Leo Pinetzki"],
+        "https://arxiv.org/abs/1911.08265",
+        masteringGamesPlanningImage,
+        new Date("2026-05-18"),
+        "https://luma.com/h4i4zge2",
+    ),
+    new Paper(
+        "Genie: Generative Interactive Environments",
+        ["Leo Pinetzki"],
+        "https://arxiv.org/abs/2402.15391",
+        genieImage,
+        new Date("2026-06-01"),
+        "https://luma.com/k4hrfp97",
+    ),
+    new Paper(
+        "How Far is Video Generation from World Model: A Physical Law Perspective",
+        ["Leo Pinetzki"],
+        "https://arxiv.org/abs/2411.02385",
+        videoGenerationPhysicalLawsImage,
+        new Date("2026-06-08"),
+        "https://luma.com/kjb0730i",
+    ),
 ];
 
 // --------------------------------------------------
 
 const papersToObject = (papers: Paper[]) => {
-    const obj = {}
+    const obj: Record<string, Paper[]> = {}
 
-    papers.sort((a, b) => a.readingDay - b.readingDay).forEach(x => {
+    papers.sort((a, b) => a.readingDay.getTime() - b.readingDay.getTime()).forEach(x => {
         const offset = x.readingDay.getTimezoneOffset()
         x.readingDay = new Date(x.readingDay.getTime() - (offset * 60 * 1000))
         const dateString = x.readingDay.toISOString().split('T')[0]

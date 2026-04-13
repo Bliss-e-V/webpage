@@ -55,13 +55,13 @@ const getPapersInDateRange = (
 
     <div class="mb-10 text-secondary text-md sm:text-lg">
         <div class="mb-4">
-            This summer semester we are hosting <strong>BLISSful AI</strong>. Various BLISS members will present papers related to their research. More details will be announced soon.
+            This summer semester we are hosting a <strong>BLISSful AI</strong> reading group. Various BLISS members will present papers related to their research.
         </div><div class="mb-4">
             📍 <a href="https://maps.app.goo.gl/4eqs9zTgEi9E9pbv5" target="_blank"><strong>Merantix AI Campus</strong> (Max-Urich-Straße 3, 13355 Berlin)</a>
         </div><div class="mb-4">
             🕖 <strong>Every Monday, 6:45pm</strong></div>
         <div class="mb-4 text-sm text-secondary">
-            Note: Registration via <a href="https://lu.ma/user/bliss_ev_berlin" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-white underline">Luma</a> might be necessary (check details below).
+            Note: Registration via <a href="https://lu.ma/user/bliss_ev_berlin" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-white underline">Luma</a> is necessary (check details below).
         </div>
     </div>
 
@@ -296,6 +296,7 @@ const getPapersInDateRange = (
                 `BLISS Reading Group: ${paper.name}`,
                 '',
                 `Paper: ${paper.link}`,
+                ...(paper.eventLink ? ['', `Registration: ${paper.eventLink}`] : []),
                 '',
                 'Please check the website for updates: https://bliss.berlin/reading-group',
             ].join('\n');
@@ -306,7 +307,7 @@ const getPapersInDateRange = (
                 startDate,
                 endDate,
                 location,
-                url: paper.link
+                url: paper.eventLink ?? paper.link
             };
         }).filter(event => event !== null);
     }
