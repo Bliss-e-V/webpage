@@ -19,8 +19,8 @@ const { paper, hasBorder } = Astro.props as Props;
         class="flex flex-col sm:flex-row sm:space-x-10 sm:items-center sm:max-h-min no-underline"
       >
         <div
-          class={`w-full h-[90px] sm:max-w-[200px] flex 
-        will-change-transform items-center justify-center rounded-lg overflow-hidden sm:ml-2 object-cover`}
+          class={`shrink-0 w-full sm:w-[200px] h-[90px] flex
+        will-change-transform items-center justify-center rounded-lg overflow-hidden sm:ml-2`}
         >
           <Image
             src={paper.image}
@@ -29,7 +29,7 @@ const { paper, hasBorder } = Astro.props as Props;
             decoding="async"
             loading="lazy"
             alt="Paper Image"
-            class="group-hover:scale-105 transition-transform object-cover"
+            class="w-full h-full group-hover:scale-105 transition-transform object-cover"
           />
         </div>
         <div class={`flex flex-col`}>
