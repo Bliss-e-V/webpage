@@ -23,6 +23,11 @@ import anna from "../../images/members/anna.png"
 import jan from "../../images/members/jan.png"
 import jarek from "../../images/members/jarek.png"
 import carlos from "../../images/members/carlos.png"
+import amr from "../../images/members/amr.png"
+import frederic from "../../images/members/frederic.png"
+import louis from "../../images/members/louis.png"
+import lukas from "../../images/members/lukas.png"
+import michael from "../../images/members/michael.png"
 import type { ImageMetadata } from "astro";
 
 export class Member {
@@ -52,6 +57,12 @@ export const currentMembers = [
     new Member("Anna", "Tils", anna, "https://www.linkedin.com/in/anna-tils-0759b3312/"),
     new Member("Maja", "Kosiarski", null, "https://www.linkedin.com/in/maja-kosiarski-227194297/"),
     new Member("Carlos", "Sulbaran Fandino", carlos, "https://www.linkedin.com/in/carlos-sulbaran-fandino/"),
+    new Member("Amr", "Ramadan", amr, null),
+    new Member("Frederic", "Ndjiki-Nya", frederic, null),
+    new Member("Louis", "Pfeiffer", louis, "https://www.linkedin.com/in/louis-bennet-pfeiffer"),
+    new Member("Lukasz", "Sztukiewicz", lukas, "https://www.linkedin.com/in/lukaszsztukiewicz"),
+    new Member("Michael", "Samjatin", michael, "https://www.linkedin.com/in/michael-samjatin"),
+    new Member("Kimia", "Mavaddat", null, "https://www.linkedin.com/in/kimia-m-144986168/"),
 ]
 
 // Alumni members (past members)
