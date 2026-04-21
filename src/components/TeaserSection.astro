@@ -1,0 +1,30 @@
+---
+import { Headline } from "./Headline";
+---
+
+<div class="flex flex-col items-center justify-center py-20 bg-black/30">
+  <Headline level={2} className="mb-4 text-center">
+    Speaker Series · Summer 2026
+  </Headline>
+  <p class="mb-10 text-center text-lg text-secondary max-w-2xl px-4">
+    Leading experts in AI bringing their knowledge to Berlin
+  </p>
+
+  <div class="w-full max-w-4xl px-4">
+    <a href="/speaker-series" class="block group">
+      <div class="relative w-full rounded-md overflow-hidden aspect-video shadow-lg">
+        <video
+          class="w-full h-full object-cover"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+        >
+          <source src="/images/media/ss26/teaser_min.mp4" type="video/mp4" />
+          BLISS Teaser for Summer Semester 2026
+        </video>
+      </div>
+    </a>
+  </div>
+</div>
