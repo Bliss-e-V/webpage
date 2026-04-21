@@ -9,11 +9,28 @@ import quantcoLogo from "../../images/logos/quantco.png";
 import jetbrainsLogo from "../../images/logos/jetbrains-white.svg";
 import gResearchLogo from "../../images/logos/g-research-dark-bg.svg";
 
+export type WorkshopTag = {
+    label: string;
+    // Tailwind classes applied to the tag badge (e.g. background + text colors)
+    className: string;
+}
+
+// Common, reusable tag presets
+export const FLINTA_TAG: WorkshopTag = {
+    label: "FLINTA* Workshop",
+    className: "bg-flinta-muted text-gray-300 border border-gray-900",
+};
+
+export const PUB_QUIZ_TAG: WorkshopTag = {
+    label: "Pub Quiz",
+    className: "bg-sky-950/60 text-gray-300 border border-sky-900",
+};
+
 class Workshop {
     public next = false
     public past = false
 
-    constructor(public date: Date, public title: string, public name: string, public affiliation: string, public url: string, public description: string = "", public canceled: boolean = false, public undefinedEvent: boolean = false, public image?: ImageMetadata) {
+    constructor(public date: Date, public title: string, public name: string, public affiliation: string, public url: string, public description: string = "", public canceled: boolean = false, public undefinedEvent: boolean = false, public image?: ImageMetadata, public tag?: WorkshopTag) {
     }
 }
 
@@ -29,8 +46,8 @@ const workshopsRaw = [
     new Workshop(new Date("2026-02-03"), "BLISS x Google: Unleash the Power of Agentic AI", "Diana Nanova", "Google", "https://luma.com/sd7cl8ft?utm_source=blisswebsite", "Generative AI models have the potential to increase productivity and provide access to data, but they need good context to be truly useful. In this hands-on workshop, you will learn how Knowledge Graphs and Retrieval Augmented Generation (RAG) can help your GenAI projects avoid hallucination and provide access to reliable data.", false, false, googleLogo),
     new Workshop(new Date("2026-04-16"), "BLISS x Semrush: Operating Agentic AI in Production", "Saeid Nobakht", "Semrush", "https://luma.com/nklicoct?utm_source=blisswebsite", "Building reliable agentic systems requires more than evaluating individual LLM outputs — it demands a systems-level approach to testing, observability, and operations.", false, false, semrushLogo),
     new Workshop(new Date("2026-04-29"), "BLISS x dida: Theory Meets Practice #3: Embedded AI - Deep Learning Models on 5€ microcontrollers", "Elias Trommer", "Infineon", "https://luma.com/q57evozo?utm_source=blisswebsite", "In this workshop, we discuss the unique challenges (and solutions) when deploying Deep Learning models to embedded microcontrollers. We’ll cover key differences between embedded vs. server systems, quantization, embedded application anatomy, inference engines, and a step-by-step deployment walkthrough.", false, false, didaLogo),
-    new Workshop(new Date("2026-04-30"), "BLISS x JetBrains: Master LLMs for Code Gen", "Ivan Dolgov", "JetBrains", "https://luma.com/1rmr2buu?utm_source=blisswebsite", "For women and underrepresented genders in tech. An interactive session on code LLMs: model architecture, prompt engineering for developers, evaluating generated code, and how JetBrains IDEs integrate these models. Foundational Python recommended; bring your laptop.", false, false, jetbrainsLogo),
-    new Workshop(new Date("2026-05-08"), "BLISS x G-Research: Pub Quiz", "", "G-Research", "https://share-eu1.hsforms.com/1GfuPr7ijQl6AKWQbD5qw-A2b8apt?utm_source=blisswebsite", "Take on maths-based brain teasers in our unique take on a pub quiz. Test your skills and learn more about the world of quantitative Finance.", false, false, gResearchLogo),
+    new Workshop(new Date("2026-04-30"), "BLISS x JetBrains: Master LLMs for Code Gen", "Ivan Dolgov", "JetBrains", "https://luma.com/1rmr2buu?utm_source=blisswebsite", "For women and underrepresented genders in tech. An interactive session on code LLMs: model architecture, prompt engineering for developers, evaluating generated code, and how JetBrains IDEs integrate these models. Foundational Python recommended; bring your laptop.", false, false, jetbrainsLogo, FLINTA_TAG),
+    new Workshop(new Date("2026-05-08"), "BLISS x G-Research: Pub Quiz", "", "G-Research", "https://share-eu1.hsforms.com/1GfuPr7ijQl6AKWQbD5qw-A2b8apt?utm_source=blisswebsite", "Take on maths-based brain teasers in our unique take on a pub quiz. Test your skills and learn more about the world of quantitative Finance.", false, false, gResearchLogo, PUB_QUIZ_TAG),
     // new Workshop(new Date("2026-04-29"), "BLISS x dida: To be announced", "TBA", "dida", "https://bliss.berlin/workshops?utm_source=blisswebsite", "", false, false, didaLogo),
     // new Workshop(new Date("2026-05-27"), "BLISS x dida: To be announced", "TBA", "dida", "https://bliss.berlin/workshops?utm_source=blisswebsite", "", false, false, didaLogo),
     // new Workshop(new Date("2026-06-10"), "BLISS x QuantCo: To be announced", "TBA", "QuantCo", "https://bliss.berlin/workshops?utm_source=blisswebsite", "", false, false, quantcoLogo),

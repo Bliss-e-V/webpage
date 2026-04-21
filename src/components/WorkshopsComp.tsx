@@ -157,6 +157,13 @@ export const WorkshopsComp = (props: WorkshopsCompProps) => {
                                                             Next Up
                                                         </span>
                                                     )}
+                                                    {workshop.tag && (
+                                                        <span
+                                                            className={`ml-2 px-2 py-0.5 text-xs font-bold rounded-full ${workshop.tag.className}`}
+                                                        >
+                                                            {workshop.tag.label}
+                                                        </span>
+                                                    )}
                                                 </div>
                                                 <p
                                                     className={`text-xl sm:text-2xl font-bold ${workshop.past

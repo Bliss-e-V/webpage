@@ -19,6 +19,10 @@ interface TimelineEvent {
   description?: string;
   subtitle?: string;
   seriesNumber?: number;
+  // Optional override for the type tag (label + tailwind classes).
+  // When set, replaces the generic type badge (e.g. "Workshop" → "FLINTA* Workshop").
+  tagLabel?: string;
+  tagClassName?: string;
 }
 
 const events: TimelineEvent[] = [];
@@ -43,6 +47,8 @@ workshops.forEach((w) => {
     subtitle: `${w.name} - ${w.affiliation}`,
     type: "Workshop",
     link: w.url,
+    tagLabel: w.tag?.label,
+    tagClassName: w.tag?.className,
   });
 });
 
@@ -111,9 +117,15 @@ function getEventTypeColor(type: string) {
                     ) : (
                         event.title
                     )}
-                    <span class="inline-block align-middle ml-2 bg-gray-800 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-700 whitespace-nowrap">
-                        {event.type}{event.seriesNumber ? ` #${event.seriesNumber}` : ""}
-                    </span>
+                    {event.tagLabel ? (
+                        <span class={`inline-block align-middle ml-2 text-xs font-medium px-2.5 py-0.5 rounded whitespace-nowrap ${event.tagClassName ?? "bg-gray-800 text-gray-300 border border-gray-700"}`}>
+                            {event.tagLabel}
+                        </span>
+                    ) : (
+                        <span class="inline-block align-middle ml-2 bg-gray-800 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-700 whitespace-nowrap">
+                            {event.type}{event.seriesNumber ? ` #${event.seriesNumber}` : ""}
+                        </span>
+                    )}
                 </p>
 
                 {event.subtitle && (

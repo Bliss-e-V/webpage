@@ -89,6 +89,18 @@
   background-image: linear-gradient(to right, #552383, #88BCE9);
 }
 
+@utility bg-flinta-muted {
+  background-image: linear-gradient(
+    to right,
+    #6b1f1f,
+    #6b4520,
+    #6b6320,
+    #1f6b38,
+    #1f3d6b,
+    #4a1f6b
+  );
+}
+
 @utility shadow-accent {
   box-shadow: 0 0 20px 5px #cb2d3e;
 }
