@@ -9,6 +9,7 @@ class PartnerImg {
         public alt: string,
         public url: string,
         public whiteFilter?: boolean,
+        public wrapperClass?: string,
     ) {}
 }
 
@@ -20,6 +21,7 @@ import kiParkImg from "../images/logos/kipark.png";
 import bifoldImg from "../images/logos/bifold.png";
 import onethousandImg from "../images/logos/onethousand.png";
 import didaImg from "../images/logos/dida.png";
+import gResearchImg from "../images/logos/g-research-dark-bg.svg";
 
 
 const partners = [
@@ -31,6 +33,13 @@ const partners = [
     new PartnerImg(quantCoImg, "QuantCo", "https://www.quantco.com/"),
     new PartnerImg(onethousandImg, "One Thousand", "https://onethousand.ai/"),
     new PartnerImg(didaImg, "dida", "https://dida.do/"),
+    new PartnerImg(
+        gResearchImg,
+        "G-Research",
+        "https://www.gresearch.com/",
+        undefined,
+        "h-10 md:h-16",
+    ),
 ];
 ---
 
@@ -57,6 +66,7 @@ const partners = [
                     alt={partner.alt}
                     url={partner.url}
                     whiteFilter={partner.whiteFilter}
+                    wrapperClass={partner.wrapperClass}
                 />
             ))
         }

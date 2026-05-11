@@ -6,11 +6,18 @@ interface Props {
     alt: string;
     url: string;
     whiteFilter?: boolean;
+    wrapperClass?: string;
 }
-const { src, alt, url, whiteFilter = false } = Astro.props as Props;
+const {
+    src,
+    alt,
+    url,
+    whiteFilter = false,
+    wrapperClass = "h-14 md:h-24",
+} = Astro.props as Props;
 ---
 
-<div class="h-14 md:h-24 mr-20 my-4">
+<div class={`${wrapperClass} mr-20 my-4`}>
     <a href={url} target="_blank">
         <Image
             src={src}
