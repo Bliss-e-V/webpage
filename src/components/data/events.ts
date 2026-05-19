@@ -96,7 +96,8 @@ const createSpeakerEvents = (): BlissEvent[] =>
             title: speaker.title,
             subtitle: speaker.undefinedEvent ? undefined : `${speaker.name} - ${speaker.affiliation}`,
             description: speaker.abstract,
-            href: `/speaker-series?id=${seriesNumber}`,
+            href: speaker.url || `/speaker-series?id=${seriesNumber}`,
+            externalHref: Boolean(speaker.url),
             imageSrc: imageSrc(speaker.logo),
             imageAlt: speaker.affiliation ? `${speaker.affiliation} logo` : "Speaker logo",
             badge: {

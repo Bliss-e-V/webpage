@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { BlissEvent } from "@components/data/events";
+import { EventMediaSlideshow } from "@components/events/EventMediaSlideshow";
 import {
     getHeaderHeight,
     resolveEventScrollTargetId,
@@ -17,6 +18,7 @@ type EventTimelineProps = {
     compact?: boolean;
     autoScrollToNext?: boolean;
     showDividers?: boolean;
+    expandLabel?: string;
 };
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
@@ -71,6 +73,7 @@ export const EventTimeline = ({
     compact = false,
     autoScrollToNext = false,
     showDividers = true,
+    expandLabel = "Preview",
 }: EventTimelineProps) => {
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
     const [showScrollToUpcoming, setShowScrollToUpcoming] = useState(false);
@@ -346,7 +349,7 @@ export const EventTimeline = ({
                                                         onClick={() => toggleExpanded(event.id)}
                                                         className="inline-flex items-center text-sm font-semibold text-gray-300 transition-colors hover:text-white hover:underline"
                                                     >
-                                                        {isExpanded ? "Hide Preview" : "Preview"}
+                                                        {isExpanded ? `Hide ${expandLabel}` : expandLabel}
                                                     </button>
                                                 )}
                                             </div>
@@ -355,18 +358,6 @@ export const EventTimeline = ({
 
                                     {isExpanded && hasPreview && (
                                         <div className="mt-3 border-t border-gray-800/70 pt-3">
-                                            {event.details?.videoId && (
-                                                <div className="mb-4 overflow-hidden rounded-lg bg-black">
-                                                    <iframe
-                                                        className="aspect-video w-full"
-                                                        src={`https://www.youtube.com/embed/${event.details.videoId}`}
-                                                        title={event.title}
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowFullScreen
-                                                    />
-                                                </div>
-                                            )}
-
                                             {event.details?.abstract && (
                                                 <div className="mb-4">
                                                     <h3 className="mb-2 font-bold text-white">Abstract</h3>
@@ -432,18 +423,14 @@ export const EventTimeline = ({
                                                 </div>
                                             )}
 
-                                            {event.details?.images && event.details.images.length > 0 && (
-                                                <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-                                                    {event.details.images.map((image) => (
-                                                        <img
-                                                            key={image}
-                                                            src={image}
-                                                            alt={`${event.title} event photo`}
-                                                            className="aspect-square rounded-xl object-cover"
-                                                            loading="lazy"
-                                                        />
-                                                    ))}
-                                                </div>
+                                            {(event.details?.videoId ||
+                                                (event.details?.images &&
+                                                    event.details.images.length > 0)) && (
+                                                <EventMediaSlideshow
+                                                    videoId={event.details?.videoId}
+                                                    images={event.details?.images}
+                                                    title={event.title}
+                                                />
                                             )}
                                         </div>
                                     )}
