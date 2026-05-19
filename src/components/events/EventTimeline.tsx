@@ -20,6 +20,7 @@ type EventTimelineProps = {
     autoScrollToNext?: boolean;
     showDividers?: boolean;
     expandLabel?: string;
+    currentPath?: string;
 };
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
@@ -68,6 +69,18 @@ const normalizeEvents = (events: TimelineEvent[]) =>
 const eventIsExternal = (event: TimelineEvent) =>
     event.externalHref || event.href?.startsWith("http");
 
+const getDetailHref = (event: TimelineEvent, currentPath?: string) => {
+    if (!event.href) return undefined;
+    if (event.externalHref) return event.href;
+
+    if (currentPath) {
+        const [path] = event.href.split("#");
+        if (path === currentPath) return undefined;
+    }
+
+    return event.href;
+};
+
 export const EventTimeline = ({
     events,
     emptyMessage = "No events scheduled. Stay tuned!",
@@ -75,10 +88,12 @@ export const EventTimeline = ({
     autoScrollToNext = false,
     showDividers = true,
     expandLabel = "Preview",
+    currentPath,
 }: EventTimelineProps) => {
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
     const [showScrollToUpcoming, setShowScrollToUpcoming] = useState(false);
     const didPostExpandScroll = useRef(false);
+    const userCollapsedEvents = useRef(new Set<string>());
     const normalizedEvents = useMemo(() => normalizeEvents(events), [events]);
     const today = useMemo(() => getToday(), []);
     const nextEvent = useMemo(
@@ -99,13 +114,30 @@ export const EventTimeline = ({
             today,
         );
 
-        if (!targetId) return;
+        if (!targetId || userCollapsedEvents.current.has(targetId)) return;
 
         setExpandedEvents((current) =>
             current.includes(targetId) ? current : [...current, targetId],
         );
+    }, [autoScrollToNext, normalizedEvents, today]);
 
-        if (didPostExpandScroll.current || !expandedEvents.includes(targetId)) return;
+    useLayoutEffect(() => {
+        if (!autoScrollToNext || normalizedEvents.length === 0) return;
+
+        const idParam = new URLSearchParams(window.location.search).get("id");
+        const targetId = resolveEventScrollTargetId(
+            toEventScrollRefs(normalizedEvents),
+            idParam,
+            today,
+        );
+
+        if (
+            !targetId ||
+            didPostExpandScroll.current ||
+            !expandedEvents.includes(targetId)
+        ) {
+            return;
+        }
 
         const targetElement = document.getElementById(targetId);
         if (!targetElement) return;
@@ -164,11 +196,15 @@ export const EventTimeline = ({
     };
 
     const toggleExpanded = (eventId: string) => {
-        setExpandedEvents((current) =>
-            current.includes(eventId)
-                ? current.filter((id) => id !== eventId)
-                : [...current, eventId],
-        );
+        setExpandedEvents((current) => {
+            if (current.includes(eventId)) {
+                userCollapsedEvents.current.add(eventId);
+                return current.filter((id) => id !== eventId);
+            }
+
+            userCollapsedEvents.current.delete(eventId);
+            return [...current, eventId];
+        });
     };
 
     if (normalizedEvents.length === 0) {
@@ -197,6 +233,7 @@ export const EventTimeline = ({
                                           event.details.videoId ||
                                           event.details.images?.length)),
                     );
+                    const detailHref = getDetailHref(event, currentPath);
                     const divider = getSemester(event.date);
                     const shouldRenderDivider = showDividers && divider !== previousDivider;
                     previousDivider = divider;
@@ -322,9 +359,9 @@ export const EventTimeline = ({
                                             )}
 
                                             <div className="mt-2 flex flex-wrap items-center gap-3">
-                                                {event.href && (
+                                                {detailHref && (
                                                     <a
-                                                        href={event.href}
+                                                        href={detailHref}
                                                         target={eventIsExternal(event) ? "_blank" : "_self"}
                                                         rel={eventIsExternal(event) ? "noopener noreferrer" : undefined}
                                                         className="inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-white hover:underline"
