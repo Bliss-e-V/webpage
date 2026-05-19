@@ -1,4 +1,5 @@
 import type { ImageMetadata } from "astro";
+import { formatAuthorList } from "@utils/formatAuthorList";
 import { dayToPapers, type Paper } from "./papers";
 import { speakers } from "./speakers";
 import { workshops } from "./workshops";
@@ -165,7 +166,10 @@ const createReadingGroupEvents = (): BlissEvent[] =>
             kind: "reading-group",
             date,
             title: readingGroupTitle(papers),
-            subtitle: papers.length === 1 ? papers[0].authors.join(", ") : "Reading group session",
+            subtitle:
+                papers.length === 1
+                    ? formatAuthorList(papers[0].authors)
+                    : "Reading group session",
             description:
                 papers.length === 1
                     ? `Discussion of ${papers[0].name}`

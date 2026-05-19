@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { BlissEvent } from "@components/data/events";
 import { EventMediaSlideshow } from "@components/events/EventMediaSlideshow";
+import { formatAuthorList } from "@utils/formatAuthorList";
 import {
     getHeaderHeight,
     resolveEventScrollTargetId,
@@ -394,9 +395,7 @@ export const EventTimeline = ({
                                                         >
                                                             <h3 className="font-bold text-white">{paper.title}</h3>
                                                             <p className="mt-1 text-sm text-gray-400">
-                                                                {paper.authors.length >= 10
-                                                                    ? `${paper.authors.slice(0, 8).join(", ")} et al.`
-                                                                    : paper.authors.join(", ")}
+                                                                {formatAuthorList(paper.authors)}
                                                             </p>
                                                             <div className="mt-3 flex flex-wrap gap-3 text-sm">
                                                                 <a
@@ -445,7 +444,7 @@ export const EventTimeline = ({
             <button
                 type="button"
                 onClick={scrollToUpcoming}
-                className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/40 transition hover:bg-accent-light focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+                className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 cursor-pointer rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/40 transition hover:bg-accent-light focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
             >
                 Scroll to upcoming
             </button>

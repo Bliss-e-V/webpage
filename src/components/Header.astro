@@ -17,7 +17,7 @@ const { compact = false } = Astro.props;
 >
   <div class="container flex justify-between">
     <div class="flex items-center justify-start space-x-[50px]">
-      <a id="logo" href="/" class="relative group">
+      <a id="logo" href="/">
         <picture>
           <source srcset="/assets/bliss-logo.webp" type="image/webp" />
           <img
@@ -29,11 +29,6 @@ const { compact = false } = Astro.props;
             fetchpriority="high"
           />
         </picture>
-        <p
-          class="absolute left-0 right-0 mx-auto text-sm font-medium text-center opacity-0 bg-accent-dark text-accent rounded-md group-hover:opacity-100 transition-opacity duration-300"
-        >
-          Home
-        </p>
       </a>
     </div>
     <div id="menu" class="flex items-center space-x-3 md:space-x-7 pl-2 md:pl-0">
