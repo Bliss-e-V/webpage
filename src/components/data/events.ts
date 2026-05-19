@@ -213,7 +213,7 @@ export const getNextEvent = (events: BlissEvent[], today = currentDate()) =>
     sortEventsSoonestFirst(events.filter((event) => event.date >= today))[0];
 
 export const getTimelineEvents = (kind: TimelineKindFilter = "all") =>
-    sortEventsNewestFirst(filterEventsByKind(getAllEvents(), kind));
+    sortEventsSoonestFirst(filterEventsByKind(getAllEvents(), kind));
 
 export const getUpcomingEvents = (limit = 5) =>
     sortEventsSoonestFirst(

@@ -1,5 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { BlissEvent } from "@components/data/events";
+import {
+    resolveEventScrollTargetId,
+    scrollTimelineEventIntoView,
+    toEventScrollRefs,
+} from "@lib/event-scroll";
 
 type TimelineEvent = Omit<BlissEvent, "date"> & {
     date: Date | string;
@@ -67,6 +72,7 @@ export const EventTimeline = ({
     showDividers = true,
 }: EventTimelineProps) => {
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
+    const didPostExpandScroll = useRef(false);
     const normalizedEvents = useMemo(() => normalizeEvents(events), [events]);
     const today = useMemo(() => getToday(), []);
     const nextEvent = useMemo(
@@ -77,32 +83,33 @@ export const EventTimeline = ({
         [normalizedEvents, today],
     );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!autoScrollToNext || normalizedEvents.length === 0) return;
 
-        const searchParams = new URLSearchParams(window.location.search);
-        const id = searchParams.get("id");
-        const targetEvent = id
-            ? normalizedEvents.find(
-                  (event) =>
-                      event.id === id ||
-                      event.seriesNumber?.toString() === id ||
-                      event.id.endsWith(`-${id}`),
-              )
-            : nextEvent;
-
-        if (!targetEvent) return;
-
-        setExpandedEvents((current) =>
-            current.includes(targetEvent.id) ? current : [...current, targetEvent.id],
+        const idParam = new URLSearchParams(window.location.search).get("id");
+        const targetId = resolveEventScrollTargetId(
+            toEventScrollRefs(normalizedEvents),
+            idParam,
+            today,
         );
 
-        window.setTimeout(() => {
-            document
-                .getElementById(targetEvent.id)
-                ?.scrollIntoView({ block: "center", behavior: "smooth" });
-        }, 250);
-    }, [autoScrollToNext, normalizedEvents, nextEvent]);
+        if (!targetId) return;
+
+        setExpandedEvents((current) =>
+            current.includes(targetId) ? current : [...current, targetId],
+        );
+
+        if (didPostExpandScroll.current || !expandedEvents.includes(targetId)) return;
+
+        const targetElement = document.getElementById(targetId);
+        if (!targetElement) return;
+
+        scrollTimelineEventIntoView(targetElement);
+        requestAnimationFrame(() => {
+            scrollTimelineEventIntoView(targetElement);
+            didPostExpandScroll.current = true;
+        });
+    }, [autoScrollToNext, normalizedEvents, today, expandedEvents]);
 
     const toggleExpanded = (eventId: string) => {
         setExpandedEvents((current) =>

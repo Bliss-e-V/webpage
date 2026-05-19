@@ -4,6 +4,7 @@ export const prerender = true;
 import Layout from "../layouts/Layout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import { EventTimeline } from "@components/events/EventTimeline";
+import EventTimelineAutoScroll from "@components/events/EventTimelineAutoScroll.astro";
 import { getTimelineEvents } from "@components/data/events";
 
 const readingGroupEvents = getTimelineEvents("reading-group");
@@ -13,7 +14,9 @@ const readingGroupEvents = getTimelineEvents("reading-group");
     title="AI Reading Group | BLISS Berlin"
     description="Join BLISS Berlin's weekly AI reading group, where we discuss cutting-edge machine learning research papers in a collaborative environment. Takes place regularly on Mondays."
     ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
+    eventTimelineScroll={readingGroupEvents.length > 0}
 >
+    <EventTimelineAutoScroll events={readingGroupEvents}>
     <Breadcrumb 
         crumbs={[
             { name: "Reading Group", href: "/reading-group" }
@@ -50,4 +53,5 @@ const readingGroupEvents = getTimelineEvents("reading-group");
         autoScrollToNext
         emptyMessage="No reading group sessions scheduled. Stay tuned!"
     />
+    </EventTimelineAutoScroll>
 </Layout>

@@ -4,6 +4,7 @@ export const prerender = true;
 import Layout from "../layouts/Layout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import { EventTimeline } from "@components/events/EventTimeline";
+import EventTimelineAutoScroll from "@components/events/EventTimelineAutoScroll.astro";
 import { getTimelineEvents } from "@components/data/events";
 
 const speakerEvents = getTimelineEvents("speaker");
@@ -13,7 +14,9 @@ const speakerEvents = getTimelineEvents("speaker");
     title="Speaker Series | BLISS Berlin"
     description="Join BLISS Berlin's Speaker Series featuring top researchers and practitioners in AI and machine learning. Explore upcoming talks and our archive of past events."
     ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
+    eventTimelineScroll={speakerEvents.length > 0}
 >
+    <EventTimelineAutoScroll events={speakerEvents}>
     <Breadcrumb
         crumbs={[
             { name: "Speaker Series", href: "/speaker-series" }
@@ -42,4 +45,5 @@ const speakerEvents = getTimelineEvents("speaker");
         autoScrollToNext
         emptyMessage="No speaker series events scheduled. Stay tuned!"
     />
+    </EventTimelineAutoScroll>
 </Layout>

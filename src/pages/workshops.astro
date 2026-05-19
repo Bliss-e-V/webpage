@@ -4,6 +4,7 @@ export const prerender = true;
 import Layout from "../layouts/Layout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import { EventTimeline } from "@components/events/EventTimeline";
+import EventTimelineAutoScroll from "@components/events/EventTimelineAutoScroll.astro";
 import { getTimelineEvents } from "@components/data/events";
 
 const workshopEvents = getTimelineEvents("workshop");
@@ -13,7 +14,9 @@ const workshopEvents = getTimelineEvents("workshop");
     title="Workshops | BLISS Berlin"
     description="Join BLISS Berlin's hands-on workshops on cutting-edge AI and machine learning topics. Learn practical skills and explore the latest technologies."
     ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
+    eventTimelineScroll={workshopEvents.length > 0}
 >
+    <EventTimelineAutoScroll events={workshopEvents}>
     <Breadcrumb
         crumbs={[
             { name: "Workshops", href: "/workshops" }
@@ -39,5 +42,6 @@ const workshopEvents = getTimelineEvents("workshop");
         autoScrollToNext
         emptyMessage="No workshops scheduled. Stay tuned!"
     />
+    </EventTimelineAutoScroll>
 </Layout>
 

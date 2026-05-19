@@ -1,10 +1,19 @@
 ---
-import Badge from "@components/Badge";
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
 ---
 
 <div
   id="header"
-  class="fixed top-0 z-40 flex items-center justify-center w-full h-40 border-b border-transparent bg-black/70 select-none duration-500 mr-10 ml-10"
+  class:list={[
+    "fixed top-0 z-40 flex items-center justify-center w-full select-none mr-10 ml-10 border-b bg-black/70",
+    compact
+      ? "h-20 backdrop-blur-md border-border"
+      : "h-40 border-transparent",
+  ]}
 >
   <div class="container flex justify-between">
     <div class="flex items-center justify-start space-x-[50px]">
@@ -58,46 +67,57 @@ import Badge from "@components/Badge";
   #join-link:hover {
     text-decoration-color: transparent;
   }
+
+  #header {
+    transition:
+      backdrop-filter 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  html.event-timeline-page #header {
+    height: 5rem;
+    transition: none;
+  }
 </style>
 
 <script>
   let windowWidth = window.innerWidth;
 
-  // header
   const header = document.getElementById("header")!;
-
-  // link animation
   const speakerSeriesLink: HTMLElement = document.getElementById("speakerSeriesLink")!;
   const readingGroupLink: HTMLElement = document.getElementById("readingGroupLink")!;
   const workshopsLink: HTMLElement = document.getElementById("workshopsLink")!;
-  // const teamLink: HTMLElement = document.getElementById("teamLink")!;
 
   const allLinks: HTMLElement[] = [speakerSeriesLink, readingGroupLink, workshopsLink];
 
+  function isEventTimelinePage() {
+    return document.documentElement.classList.contains("event-timeline-page");
+  }
+
   function animateHeader() {
+    if (isEventTimelinePage()) {
+      header.classList.remove("h-40");
+      header.classList.add("h-20", "backdrop-blur-md", "border-border");
+      header.classList.remove("border-transparent");
+      return;
+    }
+
     if (window.scrollY > 0) {
       header.classList.remove("h-40");
-      header.classList.add("h-20");
-      header.classList.add("backdrop-blur-md");
-      header.classList.add("border-border");
+      header.classList.add("h-20", "backdrop-blur-md", "border-border");
       header.classList.remove("border-transparent");
     } else {
-      header.classList.remove("h-20");
-      header.classList.add("h-40");
-      header.classList.remove("backdrop-blur-md");
-      header.classList.remove("border-border");
-      header.classList.add("border-transparent");
+      header.classList.remove("h-20", "backdrop-blur-md", "border-border");
+      header.classList.add("h-40", "border-transparent");
     }
   }
 
   function setActiveLink(activeLink: HTMLElement | null) {
-    // Reset all links to secondary
-    allLinks.forEach(link => {
+    allLinks.forEach((link) => {
       link.classList.remove("text-primary");
       link.classList.add("text-secondary");
     });
 
-    // Set active link to primary
     if (activeLink) {
       activeLink.classList.remove("text-secondary");
       activeLink.classList.add("text-primary");
@@ -105,16 +125,13 @@ import Badge from "@components/Badge";
   }
 
   function handleRoute() {
-    // Set active link based on URL path
     const linkMap: Record<string, HTMLElement> = {
       "/speaker-series": speakerSeriesLink,
       "/reading-group": readingGroupLink,
       "/workshops": workshopsLink,
-      // "/team": teamLink,
-    }
+    };
 
-    const path = window.location.pathname;
-    setActiveLink(linkMap[path]);
+    setActiveLink(linkMap[window.location.pathname] ?? null);
   }
 
   function handleScroll() {
@@ -127,6 +144,7 @@ import Badge from "@components/Badge";
 
   animateHeader();
   handleRoute();
-  document.addEventListener("scroll", handleScroll);
+  document.addEventListener("scroll", handleScroll, { passive: true });
   document.addEventListener("resize", handleResize);
+  document.addEventListener("bliss-header-sync", handleScroll);
 </script>
