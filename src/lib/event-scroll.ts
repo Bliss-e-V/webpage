@@ -43,17 +43,18 @@ export const resolveEventScrollTargetId = (
 
 export const EVENT_TIMELINE_SCROLLED_CLASS = "event-timeline-scrolled";
 
-/** Viewport height fraction where the event center should land (upper half). */
-export const TIMELINE_EVENT_SCROLL_CENTER_RATIO = 0.3;
+export const getHeaderHeight = (): number =>
+    document.getElementById("header")?.getBoundingClientRect().height ?? 0;
 
 export const getTimelineEventScrollTop = (element: HTMLElement): number => {
     const rect = element.getBoundingClientRect();
-    const elementCenterY = rect.top + rect.height / 2;
-    const targetCenterY = window.innerHeight * TIMELINE_EVENT_SCROLL_CENTER_RATIO;
 
-    return Math.max(0, window.scrollY + elementCenterY - targetCenterY);
+    return Math.max(0, window.scrollY + rect.top - getHeaderHeight());
 };
 
-export const scrollTimelineEventIntoView = (element: HTMLElement): void => {
-    window.scrollTo({ top: getTimelineEventScrollTop(element), left: 0, behavior: "instant" });
+export const scrollTimelineEventIntoView = (
+    element: HTMLElement,
+    behavior: ScrollBehavior = "instant",
+): void => {
+    window.scrollTo({ top: getTimelineEventScrollTop(element), left: 0, behavior });
 };

@@ -1,6 +1,6 @@
 ---
 import type { BlissEvent } from "@components/data/events";
-import { TIMELINE_EVENT_SCROLL_CENTER_RATIO, toEventScrollRefs } from "@lib/event-scroll";
+import { toEventScrollRefs } from "@lib/event-scroll";
 
 interface Props {
     events: BlissEvent[];
@@ -27,7 +27,7 @@ const eventRefs = toEventScrollRefs(events);
                 window.__blissEventScrollRefs = eventRefs;
             </script>
             <slot />
-            <script is:inline define:vars={{ scrollCenterRatio: TIMELINE_EVENT_SCROLL_CENTER_RATIO }}>
+            <script is:inline>
                 (function () {
                     var refs = window.__blissEventScrollRefs;
                     if (!refs || refs.length === 0) return;
@@ -66,11 +66,14 @@ const eventRefs = toEventScrollRefs(events);
                     document.documentElement.classList.add("event-timeline-scrolled");
                     document.documentElement.classList.remove("event-timeline-scroll-pending");
 
+                    function getHeaderHeight() {
+                        var header = document.getElementById("header");
+                        return header ? header.getBoundingClientRect().height : 0;
+                    }
+
                     function scrollToEvent(el) {
                         var rect = el.getBoundingClientRect();
-                        var centerY = rect.top + rect.height / 2;
-                        var targetCenterY = window.innerHeight * scrollCenterRatio;
-                        var top = Math.max(0, window.scrollY + centerY - targetCenterY);
+                        var top = Math.max(0, window.scrollY + rect.top - getHeaderHeight());
                         window.scrollTo({ top: top, left: 0, behavior: "instant" });
                     }
 

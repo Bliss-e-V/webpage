@@ -1,6 +1,7 @@
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { BlissEvent } from "@components/data/events";
 import {
+    getHeaderHeight,
     resolveEventScrollTargetId,
     scrollTimelineEventIntoView,
     toEventScrollRefs,
@@ -72,6 +73,7 @@ export const EventTimeline = ({
     showDividers = true,
 }: EventTimelineProps) => {
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
+    const [showScrollToUpcoming, setShowScrollToUpcoming] = useState(false);
     const didPostExpandScroll = useRef(false);
     const normalizedEvents = useMemo(() => normalizeEvents(events), [events]);
     const today = useMemo(() => getToday(), []);
@@ -111,6 +113,52 @@ export const EventTimeline = ({
         });
     }, [autoScrollToNext, normalizedEvents, today, expandedEvents]);
 
+    useEffect(() => {
+        if (!autoScrollToNext || !nextEvent) {
+            setShowScrollToUpcoming(false);
+            return;
+        }
+
+        const element = document.getElementById(nextEvent.id);
+        if (!element) return;
+
+        let observer: IntersectionObserver | null = null;
+
+        const observe = () => {
+            observer?.disconnect();
+            observer = new IntersectionObserver(
+                ([entry]) => setShowScrollToUpcoming(!entry.isIntersecting),
+                {
+                    rootMargin: `-${getHeaderHeight()}px 0px 0px 0px`,
+                    threshold: 0,
+                },
+            );
+            observer.observe(element);
+        };
+
+        observe();
+        window.addEventListener("resize", observe);
+        document.addEventListener("bliss-header-sync", observe);
+
+        return () => {
+            observer?.disconnect();
+            window.removeEventListener("resize", observe);
+            document.removeEventListener("bliss-header-sync", observe);
+        };
+    }, [autoScrollToNext, nextEvent?.id]);
+
+    const scrollToUpcoming = () => {
+        if (!nextEvent) return;
+
+        const element = document.getElementById(nextEvent.id);
+        if (!element) return;
+
+        const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "instant"
+            : "smooth";
+        scrollTimelineEventIntoView(element, behavior);
+    };
+
     const toggleExpanded = (eventId: string) => {
         setExpandedEvents((current) =>
             current.includes(eventId)
@@ -126,6 +174,7 @@ export const EventTimeline = ({
     let previousDivider = "";
 
     return (
+        <>
         <div className={classNames("relative w-full", !compact && "md:pl-40")}>
             <ol className="relative border-l border-gray-800/70">
                 {normalizedEvents.map((event) => {
@@ -405,5 +454,15 @@ export const EventTimeline = ({
                 })}
             </ol>
         </div>
+        {autoScrollToNext && nextEvent && showScrollToUpcoming && (
+            <button
+                type="button"
+                onClick={scrollToUpcoming}
+                className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/40 transition hover:bg-accent-light focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+            >
+                Scroll to upcoming
+            </button>
+        )}
+        </>
     );
 };
