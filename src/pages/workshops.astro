@@ -2,8 +2,11 @@
 export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
-import { WorkshopsComp } from "@components/WorkshopsComp";
 import Breadcrumb from "@components/Breadcrumb.astro";
+import { EventTimeline } from "@components/events/EventTimeline";
+import { getTimelineEvents } from "@components/data/events";
+
+const workshopEvents = getTimelineEvents("workshop");
 ---
 
 <Layout
@@ -30,6 +33,11 @@ import Breadcrumb from "@components/Breadcrumb.astro";
             We irregularly team up with companies to host hands-on workshops on cutting-edge AI and machine learning topics. Learn practical skills and explore the latest technologies.
         </p>
     </div>
-    <WorkshopsComp client:load />
+    <EventTimeline
+        client:load
+        events={workshopEvents}
+        autoScrollToNext
+        emptyMessage="No workshops scheduled. Stay tuned!"
+    />
 </Layout>
 

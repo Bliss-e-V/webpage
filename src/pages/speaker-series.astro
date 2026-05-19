@@ -2,8 +2,11 @@
 export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
-import { SpeakerSeriesComp } from "@components/SpeakerSeriesComp";
 import Breadcrumb from "@components/Breadcrumb.astro";
+import { EventTimeline } from "@components/events/EventTimeline";
+import { getTimelineEvents } from "@components/data/events";
+
+const speakerEvents = getTimelineEvents("speaker");
 ---
 
 <Layout
@@ -33,5 +36,10 @@ import Breadcrumb from "@components/Breadcrumb.astro";
             Join us to learn from the best in the field and connect with the community!
         </p>
     </div>
-    <SpeakerSeriesComp client:load />
+    <EventTimeline
+        client:load
+        events={speakerEvents}
+        autoScrollToNext
+        emptyMessage="No speaker series events scheduled. Stay tuned!"
+    />
 </Layout>

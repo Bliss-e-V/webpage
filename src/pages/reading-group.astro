@@ -2,8 +2,11 @@
 export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
-import ReadingGroupComp from "@components/ReadingGroupComp.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
+import { EventTimeline } from "@components/events/EventTimeline";
+import { getTimelineEvents } from "@components/data/events";
+
+const readingGroupEvents = getTimelineEvents("reading-group");
 ---
 
 <Layout
@@ -16,5 +19,35 @@ import Breadcrumb from "@components/Breadcrumb.astro";
             { name: "Reading Group", href: "/reading-group" }
         ]}
     />
-    <ReadingGroupComp />
+    <h1
+        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+    >
+        Reading Group
+    </h1>
+    <div
+        class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."
+    >
+    </div>
+
+    <div class="mb-10 text-secondary text-md sm:text-lg">
+        <div class="mb-4">
+            This summer semester we are hosting a <strong>BLISSful AI</strong> reading group. Various BLISS members will present papers related to their research.
+        </div>
+        <div class="mb-4">
+            <strong>Location:</strong> <a href="https://maps.app.goo.gl/4eqs9zTgEi9E9pbv5" target="_blank" rel="noopener noreferrer"><strong>Merantix AI Campus</strong> (Max-Urich-Straße 3, 13355 Berlin)</a>
+        </div>
+        <div class="mb-4">
+            <strong>Time:</strong> Every Monday, 6:45pm
+        </div>
+        <div class="mb-4 text-sm text-secondary">
+            Note: Registration via <a href="https://lu.ma/user/bliss_ev_berlin" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-white underline">Luma</a> is necessary (check details below).
+        </div>
+    </div>
+
+    <EventTimeline
+        client:load
+        events={readingGroupEvents}
+        autoScrollToNext
+        emptyMessage="No reading group sessions scheduled. Stay tuned!"
+    />
 </Layout>
