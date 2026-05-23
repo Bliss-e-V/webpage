@@ -24,6 +24,7 @@ type EventTimelineProps = {
 };
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -223,9 +224,11 @@ export const EventTimeline = ({
                     const isExpanded = expandedEvents.includes(event.id);
                     const readingGroupPapers =
                         event.kind === "reading-group" ? event.details?.papers ?? [] : [];
+                    const readingGroupSessionInfo =
+                        event.kind === "reading-group" ? event.details?.sessionInfo : undefined;
                     const hasPreview = Boolean(
                         event.kind === "reading-group"
-                            ? readingGroupPapers.length > 1
+                            ? readingGroupPapers.length > 1 || readingGroupSessionInfo
                             : event.description ||
                                   (event.details &&
                                       (event.details.abstract ||
@@ -414,7 +417,9 @@ export const EventTimeline = ({
                                                 </div>
                                             )}
 
-                                            {event.description && !event.details?.abstract && (
+                                            {event.description &&
+                                                !event.details?.abstract &&
+                                                !(event.kind === "reading-group" && readingGroupSessionInfo) && (
                                                 <div className="mb-4">
                                                     <h3 className="mb-2 font-bold text-white">Description</h3>
                                                     <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-300 sm:text-base">
@@ -423,7 +428,47 @@ export const EventTimeline = ({
                                                 </div>
                                             )}
 
-                                            {event.details?.papers && (
+                                            {readingGroupSessionInfo && (
+                                                <div className="mb-4">
+                                                    <p className="text-sm leading-relaxed text-gray-300 sm:text-base">
+                                                        {readingGroupSessionInfo.seasonIntro &&
+                                                        readingGroupSessionInfo.semesterLabel ? (
+                                                            <>
+                                                                {readingGroupSessionInfo.seasonIntro}{" "}
+                                                                <strong className="text-white">
+                                                                    {readingGroupSessionInfo.semesterLabel}
+                                                                </strong>{" "}
+                                                                reading group.{" "}
+                                                                {readingGroupSessionInfo.description}
+                                                            </>
+                                                        ) : (
+                                                            readingGroupSessionInfo.description
+                                                        )}
+                                                    </p>
+                                                    {readingGroupSessionInfo.location && (
+                                                        <p className="mt-3 text-sm leading-relaxed text-gray-300 sm:text-base">
+                                                            <span className="font-bold text-white">Location: </span>
+                                                            <a
+                                                                href={readingGroupSessionInfo.location.url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="font-semibold text-primary underline hover:text-white"
+                                                            >
+                                                                {readingGroupSessionInfo.location.name}
+                                                            </a>{" "}
+                                                            ({readingGroupSessionInfo.location.address})
+                                                        </p>
+                                                    )}
+                                                    {readingGroupSessionInfo.schedule && (
+                                                        <p className="mt-3 text-sm leading-relaxed text-gray-300 sm:text-base">
+                                                            <span className="font-bold text-white">Time: </span>
+                                                            {readingGroupSessionInfo.schedule}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            )}
+
+                                            {event.details?.papers && !readingGroupSessionInfo && (
                                                 <div className="space-y-4">
                                                     {event.details.papers.map((paper) => (
                                                         <div

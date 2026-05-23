@@ -1,6 +1,7 @@
 import type { ImageMetadata } from "astro";
 import { formatAuthorList } from "@utils/formatAuthorList";
-import { dayToPapers, type Paper } from "./papers";
+import { dayToPapers, getReadingGroupSectionForDate, type Paper } from "./papers";
+import type { ReadingGroupSessionInfo } from "./papers";
 import { speakers } from "./speakers";
 import { workshops } from "./workshops";
 
@@ -45,6 +46,7 @@ export type BlissEvent = {
         videoId?: string;
         images?: string[];
         papers?: ReadingGroupPaperSummary[];
+        sessionInfo?: ReadingGroupSessionInfo;
     };
 };
 
@@ -160,6 +162,8 @@ const createReadingGroupEvents = (): BlissEvent[] =>
         const date = new Date(dateString);
         const primaryPaper = papers[0];
         const firstRegistrationHref = papers.find((paper) => paper.eventLink)?.eventLink;
+        const section = getReadingGroupSectionForDate(date);
+        const sessionInfo = section?.sessionInfo;
 
         return {
             id: `reading-group-${dateString}`,
@@ -170,10 +174,11 @@ const createReadingGroupEvents = (): BlissEvent[] =>
                 papers.length === 1
                     ? formatAuthorList(papers[0].authors)
                     : "Reading group session",
-            description:
-                papers.length === 1
-                    ? `Discussion of ${papers[0].name}`
-                    : `Discussion of ${papers.length} papers`,
+            description: sessionInfo
+                ? undefined
+                : papers.length === 1
+                  ? `Discussion of ${papers[0].name}`
+                  : `Discussion of ${papers.length} papers`,
             href: firstRegistrationHref ?? `/reading-group#reading-group-${dateString}`,
             externalHref: Boolean(firstRegistrationHref),
             imageSrc: imageSrc(primaryPaper?.image),
@@ -196,6 +201,7 @@ const createReadingGroupEvents = (): BlissEvent[] =>
                     paperHref: paper.link,
                     registrationHref: paper.eventLink,
                 })),
+                sessionInfo,
             },
         };
     });

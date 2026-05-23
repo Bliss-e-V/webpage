@@ -96,13 +96,38 @@ export class Paper {
     }
 }
 
+export type ReadingGroupSessionInfo = {
+    seasonIntro?: string;
+    semesterLabel?: string;
+    description: string;
+    location?: {
+        name: string;
+        address: string;
+        url: string;
+    };
+    schedule?: string;
+};
+
+const merantixLocation = {
+    name: "Merantix AI Campus",
+    address: "Max-Urich-Straße 3, 13355 Berlin",
+    url: "https://maps.app.goo.gl/4eqs9zTgEi9E9pbv5",
+};
+
+const tuMarLocation = {
+    name: "MAR 0.015, TU Berlin",
+    address: "Marchstraße 23, 10587 Berlin",
+    url: "https://www.google.de/maps/place/TU+Berlin+-+MAR+Geb%C3%A4ude/@52.5165408,13.3237066,17z",
+};
+
 export class Section {
     constructor(
         public title: string,
         public host: string,
         public startDate: Date,
         public endDate: Date,
-        public description: string
+        public description: string,
+        public sessionInfo?: ReadingGroupSessionInfo,
     ) { }
 }
 
@@ -121,79 +146,164 @@ const sections: Section[] = [
         "Jarek Liesen",
         new Date("2023-10-22"),
         new Date("2023-12-12"),
-        "Introduction to deep reinforcement learning by exploration of many relevant and foundational papers"
+        "Introduction to deep reinforcement learning by exploration of many relevant and foundational papers",
+        {
+            description:
+                "Hosted by Jarek Liesen. Introduction to deep reinforcement learning through exploration of many relevant and foundational papers.",
+        },
     ),
     new Section(
         "Audio and AI",
         "Leo Pinetzki",
         new Date("2023-12-19"),
         new Date("2024-02-13"),
-        "We Heard You Like AI so here we explored many audio related papers"
+        "We Heard You Like AI so here we explore many audio related papers",
+        {
+            description:
+                "Hosted by Leo Pinetzki. We explore many audio-related papers at the intersection of AI and sound.",
+        },
     ),
     new Section(
         "Self-Supervised Learning",
         "Jakob Hackstein",
         new Date("2024-04-23"),
         new Date("2024-06-04"),
-        "Something students should know about. Its super effective in learning representations from unlabeled data."
+        "Something students should know about. Its super effective in learning representations from unlabeled data.",
+        {
+            description:
+                "Hosted by Jakob Hackstein. Self-supervised learning is highly effective for learning representations from unlabeled data.",
+        },
     ),
     new Section(
         "Optimizers",
         "Jarek Liesen",
         new Date("2024-06-18"),
         new Date("2024-07-01"),
-        "We read papers about optimizers and their properties to learn how to optimize even further"
+        "We read papers about optimizers and their properties to learn how to optimize even further",
+        {
+            description:
+                "Hosted by Jarek Liesen. We read papers about optimizers and their properties to learn how to optimize even further.",
+        },
     ),
     new Section(
         "LLMs and Language Modeling",
         "Raphael Reinauer",
         new Date("2024-09-21"),
         new Date("2024-11-09"),
-        "Long story short, we read papers about language models and language modeling"
+        "Long story short, we read papers about language models and language modeling",
+        {
+            description:
+                "Hosted by Raphael Reinauer. We explore the basics of natural language processing and the transformer architecture, scaling language models, modern training techniques, and self-improvement.",
+            location: tuMarLocation,
+            schedule: "Every Monday, 7pm",
+        },
     ),
     new Section(
         "Mechanistic Interpretability",
         "Lorenz Hufe",
         new Date("2024-11-16"),
         new Date("2025-03-17"),
-        "Sometimes everybody needs to know what is going on inside a (language) model"
+        "Sometimes everybody needs to know what is going on inside a (language) model",
+        {
+            description:
+                "Hosted by Lorenz Hufe. A deep dive into understanding the internal mechanisms of language models.",
+            location: tuMarLocation,
+            schedule: "Every Monday, 7pm",
+        },
     ),
     new Section(
         "AI in Medicine",
         "Tom Neuhäuser",
         new Date("2025-04-01"),
         new Date("2025-06-03"),
-        "A deep dive into the world of multimodal foundation models for histopathology."
+        "A deep dive into the world of multimodal foundation models for histopathology.",
+        {
+            description:
+                "Hosted by Tom Neuhäuser. A deep dive into the world of multimodal foundation models for histopathology.",
+            location: merantixLocation,
+            schedule: "Every Monday, 6:45pm",
+        },
     ),
     new Section(
         "Geometric Graph Neural Network",
         "Gregor Lied",
         new Date("2025-06-04"),
         new Date("2025-09-30"),
-        "This reading group investigates the theoretical foundations and architectural design space of Geometric Graph Neural Networks for 3D atomic systems."
+        "This reading group investigates the theoretical foundations and architectural design space of Geometric Graph Neural Networks for 3D atomic systems.",
+        {
+            description:
+                "Hosted by Gregor Lied. This reading group investigated the theoretical foundations and architectural design space of Geometric Graph Neural Networks for 3D atomic systems.",
+            location: merantixLocation,
+            schedule: "Every Monday, 6:45pm",
+        },
     ),
     new Section(
         "Variety of Machine Learning in Healthcare",
         "Tillmann Rheude und Leonhard Kohleick",
         new Date("2025-10-20"),
         new Date("2025-12-01"),
-        "A tour through the variety of machine learning in healthcare, from images and cells to genes and multimodal data."
+        "A tour through the variety of machine learning in healthcare, from images and cells to genes and multimodal data.",
+        {
+            description:
+                "Tillmann Rheude, Leonhard Kohleick, and Benjamin Wild from Berlin Institute of Health at Charité co-hosted this reading group on the variety of machine learning in healthcare, covering medical image segmentation, timeseries learning, multimodal representations, and more.",
+            location: merantixLocation,
+            schedule: "Every Monday, 6:45pm",
+        },
     ),
     new Section(
         "Technical Alignment in AI",
         "Craig Dickson",
         new Date("2025-12-08"),
         new Date("2026-02-09"),
-        "A tour through the alignment of large language models."
+        "A tour through the alignment of large language models.",
+        {
+            description:
+                "Craig Dickson hosted this reading group on technical alignment in AI, covering state of the art research on aligning large language models — including RLHF, constitutional AI, adversarial training, goal misgeneralization, and more.",
+            location: merantixLocation,
+            schedule: "Every Monday, 6:45pm",
+        },
     ),
     new Section(
         "BLISSful AI",
         "Various BLISS members",
         new Date("2026-04-01"),
         new Date("2026-09-30"),
-        "Various topics in AI related to the research of some BLISS members."
+        "Various topics in AI related to the research of some BLISS members.",
+        {
+            seasonIntro: "This summer semester we are hosting a",
+            semesterLabel: "BLISSful AI",
+            description: "Various BLISS members will present papers related to their research.",
+            location: merantixLocation,
+            schedule: "Every Monday, 6:45pm",
+        },
     ),
 ]
+
+const normalizeSectionDate = (date: Date) => {
+    const normalized = new Date(date);
+    normalized.setHours(0, 0, 0, 0);
+    return normalized;
+};
+
+export const getReadingGroupSectionForDate = (date: Date) => {
+    const normalizedDate = normalizeSectionDate(date);
+
+    return sections.find((section) => {
+        const start = normalizeSectionDate(section.startDate);
+        const end = normalizeSectionDate(section.endDate);
+        return normalizedDate >= start && normalizedDate <= end;
+    });
+};
+
+export const getCurrentReadingGroupSection = () => {
+    const today = normalizeSectionDate(new Date());
+    const currentSection = getReadingGroupSectionForDate(today);
+    if (currentSection?.sessionInfo) return currentSection;
+
+    return sections.find(
+        (section) => section.sessionInfo && normalizeSectionDate(section.endDate) >= today,
+    );
+};
 
 // --------------------------------------------------
 // modify HERE to add papers

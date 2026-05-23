@@ -6,8 +6,11 @@ import Breadcrumb from "@components/Breadcrumb.astro";
 import { EventTimeline } from "@components/events/EventTimeline";
 import EventTimelineAutoScroll from "@components/events/EventTimelineAutoScroll.astro";
 import { getTimelineEvents } from "@components/data/events";
+import { getCurrentReadingGroupSection } from "@components/data/papers";
 
 const readingGroupEvents = getTimelineEvents("reading-group");
+const currentSection = getCurrentReadingGroupSection();
+const sessionInfo = currentSection?.sessionInfo;
 ---
 
 <Layout
@@ -23,7 +26,7 @@ const readingGroupEvents = getTimelineEvents("reading-group");
         ]}
     />
     <h1
-        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+        class="mt-6 sm:mt-8 text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
     >
         Reading Group
     </h1>
@@ -32,25 +35,40 @@ const readingGroupEvents = getTimelineEvents("reading-group");
     >
     </div>
 
-    <div class="mb-10 text-secondary text-md sm:text-lg">
-        <div class="mb-4">
-            This summer semester we are hosting a <strong>BLISSful AI</strong> reading group. Various BLISS members will present papers related to their research.
+    {sessionInfo && (
+        <div class="mb-10 text-secondary text-md sm:text-lg">
+            <div class="mb-4">
+                {sessionInfo.seasonIntro && sessionInfo.semesterLabel ? (
+                    <>
+                        {sessionInfo.seasonIntro}{" "}
+                        <strong>{sessionInfo.semesterLabel}</strong> reading group.{" "}
+                        {sessionInfo.description}
+                    </>
+                ) : (
+                    sessionInfo.description
+                )}
+            </div>
+            {sessionInfo.location && (
+                <div class="mb-4">
+                    <strong>Location:</strong>{" "}
+                    <a href={sessionInfo.location.url} target="_blank" rel="noopener noreferrer">
+                        <strong>{sessionInfo.location.name}</strong> ({sessionInfo.location.address})
+                    </a>
+                </div>
+            )}
+            {sessionInfo.schedule && (
+                <div class="mb-4">
+                    <strong>Time:</strong> {sessionInfo.schedule}
+                </div>
+            )}
         </div>
-        <div class="mb-4">
-            <strong>Location:</strong> <a href="https://maps.app.goo.gl/4eqs9zTgEi9E9pbv5" target="_blank" rel="noopener noreferrer"><strong>Merantix AI Campus</strong> (Max-Urich-Straße 3, 13355 Berlin)</a>
-        </div>
-        <div class="mb-4">
-            <strong>Time:</strong> Every Monday, 6:45pm
-        </div>
-        <div class="mb-4 text-sm text-secondary">
-            Note: Registration via <a href="https://lu.ma/user/bliss_ev_berlin" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-white underline">Luma</a> is necessary (check details below).
-        </div>
-    </div>
+    )}
 
     <EventTimeline
         client:load
         events={readingGroupEvents}
         autoScrollToNext
+        expandLabel="Details"
         currentPath="/reading-group"
         emptyMessage="No reading group sessions scheduled. Stay tuned!"
     />
