@@ -65,6 +65,7 @@ const { compact = false } = Astro.props;
 
   #header {
     transition:
+      height 0.3s ease,
       backdrop-filter 0.3s ease,
       border-color 0.3s ease;
   }
@@ -73,11 +74,15 @@ const { compact = false } = Astro.props;
     height: 5rem;
     transition: none;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    #header {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
-  let windowWidth = window.innerWidth;
-
   const header = document.getElementById("header")!;
   const speakerSeriesLink: HTMLElement = document.getElementById("speakerSeriesLink")!;
   const readingGroupLink: HTMLElement = document.getElementById("readingGroupLink")!;
@@ -133,13 +138,8 @@ const { compact = false } = Astro.props;
     animateHeader();
   }
 
-  function handleResize() {
-    windowWidth = window.innerWidth;
-  }
-
   animateHeader();
   handleRoute();
   document.addEventListener("scroll", handleScroll, { passive: true });
-  document.addEventListener("resize", handleResize);
   document.addEventListener("bliss-header-sync", handleScroll);
 </script>
