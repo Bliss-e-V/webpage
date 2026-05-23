@@ -4,12 +4,33 @@ export type EventScrollRef = {
     id: string;
     date: string;
     seriesNumber?: number;
+    kind?: BlissEvent["kind"];
 };
+
+const EVENT_PAGE_PATHS: Record<BlissEvent["kind"], string> = {
+    speaker: "/speaker-series",
+    workshop: "/workshops",
+    "reading-group": "/reading-group",
+};
+
+export const getEventShareId = (event: Pick<BlissEvent, "id" | "kind" | "seriesNumber">) =>
+    event.kind === "speaker" && event.seriesNumber != null
+        ? String(event.seriesNumber)
+        : event.id;
+
+export const getEventSharePath = (kind: BlissEvent["kind"]) => EVENT_PAGE_PATHS[kind];
+
+export const getEventShareUrl = (
+    event: Pick<BlissEvent, "id" | "kind" | "seriesNumber">,
+    origin = typeof window !== "undefined" ? window.location.origin : "https://www.bliss.berlin",
+) =>
+    `${origin}${getEventSharePath(event.kind)}?id=${encodeURIComponent(getEventShareId(event))}`;
 
 export const toEventScrollRefs = (events: BlissEvent[]): EventScrollRef[] =>
     events.map((event) => ({
         id: event.id,
         date: event.date.toISOString(),
+        kind: event.kind,
         ...(event.seriesNumber != null ? { seriesNumber: event.seriesNumber } : {}),
     }));
 

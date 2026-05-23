@@ -3,6 +3,7 @@ import type { BlissEvent } from "@components/data/events";
 import { EventMediaSlideshow } from "@components/events/EventMediaSlideshow";
 import { formatAuthorList } from "@utils/formatAuthorList";
 import {
+    getEventShareUrl,
     getHeaderHeight,
     resolveEventScrollTargetId,
     scrollTimelineEventIntoView,
@@ -38,6 +39,37 @@ const compactDateFormat = new Intl.DateTimeFormat("en-US", {
 
 const classNames = (...values: Array<string | false | undefined>) =>
     values.filter(Boolean).join(" ");
+
+const LinkIcon = ({ className }: { className?: string }) => (
+    <svg
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+    >
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+);
+
+const CheckIcon = ({ className }: { className?: string }) => (
+    <svg
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+    >
+        <path d="M20 6 9 17l-5-5" />
+    </svg>
+);
 
 const getToday = () => {
     const today = new Date();
@@ -92,9 +124,11 @@ export const EventTimeline = ({
     currentPath,
 }: EventTimelineProps) => {
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
+    const [copiedEventId, setCopiedEventId] = useState<string | null>(null);
     const [showScrollToUpcoming, setShowScrollToUpcoming] = useState(false);
     const didPostExpandScroll = useRef(false);
     const userCollapsedEvents = useRef(new Set<string>());
+    const copiedTimeoutRef = useRef<number | null>(null);
     const normalizedEvents = useMemo(() => normalizeEvents(events), [events]);
     const today = useMemo(() => getToday(), []);
     const nextEvent = useMemo(
@@ -183,6 +217,34 @@ export const EventTimeline = ({
             document.removeEventListener("bliss-header-sync", observe);
         };
     }, [autoScrollToNext, nextEvent?.id]);
+
+    useEffect(
+        () => () => {
+            if (copiedTimeoutRef.current != null) {
+                window.clearTimeout(copiedTimeoutRef.current);
+            }
+        },
+        [],
+    );
+
+    const copyEventLink = async (event: TimelineEvent) => {
+        const url = getEventShareUrl(event);
+
+        try {
+            await navigator.clipboard.writeText(url);
+        } catch {
+            return;
+        }
+
+        setCopiedEventId(event.id);
+        if (copiedTimeoutRef.current != null) {
+            window.clearTimeout(copiedTimeoutRef.current);
+        }
+        copiedTimeoutRef.current = window.setTimeout(() => {
+            setCopiedEventId((current) => (current === event.id ? null : current));
+            copiedTimeoutRef.current = null;
+        }, 2000);
+    };
 
     const scrollToUpcoming = () => {
         if (!nextEvent) return;
@@ -292,13 +354,43 @@ export const EventTimeline = ({
 
                                 <div
                                     className={classNames(
-                                        "relative overflow-hidden rounded-lg text-left transition-colors duration-200",
+                                        "group/card relative overflow-hidden rounded-lg text-left transition-colors duration-200",
                                         compact ? "px-3 py-2.5 sm:px-4" : "px-3 py-3 sm:px-4",
                                         isNext ? "bg-neutral-900/65" : "hover:bg-neutral-900/45",
                                         isPast && "opacity-70",
                                         event.isCanceled && "line-through",
                                     )}
                                 >
+                                    {autoScrollToNext && (
+                                        <button
+                                            type="button"
+                                            onClick={() => copyEventLink(event)}
+                                            className={classNames(
+                                                "absolute right-2 top-2 z-10 rounded-md p-1.5 text-gray-400 transition-all",
+                                                "opacity-0 focus-visible:opacity-100 group-hover/card:opacity-100",
+                                                "hover:bg-neutral-800/80 hover:text-white",
+                                                "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950",
+                                                copiedEventId === event.id && "opacity-100 text-emerald-400",
+                                            )}
+                                            aria-label={
+                                                copiedEventId === event.id
+                                                    ? "Event link copied"
+                                                    : "Copy link to this event"
+                                            }
+                                            title={
+                                                copiedEventId === event.id
+                                                    ? "Link copied"
+                                                    : "Copy link to this event"
+                                            }
+                                        >
+                                            {copiedEventId === event.id ? (
+                                                <CheckIcon className="h-4 w-4" />
+                                            ) : (
+                                                <LinkIcon className="h-4 w-4" />
+                                            )}
+                                        </button>
+                                    )}
+
                                     {isNext && (
                                         <div className="absolute inset-y-2 left-0 w-0.5 rounded-full bg-red-right" />
                                     )}
