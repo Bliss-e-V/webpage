@@ -549,7 +549,7 @@ const speakersRaw = [
         "Scaling has driven progress in language models, but improvements in peak performance often fail to translate across languages. In this talk, I show how multilingual models expose the limits of scale and highlight the importance of balanced performance. I argue for a shift from optimizing peaks to lifting the floor, through better data, design, and evaluation illustrated through Tiny Aya.",
         "Marzieh Fadaee is the Head of Cohere Labs, where she leads research on fundamental problems in artificial intelligence. Her work spans multilingual language models, data-efficient learning, model evaluation, and trustworthy AI, with a focus on building systems that are robust, inclusive, and globally impactful. She co-leads the Aya initiative that brought together over 3,000 collaborators worldwide to create the world's largest multilingual instruction dataset and the development of a series of state-of-the-art multilingual language and vision models. Before joining Cohere Labs, Marzieh was the Research Lead at Zeta Alpha Vector, where she pioneered innovative approaches to knowledge discovery and organization. She holds a PhD from the University of Amsterdam where she conducted foundational research on neural machine translation. Her research has been published in top venues such as NeurIPS, ACL, EMNLP, and ICLR, and she frequently serves as a mentor and advisor in the global AI research community.",
         cohereImg,
-        "",
+        "wYPbBevUIaM",
         [],
     ),
 
