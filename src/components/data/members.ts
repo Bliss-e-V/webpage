@@ -38,7 +38,6 @@ export class Member {
 // Current members (active)
 export const currentMembers = [
     new Member("Justus", "Westerhoff", justus, "https://www.linkedin.com/in/justus-westerhoff/"),
-    new Member("Cederic", "Aßmann", cederic, "https://www.linkedin.com/in/cederic-a%C3%9Fmann-41904322b"),
     new Member("Jonas", "Loos", jonas, "https://www.linkedin.com/in/jonas-loos/"),
     new Member("Joseph", "Tschörner", joseph, "https://www.linkedin.com/in/joseph-tsch%C3%B6rner-12818427a/"),
     new Member("Duc", "Hoang", duc, "https://www.linkedin.com/in/ly-duc-hoang/"),
@@ -50,7 +49,6 @@ export const currentMembers = [
     new Member("Sevval", "Goelbasi", sevval, "https://www.linkedin.com/in/sevval-goelbasi-662712311/"),
     new Member("Enes", "Erdem Erdogan", enes, "https://www.linkedin.com/in/eneserdemerd/"),
     new Member("Omar", "Sherif", omar, null),
-    new Member("Ardian", "Begisholli", ardian, "https://www.linkedin.com/in/ardian-begisholli-38a070304/"),
     new Member("Chyngyz", "Kojonazarov", chyngyz, "https://www.linkedin.com/in/chyngyz-kojonazarov-87821b219/"),
     new Member("Nina", "Zukowska", nina, "https://www.linkedin.com/in/nina-zukowska/"),
     new Member("Shairal", "Sharma", shairal, "https://www.linkedin.com/in/shairal-om-sharma-409590188/"),
@@ -67,6 +65,8 @@ export const currentMembers = [
 
 // Alumni members (past members)
 export const alumniMembers = [
+    new Member("Cederic", "Aßmann", cederic, "https://www.linkedin.com/in/cederic-a%C3%9Fmann-41904322b"),
+    new Member("Ardian", "Begisholli", ardian, "https://www.linkedin.com/in/ardian-begisholli-38a070304/"),
     new Member("Jan", "Tiegges", jan, "https://www.linkedin.com/in/jan-tiegges/"),
     new Member("Mia", "Prokopovych", mia, "https://www.linkedin.com/in/mia-prokopovych-9aaa26302"),
     new Member("Jarek", "Liesen", jarek, "https://www.linkedin.com/in/jarek-liesen/"),
