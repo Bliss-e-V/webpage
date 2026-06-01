@@ -34,6 +34,7 @@ export default defineConfig({
         'https://bliss.berlin/blissathon',
         'https://bliss.berlin/reading-group',
         'https://bliss.berlin/workshops',
+        'https://bliss.berlin/join',
         'https://bliss.berlin/media',
         'https://bliss.berlin/links'
       ],

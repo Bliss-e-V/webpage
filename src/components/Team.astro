@@ -2,6 +2,7 @@
 import { currentMembers, alumniMembers } from "./data/members";
 import { Headline } from "./Headline";
 import MemberCard from "./MemberCard.astro";
+import BigButton from "./BigButton.tsx";
 ---
 
 <div class="flex items-center flex-col justify-center mb-40">
@@ -10,7 +11,7 @@ import MemberCard from "./MemberCard.astro";
         <Headline level={2}>Current Team</Headline>
     </div>
     <div
-        class="membersContainer flex flex-wrap justify-center flex-row flex-grow-0 mb-20"
+        class="membersContainer flex flex-wrap justify-center flex-row flex-grow-0 mb-12"
     >
         {
             currentMembers.map((member) =>
@@ -19,6 +20,17 @@ import MemberCard from "./MemberCard.astro";
                 : <span><MemberCard member={member}/></span>
             )
         }
+    </div>
+
+    <div class="mb-24 text-center">
+        <p class="text-secondary text-md sm:text-lg mb-6 max-w-2xl mx-auto">
+            Want to help shape BLISS? We're looking for volunteers to join our team.
+        </p>
+        <BigButton hover={true} className="mx-auto">
+            <a href="/join" class="no-underline">
+                Join the Team
+            </a>
+        </BigButton>
     </div>
 
     <!-- Alumni Section -->
