@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { BlissEvent } from "@components/data/events";
 import { EventMediaSlideshow } from "@components/events/EventMediaSlideshow";
 import { formatAuthorList } from "@utils/formatAuthorList";
@@ -129,6 +129,7 @@ export const EventTimeline = ({
     const didPostExpandScroll = useRef(false);
     const userCollapsedEvents = useRef(new Set<string>());
     const copiedTimeoutRef = useRef<number | null>(null);
+    const timelineRef = useRef<HTMLDivElement>(null);
     const normalizedEvents = useMemo(() => normalizeEvents(events), [events]);
     const today = useMemo(() => getToday(), []);
     const nextEvent = useMemo(
@@ -138,6 +139,24 @@ export const EventTimeline = ({
                 .sort((a, b) => a.date.getTime() - b.date.getTime())[0],
         [normalizedEvents, today],
     );
+
+    const timelineSections = useMemo(() => {
+        if (!showDividers) {
+            return [{ label: "", events: normalizedEvents }];
+        }
+
+        const groups: Array<{ label: string; events: typeof normalizedEvents }> = [];
+        for (const event of normalizedEvents) {
+            const label = getSemester(event.date);
+            const last = groups[groups.length - 1];
+            if (last?.label === label) {
+                last.events.push(event);
+            } else {
+                groups.push({ label, events: [event] });
+            }
+        }
+        return groups;
+    }, [normalizedEvents, showDividers]);
 
     useLayoutEffect(() => {
         if (!autoScrollToNext || normalizedEvents.length === 0) return;
@@ -227,6 +246,56 @@ export const EventTimeline = ({
         [],
     );
 
+    useEffect(() => {
+        if (!showDividers) return;
+
+        const STICKY_TOP = 80; // matches `top-20` (5rem) sticky offset
+        const FADE_OFFSET = 32; // px before the next header arrives that the fade completes
+        const FADE_DISTANCE = 32; // px over which the leaving header fades out
+
+        let frame = 0;
+
+        const update = () => {
+            frame = 0;
+            const headers = Array.from(
+                timelineRef.current?.querySelectorAll<HTMLElement>(
+                    "[data-semester-header]",
+                ) ?? [],
+            );
+
+            headers.forEach((header, index) => {
+                const next = headers[index + 1];
+                if (!next) {
+                    header.style.opacity = "1";
+                    return;
+                }
+
+                const distance =
+                    next.getBoundingClientRect().top - STICKY_TOP - FADE_OFFSET;
+                const opacity =
+                    distance >= FADE_DISTANCE
+                        ? 1
+                        : Math.max(0, distance / FADE_DISTANCE);
+                header.style.opacity = String(opacity);
+            });
+        };
+
+        const onScroll = () => {
+            if (frame) return;
+            frame = requestAnimationFrame(update);
+        };
+
+        update();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+
+        return () => {
+            if (frame) cancelAnimationFrame(frame);
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", onScroll);
+        };
+    }, [showDividers, timelineSections]);
+
     const copyEventLink = async (event: TimelineEvent) => {
         const url = getEventShareUrl(event);
 
@@ -274,13 +343,29 @@ export const EventTimeline = ({
         return <p className="text-center text-secondary">{emptyMessage}</p>;
     }
 
-    let previousDivider = "";
-
     return (
         <>
-        <div className={classNames("relative w-full", !compact && "md:pl-40")}>
+        <div
+            ref={timelineRef}
+            className={classNames("relative w-full", !compact && "md:pl-40")}
+        >
             <ol className="relative border-l border-gray-800/70">
-                {normalizedEvents.map((event) => {
+                {timelineSections.map((section) => (
+                    <Fragment key={section.label || "all"}>
+                        {showDividers && (
+                            <li
+                                data-semester-header
+                                className="sticky top-20 z-20 mb-4 mt-10 list-none bg-black/70 py-2 backdrop-blur-md first:mt-0"
+                            >
+                                <div className="pl-5 text-left">
+                                    <span className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
+                                        {section.label}
+                                    </span>
+                                    <div className="mt-2 h-px w-full bg-gradient-to-r from-gray-700 to-transparent" />
+                                </div>
+                            </li>
+                        )}
+                        {section.events.map((event) => {
                     const isPast = event.date < today;
                     const isNext = nextEvent?.id === event.id;
                     const isExpanded = expandedEvents.includes(event.id);
@@ -299,24 +384,10 @@ export const EventTimeline = ({
                                           event.details.images?.length)),
                     );
                     const detailHref = getDetailHref(event, currentPath);
-                    const divider = getSemester(event.date);
-                    const shouldRenderDivider = showDividers && divider !== previousDivider;
-                    previousDivider = divider;
 
                     return (
-                        <div key={event.id}>
-                            {shouldRenderDivider && (
-                                <li className="mb-4 mt-10 first:mt-0">
-                                    <div className="pl-5 text-left">
-                                        <span className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
-                                            {divider}
-                                        </span>
-                                        <div className="mt-2 h-px w-full bg-gradient-to-r from-gray-700 to-transparent" />
-                                    </div>
-                                </li>
-                            )}
-
                             <li
+                                key={event.id}
                                 id={event.id}
                                 className={classNames(
                                     "group relative mb-4 scroll-mt-36 pl-5",
@@ -609,9 +680,10 @@ export const EventTimeline = ({
                                     )}
                                 </div>
                             </li>
-                        </div>
                     );
-                })}
+                        })}
+                    </Fragment>
+                ))}
             </ol>
         </div>
         {autoScrollToNext && nextEvent && showScrollToUpcoming && (
