@@ -84,6 +84,7 @@ import masteringGamesPlanningImage from "../../images/posts/images/20260518_mast
 import genieImage from "../../images/posts/images/20260601_genie.png";
 import videoGenerationPhysicalLawsImage from "../../images/posts/images/20260608_video-generation-physical-laws.png";
 import tokenSparseAttentionImage from "../../images/posts/images/20260622_token-sparse-attention.png";
+import dyslexifyImage from "../../images/posts/images/20260615_dyslexify.png";
 
 export class Paper {
     constructor(
@@ -421,7 +422,20 @@ const papers = [
         new Date("2026-06-08"),
         "https://luma.com/kjb0730i",
     ),
-    new Paper("TBD", ["TBD"], "", doubleDQNImage, new Date("2026-06-15")),
+    new Paper(
+        "Dyslexify: A Mechanistic Defense Against Typographic Attacks in CLIP",
+        [
+            "Lorenz Hufe",
+            "Constantin Venhoff",
+            "Erblina Purelku",
+            "Maximilian Dreyer",
+            "Sebastian Lapuschkin",
+            "Wojciech Samek",
+        ],
+        "https://arxiv.org/abs/2508.20570",
+        dyslexifyImage,
+        new Date("2026-06-15"),
+    ),
     new Paper(
         "Token Sparse Attention: Efficient Long-Context Inference with Interleaved Token Selection",
         [
@@ -433,6 +447,27 @@ const papers = [
         "https://arxiv.org/abs/2602.03216",
         tokenSparseAttentionImage,
         new Date("2026-06-22"),
+    ),
+    new Paper(
+        "TBD: Paper about Robotics",
+        ["TBD"],
+        "",
+        superposition,
+        new Date("2026-06-29"),
+    ),
+    new Paper(
+        "TBD: Paper about Robotics",
+        ["TBD"],
+        "",
+        superposition,
+        new Date("2026-07-06"),
+    ),
+    new Paper(
+        "TBD: Paper about Robotics",
+        ["TBD"],
+        "",
+        superposition,
+        new Date("2026-07-13"),
     ),
 ];
 
