@@ -1,0 +1,115 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import BigButton from "@components/BigButton.tsx";
+
+const positions = [
+    {
+        title: "Speaker Curation",
+        team: "Speaker Series Team",
+        applyUrl:
+            "https://docs.google.com/forms/d/e/1FAIpQLSc30biaAkNU_dYLCxUkQc6XXfmYpJc57sC7HlfXzBKNnSm-kQ/viewform?usp=header",
+    },
+    {
+        title: "Marketing and Social Media",
+        team: "Speaker Series Team",
+        applyUrl:
+            "https://docs.google.com/forms/d/e/1FAIpQLSdahsk7pwU0uFZ0kt292JPLQuqs3wlWqsXe4a-1z3fqF6zepA/viewform?usp=header",
+    },
+];
+---
+
+<Layout
+    title="Join the Team | BLISS Berlin"
+    description="Join BLISS Berlin and help shape our AI community. Explore open roles on the Speaker Series Team and apply to get involved."
+    ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
+>
+    <Breadcrumb crumbs={[{ name: "Join the Team", href: "/join" }]} />
+    <h1
+        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+    >
+        Join the Team
+    </h1>
+    <div
+        class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."
+    >
+    </div>
+
+    <div class="mb-10 max-w-3xl">
+        <p class="text-secondary text-md sm:text-lg">
+            BLISS is run by volunteers who are passionate about AI and machine
+            learning. We're always looking for motivated people to help grow
+            our community — whether through organizing events, outreach, or
+            behind-the-scenes work.
+        </p>
+    </div>
+
+    <section class="mb-12">
+        <h2
+            class="text-2xl sm:text-3xl text-transparent bg-clip-text bg-red-right font-bold mb-5"
+        >
+            Open Positions
+        </h2>
+        <div class="flex flex-col gap-3 max-w-xl">
+            {
+                positions.map((position) => (
+                    <div class="position-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3">
+                        <div>
+                            <p class="text-xs uppercase tracking-wider text-secondary">
+                                {position.team}
+                            </p>
+                            <h3 class="text-lg font-semibold text-primary">
+                                {position.title}
+                            </h3>
+                        </div>
+                        <a
+                            href={position.applyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="apply-button tracking-wider text-primary bg-accent-dark px-4 py-2 text-lg font-medium text-center rounded-lg no-underline hover:shadow-accent-small transition-shadow mx-auto sm:mx-0 shrink-0"
+                        >
+                            Apply
+                        </a>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+
+    <section class="mb-12 max-w-3xl">
+        <h2
+            class="text-2xl sm:text-3xl text-transparent bg-clip-text bg-red-right font-bold mb-4"
+        >
+            General Applications
+        </h2>
+        <p class="text-secondary text-md sm:text-lg mb-6">
+            Most of our teams do not currently use a dedicated application form.
+            If you have heard about an open position, or would like to apply and
+            discuss with the team which role could be the best fit for your
+            skills and interests, please feel free to send your CV and motivation
+            letter by email. We're looking forward to hearing from you!
+        </p>
+        <BigButton hover={true} className="mx-auto sm:mx-0">
+            <a href="mailto:mail@bliss.berlin" class="no-underline">
+                mail@bliss.berlin
+            </a>
+        </BigButton>
+    </section>
+</Layout>
+
+<style>
+    .position-card {
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .position-card:hover {
+        border-color: rgba(203, 45, 62, 0.35);
+        box-shadow: 0 0 24px rgba(203, 45, 62, 0.08);
+    }
+
+    .apply-button:hover {
+        text-decoration-color: transparent;
+    }
+</style>
