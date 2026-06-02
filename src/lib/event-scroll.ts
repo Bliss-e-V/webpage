@@ -67,10 +67,21 @@ export const EVENT_TIMELINE_SCROLLED_CLASS = "event-timeline-scrolled";
 export const getHeaderHeight = (): number =>
     document.getElementById("header")?.getBoundingClientRect().height ?? 0;
 
+export const getStickySemesterHeaderHeight = (): number =>
+    document
+        .querySelector<HTMLElement>("[data-semester-header]")
+        ?.getBoundingClientRect().height ?? 0;
+
 export const getTimelineEventScrollTop = (element: HTMLElement): number => {
     const rect = element.getBoundingClientRect();
 
-    return Math.max(0, window.scrollY + rect.top - getHeaderHeight());
+    return Math.max(
+        0,
+        window.scrollY +
+            rect.top -
+            getHeaderHeight() -
+            getStickySemesterHeaderHeight(),
+    );
 };
 
 export const scrollTimelineEventIntoView = (

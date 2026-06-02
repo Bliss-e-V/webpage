@@ -5,6 +5,7 @@ import { formatAuthorList } from "@utils/formatAuthorList";
 import {
     getEventShareUrl,
     getHeaderHeight,
+    getStickySemesterHeaderHeight,
     resolveEventScrollTargetId,
     scrollTimelineEventIntoView,
     toEventScrollRefs,
@@ -124,6 +125,7 @@ export const EventTimeline = ({
     currentPath,
 }: EventTimelineProps) => {
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
+    const [renderedDetails, setRenderedDetails] = useState<string[]>([]);
     const [copiedEventId, setCopiedEventId] = useState<string | null>(null);
     const [showScrollToUpcoming, setShowScrollToUpcoming] = useState(false);
     const didPostExpandScroll = useRef(false);
@@ -219,7 +221,7 @@ export const EventTimeline = ({
             observer = new IntersectionObserver(
                 ([entry]) => setShowScrollToUpcoming(!entry.isIntersecting),
                 {
-                    rootMargin: `-${getHeaderHeight()}px 0px 0px 0px`,
+                    rootMargin: `-${getHeaderHeight() + getStickySemesterHeaderHeight()}px 0px 0px 0px`,
                     threshold: 0,
                 },
             );
@@ -236,6 +238,14 @@ export const EventTimeline = ({
             document.removeEventListener("bliss-header-sync", observe);
         };
     }, [autoScrollToNext, nextEvent?.id]);
+
+    useEffect(() => {
+        if (expandedEvents.length === 0) return;
+        setRenderedDetails((current) => {
+            const missing = expandedEvents.filter((id) => !current.includes(id));
+            return missing.length ? [...current, ...missing] : current;
+        });
+    }, [expandedEvents]);
 
     useEffect(
         () => () => {
@@ -369,6 +379,7 @@ export const EventTimeline = ({
                     const isPast = event.date < today;
                     const isNext = nextEvent?.id === event.id;
                     const isExpanded = expandedEvents.includes(event.id);
+                    const isRendered = renderedDetails.includes(event.id);
                     const readingGroupPapers =
                         event.kind === "reading-group" ? event.details?.papers ?? [] : [];
                     const readingGroupSessionInfo =
@@ -560,8 +571,19 @@ export const EventTimeline = ({
                                         </div>
                                     </div>
 
-                                    {isExpanded && hasPreview && (
-                                        <div className="mt-3 border-t border-gray-800/70 pt-3">
+                                    {hasPreview && (
+                                        <div
+                                            className={classNames(
+                                                "grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none",
+                                                isExpanded
+                                                    ? "grid-rows-[1fr] opacity-100"
+                                                    : "grid-rows-[0fr] opacity-0",
+                                            )}
+                                            aria-hidden={!isExpanded}
+                                        >
+                                          <div className="min-h-0 overflow-hidden">
+                                            {isRendered && (
+                                            <div className="mt-3 border-t border-gray-800/70 pt-3">
                                             {event.details?.abstract && (
                                                 <div className="mb-4">
                                                     <h3 className="mb-2 font-bold text-white">Abstract</h3>
@@ -676,6 +698,9 @@ export const EventTimeline = ({
                                                     title={event.title}
                                                 />
                                             )}
+                                            </div>
+                                            )}
+                                          </div>
                                         </div>
                                     )}
                                 </div>
