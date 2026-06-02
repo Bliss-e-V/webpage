@@ -509,15 +509,28 @@ export const EventTimeline = ({
                                                         Next Up
                                                     </span>
                                                 )}
-                                                <span
-                                                    className={classNames(
-                                                        "rounded px-1.5 py-0.5 text-[11px] font-medium leading-none",
-                                                        event.badge.className ??
-                                                            "bg-gray-800 text-gray-300",
-                                                    )}
-                                                >
-                                                    {event.badge.label}
-                                                </span>
+                                                {event.badge.href ? (
+                                                    <a
+                                                        href={event.badge.href}
+                                                        className={classNames(
+                                                            "rounded px-1.5 py-0.5 text-[11px] font-medium leading-none no-underline transition-opacity hover:opacity-80",
+                                                            event.badge.className ??
+                                                                "bg-gray-800 text-gray-300",
+                                                        )}
+                                                    >
+                                                        {event.badge.label}
+                                                    </a>
+                                                ) : (
+                                                    <span
+                                                        className={classNames(
+                                                            "rounded px-1.5 py-0.5 text-[11px] font-medium leading-none",
+                                                            event.badge.className ??
+                                                                "bg-gray-800 text-gray-300",
+                                                        )}
+                                                    >
+                                                        {event.badge.label}
+                                                    </span>
+                                                )}
                                             </div>
 
                                             <div
@@ -526,7 +539,18 @@ export const EventTimeline = ({
                                                     compact ? "text-base sm:text-lg" : "text-lg",
                                                 )}
                                             >
-                                                {event.title}
+                                                {detailHref ? (
+                                                    <a
+                                                        href={detailHref}
+                                                        target={eventIsExternal(event) ? "_blank" : "_self"}
+                                                        rel={eventIsExternal(event) ? "noopener noreferrer" : undefined}
+                                                        className="transition-colors hover:text-primary"
+                                                    >
+                                                        {event.title}
+                                                    </a>
+                                                ) : (
+                                                    event.title
+                                                )}
                                             </div>
 
                                             {event.subtitle && (

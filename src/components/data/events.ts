@@ -10,6 +10,7 @@ export type BlissEventKind = "speaker" | "workshop" | "reading-group";
 export type EventBadge = {
     label: string;
     className?: string;
+    href?: string;
 };
 
 export type EventLink = {
@@ -106,6 +107,7 @@ const createSpeakerEvents = (): BlissEvent[] =>
             badge: {
                 label: `Speaker Series #${seriesNumber}`,
                 className: "bg-emerald-950/70 text-emerald-200",
+                href: `/speaker-series?id=${seriesNumber}`,
             },
             links: speaker.url
                 ? [{ label: "Meetup Event", href: speaker.url, external: true }]
@@ -122,8 +124,10 @@ const createSpeakerEvents = (): BlissEvent[] =>
     });
 
 const createWorkshopEvents = (): BlissEvent[] =>
-    workshops.map((workshop) => ({
-        id: `workshop-${workshop.date.toISOString().split("T")[0]}-${slugify(workshop.title)}`,
+    workshops.map((workshop) => {
+        const id = `workshop-${workshop.date.toISOString().split("T")[0]}-${slugify(workshop.title)}`;
+        return {
+        id,
         kind: "workshop",
         date: workshop.date,
         title: workshop.title,
@@ -141,16 +145,19 @@ const createWorkshopEvents = (): BlissEvent[] =>
             ? {
                   ...workshop.tag,
                   className: withoutBorderClasses(workshop.tag.className),
+                  href: `/workshops?id=${encodeURIComponent(id)}`,
               }
             : {
                   label: "Workshop",
                   className: "bg-sky-950/70 text-sky-200",
+                  href: `/workshops?id=${encodeURIComponent(id)}`,
               },
         links: workshop.url
             ? [{ label: "Registration", href: workshop.url, external: true }]
             : [],
         isCanceled: workshop.canceled,
-    }));
+        };
+    });
 
 const readingGroupTitle = (papers: Paper[]) => {
     if (papers.length === 1) return papers[0].name;
@@ -186,6 +193,7 @@ const createReadingGroupEvents = (): BlissEvent[] =>
             badge: {
                 label: "Reading Group",
                 className: "bg-purple-950/70 text-purple-200",
+                href: `/reading-group?id=reading-group-${dateString}`,
             },
             links: [
                 ...(firstRegistrationHref
