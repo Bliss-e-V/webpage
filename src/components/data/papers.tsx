@@ -545,6 +545,7 @@ const papers = [
         "https://arxiv.org/abs/2508.20570",
         dyslexifyImage,
         new Date("2026-06-15"),
+        "https://luma.com/4xf6pj36",
     ),
     new Paper(
         "Token Sparse Attention: Efficient Long-Context Inference with Interleaved Token Selection",
@@ -557,6 +558,7 @@ const papers = [
         "https://arxiv.org/abs/2602.03216",
         tokenSparseAttentionImage,
         new Date("2026-06-22"),
+        "https://luma.com/oqpsn3id",
     ),
     new Paper(
         "TBD: Paper about Robotics",

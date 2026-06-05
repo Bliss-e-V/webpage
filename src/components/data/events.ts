@@ -2,10 +2,11 @@ import type { ImageMetadata } from "astro";
 import { formatAuthorList } from "@utils/formatAuthorList";
 import { dayToPapers, getReadingGroupSectionForDate, type Paper } from "./papers";
 import type { ReadingGroupSessionInfo } from "./papers";
+import { communityEvents } from "./communityEvents";
 import { speakers } from "./speakers";
 import { workshops } from "./workshops";
 
-export type BlissEventKind = "speaker" | "workshop" | "reading-group";
+export type BlissEventKind = "speaker" | "workshop" | "reading-group" | "community";
 
 export type EventBadge = {
     label: string;
@@ -164,6 +165,28 @@ const readingGroupTitle = (papers: Paper[]) => {
     return `${papers.length} papers: ${papers.map((paper) => paper.name).join(", ")}`;
 };
 
+const createCommunityEvents = (): BlissEvent[] =>
+    communityEvents.map((event) => {
+        const id = `community-${event.date.toISOString().split("T")[0]}-${slugify(event.title)}`;
+
+        return {
+            id,
+            kind: "community",
+            date: event.date,
+            title: event.title,
+            subtitle: event.subtitle,
+            href: event.url,
+            externalHref: true,
+            badge: {
+                label: "AMA",
+                className: "bg-indigo-950/60 text-indigo-200",
+                href: event.url,
+            },
+            links: [{ label: "Join on Discord", href: event.url, external: true }],
+            isCanceled: false,
+        };
+    });
+
 const createReadingGroupEvents = (): BlissEvent[] =>
     Object.entries(dayToPapers).map(([dateString, papers]) => {
         const date = new Date(dateString);
@@ -215,7 +238,12 @@ const createReadingGroupEvents = (): BlissEvent[] =>
     });
 
 export const getAllEvents = () =>
-    [...createSpeakerEvents(), ...createWorkshopEvents(), ...createReadingGroupEvents()];
+    [
+        ...createSpeakerEvents(),
+        ...createWorkshopEvents(),
+        ...createCommunityEvents(),
+        ...createReadingGroupEvents(),
+    ];
 
 export const sortEventsNewestFirst = (events: BlissEvent[]) =>
     [...events].sort((a, b) => b.date.getTime() - a.date.getTime());

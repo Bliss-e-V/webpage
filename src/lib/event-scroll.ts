@@ -11,6 +11,7 @@ const EVENT_PAGE_PATHS: Record<BlissEvent["kind"], string> = {
     speaker: "/speaker-series",
     workshop: "/workshops",
     "reading-group": "/reading-group",
+    community: "/",
 };
 
 export const getEventShareId = (event: Pick<BlissEvent, "id" | "kind" | "seriesNumber">) =>
