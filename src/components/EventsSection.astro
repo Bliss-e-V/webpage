@@ -2,6 +2,7 @@
 import { Headline } from "./Headline";
 import { speakers } from "./data/speakers";
 import { workshops } from "./data/workshops";
+import { communityEvents } from "./data/communityEvents";
 import { dayToPapers } from "./data/papers";
 
 const currentDate = new Date();
@@ -14,7 +15,7 @@ fourWeeksFuture.setDate(currentDate.getDate() + 28);
 interface TimelineEvent {
   date: Date;
   title: string;
-  type: "Reading Group" | "Speaker Series" | "Workshop";
+  type: "Reading Group" | "Speaker Series" | "Workshop" | "Community Event";
   link?: string;
   description?: string;
   subtitle?: string;
@@ -49,6 +50,19 @@ workshops.forEach((w) => {
     link: w.url,
     tagLabel: w.tag?.label,
     tagClassName: w.tag?.className,
+  });
+});
+
+// Process Community Events
+communityEvents.forEach((e) => {
+  events.push({
+    date: e.date,
+    title: e.title,
+    subtitle: e.subtitle,
+    type: "Community Event",
+    link: e.url,
+    tagLabel: "AMA",
+    tagClassName: "bg-indigo-950/60 text-indigo-200 border border-indigo-900",
   });
 });
 
