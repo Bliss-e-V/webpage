@@ -168,13 +168,13 @@ const readingGroupTitle = (papers: Paper[]) => {
 const createCommunityEvents = (): BlissEvent[] =>
     communityEvents.map((event) => {
         const id = `community-${event.date.toISOString().split("T")[0]}-${slugify(event.title)}`;
-
         return {
             id,
             kind: "community",
             date: event.date,
             title: event.title,
             subtitle: event.subtitle,
+            description: event.description,
             href: event.url,
             externalHref: true,
             badge: {

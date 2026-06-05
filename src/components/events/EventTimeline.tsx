@@ -121,7 +121,7 @@ export const EventTimeline = ({
     compact = false,
     autoScrollToNext = false,
     showDividers = true,
-    expandLabel = "Preview",
+    expandLabel = "Details",
     currentPath,
 }: EventTimelineProps) => {
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
@@ -630,7 +630,6 @@ export const EventTimeline = ({
                                                 !event.details?.abstract &&
                                                 !(event.kind === "reading-group" && readingGroupSessionInfo) && (
                                                 <div className="mb-4">
-                                                    <h3 className="mb-2 font-bold text-white">Description</h3>
                                                     <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-300 sm:text-base">
                                                         {event.description}
                                                     </p>
