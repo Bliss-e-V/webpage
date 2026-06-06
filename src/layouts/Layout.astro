@@ -6,6 +6,7 @@ interface Props {
   article?: boolean;
   publishDate?: string;
   modifiedDate?: string;
+  eventTimelineScroll?: boolean;
 }
 const {
   title,
@@ -13,7 +14,8 @@ const {
   ogImage,
   article = false,
   publishDate,
-  modifiedDate
+  modifiedDate,
+  eventTimelineScroll = false,
 }: Props = Astro.props;
 
 import Header from "../components/Header.astro";
@@ -111,7 +113,13 @@ const articleSchema = article && publishDate
 ---
 
 <!doctype html>
-<html lang="en">
+<html
+  lang="en"
+  class:list={{
+    "event-timeline-scroll-pending": eventTimelineScroll,
+    "event-timeline-page": eventTimelineScroll,
+  }}
+>
   <head>
     <title>{fullTitle}</title>
     <link rel="canonical" href={canonicalURL} />
@@ -167,8 +175,13 @@ const articleSchema = article && publishDate
   </head>
 
   <body>
-    <Header />
-    <div class="container flex-1 pt-40">
+    <Header compact={eventTimelineScroll} />
+    <div
+      class:list={[
+        "container flex-1",
+        eventTimelineScroll ? "pt-20" : "pt-40",
+      ]}
+    >
       <slot />
     </div>
     <Footer />

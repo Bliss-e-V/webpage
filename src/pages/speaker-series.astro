@@ -2,22 +2,28 @@
 export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
-import { SpeakerSeriesComp } from "@components/SpeakerSeriesComp";
 import Breadcrumb from "@components/Breadcrumb.astro";
+import { EventTimeline } from "@components/events/EventTimeline";
+import EventTimelineAutoScroll from "@components/events/EventTimelineAutoScroll.astro";
+import { getTimelineEvents } from "@components/data/events";
+
+const speakerEvents = getTimelineEvents("speaker");
 ---
 
 <Layout
     title="Speaker Series | BLISS Berlin"
     description="Join BLISS Berlin's Speaker Series featuring top researchers and practitioners in AI and machine learning. Explore upcoming talks and our archive of past events."
     ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
+    eventTimelineScroll={speakerEvents.length > 0}
 >
+    <EventTimelineAutoScroll events={speakerEvents}>
     <Breadcrumb
         crumbs={[
             { name: "Speaker Series", href: "/speaker-series" }
         ]}
     />
     <h1
-        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+        class="mt-6 sm:mt-8 text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
     >
         Speaker Series
     </h1>
@@ -33,5 +39,12 @@ import Breadcrumb from "@components/Breadcrumb.astro";
             Join us to learn from the best in the field and connect with the community!
         </p>
     </div>
-    <SpeakerSeriesComp client:load />
+    <EventTimeline
+        client:load
+        events={speakerEvents}
+        autoScrollToNext
+        expandLabel="Details"
+        emptyMessage="No speaker series events scheduled. Stay tuned!"
+    />
+    </EventTimelineAutoScroll>
 </Layout>

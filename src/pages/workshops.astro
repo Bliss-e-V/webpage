@@ -2,22 +2,28 @@
 export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
-import { WorkshopsComp } from "@components/WorkshopsComp";
 import Breadcrumb from "@components/Breadcrumb.astro";
+import { EventTimeline } from "@components/events/EventTimeline";
+import EventTimelineAutoScroll from "@components/events/EventTimelineAutoScroll.astro";
+import { getTimelineEvents } from "@components/data/events";
+
+const workshopEvents = getTimelineEvents("workshop");
 ---
 
 <Layout
     title="Workshops | BLISS Berlin"
     description="Join BLISS Berlin's hands-on workshops on cutting-edge AI and machine learning topics. Learn practical skills and explore the latest technologies."
     ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
+    eventTimelineScroll={workshopEvents.length > 0}
 >
+    <EventTimelineAutoScroll events={workshopEvents}>
     <Breadcrumb
         crumbs={[
             { name: "Workshops", href: "/workshops" }
         ]}
     />
     <h1
-        class="text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+        class="mt-6 sm:mt-8 text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
     >
         Workshops
     </h1>
@@ -30,6 +36,13 @@ import Breadcrumb from "@components/Breadcrumb.astro";
             We irregularly team up with companies to host hands-on workshops on cutting-edge AI and machine learning topics. Learn practical skills and explore the latest technologies.
         </p>
     </div>
-    <WorkshopsComp client:load />
+    <EventTimeline
+        client:load
+        events={workshopEvents}
+        autoScrollToNext
+        expandLabel="Details"
+        emptyMessage="No workshops scheduled. Stay tuned!"
+    />
+    </EventTimelineAutoScroll>
 </Layout>
 

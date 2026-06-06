@@ -113,6 +113,23 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Event timeline pages: compact header + hidden content until scroll position is set */
+html.event-timeline-page #header {
+  height: 5rem;
+  transition: none !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom-color: var(--border);
+}
+
+html.event-timeline-scroll-pending:not(.event-timeline-scrolled) .container {
+  visibility: hidden;
+}
+
+html.event-timeline-scroll-pending {
+  scroll-behavior: auto;
+}
+
 .hover\:bg-li:hover {
   background-color: rgba(203, 45, 62, 0.25);
 }

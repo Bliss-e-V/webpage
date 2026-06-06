@@ -2,19 +2,75 @@
 export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
-import ReadingGroupComp from "@components/ReadingGroupComp.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
+import { EventTimeline } from "@components/events/EventTimeline";
+import EventTimelineAutoScroll from "@components/events/EventTimelineAutoScroll.astro";
+import { getTimelineEvents } from "@components/data/events";
+import { getCurrentReadingGroupSection } from "@components/data/papers";
+
+const readingGroupEvents = getTimelineEvents("reading-group");
+const currentSection = getCurrentReadingGroupSection();
+const sessionInfo = currentSection?.sessionInfo;
 ---
 
 <Layout
     title="AI Reading Group | BLISS Berlin"
     description="Join BLISS Berlin's weekly AI reading group, where we discuss cutting-edge machine learning research papers in a collaborative environment. Takes place regularly on Mondays."
     ogImage="https://www.bliss.berlin/assets/bliss-banner.png"
+    eventTimelineScroll={readingGroupEvents.length > 0}
 >
+    <EventTimelineAutoScroll events={readingGroupEvents}>
     <Breadcrumb 
         crumbs={[
             { name: "Reading Group", href: "/reading-group" }
         ]}
     />
-    <ReadingGroupComp />
+    <h1
+        class="mt-6 sm:mt-8 text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+    >
+        Reading Group
+    </h1>
+    <div
+        class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."
+    >
+    </div>
+
+    {sessionInfo && (
+        <div class="mb-10 text-secondary text-md sm:text-lg">
+            <div class="mb-4">
+                {sessionInfo.seasonIntro && sessionInfo.semesterLabel ? (
+                    <>
+                        {sessionInfo.seasonIntro}{" "}
+                        <strong>{sessionInfo.semesterLabel}</strong> reading group.{" "}
+                        {sessionInfo.description}
+                    </>
+                ) : (
+                    sessionInfo.description
+                )}
+            </div>
+            {sessionInfo.location && (
+                <div class="mb-4">
+                    <strong>Location:</strong>{" "}
+                    <a href={sessionInfo.location.url} target="_blank" rel="noopener noreferrer">
+                        <strong>{sessionInfo.location.name}</strong> ({sessionInfo.location.address})
+                    </a>
+                </div>
+            )}
+            {sessionInfo.schedule && (
+                <div class="mb-4">
+                    <strong>Time:</strong> {sessionInfo.schedule}
+                </div>
+            )}
+        </div>
+    )}
+
+    <EventTimeline
+        client:load
+        events={readingGroupEvents}
+        autoScrollToNext
+        expandLabel="Details"
+        currentPath="/reading-group"
+        emptyMessage="No reading group sessions scheduled. Stay tuned!"
+    />
+    </EventTimelineAutoScroll>
 </Layout>
