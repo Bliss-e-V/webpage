@@ -359,7 +359,7 @@ export const EventTimeline = ({
             ref={timelineRef}
             className={classNames("relative w-full", !compact && "md:pl-40")}
         >
-            <ol className="relative border-l border-gray-800/70">
+            <ol className="relative before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:w-px before:bg-gray-700/80 before:content-['']">
                 {timelineSections.map((section) => (
                     <Fragment key={section.label || "all"}>
                         {showDividers && (
@@ -418,7 +418,7 @@ export const EventTimeline = ({
                                                         ? "h-full w-full object-cover"
                                                         : "object-contain",
                                                     isPastDimmed &&
-                                                        "grayscale-[45%] opacity-70 transition-all duration-150 ease-out group-hover:grayscale-0 group-hover:opacity-100",
+                                                        "grayscale-[45%] opacity-70",
                                                 )}
                                                 loading="lazy"
                                             />
@@ -428,12 +428,12 @@ export const EventTimeline = ({
 
                                 <div
                                     className={classNames(
-                                        "absolute left-[calc(-0.3125rem-1px)] top-5 z-10 h-2.5 w-2.5 rounded-full border-2",
+                                        "absolute left-[0.5px] top-5 z-10 h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2",
                                         isNext
                                             ? "border-accent bg-accent shadow-[0_0_12px_rgba(255,107,107,0.75)]"
                                             : isPast
-                                              ? "border-neutral-950 bg-gray-700"
-                                              : "border-neutral-950 bg-gray-200",
+                                              ? "border-neutral-950 bg-gray-600"
+                                              : "border-neutral-950 bg-gray-300",
                                     )}
                                 />
 
@@ -445,7 +445,9 @@ export const EventTimeline = ({
                                             ? "bg-neutral-900/65"
                                             : isExpanded
                                               ? "bg-neutral-900/45"
-                                              : "group-hover:bg-neutral-900/45",
+                                              : isPast
+                                                ? ""
+                                                : "group-hover:bg-neutral-900/45",
                                         event.isCanceled && "line-through",
                                     )}
                                 >
@@ -495,7 +497,7 @@ export const EventTimeline = ({
                                                             ? "h-full w-full object-cover"
                                                             : "object-contain",
                                                         isPastDimmed &&
-                                                            "grayscale-[45%] opacity-70 transition-all duration-150 ease-out group-hover:grayscale-0 group-hover:opacity-100",
+                                                            "grayscale-[45%] opacity-70",
                                                     )}
                                                     loading="lazy"
                                                 />
@@ -546,7 +548,7 @@ export const EventTimeline = ({
                                                     "mt-1 font-bold leading-snug transition-colors duration-150 ease-out",
                                                     compact ? "text-base sm:text-lg" : "text-lg",
                                                     isPastDimmed
-                                                        ? "text-gray-400 group-hover:text-white"
+                                                        ? "text-gray-400"
                                                         : "text-white",
                                                 )}
                                             >
@@ -572,7 +574,7 @@ export const EventTimeline = ({
                                                     className={classNames(
                                                         "mt-1 text-sm transition-colors duration-150 ease-out",
                                                         isPastDimmed
-                                                            ? "text-gray-500 group-hover:text-gray-300"
+                                                            ? "text-gray-500"
                                                             : "text-gray-300",
                                                     )}
                                                 >
@@ -587,10 +589,10 @@ export const EventTimeline = ({
                                                         target={eventIsExternal(event) ? "_blank" : "_self"}
                                                         rel={eventIsExternal(event) ? "noopener noreferrer" : undefined}
                                                         className={classNames(
-                                                            "inline-flex items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
+                                                            "inline-flex cursor-pointer items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
                                                             isPastDimmed
-                                                                ? "text-gray-400 group-hover:text-primary"
-                                                                : "text-primary hover:text-white",
+                                                                ? "text-gray-500"
+                                                                : "text-gray-300 hover:text-white",
                                                         )}
                                                     >
                                                         {event.externalHref ? "Register" : "Open Details"}
@@ -603,9 +605,9 @@ export const EventTimeline = ({
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className={classNames(
-                                                            "inline-flex items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
+                                                            "inline-flex cursor-pointer items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
                                                             isPastDimmed
-                                                                ? "text-gray-500 group-hover:text-gray-300"
+                                                                ? "text-gray-500"
                                                                 : "text-gray-300 hover:text-white",
                                                         )}
                                                     >
@@ -618,9 +620,9 @@ export const EventTimeline = ({
                                                         type="button"
                                                         onClick={() => toggleExpanded(event.id)}
                                                         className={classNames(
-                                                            "inline-flex items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
+                                                            "inline-flex cursor-pointer items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
                                                             isPastDimmed
-                                                                ? "text-gray-500 group-hover:text-gray-300"
+                                                                ? "text-gray-500"
                                                                 : "text-gray-300 hover:text-white",
                                                         )}
                                                     >
