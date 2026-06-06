@@ -379,6 +379,7 @@ export const EventTimeline = ({
                     const isPast = event.date < today;
                     const isNext = nextEvent?.id === event.id;
                     const isExpanded = expandedEvents.includes(event.id);
+                    const isPastDimmed = isPast && !isExpanded;
                     const isRendered = renderedDetails.includes(event.id);
                     const readingGroupPapers =
                         event.kind === "reading-group" ? event.details?.papers ?? [] : [];
@@ -401,8 +402,8 @@ export const EventTimeline = ({
                                 key={event.id}
                                 id={event.id}
                                 className={classNames(
-                                    "group relative mb-4 scroll-mt-36 pl-5",
-                                    compact && "mb-3",
+                                    "group relative mb-5 scroll-mt-36 pl-5",
+                                    compact && "mb-4",
                                 )}
                             >
                                 {event.imageSrc && !compact && (
@@ -416,6 +417,8 @@ export const EventTimeline = ({
                                                     event.kind === "reading-group"
                                                         ? "h-full w-full object-cover"
                                                         : "object-contain",
+                                                    isPastDimmed &&
+                                                        "grayscale-[45%] opacity-70 transition-all duration-150 ease-out group-hover:grayscale-0 group-hover:opacity-100",
                                                 )}
                                                 loading="lazy"
                                             />
@@ -438,8 +441,11 @@ export const EventTimeline = ({
                                     className={classNames(
                                         "group/card relative overflow-hidden rounded-lg text-left transition-colors duration-200",
                                         compact ? "px-3 py-2.5 sm:px-4" : "px-3 py-3 sm:px-4",
-                                        isNext ? "bg-neutral-900/65" : "hover:bg-neutral-900/45",
-                                        isPast && "opacity-70",
+                                        isNext
+                                            ? "bg-neutral-900/65"
+                                            : isExpanded
+                                              ? "bg-neutral-900/45"
+                                              : "group-hover:bg-neutral-900/45",
                                         event.isCanceled && "line-through",
                                     )}
                                 >
@@ -488,6 +494,8 @@ export const EventTimeline = ({
                                                         event.kind === "reading-group"
                                                             ? "h-full w-full object-cover"
                                                             : "object-contain",
+                                                        isPastDimmed &&
+                                                            "grayscale-[45%] opacity-70 transition-all duration-150 ease-out group-hover:grayscale-0 group-hover:opacity-100",
                                                     )}
                                                     loading="lazy"
                                                 />
@@ -535,8 +543,11 @@ export const EventTimeline = ({
 
                                             <div
                                                 className={classNames(
-                                                    "mt-1 font-bold leading-snug text-white",
+                                                    "mt-1 font-bold leading-snug transition-colors duration-150 ease-out",
                                                     compact ? "text-base sm:text-lg" : "text-lg",
+                                                    isPastDimmed
+                                                        ? "text-gray-400 group-hover:text-white"
+                                                        : "text-white",
                                                 )}
                                             >
                                                 {detailHref ? (
@@ -544,7 +555,10 @@ export const EventTimeline = ({
                                                         href={detailHref}
                                                         target={eventIsExternal(event) ? "_blank" : "_self"}
                                                         rel={eventIsExternal(event) ? "noopener noreferrer" : undefined}
-                                                        className="transition-colors hover:text-primary"
+                                                        className={classNames(
+                                                            "no-underline transition-colors duration-150 ease-out",
+                                                            !isPastDimmed && "hover:text-primary",
+                                                        )}
                                                     >
                                                         {event.title}
                                                     </a>
@@ -554,7 +568,14 @@ export const EventTimeline = ({
                                             </div>
 
                                             {event.subtitle && (
-                                                <p className="mt-1 text-sm text-gray-300">
+                                                <p
+                                                    className={classNames(
+                                                        "mt-1 text-sm transition-colors duration-150 ease-out",
+                                                        isPastDimmed
+                                                            ? "text-gray-500 group-hover:text-gray-300"
+                                                            : "text-gray-300",
+                                                    )}
+                                                >
                                                     {event.subtitle}
                                                 </p>
                                             )}
@@ -565,7 +586,12 @@ export const EventTimeline = ({
                                                         href={detailHref}
                                                         target={eventIsExternal(event) ? "_blank" : "_self"}
                                                         rel={eventIsExternal(event) ? "noopener noreferrer" : undefined}
-                                                        className="inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-white hover:underline"
+                                                        className={classNames(
+                                                            "inline-flex items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
+                                                            isPastDimmed
+                                                                ? "text-gray-400 group-hover:text-primary"
+                                                                : "text-primary hover:text-white",
+                                                        )}
                                                     >
                                                         {event.externalHref ? "Register" : "Open Details"}
                                                     </a>
@@ -576,7 +602,12 @@ export const EventTimeline = ({
                                                         href={readingGroupPapers[0].paperHref}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="inline-flex items-center text-sm font-semibold text-gray-300 transition-colors hover:text-white hover:underline"
+                                                        className={classNames(
+                                                            "inline-flex items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
+                                                            isPastDimmed
+                                                                ? "text-gray-500 group-hover:text-gray-300"
+                                                                : "text-gray-300 hover:text-white",
+                                                        )}
                                                     >
                                                         Paper
                                                     </a>
@@ -586,7 +617,12 @@ export const EventTimeline = ({
                                                     <button
                                                         type="button"
                                                         onClick={() => toggleExpanded(event.id)}
-                                                        className="inline-flex items-center text-sm font-semibold text-gray-300 transition-colors hover:text-white hover:underline"
+                                                        className={classNames(
+                                                            "inline-flex items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
+                                                            isPastDimmed
+                                                                ? "text-gray-500 group-hover:text-gray-300"
+                                                                : "text-gray-300 hover:text-white",
+                                                        )}
                                                     >
                                                         {isExpanded ? `Hide ${expandLabel}` : expandLabel}
                                                     </button>
