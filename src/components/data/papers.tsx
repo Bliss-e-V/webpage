@@ -85,6 +85,9 @@ import genieImage from "../../images/posts/images/20260601_genie.png";
 import videoGenerationPhysicalLawsImage from "../../images/posts/images/20260608_video-generation-physical-laws.png";
 import tokenSparseAttentionImage from "../../images/posts/images/20260622_token-sparse-attention.png";
 import dyslexifyImage from "../../images/posts/images/20260615_dyslexify.png";
+import sonicboomImage from "../../images/posts/images/20260629_sonicboom.png";
+import dexforceImage from "../../images/posts/images/20260706_dexforce.png";
+import coupledParticleFiltersImage from "../../images/posts/images/20260713_coupled-particle-filters.png";
 
 export class Paper {
     constructor(
@@ -561,24 +564,41 @@ const papers = [
         "https://luma.com/oqpsn3id",
     ),
     new Paper(
-        "TBD: Paper about Robotics",
-        ["TBD"],
-        "",
-        superposition,
+        "SonicBoom: Contact Localization Using Array of Microphones",
+        [
+            "Moonyoung Lee",
+            "Uksang Yoo",
+            "Jean Oh",
+            "Jeffrey Ichnowski",
+            "George Kantor",
+            "Oliver Kroemer",
+        ],
+        "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=11021384",
+        sonicboomImage,
         new Date("2026-06-29"),
     ),
     new Paper(
-        "TBD: Paper about Robotics",
-        ["TBD"],
-        "",
-        superposition,
+        "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
+        [
+            "Claire Chen",
+            "Zhongchun Yu",
+            "Hojung Choi",
+            "Mark Cutkosky",
+            "Jeannette Bohg",
+        ],
+        "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10993295",
+        dexforceImage,
         new Date("2026-07-06"),
     ),
     new Paper(
-        "TBD: Paper about Robotics",
-        ["TBD"],
-        "",
-        superposition,
+        "Coupled Particle Filters for Robust Affordance Estimation",
+        [
+            "Patrick Lowin",
+            "Vito Mengers",
+            "Oliver Brock",
+        ],
+        "https://arxiv.org/abs/2603.15223",
+        coupledParticleFiltersImage,
         new Date("2026-07-13"),
     ),
 ];
