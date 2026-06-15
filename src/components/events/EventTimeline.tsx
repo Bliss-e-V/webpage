@@ -23,6 +23,7 @@ type EventTimelineProps = {
     showDividers?: boolean;
     expandLabel?: string;
     currentPath?: string;
+    planningNote?: string;
 };
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
@@ -123,6 +124,7 @@ export const EventTimeline = ({
     showDividers = true,
     expandLabel = "Details",
     currentPath,
+    planningNote = "More events are being planned — stay tuned!",
 }: EventTimelineProps) => {
     const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
     const [renderedDetails, setRenderedDetails] = useState<string[]>([]);
@@ -770,6 +772,12 @@ export const EventTimeline = ({
                         })}
                     </Fragment>
                 ))}
+                {autoScrollToNext && (
+                    <li className="relative list-none pl-5 pt-1">
+                        <div className="absolute left-[0.5px] top-3 z-10 h-2 w-2 -translate-x-1/2 rounded-full border-2 border-dashed border-gray-600 bg-neutral-950" />
+                        <p className="text-sm text-gray-500">{planningNote}</p>
+                    </li>
+                )}
             </ol>
         </div>
         {autoScrollToNext && nextEvent && showScrollToUpcoming && (

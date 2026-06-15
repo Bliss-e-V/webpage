@@ -52,15 +52,19 @@ const eventRefs = toEventScrollRefs(events);
                         }
                     } else {
                         var next = null;
+                        var last = null;
                         for (var j = 0; j < refs.length; j++) {
                             var entry = refs[j];
                             var date = new Date(entry.date);
+                            if (!last || date > new Date(last.date)) {
+                                last = entry;
+                            }
                             if (date < today) continue;
                             if (!next || date < new Date(next.date)) {
                                 next = entry;
                             }
                         }
-                        targetId = next ? next.id : null;
+                        targetId = next ? next.id : last ? last.id : null;
                     }
 
                     document.documentElement.classList.add("event-timeline-scrolled");

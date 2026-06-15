@@ -55,12 +55,16 @@ export const resolveEventScrollTargetId = (
         return match?.id ?? null;
     }
 
-    const next = [...events]
-        .map((event) => ({ ...event, date: new Date(event.date) }))
+    const parsed = events.map((event) => ({ ...event, date: new Date(event.date) }));
+
+    const next = parsed
         .filter((event) => event.date >= startOfToday)
         .sort((a, b) => a.date.getTime() - b.date.getTime())[0];
 
-    return next?.id ?? null;
+    if (next) return next.id;
+
+    const last = parsed.sort((a, b) => b.date.getTime() - a.date.getTime())[0];
+    return last.id;
 };
 
 export const EVENT_TIMELINE_SCROLLED_CLASS = "event-timeline-scrolled";
