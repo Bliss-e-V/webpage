@@ -27,15 +27,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
   .toString()
   .replace(/\/$/, "");
 
+// Absolute asset URLs derived from `site` in astro.config.mjs (single source of truth).
+// OG/Twitter/JSON-LD images must be absolute — external scrapers won't resolve relative paths.
+const origin = new URL("/", Astro.site).origin;
+const logoURL = new URL("/assets/bliss-logo.png", Astro.site).href;
+const bannerURL = new URL("/assets/bliss-banner.png", Astro.site).href;
+const ogImageURL = new URL(ogImage ?? "/assets/bliss-banner.png", Astro.site).href;
+
 const siteTitle = "BLISS - Berlin Learning & Intelligent Systems Society";
-const fullTitle = title === siteTitle ? title : `${title} | BLISS`;
+const fullTitle = title === siteTitle ? title : `${title} | BLISS Berlin`;
 
 // Current date in ISO format for freshness indication
 const currentDate = new Date().toISOString();
 
 // Canonical @id anchors used to link all schemas together
-const orgId = "https://bliss.berlin/#organization";
-const siteId = "https://bliss.berlin/#website";
+const orgId = `${origin}/#organization`;
+const siteId = `${origin}/#website`;
 
 // JSON-LD: merged Organization + EducationalOrganization (canonical entity)
 const orgSchema = JSON.stringify({
@@ -45,13 +52,30 @@ const orgSchema = JSON.stringify({
   "name": "BLISS e.V.",
   "alternateName": "BLISS Berlin",
   "legalName": "Berlin Learning & Intelligent Systems Society e.V.",
-  "url": "https://bliss.berlin",
+  "url": origin,
+  "foundingDate": "2022",
   "logo": {
     "@type": "ImageObject",
-    "url": "https://www.bliss.berlin/assets/bliss-logo.png"
+    "url": logoURL
   },
-  "image": "https://www.bliss.berlin/assets/bliss-banner.png",
+  "image": bannerURL,
   "description": "Berlin's research-focused AI non-profit organization connecting passionate individuals in machine learning through weekly reading groups, speaker and diversity events, and hackathons.",
+  "disambiguatingDescription": "Non-profit AI research community (registered association / e.V.) in Berlin, running an academic AI speaker series, machine-learning paper reading groups, and hackathons. Not affiliated with any commercial or retail brand of a similar name.",
+  "knowsAbout": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Deep Learning",
+    "AI Research",
+    "Natural Language Processing",
+    "Computer Vision",
+    "Reinforcement Learning",
+    "AI Safety"
+  ],
+  "keywords": "artificial intelligence, machine learning, AI research, deep learning, Berlin AI community, AI speaker series, paper reading group, hackathon",
+  "areaServed": {
+    "@type": "City",
+    "name": "Berlin"
+  },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Berlin",
@@ -79,7 +103,7 @@ const websiteSchema = JSON.stringify({
   "@type": "WebSite",
   "@id": siteId,
   "name": "BLISS e.V.",
-  "url": "https://bliss.berlin",
+  "url": origin,
   "publisher": { "@id": orgId }
 });
 
@@ -103,7 +127,7 @@ const articleSchema = article && publishDate
       "@type": "Article",
       "headline": title,
       "description": description,
-      "image": ogImage ? ogImage : "https://www.bliss.berlin/assets/bliss-banner.png",
+      "image": ogImageURL,
       "datePublished": publishDate,
       "dateModified": modifiedDate || currentDate,
       "publisher": { "@id": orgId },
@@ -134,7 +158,7 @@ const articleSchema = article && publishDate
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage ? ogImage : "https://www.bliss.berlin/assets/bliss-banner.png"} />
+    <meta property="og:image" content={ogImageURL} />
     <meta property="og:site_name" content="BLISS Berlin" />
     {article && publishDate && <meta property="article:published_time" content={publishDate} />}
     {article && modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
@@ -144,7 +168,7 @@ const articleSchema = article && publishDate
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage ? ogImage : "https://www.bliss.berlin/assets/bliss-banner.png"} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <!-- Keywords -->
     <meta name="keywords" content="ai, machine learning, artificial intelligence, events, berlin, speaker series, tech community, bliss berlin, data science, deep learning" />

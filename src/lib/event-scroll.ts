@@ -23,7 +23,7 @@ export const getEventSharePath = (kind: BlissEvent["kind"]) => EVENT_PAGE_PATHS[
 
 export const getEventShareUrl = (
     event: Pick<BlissEvent, "id" | "kind" | "seriesNumber">,
-    origin = typeof window !== "undefined" ? window.location.origin : "https://www.bliss.berlin",
+    origin = typeof window !== "undefined" ? window.location.origin : "https://bliss.berlin",
 ) =>
     `${origin}${getEventSharePath(event.kind)}?id=${encodeURIComponent(getEventShareId(event))}`;
 

@@ -5,7 +5,6 @@ User-agent: *
 Allow: /
 Disallow: /newsletter
 Disallow: /404
-Crawl-delay: 10
 
 Sitemap: ${sitemapURL.href}
 `;
