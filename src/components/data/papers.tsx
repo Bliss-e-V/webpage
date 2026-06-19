@@ -576,6 +576,7 @@ const papers = [
         "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=11021384",
         sonicboomImage,
         new Date("2026-06-29"),
+        "https://luma.com/rstboa2q",
     ),
     new Paper(
         "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
@@ -589,6 +590,7 @@ const papers = [
         "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10993295",
         dexforceImage,
         new Date("2026-07-06"),
+        "https://luma.com/5rmcbntz",
     ),
     new Paper(
         "Coupled Particle Filters for Robust Affordance Estimation",
@@ -600,6 +602,7 @@ const papers = [
         "https://arxiv.org/abs/2603.15223",
         coupledParticleFiltersImage,
         new Date("2026-07-13"),
+        "https://luma.com/arud5ref",
     ),
 ];
 
