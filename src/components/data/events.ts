@@ -224,7 +224,7 @@ const createReadingGroupEvents = (): BlissEvent[] =>
                     : []),
                 { label: "Reading Group", href: "/reading-group" },
             ],
-            isCanceled: false,
+            isCanceled: papers.some((paper) => paper.canceled),
             details: {
                 papers: papers.map((paper) => ({
                     title: paper.name,
@@ -257,12 +257,16 @@ export const filterEventsByKind = (
 ) => (kind === "all" ? events : events.filter((event) => event.kind === kind));
 
 export const getNextEvent = (events: BlissEvent[], today = currentDate()) =>
-    sortEventsSoonestFirst(events.filter((event) => event.date >= today))[0];
+    sortEventsSoonestFirst(
+        events.filter((event) => event.date >= today && !event.isCanceled),
+    )[0];
 
 export const getTimelineEvents = (kind: TimelineKindFilter = "all") =>
     sortEventsSoonestFirst(filterEventsByKind(getAllEvents(), kind));
 
 export const getUpcomingEvents = (limit = 5) =>
     sortEventsSoonestFirst(
-        getAllEvents().filter((event) => event.date >= currentDate()),
+        getAllEvents().filter(
+            (event) => event.date >= currentDate() && !event.isCanceled,
+        ),
     ).slice(0, limit);

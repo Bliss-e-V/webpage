@@ -59,7 +59,7 @@ const eventRefs = toEventScrollRefs(events);
                             if (!last || date > new Date(last.date)) {
                                 last = entry;
                             }
-                            if (date < today) continue;
+                            if (date < today || entry.isCanceled) continue;
                             if (!next || date < new Date(next.date)) {
                                 next = entry;
                             }

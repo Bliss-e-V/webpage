@@ -139,7 +139,7 @@ export const EventTimeline = ({
     const nextEvent = useMemo(
         () =>
             [...normalizedEvents]
-                .filter((event) => event.date >= today)
+                .filter((event) => event.date >= today && !event.isCanceled)
                 .sort((a, b) => a.date.getTime() - b.date.getTime())[0],
         [normalizedEvents, today],
     );
@@ -398,6 +398,8 @@ export const EventTimeline = ({
                                           event.details.images?.length)),
                     );
                     const detailHref = getDetailHref(event, currentPath);
+                    const showDetailHref =
+                        detailHref && !(event.isCanceled && event.externalHref);
 
                     return (
                             <li
@@ -450,7 +452,7 @@ export const EventTimeline = ({
                                               : isPast
                                                 ? ""
                                                 : "group-hover:bg-neutral-900/45",
-                                        event.isCanceled && "line-through",
+                                        event.isCanceled && !isExpanded && "opacity-80",
                                     )}
                                 >
                                     {autoScrollToNext && (
@@ -521,6 +523,11 @@ export const EventTimeline = ({
                                                         Next Up
                                                     </span>
                                                 )}
+                                                {event.isCanceled && (
+                                                    <span className="rounded-full bg-red-950/80 px-2 py-0.5 text-xs font-semibold text-red-300 ring-1 ring-red-900/60">
+                                                        Cancelled
+                                                    </span>
+                                                )}
                                                 {event.badge.href ? (
                                                     <a
                                                         href={event.badge.href}
@@ -549,19 +556,23 @@ export const EventTimeline = ({
                                                 className={classNames(
                                                     "mt-1 font-bold leading-snug transition-colors duration-150 ease-out",
                                                     compact ? "text-base sm:text-lg" : "text-lg",
-                                                    isPastDimmed
-                                                        ? "text-gray-400"
-                                                        : "text-white",
+                                                    event.isCanceled
+                                                        ? "text-gray-400 line-through decoration-gray-500/80"
+                                                        : isPastDimmed
+                                                          ? "text-gray-400"
+                                                          : "text-white",
                                                 )}
                                             >
-                                                {detailHref ? (
+                                                {showDetailHref ? (
                                                     <a
                                                         href={detailHref}
                                                         target={eventIsExternal(event) ? "_blank" : "_self"}
                                                         rel={eventIsExternal(event) ? "noopener noreferrer" : undefined}
                                                         className={classNames(
                                                             "no-underline transition-colors duration-150 ease-out",
-                                                            !isPastDimmed && "hover:text-primary",
+                                                            !isPastDimmed &&
+                                                                !event.isCanceled &&
+                                                                "hover:text-primary",
                                                         )}
                                                     >
                                                         {event.title}
@@ -585,7 +596,7 @@ export const EventTimeline = ({
                                             )}
 
                                             <div className="mt-2 flex flex-wrap items-center gap-3">
-                                                {detailHref && (
+                                                {showDetailHref && (
                                                     <a
                                                         href={detailHref}
                                                         target={eventIsExternal(event) ? "_blank" : "_self"}
@@ -736,7 +747,7 @@ export const EventTimeline = ({
                                                                 >
                                                                     Paper
                                                                 </a>
-                                                                {paper.registrationHref && (
+                                                                {paper.registrationHref && !event.isCanceled && (
                                                                     <a
                                                                         href={paper.registrationHref}
                                                                         target="_blank"

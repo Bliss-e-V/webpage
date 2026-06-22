@@ -126,13 +126,16 @@ const speakersRaw = [
     ),
     new Speaker(
         new Date("2024-06-25"),
-        "[CANCELLED] Human alignment of neural network representations",
+        "Human alignment of neural network representations",
         "Lukas Muttenthaler",
         "Google DeepMind, TU Berlin",
         "https://www.meetup.com/bliss-speaker-series/events/299480178",
         "",
         "",
         googleImg,
+        "",
+        [],
+        true,
     ),
     new Speaker(
         new Date("2024-07-09"),

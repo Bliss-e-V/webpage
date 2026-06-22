@@ -97,6 +97,7 @@ export class Paper {
         public image: ImageMetadata,
         public readingDay: Date,
         public eventLink?: string,
+        public canceled: boolean = false,
     ) {
     }
 }
@@ -562,6 +563,7 @@ const papers = [
         tokenSparseAttentionImage,
         new Date("2026-06-22"),
         "https://luma.com/oqpsn3id",
+        true,
     ),
     new Paper(
         "SonicBoom: Contact Localization Using Array of Microphones",

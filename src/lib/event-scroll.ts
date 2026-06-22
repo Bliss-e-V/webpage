@@ -5,6 +5,7 @@ export type EventScrollRef = {
     date: string;
     seriesNumber?: number;
     kind?: BlissEvent["kind"];
+    isCanceled?: boolean;
 };
 
 const EVENT_PAGE_PATHS: Record<BlissEvent["kind"], string> = {
@@ -32,6 +33,7 @@ export const toEventScrollRefs = (events: BlissEvent[]): EventScrollRef[] =>
         id: event.id,
         date: event.date.toISOString(),
         kind: event.kind,
+        isCanceled: event.isCanceled,
         ...(event.seriesNumber != null ? { seriesNumber: event.seriesNumber } : {}),
     }));
 
@@ -58,7 +60,7 @@ export const resolveEventScrollTargetId = (
     const parsed = events.map((event) => ({ ...event, date: new Date(event.date) }));
 
     const next = parsed
-        .filter((event) => event.date >= startOfToday)
+        .filter((event) => event.date >= startOfToday && !event.isCanceled)
         .sort((a, b) => a.date.getTime() - b.date.getTime())[0];
 
     if (next) return next.id;
