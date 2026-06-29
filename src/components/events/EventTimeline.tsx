@@ -26,7 +26,12 @@ type EventTimelineProps = {
     planningNote?: string;
 };
 
+// Pin the timezone so the build-time (SSR) render and the client/Googlebot render
+// produce identical strings. Without it each runtime formats in its own local zone
+// (e.g. Googlebot renders in US Pacific → "Sun, Jun 28" for a Jun 29 UTC date),
+// causing a React hydration mismatch (#418) that blanked the page for Google's indexer.
 const dateFormat = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Europe/Berlin",
     weekday: "short",
     year: "numeric",
     month: "long",
@@ -34,6 +39,7 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
 });
 
 const compactDateFormat = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Europe/Berlin",
     weekday: "short",
     month: "short",
     day: "numeric",
@@ -80,8 +86,10 @@ const getToday = () => {
 };
 
 const getSemester = (date: Date): string => {
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
+    // UTC getters so the semester bucket is identical on server and client; local
+    // getMonth/getFullYear vary by runtime timezone and would also cause a mismatch.
+    const month = date.getUTCMonth() + 1;
+    const year = date.getUTCFullYear();
     const shortYear = year % 100;
 
     if (month >= 10) {

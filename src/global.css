@@ -113,17 +113,16 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Event timeline pages: compact header + hidden content until scroll position is set */
+/* Event timeline pages: compact header + instant (non-smooth) scroll to the active event.
+   Content is intentionally NOT hidden before the scroll. Hiding it behind a JS-toggled
+   class made Googlebot index a blank page: Google runs JS but the reveal was unreliable,
+   so the rendered DOM it indexed was empty. Content must always be visible to crawlers. */
 html.event-timeline-page #header {
   height: 5rem;
   transition: none !important;
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-bottom-color: var(--border);
-}
-
-html.event-timeline-scroll-pending:not(.event-timeline-scrolled) .container {
-  visibility: hidden;
 }
 
 html.event-timeline-scroll-pending {
