@@ -85,10 +85,16 @@ const eventRefs = toEventScrollRefs(events);
                         var el = document.getElementById(targetId);
                         if (el) {
                             scrollToEvent(el);
+                            window.__blissEventScrollTargetId = targetId;
                             requestAnimationFrame(function () {
                                 scrollToEvent(el);
+                                // Expand after the scroll so it animates and the position holds.
+                                var details = el.querySelector("[data-event-details]");
+                                if (details) {
+                                    details.setAttribute("data-expanded", "true");
+                                    details.setAttribute("aria-hidden", "false");
+                                }
                             });
-                            window.__blissEventScrollTargetId = targetId;
                         }
                     }
 

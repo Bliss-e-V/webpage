@@ -134,11 +134,20 @@ export const EventTimeline = ({
     currentPath,
     planningNote = "More events are being planned — stay tuned!",
 }: EventTimelineProps) => {
-    const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
-    const [renderedDetails, setRenderedDetails] = useState<string[]>([]);
+    // Open the event the inline script already picked, so React doesn't re-collapse it.
+    const [expandedEvents, setExpandedEvents] = useState<string[]>(() => {
+        if (typeof window === "undefined" || !autoScrollToNext) return [];
+        const targetId = (window as { __blissEventScrollTargetId?: string })
+            .__blissEventScrollTargetId;
+        return typeof targetId === "string" ? [targetId] : [];
+    });
     const [copiedEventId, setCopiedEventId] = useState<string | null>(null);
     const [showScrollToUpcoming, setShowScrollToUpcoming] = useState(false);
-    const didPostExpandScroll = useRef(false);
+    // Inline script already scrolled to the target — don't let React scroll again.
+    const didPostExpandScroll = useRef(
+        typeof window !== "undefined" &&
+            !!(window as { __blissEventScrollTargetId?: string }).__blissEventScrollTargetId,
+    );
     const userCollapsedEvents = useRef(new Set<string>());
     const copiedTimeoutRef = useRef<number | null>(null);
     const timelineRef = useRef<HTMLDivElement>(null);
@@ -257,14 +266,6 @@ export const EventTimeline = ({
             document.removeEventListener("bliss-header-sync", observe);
         };
     }, [autoScrollToNext, nextEvent?.id]);
-
-    useEffect(() => {
-        if (expandedEvents.length === 0) return;
-        setRenderedDetails((current) => {
-            const missing = expandedEvents.filter((id) => !current.includes(id));
-            return missing.length ? [...current, ...missing] : current;
-        });
-    }, [expandedEvents]);
 
     useEffect(
         () => () => {
@@ -399,7 +400,6 @@ export const EventTimeline = ({
                     const isNext = nextEvent?.id === event.id;
                     const isExpanded = expandedEvents.includes(event.id);
                     const isPastDimmed = isPast && !isExpanded;
-                    const isRendered = renderedDetails.includes(event.id);
                     const readingGroupPapers =
                         event.kind === "reading-group" ? event.details?.papers ?? [] : [];
                     const readingGroupSessionInfo =
@@ -665,16 +665,11 @@ export const EventTimeline = ({
 
                                     {hasPreview && (
                                         <div
-                                            className={classNames(
-                                                "grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none",
-                                                isExpanded
-                                                    ? "grid-rows-[1fr] opacity-100"
-                                                    : "grid-rows-[0fr] opacity-0",
-                                            )}
+                                            data-event-details
+                                            data-expanded={isExpanded ? "true" : "false"}
                                             aria-hidden={!isExpanded}
                                         >
                                           <div className="min-h-0 overflow-hidden">
-                                            {isRendered && (
                                             <div className="mt-3 border-t border-gray-800/70 pt-3">
                                             {event.details?.abstract && (
                                                 <div className="mb-4">
@@ -790,7 +785,6 @@ export const EventTimeline = ({
                                                 />
                                             )}
                                             </div>
-                                            )}
                                           </div>
                                         </div>
                                     )}

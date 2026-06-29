@@ -129,6 +129,27 @@ html.event-timeline-scroll-pending {
   scroll-behavior: auto;
 }
 
+/* Collapse driven by a data attribute so the inline script can expand it pre-hydration. */
+[data-event-details] {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.3s ease-out,
+    opacity 0.3s ease-out;
+}
+
+[data-event-details][data-expanded="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-event-details] {
+    transition: none;
+  }
+}
+
 .hover\:bg-li:hover {
   background-color: rgba(203, 45, 62, 0.25);
 }
