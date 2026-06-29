@@ -135,12 +135,21 @@ export const EventTimeline = ({
     const copiedTimeoutRef = useRef<number | null>(null);
     const timelineRef = useRef<HTMLDivElement>(null);
     const normalizedEvents = useMemo(() => normalizeEvents(events), [events]);
-    const today = useMemo(() => getToday(), []);
+    // `today` stays null during SSR and the first client render so the hydrated
+    // markup matches the server output; the real date is filled in after mount.
+    // Otherwise the build-time date and the visitor's date pick different "next"
+    // events, producing a hydration mismatch (React #418).
+    const [today, setToday] = useState<Date | null>(null);
+    useEffect(() => {
+        setToday(getToday());
+    }, []);
     const nextEvent = useMemo(
         () =>
-            [...normalizedEvents]
-                .filter((event) => event.date >= today && !event.isCanceled)
-                .sort((a, b) => a.date.getTime() - b.date.getTime())[0],
+            today
+                ? [...normalizedEvents]
+                      .filter((event) => event.date >= today && !event.isCanceled)
+                      .sort((a, b) => a.date.getTime() - b.date.getTime())[0]
+                : undefined,
         [normalizedEvents, today],
     );
 
@@ -163,7 +172,7 @@ export const EventTimeline = ({
     }, [normalizedEvents, showDividers]);
 
     useLayoutEffect(() => {
-        if (!autoScrollToNext || normalizedEvents.length === 0) return;
+        if (!autoScrollToNext || !today || normalizedEvents.length === 0) return;
 
         const idParam = new URLSearchParams(window.location.search).get("id");
         const targetId = resolveEventScrollTargetId(
@@ -180,7 +189,7 @@ export const EventTimeline = ({
     }, [autoScrollToNext, normalizedEvents, today]);
 
     useLayoutEffect(() => {
-        if (!autoScrollToNext || normalizedEvents.length === 0) return;
+        if (!autoScrollToNext || !today || normalizedEvents.length === 0) return;
 
         const idParam = new URLSearchParams(window.location.search).get("id");
         const targetId = resolveEventScrollTargetId(
@@ -378,7 +387,7 @@ export const EventTimeline = ({
                             </li>
                         )}
                         {section.events.map((event) => {
-                    const isPast = event.date < today;
+                    const isPast = today ? event.date < today : false;
                     const isNext = nextEvent?.id === event.id;
                     const isExpanded = expandedEvents.includes(event.id);
                     const isPastDimmed = isPast && !isExpanded;
