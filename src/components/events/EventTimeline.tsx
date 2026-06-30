@@ -134,20 +134,12 @@ export const EventTimeline = ({
     currentPath,
     planningNote = "More events are being planned — stay tuned!",
 }: EventTimelineProps) => {
-    // Open the event the inline script already picked, so React doesn't re-collapse it.
-    const [expandedEvents, setExpandedEvents] = useState<string[]>(() => {
-        if (typeof window === "undefined" || !autoScrollToNext) return [];
-        const targetId = (window as { __blissEventScrollTargetId?: string })
-            .__blissEventScrollTargetId;
-        return typeof targetId === "string" ? [targetId] : [];
-    });
+    // Start collapsed to match SSR; expanding here would diverge from the server markup.
+    const [expandedEvents, setExpandedEvents] = useState<string[]>([]);
     const [copiedEventId, setCopiedEventId] = useState<string | null>(null);
     const [showScrollToUpcoming, setShowScrollToUpcoming] = useState(false);
-    // Inline script already scrolled to the target — don't let React scroll again.
-    const didPostExpandScroll = useRef(
-        typeof window !== "undefined" &&
-            !!(window as { __blissEventScrollTargetId?: string }).__blissEventScrollTargetId,
-    );
+    // Re-pin the target after expanding grows the page, so a near-bottom "next" reaches the top.
+    const didPostExpandScroll = useRef(false);
     const userCollapsedEvents = useRef(new Set<string>());
     const copiedTimeoutRef = useRef<number | null>(null);
     const timelineRef = useRef<HTMLDivElement>(null);

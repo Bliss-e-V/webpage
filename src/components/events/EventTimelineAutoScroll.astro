@@ -84,16 +84,12 @@ const eventRefs = toEventScrollRefs(events);
                     if (targetId) {
                         var el = document.getElementById(targetId);
                         if (el) {
+                            // Scroll pre-hydration; React handles expansion to avoid a
+                            // hydration mismatch from mutating [data-expanded] here.
                             scrollToEvent(el);
                             window.__blissEventScrollTargetId = targetId;
                             requestAnimationFrame(function () {
                                 scrollToEvent(el);
-                                // Expand after the scroll so it animates and the position holds.
-                                var details = el.querySelector("[data-event-details]");
-                                if (details) {
-                                    details.setAttribute("data-expanded", "true");
-                                    details.setAttribute("aria-hidden", "false");
-                                }
                             });
                         }
                     }
