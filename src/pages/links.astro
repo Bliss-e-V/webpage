@@ -219,9 +219,7 @@ import meetupLogo from "../images/logos/meetup.png";
   /* Entry animations */
   .profile,
   .link-button {
-    opacity: 0;
-    transform: translateY(16px);
-    animation: fadeUp 0.5s ease forwards;
+    animation: fadeUp 0.5s ease backwards;
   }
 
   .profile { animation-delay: 0.1s; }
@@ -235,6 +233,10 @@ import meetupLogo from "../images/logos/meetup.png";
   .link-button:nth-child(8) { animation-delay: 0.5s; }
 
   @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
     to {
       opacity: 1;
       transform: translateY(0);
