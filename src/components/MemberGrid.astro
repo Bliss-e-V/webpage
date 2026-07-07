@@ -1,0 +1,32 @@
+---
+import type { Member } from "./data/members";
+import MemberCard from "./MemberCard.astro";
+
+interface Props {
+    members: Member[];
+    class?: string;
+}
+const { members, class: className = "" } = Astro.props;
+---
+
+<div class={`membersContainer flex flex-wrap justify-center flex-row flex-grow-0 ${className}`}>
+    {members.map((member) => <MemberCard member={member} />)}
+</div>
+
+<script>
+    function shuffleInPlace<T>(array: T[]): T[] {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Shuffle every member grid on the page once the DOM is parsed.
+    window.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".membersContainer").forEach((container) => {
+            const children = shuffleInPlace(Array.from(container.children));
+            container.replaceChildren(...children);
+        });
+    });
+</script>

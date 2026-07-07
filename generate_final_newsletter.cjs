@@ -34,9 +34,21 @@ const minifyOptions = {
     minifyJS: true,
 };
 
+// Email clients don't understand @layer (Tailwind v4 wraps everything in it), so unwrap.
+const unwrapLayers = {
+    postcssPlugin: 'unwrap-layers',
+    Once(root) {
+        let found = true;
+        while (found) {
+            found = false;
+            root.walkAtRules('layer', (at) => { found = true; at.nodes ? at.replaceWith(at.nodes) : at.remove(); });
+        }
+    },
+};
+
 async function processCSS(cssContent) {
     // Process the CSS with PostCSS
-    const result = await postcss([removeAttributeSelectors]).process(cssContent, { from: undefined });
+    const result = await postcss([unwrapLayers, removeAttributeSelectors]).process(cssContent, { from: undefined });
 
     // Save the transformed selectors for updating the HTML
     const transformedSelectors = result.root.transformedSelectors || [];
@@ -52,9 +64,10 @@ async function updateHTML(htmlContent, transformedSelectors) {
     transformedSelectors.forEach(({ original, className }) => {
         // Remove the square brackets from the original selector
         const attrSelector = original.replace(/^\[|\]$/g, '');
-        // Split the attribute and value if necessary
-        const [attrName, attrValue] = attrSelector.includes('=')
-            ? attrSelector.split('=').map((s) => s.replace(/"/g, ''))
+        // Split on the first '=' only, so values containing '=' survive
+        const eqIndex = attrSelector.indexOf('=');
+        const [attrName, attrValue] = eqIndex !== -1
+            ? [attrSelector.slice(0, eqIndex), attrSelector.slice(eqIndex + 1).replace(/"/g, '')]
             : [attrSelector, null];
 
         // Select elements with the attribute
@@ -119,28 +132,29 @@ async function inlineSVGs(htmlContent) {
 juice.juiceResources(htmlContent, juiceOptions, async (err, juicedHtml) => {
     if (err) {
         console.error(err);
+        process.exitCode = 1;
         return;
     }
 
     try {
-        // Step 1: Parse the HTML to find CSS file paths
+        // Step 1: Collect the page CSS. With `inlineStylesheets: "always"` the build
+        // emits <style> tags; older builds used external <link rel="stylesheet"> files.
+        // Read both so the attribute-selector pass has the full CSS to work with.
         const dom = new jsdom.JSDOM(htmlContent);
         const document = dom.window.document;
 
-        // Find all <link rel="stylesheet"> elements
-        const linkElements = document.querySelectorAll('link[rel="stylesheet"]');
         let cssContent = '';
 
-        for (let linkElement of linkElements) {
+        for (const styleElement of document.querySelectorAll('style')) {
+            cssContent += styleElement.textContent + '\n';
+        }
+
+        for (const linkElement of document.querySelectorAll('link[rel="stylesheet"]')) {
             const href = linkElement.getAttribute('href');
             if (href) {
-                // Resolve the CSS file path relative to the HTML file path
                 const cssFilePath = path.join(__dirname, '/.vercel/output/static/', href);
-
-                // Read the CSS file content
                 if (fs.existsSync(cssFilePath)) {
-                    const fileContent = fs.readFileSync(cssFilePath, 'utf-8');
-                    cssContent += fileContent + '\n';
+                    cssContent += fs.readFileSync(cssFilePath, 'utf-8') + '\n';
                 } else {
                     console.warn(`CSS file not found: ${cssFilePath}`);
                 }
@@ -149,6 +163,7 @@ juice.juiceResources(htmlContent, juiceOptions, async (err, juicedHtml) => {
 
         if (!cssContent) {
             console.error('No CSS content found.');
+            process.exitCode = 1;
             return;
         }
 
@@ -187,5 +202,6 @@ juice.juiceResources(htmlContent, juiceOptions, async (err, juicedHtml) => {
         console.log('SVGs inlined and output saved to', outputFilePath);
     } catch (error) {
         console.error('Error during processing:', error);
+        process.exitCode = 1;
     }
 });

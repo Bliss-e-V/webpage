@@ -30,8 +30,9 @@ import sgdImage from "../../images/posts/images/SGD.png";
 import addedGradientNoiseImage from "../../images/posts/images/Added Gradient Noise.png";
 import importanceInitializationMomentumImage from "../../images/posts/images/On the importance of initialization and momentum in deep learning.png";
 import adamOptimizerImage from "../../images/posts/images/Adam A Method for Stochastic Optimization.png";
-import strongAugmentationsImage from "../..//images/posts/images/Can We Break Free from Strong Data Augmentations in Self-Supervised Learning.png"
+import strongAugmentationsImage from "../../images/posts/images/Can We Break Free from Strong Data Augmentations in Self-Supervised Learning.png"
 import nlpIntroImage from "../../images/posts/images/NLP Introduction.png";
+import gpt3Image from "../../images/posts/images/gpt3.png";
 import illustratedTransImage from "../../images/posts/images/illustrated_trans.png";
 import chinchillaImage from "../../images/posts/images/chinchilla.png";
 import megatronImage from "../../images/posts/images/megatron.png";
@@ -342,14 +343,14 @@ const papers = [
     new Paper("Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture", ["Mahmoud Assran", "Quentin Duval", "Ishan Misra", "Piotr Bojanowski", "Pascal Vincent", "Michael Rabbat", "Yann LeCun", "Nicolas Ballas"], "https://arxiv.org/pdf/2301.08243.pdf", selfSupervisedLearningImagesImage, new Date("2024-05-21")),
     new Paper("What do Self Supervised Vision Transformers Learn?", ["Namuk Park", "Wonjae Kim", "Byeongho Heo", "Taekyung Kim", "Sangdoo Yun"], "https://arxiv.org/pdf/2305.00729.pdf", whatDoSsvtLearnImage, new Date("2024-05-21")),
     new Paper("Revealing the Dark Secrets of Masked Image Modeling", ["Zhenda Xie", "Zigang Geng", "Jingcheng Hu", "Zheng Zhang", "Han Hu", "Yue Cao"], "https://arxiv.org/abs/2205.13543", revealingDarkSecretsImage, new Date("2024-06-04")),
-    new Paper("Can We Break Free from Strong Data Augmentations in Self-Supervised Learning?", ["Shruthi Gowda1", "Elahe Arani", "Bahram Zonooz"], "https://arxiv.org/pdf/2404.09752", strongAugmentationsImage, new Date("2024-06-04")),
+    new Paper("Can We Break Free from Strong Data Augmentations in Self-Supervised Learning?", ["Shruthi Gowda", "Elahe Arani", "Bahram Zonooz"], "https://arxiv.org/pdf/2404.09752", strongAugmentationsImage, new Date("2024-06-04")),
     new Paper("Stochastic Gradient Descend", ["appliedprobability"], "https://appliedprobability.blog/2019/01/26/robbins-munro-2/", sgdImage, new Date("2024-06-18")),
     new Paper("Adding Gradient Noise Improves Learning for Very Deep Networks", ["Arvind Neelakantan", "Luke Vilnis", "Quoc V. Le", "Ilya Sutskever", "Lukasz Kaiser", "Karol Kurach", "James Martens"], "https://arxiv.org/pdf/1511.06807.pdf", addedGradientNoiseImage, new Date("2024-06-18")),
     new Paper("On the importance of initialization and momentum in deep learning", ["Ilya Sutskever", "James Martens", "George Dahl", "Geoffrey Hinton"], "https://proceedings.mlr.press/v28/sutskever13.html", importanceInitializationMomentumImage, new Date("2024-07-01")),
     new Paper("Adam: A Method for Stochastic Optimization", ["Diederik P. Kingma", "Jimmy Ba"], "https://arxiv.org/abs/1412.6980", adamOptimizerImage, new Date("2024-07-01")),
     new Paper("Natural Language Processing, Chapter 6", ["Jacob Eisenstein"], "https://cseweb.ucsd.edu/~nnakashole/teaching/eisenstein-nov18.pdf", nlpIntroImage, new Date("2024-09-21")),
     new Paper("Formal Algorithms for Transformers", ["Mary Phuong, Marcus Hutter"], "https://arxiv.org/pdf/2207.09238", illustratedTransImage, new Date("2024-09-28")),
-    new Paper("Language Models are Few-Shot Learners, Chapter 3", ["Tom B. Brown", "Benjamin Mann", "Nick Ryder", "Melanie Subbiah", "Jared Kaplan", "Prafulla Dhariwal", "Arvind Neelakantan", "Pranav Shyam", "Girish Sastry", "Amanda Askell", "Sandhini Agarwal", "Ariel Herbert-Voss", "Gretchen Krueger", "Tom Henighan", "Rewon Child", "Aditya Ramesh", "Daniel M. Ziegler", "Jeffrey Wu", "Clemens Winter", "Christopher Hesse", "Mark Chen", "Eric Sigler", "Mateusz Litwin", "Scott Gray", "Benjamin Chess", "Jack Clark", "Christopher Berner", "Sam McCandlish", "Alec Radford", "Ilya Sutskever", "Dario Amodei"], "https://arxiv.org/abs/2005.14165", doubleDQNImage, new Date("2024-10-04")),
+    new Paper("Language Models are Few-Shot Learners, Chapter 3", ["Tom B. Brown", "Benjamin Mann", "Nick Ryder", "Melanie Subbiah", "Jared Kaplan", "Prafulla Dhariwal", "Arvind Neelakantan", "Pranav Shyam", "Girish Sastry", "Amanda Askell", "Sandhini Agarwal", "Ariel Herbert-Voss", "Gretchen Krueger", "Tom Henighan", "Rewon Child", "Aditya Ramesh", "Daniel M. Ziegler", "Jeffrey Wu", "Clemens Winter", "Christopher Hesse", "Mark Chen", "Eric Sigler", "Mateusz Litwin", "Scott Gray", "Benjamin Chess", "Jack Clark", "Christopher Berner", "Sam McCandlish", "Alec Radford", "Ilya Sutskever", "Dario Amodei"], "https://arxiv.org/abs/2005.14165", gpt3Image, new Date("2024-10-04")),
     new Paper("A Formal Perspective on Byte-Pair Encoding", ["Vilém Zouhar", "Clara Meister", "Juan Luis Gastaldi", "Li Du", "Tim Vieira", "Mrinmaya Sachan", "Ryan Cotterell"], "https://arxiv.org/abs/2306.16837", bytePair, new Date("2024-10-11")),
     new Paper("Training Compute-Optimal Large Language Models", ["Jordan Hoffmann", "Sebastian Borgeaud", "Arthur Mensch", "Elena Buchatskaya", "Trevor Cai", "Eliza Rutherford", "Diego de Las Casas", "Lisa Anne Hendricks", "Johannes Welbl", "Aidan Clark", "Tom Hennigan", "Eric Noland", "Katie Millican", "George van den Driessche", "Bogdan Damoc", "Aurelia Guy", "Simon Osindero", "Karen Simonyan", "Erich Elsen", "Jack W. Rae", "Oriol Vinyals", "Laurent Sifre"], "https://arxiv.org/abs/2203.15556", chinchillaImage, new Date("2024-10-18")),
     new Paper("Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism", ["Mohammad Shoeybi", "Mostofa Patwary", "Raul Puri", "Patrick LeGresley", "Jared Casper", "Bryan Catanzaro"], "https://arxiv.org/abs/1909.08053", megatronImage, new Date("2024-10-25")),
@@ -627,4 +628,3 @@ const papersToObject = (papers: Paper[]) => {
 }
 
 export const dayToPapers = papersToObject(papers)
-export const readingGroupSections = sections

@@ -80,6 +80,3 @@ export const alumniMembers = [
     new Member("Ingimar", "Tomasson", null, null),
     new Member("Iman", "Modarressi Tehrani", null, null),
 ]
-
-// Legacy export for backward compatibility (current members only)
-export const members = currentMembers

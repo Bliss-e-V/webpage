@@ -1,13 +1,16 @@
+const parser = require('postcss-selector-parser');
+
 module.exports = () => {
     return {
         postcssPlugin: 'postcss-replace-attribute-selectors',
         Rule(rule) {
-            const parser = require('postcss-selector-parser');
-            const transformedSelectors = [];
+            // Accumulate mappings onto the root so every rule's selectors survive
+            // (assigning a fresh array per rule would keep only the last one).
+            const root = rule.root();
+            const transformedSelectors = (root.transformedSelectors ||= []);
 
             const transformSelectors = parser((selectors) => {
                 selectors.walkAttributes((attr) => {
-                    // Generate a unique class name based on the attribute selector
                     const attribute = attr.attribute;
                     const operator = attr.operator || '';
                     const value = attr.value || '';
@@ -20,17 +23,13 @@ module.exports = () => {
 
                     // Store the mapping for updating HTML elements later
                     transformedSelectors.push({
-                        original: `[${attribute}${operator ? operator : ''}${value ? `"${value}"` : ''}]`,
+                        original: `[${attribute}${operator}${value ? `"${value}"` : ''}]`,
                         className,
                     });
                 });
             });
 
             rule.selector = transformSelectors.processSync(rule.selector);
-            // Attach the transformed selectors to the rule for later use
-            rule.walkDecls((decl) => {
-                decl.root().transformedSelectors = transformedSelectors;
-            });
         },
     };
 };

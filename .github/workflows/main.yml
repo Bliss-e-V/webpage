@@ -1,8 +1,9 @@
-# .github/workflows/daily-redeploy.yml
+# .github/workflows/main.yml
 name: Daily redeploy
 on:
   schedule:
     - cron: "0 4 * * *"   # 04:00 UTC = 05:00 in Berlin today (CET)
+  workflow_dispatch: {}    # allow manual runs from the Actions tab
 jobs:
   redeploy:
     runs-on: ubuntu-latest

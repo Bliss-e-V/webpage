@@ -3,6 +3,7 @@ import type { BlissEvent } from "@components/data/events";
 import { EventMediaSlideshow } from "@components/events/EventMediaSlideshow";
 import { formatAuthorList } from "@utils/formatAuthorList";
 import {
+    getBerlinStartOfToday,
     getEventShareUrl,
     getHeaderHeight,
     getStickySemesterHeaderHeight,
@@ -79,12 +80,6 @@ const CheckIcon = ({ className }: { className?: string }) => (
     </svg>
 );
 
-const getToday = () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return today;
-};
-
 const getSemester = (date: Date): string => {
     // UTC getters so the semester bucket is identical on server and client; local
     // getMonth/getFullYear vary by runtime timezone and would also cause a mismatch.
@@ -150,7 +145,7 @@ export const EventTimeline = ({
     // events, producing a hydration mismatch (React #418).
     const [today, setToday] = useState<Date | null>(null);
     useEffect(() => {
-        setToday(getToday());
+        setToday(getBerlinStartOfToday());
     }, []);
     const nextEvent = useMemo(
         () =>
@@ -180,42 +175,32 @@ export const EventTimeline = ({
         return groups;
     }, [normalizedEvents, showDividers]);
 
-    useLayoutEffect(() => {
-        if (!autoScrollToNext || !today || normalizedEvents.length === 0) return;
-
+    // The event to auto-expand and scroll to (URL ?id= override, else the next upcoming).
+    // Computed once; both effects below react to it. `today` is null until mount, so this
+    // only reads `window` on the client.
+    const autoScrollTargetId = useMemo(() => {
+        if (!autoScrollToNext || !today || normalizedEvents.length === 0) return null;
         const idParam = new URLSearchParams(window.location.search).get("id");
-        const targetId = resolveEventScrollTargetId(
-            toEventScrollRefs(normalizedEvents),
-            idParam,
-            today,
-        );
-
-        if (!targetId || userCollapsedEvents.current.has(targetId)) return;
-
-        setExpandedEvents((current) =>
-            current.includes(targetId) ? current : [...current, targetId],
-        );
+        return resolveEventScrollTargetId(toEventScrollRefs(normalizedEvents), idParam, today);
     }, [autoScrollToNext, normalizedEvents, today]);
 
     useLayoutEffect(() => {
-        if (!autoScrollToNext || !today || normalizedEvents.length === 0) return;
-
-        const idParam = new URLSearchParams(window.location.search).get("id");
-        const targetId = resolveEventScrollTargetId(
-            toEventScrollRefs(normalizedEvents),
-            idParam,
-            today,
+        if (!autoScrollTargetId || userCollapsedEvents.current.has(autoScrollTargetId)) return;
+        setExpandedEvents((current) =>
+            current.includes(autoScrollTargetId) ? current : [...current, autoScrollTargetId],
         );
+    }, [autoScrollTargetId]);
 
+    useLayoutEffect(() => {
         if (
-            !targetId ||
+            !autoScrollTargetId ||
             didPostExpandScroll.current ||
-            !expandedEvents.includes(targetId)
+            !expandedEvents.includes(autoScrollTargetId)
         ) {
             return;
         }
 
-        const targetElement = document.getElementById(targetId);
+        const targetElement = document.getElementById(autoScrollTargetId);
         if (!targetElement) return;
 
         scrollTimelineEventIntoView(targetElement);
@@ -223,7 +208,7 @@ export const EventTimeline = ({
             scrollTimelineEventIntoView(targetElement);
             didPostExpandScroll.current = true;
         });
-    }, [autoScrollToNext, normalizedEvents, today, expandedEvents]);
+    }, [autoScrollTargetId, expandedEvents]);
 
     useEffect(() => {
         if (!autoScrollToNext || !nextEvent) {
@@ -659,7 +644,7 @@ export const EventTimeline = ({
                                         <div
                                             data-event-details
                                             data-expanded={isExpanded ? "true" : "false"}
-                                            aria-hidden={!isExpanded}
+                                            inert={!isExpanded}
                                         >
                                           <div className="min-h-0 overflow-hidden">
                                             <div className="mt-3 border-t border-gray-800/70 pt-3">
