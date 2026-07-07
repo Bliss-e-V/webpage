@@ -13,13 +13,6 @@ const eventRefs = toEventScrollRefs(events);
 {
     eventRefs.length > 0 && (
         <>
-            <noscript>
-                <style is:inline>
-                    html.event-timeline-scroll-pending .container {
-                        visibility: visible !important;
-                    }
-                </style>
-            </noscript>
             <script is:inline define:vars={{ eventRefs }}>
                 if ("scrollRestoration" in history) {
                     history.scrollRestoration = "manual";
@@ -33,8 +26,16 @@ const eventRefs = toEventScrollRefs(events);
                     if (!refs || refs.length === 0) return;
 
                     var idParam = new URLSearchParams(window.location.search).get("id");
-                    var today = new Date();
-                    today.setHours(0, 0, 0, 0);
+                    // Start of today in Europe/Berlin as UTC midnight, matching the event
+                    // dates (parsed as UTC midnight). Local midnight would misclassify
+                    // same-day events for visitors outside Berlin.
+                    var berlinYmd = new Intl.DateTimeFormat("en-CA", {
+                        timeZone: "Europe/Berlin",
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                    }).format(new Date());
+                    var today = new Date(berlinYmd + "T00:00:00Z");
 
                     var targetId = null;
                     if (idParam) {
@@ -67,7 +68,6 @@ const eventRefs = toEventScrollRefs(events);
                         targetId = next ? next.id : last ? last.id : null;
                     }
 
-                    document.documentElement.classList.add("event-timeline-scrolled");
                     document.documentElement.classList.remove("event-timeline-scroll-pending");
 
                     function getHeaderHeight() {

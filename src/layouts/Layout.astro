@@ -3,18 +3,12 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
-  article?: boolean;
-  publishDate?: string;
-  modifiedDate?: string;
   eventTimelineScroll?: boolean;
 }
 const {
   title,
   description,
   ogImage,
-  article = false,
-  publishDate,
-  modifiedDate,
   eventTimelineScroll = false,
 }: Props = Astro.props;
 
@@ -120,20 +114,6 @@ const webpageSchema = JSON.stringify({
   "about": { "@id": orgId }
 });
 
-// JSON-LD: Article (only emitted on article pages)
-const articleSchema = article && publishDate
-  ? JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": title,
-      "description": description,
-      "image": ogImageURL,
-      "datePublished": publishDate,
-      "dateModified": modifiedDate || currentDate,
-      "publisher": { "@id": orgId },
-      "mainEntityOfPage": { "@id": `${canonicalURL}#webpage` }
-    })
-  : null;
 ---
 
 <!doctype html>
@@ -153,14 +133,12 @@ const articleSchema = article && publishDate
     <meta name="generator" content={Astro.generator} />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content={article ? "article" : "website"} />
+    <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
     <meta property="og:site_name" content="BLISS Berlin" />
-    {article && publishDate && <meta property="article:published_time" content={publishDate} />}
-    {article && modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
 
     <!-- Twitter (X) -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -178,7 +156,6 @@ const articleSchema = article && publishDate
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Sitemap -->
@@ -192,9 +169,6 @@ const articleSchema = article && publishDate
 
     <!-- Structured data: WebPage -->
     <script type="application/ld+json" set:html={webpageSchema}></script>
-
-    <!-- Structured data: Article (article pages only) -->
-    {articleSchema && <script type="application/ld+json" set:html={articleSchema}></script>}
   </head>
 
   <body>
@@ -280,15 +254,6 @@ const articleSchema = article && publishDate
     margin: 0 auto;
   }
 
-  .full-width {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-  }
-
   article h1,
   article h2,
   article h3 {
@@ -355,9 +320,5 @@ const articleSchema = article && publishDate
   }
   article img {
     @apply mx-auto my-4 rounded-lg;
-  }
-
-  .excalidraw {
-    filter: invert(100%) hue-rotate(180deg);
   }
 </style>

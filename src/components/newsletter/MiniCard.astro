@@ -13,7 +13,7 @@ const { event } = Astro.props as Props;
 
 <tr class="cursor-pointer border-y-dark" onclick=`window.open("${event.url}");`>
     <td class="p-2 w-[33%]">
-      <div class="text-secondar text-nowrap">
+      <div class="text-secondary text-nowrap">
           {
             event.date.toLocaleString("en-US", {
               year: "numeric",
@@ -35,9 +35,3 @@ const { event } = Astro.props as Props;
         </div>
     </td>
 </tr>
-
-<style>
-  .group:hover {
-    background-color: rgba(203, 45, 62, 0.25);
-  }
-</style>

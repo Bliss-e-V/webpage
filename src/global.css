@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Custom utilities for Tailwind CSS v4 */
+/* Custom utilities for Tailwind CSS v4, backed by the color variables in Layout.astro's :root */
 @utility text-primary {
   color: var(--primary);
 }
@@ -15,26 +15,6 @@
 
 @utility text-accent {
   color: var(--accent);
-}
-
-@utility text-accent-dark {
-  color: var(--accent-dark);
-}
-
-@utility text-accent-light {
-  color: var(--accent-light);
-}
-
-@utility bg-primary {
-  background-color: var(--primary);
-}
-
-@utility bg-secondary {
-  background-color: var(--secondary);
-}
-
-@utility bg-tertiary {
-  background-color: var(--tertiary);
 }
 
 @utility bg-accent {
@@ -57,18 +37,6 @@
   background-color: var(--background-secondary);
 }
 
-@utility border-primary {
-  border-color: var(--primary);
-}
-
-@utility border-secondary {
-  border-color: var(--secondary);
-}
-
-@utility border-tertiary {
-  border-color: var(--tertiary);
-}
-
 @utility border-accent {
   border-color: var(--accent);
 }
@@ -85,10 +53,6 @@
   background-image: linear-gradient(to right, #cb2d3e, #ef473a);
 }
 
-@utility bg-bliss {
-  background-image: linear-gradient(to right, #552383, #88BCE9);
-}
-
 @utility bg-flinta-muted {
   background-image: linear-gradient(
     to right,
@@ -99,10 +63,6 @@
     #1f3d6b,
     #4a1f6b
   );
-}
-
-@utility shadow-accent {
-  box-shadow: 0 0 20px 5px #cb2d3e;
 }
 
 @utility shadow-accent-small {
@@ -148,17 +108,4 @@ html.event-timeline-scroll-pending {
   [data-event-details] {
     transition: none;
   }
-}
-
-.hover\:bg-li:hover {
-  background-color: rgba(203, 45, 62, 0.25);
-}
-
-.allAroundCustomShadow {
-  box-shadow: 0 0 1.5rem 1.5rem rgba(0, 0, 0, 0.7);
-}
-
-/* Cache bust - no-op rule */
-._cache-bust-2025 {
-  content: '';
 }

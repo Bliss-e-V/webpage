@@ -3,8 +3,10 @@ import { Image } from "astro:assets";
 import { Member } from "./data/members.ts";
 
 const { member } = Astro.props as { member: Member };
+const Wrapper = member.link ? "a" : "span";
 ---
 
+<Wrapper href={member.link ?? undefined}>
 <div class="flex flex-col items-center justify-center w-24 m-4">
     {member.image ? (
         typeof member.image === 'string' ? (
@@ -42,3 +44,4 @@ const { member } = Astro.props as { member: Member };
         {member.surname}
     </div>
 </div>
+</Wrapper>

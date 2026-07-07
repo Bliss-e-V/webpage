@@ -14,12 +14,6 @@ export type EventBadge = {
     href?: string;
 };
 
-export type EventLink = {
-    label: string;
-    href: string;
-    external?: boolean;
-};
-
 export type ReadingGroupPaperSummary = {
     title: string;
     authors: string[];
@@ -39,7 +33,6 @@ export type BlissEvent = {
     imageSrc?: string;
     imageAlt?: string;
     badge: EventBadge;
-    links: EventLink[];
     isCanceled: boolean;
     seriesNumber?: number;
     details?: {
@@ -74,22 +67,6 @@ const slugify = (value: string) =>
 const withoutBorderClasses = (className?: string) =>
     className?.replace(/\bborder(?:-[^\s]+)?/g, "").replace(/\s+/g, " ").trim();
 
-export const getSemester = (date: Date): string => {
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const shortYear = year % 100;
-
-    if (month >= 10) {
-        return `Winter Semester ${year}/${(shortYear + 1).toString().padStart(2, "0")}`;
-    }
-
-    if (month >= 4) {
-        return `Summer Semester ${year}`;
-    }
-
-    return `Winter Semester ${year - 1}/${shortYear.toString().padStart(2, "0")}`;
-};
-
 const createSpeakerEvents = (): BlissEvent[] =>
     speakers.map((speaker, index) => {
         const seriesNumber = index + 1;
@@ -99,7 +76,7 @@ const createSpeakerEvents = (): BlissEvent[] =>
             kind: "speaker",
             date: speaker.date,
             title: speaker.title,
-            subtitle: speaker.undefinedEvent ? undefined : `${speaker.name} - ${speaker.affiliation}`,
+            subtitle: `${speaker.name} - ${speaker.affiliation}`,
             description: speaker.abstract,
             href: speaker.url || `/speaker-series?id=${seriesNumber}`,
             externalHref: Boolean(speaker.url),
@@ -110,9 +87,6 @@ const createSpeakerEvents = (): BlissEvent[] =>
                 className: "bg-emerald-950/70 text-emerald-200",
                 href: `/speaker-series?id=${seriesNumber}`,
             },
-            links: speaker.url
-                ? [{ label: "Meetup Event", href: speaker.url, external: true }]
-                : [],
             isCanceled: speaker.canceled,
             seriesNumber,
             details: {
@@ -132,11 +106,9 @@ const createWorkshopEvents = (): BlissEvent[] =>
         kind: "workshop",
         date: workshop.date,
         title: workshop.title,
-        subtitle: workshop.undefinedEvent
-            ? undefined
-            : workshop.name
-              ? `${workshop.name} - ${workshop.affiliation}`
-              : workshop.affiliation,
+        subtitle: workshop.name
+            ? `${workshop.name} - ${workshop.affiliation}`
+            : workshop.affiliation,
         description: workshop.description,
         href: workshop.url,
         externalHref: true,
@@ -153,9 +125,6 @@ const createWorkshopEvents = (): BlissEvent[] =>
                   className: "bg-sky-950/70 text-sky-200",
                   href: `/workshops?id=${encodeURIComponent(id)}`,
               },
-        links: workshop.url
-            ? [{ label: "Registration", href: workshop.url, external: true }]
-            : [],
         isCanceled: workshop.canceled,
         };
     });
@@ -182,7 +151,6 @@ const createCommunityEvents = (): BlissEvent[] =>
                 className: "bg-indigo-950/60 text-indigo-200",
                 href: event.url,
             },
-            links: [{ label: "Join on Discord", href: event.url, external: true }],
             isCanceled: false,
         };
     });
@@ -218,12 +186,6 @@ const createReadingGroupEvents = (): BlissEvent[] =>
                 className: "bg-purple-950/70 text-purple-200",
                 href: `/reading-group?id=reading-group-${dateString}`,
             },
-            links: [
-                ...(firstRegistrationHref
-                    ? [{ label: "Registration", href: firstRegistrationHref, external: true }]
-                    : []),
-                { label: "Reading Group", href: "/reading-group" },
-            ],
             isCanceled: papers.some((paper) => paper.canceled),
             details: {
                 papers: papers.map((paper) => ({
@@ -245,9 +207,6 @@ export const getAllEvents = () =>
         ...createReadingGroupEvents(),
     ];
 
-export const sortEventsNewestFirst = (events: BlissEvent[]) =>
-    [...events].sort((a, b) => b.date.getTime() - a.date.getTime());
-
 export const sortEventsSoonestFirst = (events: BlissEvent[]) =>
     [...events].sort((a, b) => a.date.getTime() - b.date.getTime());
 
@@ -255,11 +214,6 @@ export const filterEventsByKind = (
     events: BlissEvent[],
     kind: TimelineKindFilter,
 ) => (kind === "all" ? events : events.filter((event) => event.kind === kind));
-
-export const getNextEvent = (events: BlissEvent[], today = currentDate()) =>
-    sortEventsSoonestFirst(
-        events.filter((event) => event.date >= today && !event.isCanceled),
-    )[0];
 
 export const getTimelineEvents = (kind: TimelineKindFilter = "all") =>
     sortEventsSoonestFirst(filterEventsByKind(getAllEvents(), kind));

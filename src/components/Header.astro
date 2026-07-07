@@ -95,21 +95,12 @@ const { compact = false } = Astro.props;
   }
 
   function animateHeader() {
-    if (isEventTimelinePage()) {
-      header.classList.remove("h-40");
-      header.classList.add("h-20", "backdrop-blur-md", "border-border");
-      header.classList.remove("border-transparent");
-      return;
-    }
-
-    if (window.scrollY > 0) {
-      header.classList.remove("h-40");
-      header.classList.add("h-20", "backdrop-blur-md", "border-border");
-      header.classList.remove("border-transparent");
-    } else {
-      header.classList.remove("h-20", "backdrop-blur-md", "border-border");
-      header.classList.add("h-40", "border-transparent");
-    }
+    const compact = isEventTimelinePage() || window.scrollY > 0;
+    header.classList.toggle("h-20", compact);
+    header.classList.toggle("backdrop-blur-md", compact);
+    header.classList.toggle("border-border", compact);
+    header.classList.toggle("h-40", !compact);
+    header.classList.toggle("border-transparent", !compact);
   }
 
   function setActiveLink(activeLink: HTMLElement | null) {

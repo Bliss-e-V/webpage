@@ -6,7 +6,6 @@ interface Props {
 const { title, subtitle }: Props = Astro.props;
 
 import NewsHeader from "../components/newsletter/NewsHeader.astro";
-import Footer from "../components/Footer.astro";
 import NewsFooter from "@components/newsletter/NewsFooter.astro";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
@@ -36,6 +35,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
 
 <style is:global>
+  @import "tailwindcss";
+
   :root {
     --accent: #cb2d3e;
     --accent-dark: #3c0909;
@@ -78,7 +79,4 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     padding-right: 20px;
     margin: 0 auto;
   }
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
 </style>

@@ -22,9 +22,6 @@ import huggingfaceImg from "../../images/logos/huggingface.svg";
 import stanfordImg from "../../images/logos/stanford.svg";
 
 export class Speaker {
-    public next = false
-    public past = false
-
     constructor(
         public date: Date,
         public title: string,
@@ -37,11 +34,10 @@ export class Speaker {
         public videoId: string = "",
         public images: string[] = [],
         public canceled: boolean = false,
-        public undefinedEvent: boolean = false
     ) { }
 }
 
-const speakersRaw = [
+export const speakers = [
     // === Summer Semester 2024 ===
     new Speaker(
         new Date("2024-04-16"),
@@ -622,29 +618,3 @@ const speakersRaw = [
     ),
 
 ];
-
-// --------------------------------------------------
-
-const currentDate = new Date();
-currentDate.setHours(0, 0, 0, 0);
-
-// Finding the closest event to the current date but not in the past
-const closestEvent = speakersRaw.reduce((closest, event) => {
-    // Check if this event is in the future and closer than the current closest event
-    if (event.date >= currentDate && (!closest || event.date < closest.date)) {
-        return event;
-    }
-    return closest;
-}, null as Speaker | null);
-
-if (closestEvent) {
-    closestEvent.next = true;
-}
-
-speakersRaw.forEach((event) => {
-    if (event.date < currentDate) {
-        event.past = true;
-    }
-});
-
-export const speakers = speakersRaw;

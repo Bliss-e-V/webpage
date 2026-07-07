@@ -37,15 +37,25 @@ export const toEventScrollRefs = (events: BlissEvent[]): EventScrollRef[] =>
         ...(event.seriesNumber != null ? { seriesNumber: event.seriesNumber } : {}),
     }));
 
+// Start of "today" in Europe/Berlin, expressed as UTC midnight to match how event
+// dates are parsed (`new Date("YYYY-MM-DD")` yields UTC midnight). Using the runtime's
+// local midnight instead would misclassify same-day events for visitors outside Berlin.
+export const getBerlinStartOfToday = (now = new Date()): Date => {
+    const ymd = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Europe/Berlin",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+    }).format(now);
+    return new Date(`${ymd}T00:00:00Z`);
+};
+
 export const resolveEventScrollTargetId = (
     events: EventScrollRef[],
     idParam: string | null,
-    today = new Date(),
+    startOfToday: Date = getBerlinStartOfToday(),
 ): string | null => {
     if (events.length === 0) return null;
-
-    const startOfToday = new Date(today);
-    startOfToday.setHours(0, 0, 0, 0);
 
     if (idParam) {
         const match = events.find(
@@ -69,8 +79,6 @@ export const resolveEventScrollTargetId = (
     return last.id;
 };
 
-export const EVENT_TIMELINE_SCROLLED_CLASS = "event-timeline-scrolled";
-
 export const getHeaderHeight = (): number =>
     document.getElementById("header")?.getBoundingClientRect().height ?? 0;
 
@@ -79,7 +87,7 @@ export const getStickySemesterHeaderHeight = (): number =>
         .querySelector<HTMLElement>("[data-semester-header]")
         ?.getBoundingClientRect().height ?? 0;
 
-export const getTimelineEventScrollTop = (element: HTMLElement): number => {
+const getTimelineEventScrollTop = (element: HTMLElement): number => {
     const rect = element.getBoundingClientRect();
 
     return Math.max(

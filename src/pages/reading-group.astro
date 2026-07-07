@@ -1,39 +1,21 @@
 ---
 export const prerender = true;
 
-import Layout from "../layouts/Layout.astro";
-import Breadcrumb from "@components/Breadcrumb.astro";
-import { EventTimeline } from "@components/events/EventTimeline";
-import EventTimelineAutoScroll from "@components/events/EventTimelineAutoScroll.astro";
-import { getTimelineEvents } from "@components/data/events";
+import EventPage from "@components/events/EventPage.astro";
 import { getCurrentReadingGroupSection } from "@components/data/papers";
 
-const readingGroupEvents = getTimelineEvents("reading-group");
 const currentSection = getCurrentReadingGroupSection();
 const sessionInfo = currentSection?.sessionInfo;
 ---
 
-<Layout
+<EventPage
+    kind="reading-group"
     title="AI Reading Group"
+    heading="Reading Group"
     description="Join BLISS Berlin's weekly AI reading group, where we discuss cutting-edge machine learning research papers in a collaborative environment. Takes place regularly on Mondays."
-    eventTimelineScroll={readingGroupEvents.length > 0}
+    emptyMessage="No reading group sessions scheduled. Stay tuned!"
+    currentPath="/reading-group"
 >
-    <EventTimelineAutoScroll events={readingGroupEvents}>
-    <Breadcrumb 
-        crumbs={[
-            { name: "Reading Group", href: "/reading-group" }
-        ]}
-    />
-    <h1
-        class="mt-6 sm:mt-8 text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
-    >
-        Reading Group
-    </h1>
-    <div
-        class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent ..."
-    >
-    </div>
-
     {sessionInfo && (
         <div class="mb-10 text-secondary text-md sm:text-lg">
             <div class="mb-4">
@@ -62,14 +44,4 @@ const sessionInfo = currentSection?.sessionInfo;
             )}
         </div>
     )}
-
-    <EventTimeline
-        client:load
-        events={readingGroupEvents}
-        autoScrollToNext
-        expandLabel="Details"
-        currentPath="/reading-group"
-        emptyMessage="No reading group sessions scheduled. Stay tuned!"
-    />
-    </EventTimelineAutoScroll>
-</Layout>
+</EventPage>

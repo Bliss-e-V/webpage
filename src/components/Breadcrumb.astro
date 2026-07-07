@@ -11,26 +11,19 @@ interface Props {
 const { crumbs } = Astro.props;
 const currentUrl = new URL(Astro.url.pathname, Astro.site);
 
-// Generate the JSON string manually - this approach avoids the $ issue
-const jsonLD = `
-{
+const jsonLD = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: currentUrl.origin },
+    ...crumbs.map((crumb, index) => ({
       "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "${currentUrl.origin}"
-    }${crumbs.map((crumb, index) => `
-    ,{
-      "@type": "ListItem",
-      "position": ${index + 2},
-      "name": "${crumb.name}",
-      "item": "${new URL(crumb.href, currentUrl.origin).toString()}"
-    }`).join('')}
-  ]
-}`;
+      position: index + 2,
+      name: crumb.name,
+      item: new URL(crumb.href, currentUrl.origin).toString(),
+    })),
+  ],
+});
 ---
 
 <!-- This div is completely empty, no visible elements -->

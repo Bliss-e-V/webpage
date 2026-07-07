@@ -3,17 +3,6 @@ import { Headline } from "@components/Headline";
 import Partner from "@components/Partner.astro";
 import BigButton from "./BigButton";
 
-class PartnerImg {
-    constructor(
-        public src: ImageMetadata,
-        public alt: string,
-        public url: string,
-        public whiteFilter?: boolean,
-        public wrapperClass?: string,
-    ) {}
-}
-
-// import kiezImg from "../images/logos/kiez-w.png";
 import googleImg from "../images/logos/google-white.png";
 import siliconAlleeImg from "../images/logos/silicon-allee-logo.png";
 import quantCoImg from "../images/logos/quantco.png";
@@ -23,52 +12,34 @@ import onethousandImg from "../images/logos/onethousand.png";
 import didaImg from "../images/logos/dida.png";
 import gResearchImg from "../images/logos/g-research-dark-bg.svg";
 
-
 const partners = [
-    // new PartnerImg(kiezImg, "Kiez", "https://kiez.ai/"),
-    new PartnerImg(googleImg, "Google", "https://www.google.com/"),
-    new PartnerImg(siliconAlleeImg, "Silicon Allee", "https://www.siliconallee.com/"),
-    new PartnerImg(kiParkImg, "KI Park", "https://kipark.de/"),
-    new PartnerImg(bifoldImg, "Bifold", "https://www.bifold.berlin/"),
-    new PartnerImg(quantCoImg, "QuantCo", "https://www.quantco.com/"),
-    new PartnerImg(onethousandImg, "One Thousand", "https://onethousand.ai/"),
-    new PartnerImg(didaImg, "dida", "https://dida.do/"),
-    new PartnerImg(
-        gResearchImg,
-        "G-Research",
-        "https://www.gresearch.com/",
-        undefined,
-        "h-10 md:h-16",
-    ),
+    { src: googleImg, alt: "Google", url: "https://www.google.com/" },
+    { src: siliconAlleeImg, alt: "Silicon Allee", url: "https://www.siliconallee.com/" },
+    { src: kiParkImg, alt: "KI Park", url: "https://kipark.de/" },
+    { src: bifoldImg, alt: "Bifold", url: "https://www.bifold.berlin/" },
+    { src: quantCoImg, alt: "QuantCo", url: "https://www.quantco.com/" },
+    { src: onethousandImg, alt: "One Thousand", url: "https://onethousand.ai/" },
+    { src: didaImg, alt: "dida", url: "https://dida.do/" },
+    { src: gResearchImg, alt: "G-Research", url: "https://www.gresearch.com/", wrapperClass: "h-10 md:h-16" },
 ];
 ---
 
 <div id="Partners" class="pt-32">
-    <Headline level={1}>Partners</Headline>
+    <Headline level={2}>Partners</Headline>
 
     <p class="max-w-full md:max-w-[50%] mt-4">
-        We frequenty coorperate with our partners granting them access to a
-        large community of AI talents while using the given recources to
+        We frequently cooperate with our partners granting them access to a
+        large community of AI talents while using the given resources to
         increase the quality of our events.
     </p>
 
-    <BigButton hover={true} className="mt-4">
+    <BigButton className="mt-4">
         <a class="no-underline min-w-fit" href="mailto:partners@bliss.berlin">
             Become a Partner
         </a>
     </BigButton>
 
     <div class="mt-6 flex flex-wrap align-center max-w-full md:max-w-[75%]">
-        {
-            partners.map((partner) => (
-                <Partner
-                    src={partner.src}
-                    alt={partner.alt}
-                    url={partner.url}
-                    whiteFilter={partner.whiteFilter}
-                    wrapperClass={partner.wrapperClass}
-                />
-            ))
-        }
+        {partners.map((partner) => <Partner {...partner} />)}
     </div>
 </div>

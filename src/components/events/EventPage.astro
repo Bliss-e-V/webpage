@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import { EventTimeline } from "@components/events/EventTimeline";
+import EventTimelineAutoScroll from "@components/events/EventTimelineAutoScroll.astro";
+import { getTimelineEvents, type TimelineKindFilter } from "@components/data/events";
+
+interface Props {
+    kind: TimelineKindFilter;
+    title: string;
+    heading: string;
+    description: string;
+    emptyMessage: string;
+    // Set for pages whose events link back to themselves, to suppress the self-link.
+    currentPath?: string;
+}
+
+const { kind, title, heading, description, emptyMessage, currentPath } = Astro.props;
+const events = getTimelineEvents(kind);
+---
+
+<Layout title={title} description={description} eventTimelineScroll={events.length > 0}>
+    <EventTimelineAutoScroll events={events}>
+        <Breadcrumb crumbs={[{ name: heading, href: Astro.url.pathname }]} />
+        <h1
+            class="mt-6 sm:mt-8 text-4xl sm:text-5xl text-transparent bg-clip-text bg-red-right font-bold"
+        >
+            {heading}
+        </h1>
+        <div
+            class="w-full mb-10 max-w-full border-b sm:border-b-0 h-[0px] sm:h-[1px] bg-gradient-to-r from-gray-200 to-transparent"
+        >
+        </div>
+        <slot />
+        <EventTimeline
+            client:load
+            events={events}
+            autoScrollToNext
+            expandLabel="Details"
+            currentPath={currentPath}
+            emptyMessage={emptyMessage}
+        />
+    </EventTimelineAutoScroll>
+</Layout>

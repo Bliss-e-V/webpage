@@ -2,17 +2,15 @@ import type { ReactElement } from "react";
 
 interface Props {
   id?: string;
-  hover?: boolean;
   children: ReactElement;
   className?: string;
 };
 
-export default function BigButton({ id, hover, children, className }: Props) {
+export default function BigButton({ id, children, className = "" }: Props) {
   return (
     <div
       id={id}
-      className={`tracking-wider text-primary bg-accent-dark px-4 py-2 text-2xl font-medium text-center rounded-lg no-underline text-nowrap max-w-min [&_a]:text-inherit [&_a]:no-underline ${hover ? "hover:shadow-accent-small transition-shadow" : ""
-        } ${className}`}
+      className={`tracking-wider text-primary bg-accent-dark px-4 py-2 text-2xl font-medium text-center rounded-lg no-underline text-nowrap max-w-min [&_a]:text-inherit [&_a]:no-underline hover:shadow-accent-small transition-shadow ${className}`}
     >
       {children}
     </div>
