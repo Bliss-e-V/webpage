@@ -29,6 +29,7 @@ import louis from "../../images/members/louis.png"
 import lukas from "../../images/members/lukas.png"
 import michael from "../../images/members/michael.png"
 import kimia from "../../images/members/kimia.png"
+import aydin from "../../images/members/aydin.png"
 import type { ImageMetadata } from "astro";
 
 export class Member {
@@ -61,6 +62,7 @@ export const currentMembers = [
     new Member("Lukasz", "Sztukiewicz", lukas, "https://www.linkedin.com/in/lukaszsztukiewicz"),
     new Member("Michael", "Samjatin", michael, "https://www.linkedin.com/in/michael-samjatin"),
     new Member("Kimia", "Mavaddat", kimia, "https://www.linkedin.com/in/kimia-m-144986168/"),
+    new Member("Aydin", "Sahin", aydin, "https://www.linkedin.com/in/sahin-aydin"),
 ]
 
 // Alumni members (past members)
