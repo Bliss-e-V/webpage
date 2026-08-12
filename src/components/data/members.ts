@@ -42,7 +42,7 @@ export const currentMembers = [
     new Member("Jonas", "Loos", jonas, "https://www.linkedin.com/in/jonas-loos/"),
     new Member("Joseph", "Tschörner", joseph, "https://www.linkedin.com/in/joseph-tsch%C3%B6rner-12818427a/"),
     new Member("Duc", "Hoang", duc, "https://www.linkedin.com/in/ly-duc-hoang/"),
-    new Member("Arina", "Belova", arina, "https://www.linkedin.com/in/a-belova"),
+
     new Member("Lorenz", "Hufe", lorenz, "https://www.linkedin.com/in/lorenz-hufe"),
     new Member("Tom", "Neuhäuser", tom, "https://www.linkedin.com/in/tomneuhaeuser/"),
     new Member("Marvin", "Beese", marvin, "https://www.linkedin.com/in/marvin-beese/"),
@@ -55,7 +55,7 @@ export const currentMembers = [
     new Member("Shairal", "Sharma", shairal, "https://www.linkedin.com/in/shairal-om-sharma-409590188/"),
     new Member("Anna", "Tils", anna, "https://www.linkedin.com/in/anna-tils-0759b3312/"),
     new Member("Maja", "Kosiarski", null, "https://www.linkedin.com/in/maja-kosiarski-227194297/"),
-    new Member("Carlos", "Sulbaran Fandino", carlos, "https://www.linkedin.com/in/carlos-sulbaran-fandino/"),
+
     new Member("Amr", "Ramadan", amr, null),
     new Member("Frederic", "Ndjiki-Nya", frederic, null),
     new Member("Louis", "Pfeiffer", louis, "https://www.linkedin.com/in/louis-bennet-pfeiffer"),
@@ -67,6 +67,8 @@ export const currentMembers = [
 
 // Alumni members (past members)
 export const alumniMembers = [
+    new Member("Arina", "Belova", arina, "https://www.linkedin.com/in/a-belova"),
+    new Member("Carlos", "Sulbaran Fandino", carlos, "https://www.linkedin.com/in/carlos-sulbaran-fandino/"),
     new Member("Cederic", "Aßmann", cederic, "https://www.linkedin.com/in/cederic-a%C3%9Fmann-41904322b"),
     new Member("Ardian", "Begisholli", ardian, "https://www.linkedin.com/in/ardian-begisholli-38a070304/"),
     new Member("Jan", "Tiegges", jan, "https://www.linkedin.com/in/jan-tiegges/"),
