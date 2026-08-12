@@ -561,7 +561,7 @@ export const speakers = [
         "As AI systems become integrated into every aspect of our lives, a key challenge is to ensure that they are built to empower, rather than to disempower humans. I discuss the nature of human agency, and the ways that it is enhanced or degraded by technology. I summarise recent evidence which has explored how humans are empowered or disempowered when they interact with conversational AI systems. I conclude by talking about potential technical solutions for enhancing human agency using AI.",
         "Christopher Summerfield is Professor of Cognitive Neuroscience at the University of Oxford, and a Research Director at the UK AI Security Institute. His work focuses on understanding the cognitive and neural mechanisms that underlie human learning and decision-making, and on studying the impacts of AI on society. His research bridges the fields of cognitive science, neuroscience, and artificial intelligence. He is particularly interested in how insights from human cognition can inform the development of more advanced and safer AI systems.",
         oxfordImg,
-        "",
+        "q0ltChkpoYo",
         [],
     ),
 
