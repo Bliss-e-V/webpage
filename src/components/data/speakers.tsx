@@ -574,7 +574,7 @@ export const speakers = [
         "Foundation models have transformed how we read and design biological systems, from protein structure prediction to the generation of novel sequences. But building these models is as much an engineering problem as a scientific one. This talk looks at what it takes to bring AI for biology from research into practice, and at the challenges that make science a uniquely demanding domain for machine learning. We will cover how foundation models for biology are trained and deployed at scale, why scientific data is so different from the text and images that drive mainstream AI, and where the gap between a benchmark result and a real biological discovery still lies. The aim is to show how modern AI connects to living systems, and what we need to get right for synthetic biology to fully benefit from it.",
         "Georgia Channing is the AI for Science Lead at Hugging Face, working at the intersection of machine learning and the natural sciences. She read for her Master's and PhD in computer science at the University of Oxford, with a focus on applying AI to scientific discovery. Her work has spanned a wide range of AI-for-science areas, including remote sensing, biophysics, and materials design. She now focuses on building open tools, models, and communities that make scientific research more accessible, collaborative, and reproducible.",
         huggingfaceImg,
-        "",
+        "m4EK4R3IiBU",
         [],
     ),
 
@@ -600,7 +600,7 @@ export const speakers = [
         "Interpretability with an eye toward AI safety and automated methods for understanding model behavior.",
         "Fazl Barez is a Senior Research Fellow at the University of Oxford.",
         oxfordImg,
-        "",
+        "739jopKW5Ug",
         [],
     ),
 

@@ -126,6 +126,9 @@ const createWorkshopEvents = (): BlissEvent[] =>
                   href: `/workshops?id=${encodeURIComponent(id)}`,
               },
         isCanceled: workshop.canceled,
+        details: {
+            videoId: workshop.videoId,
+        },
         };
     });
 
