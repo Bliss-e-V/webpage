@@ -6,8 +6,15 @@ interface Props {
     alt: string;
     url: string;
     wrapperClass?: string;
+    imageClass?: string;
 }
-const { src, alt, url, wrapperClass = "h-14 md:h-24" } = Astro.props as Props;
+const {
+    src,
+    alt,
+    url,
+    wrapperClass = "h-14 md:h-24",
+    imageClass = "",
+} = Astro.props as Props;
 ---
 
 <div class={`${wrapperClass} mr-20 my-4`}>
@@ -19,7 +26,7 @@ const { src, alt, url, wrapperClass = "h-14 md:h-24" } = Astro.props as Props;
             quality="low"
             decoding="async"
             loading="lazy"
-            class="h-full w-auto"
+            class={`h-full w-auto ${imageClass}`}
         />
     </a>
 </div>
