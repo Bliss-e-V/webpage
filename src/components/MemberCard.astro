@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { Member } from "./data/members.ts";
+import type { Member } from "./data/members.ts";
 
 const { member } = Astro.props as { member: Member };
 const Wrapper = member.link ? "a" : "span";
@@ -16,7 +16,7 @@ const Wrapper = member.link ? "a" : "span";
         typeof member.image === 'string' ? (
             <img
                 src={member.image}
-                alt={member.name}
+                alt=""
                 width={200}
                 height={200}
                 loading="lazy"
@@ -26,7 +26,7 @@ const Wrapper = member.link ? "a" : "span";
         ) : (
             <Image
                 src={member.image}
-                alt={member.name}
+                alt=""
                 quality="mid"
                 width={200}
                 height={200}
@@ -37,7 +37,7 @@ const Wrapper = member.link ? "a" : "span";
         )
     ) : (
         <div class="rounded-full h-24 w-24 shadow-inner bg-neutral-900 flex items-center justify-center">
-            <span class="text-white text-2xl font-bold select-none">
+            <span aria-hidden="true" class="text-white text-2xl font-bold select-none">
                 {member.name.charAt(0)}{member.surname.charAt(0)}
             </span>
         </div>

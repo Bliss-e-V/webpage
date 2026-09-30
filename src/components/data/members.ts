@@ -30,6 +30,9 @@ import lukas from "../../images/members/lukas.png"
 import michael from "../../images/members/michael.png"
 import kimia from "../../images/members/kimia.png"
 import aydin from "../../images/members/aydin.png"
+import ecem from "../../images/members/ecem-cutout.png"
+import david from "../../images/members/david-cutout.png"
+import camilla from "../../images/members/camilla-cutout.png"
 import type { ImageMetadata } from "astro";
 
 export class Member {
@@ -52,8 +55,6 @@ export const currentMembers = [
     new Member("Omar", "Sherif", omar, null),
     new Member("Chyngyz", "Kojonazarov", chyngyz, "https://www.linkedin.com/in/chyngyz-kojonazarov-87821b219/"),
     new Member("Nina", "Zukowska", nina, "https://www.linkedin.com/in/nina-zukowska/"),
-    new Member("Shairal", "Sharma", shairal, "https://www.linkedin.com/in/shairal-om-sharma-409590188/"),
-    new Member("Anna", "Tils", anna, "https://www.linkedin.com/in/anna-tils-0759b3312/"),
     new Member("Maja", "Kosiarski", null, "https://www.linkedin.com/in/maja-kosiarski-227194297/"),
 
     new Member("Amr", "Ramadan", amr, null),
@@ -63,10 +64,18 @@ export const currentMembers = [
     new Member("Michael", "Samjatin", michael, "https://www.linkedin.com/in/michael-samjatin"),
     new Member("Kimia", "Mavaddat", kimia, "https://www.linkedin.com/in/kimia-m-144986168/"),
     new Member("Aydin", "Sahin", aydin, "https://www.linkedin.com/in/sahin-aydin"),
+    new Member("Ecem", "Özdemir", ecem, "https://www.linkedin.com/in/ecem-%C3%B6zdemir-590a37201/"),
+    new Member("David", "Schulte", david, "https://www.linkedin.com/in/davidsiriusschulte/"),
+    new Member("Camilla", "Deckard", camilla, "https://www.linkedin.com/in/camilla-deckard-5047443a7/"),
+    new Member("Craig", "Dickson", null, "https://www.linkedin.com/in/dicksoncraig/"),
+    new Member("Punit", "Thakkar", null, null),
+    new Member("Xiangyu", "Xie", null, "https://www.linkedin.com/in/xiangyu-xie-85807a390/"),
 ]
 
 // Alumni members (past members)
 export const alumniMembers = [
+    new Member("Shairal", "Sharma", shairal, "https://www.linkedin.com/in/shairal-om-sharma-409590188/"),
+    new Member("Anna", "Tils", anna, "https://www.linkedin.com/in/anna-tils-0759b3312/"),
     new Member("Arina", "Belova", arina, "https://www.linkedin.com/in/a-belova"),
     new Member("Carlos", "Sulbaran Fandino", carlos, "https://www.linkedin.com/in/carlos-sulbaran-fandino/"),
     new Member("Cederic", "Aßmann", cederic, "https://www.linkedin.com/in/cederic-a%C3%9Fmann-41904322b"),

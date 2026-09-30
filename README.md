@@ -32,6 +32,10 @@ The project is built with [Astro](https://astro.build) and follows a minimal set
 
 Event content (speakers, workshops, reading-group papers, community events) lives in `src/components/data/` and is rendered into a shared timeline via `src/components/events/`. There is no blog.
 
+## Updating team content
+
+- Active members and alumni share `src/components/data/members.ts`; portraits live in `src/images/members/`. Update verified names there to change both the homepage and team page. Keep the German and English board lists in `impressum.astro` and `imprint.astro` in sync.
+
 ## 🧞 Local Development
 
 Requires [Node.js](https://nodejs.org) 22.x (see `engines` in `package.json`). The project uses **yarn** (a `yarn.lock` is committed and used by Vercel).
