@@ -37,6 +37,8 @@ import enise from "../../images/members/enise.png"
 import niruta from "../../images/members/niruta.png"
 import punit from "../../images/members/punit.png"
 import eduard from "../../images/members/eduard.png"
+import simla from "../../images/members/simla.png"
+import craig from "../../images/members/craig.png"
 import type { ImageMetadata } from "astro";
 
 export class Member {
@@ -71,12 +73,13 @@ export const currentMembers = [
     new Member("Ecem", "Özdemir", ecem, "https://www.linkedin.com/in/ecem-%C3%B6zdemir-590a37201/"),
     new Member("David", "Schulte", david, "https://www.linkedin.com/in/davidsiriusschulte/"),
     new Member("Camilla", "Deckard", camilla, "https://www.linkedin.com/in/camilla-deckard-5047443a7/"),
-    new Member("Craig", "Dickson", null, "https://www.linkedin.com/in/dicksoncraig/"),
+    new Member("Craig", "Dickson", craig, "https://www.linkedin.com/in/dicksoncraig/"),
     new Member("Punit", "Thakkar", punit, "https://www.linkedin.com/in/punitvthakkar/"),
     new Member("Xiangyu", "Xie", null, "https://www.linkedin.com/in/xiangyu-xie-85807a390/"),
     new Member("Enise İrem", "ÇOLAK", enise, "https://www.linkedin.com/in/eniseirem/"),
     new Member("Niruta", "Chapagain", niruta, "https://www.linkedin.com/in/niruta-chapagain1/"),
     new Member("Eduard", "Hübner", eduard, "https://www.linkedin.com/in/eduard-h%C3%BCbner-9b3400154/"),
+    new Member("Simla", "U.", simla, "https://www.linkedin.com/in/simla-u-a44b7a185/"),
 ]
 
 // Alumni members (past members)
