@@ -1,0 +1,35 @@
+---
+// Temporary: homepage copies with each news teaser variant. Remove after a variant is chosen.
+import Layout from "../../layouts/Layout.astro";
+import BackgroundAnimation from "../../components/BackgroundAnimation.astro";
+import Landing from "../../components/Landing.astro";
+import AboutUs from "@components/AboutUs.astro";
+import Events from "@components/EventsSection.astro";
+import Teaser from "@components/TeaserSection.astro";
+import Arrow from "@components/Arrow.astro";
+import Partners from "@components/Partners.astro";
+import Members from "@components/Members.astro";
+import NewsTeaserA from "@components/news/NewsTeaserA.astro";
+import NewsTeaserB from "@components/news/NewsTeaserB.astro";
+import NewsTeaserC from "@components/news/NewsTeaserC.astro";
+
+export function getStaticPaths() {
+  return ["a", "b", "c"].map((variant) => ({ params: { variant } }));
+}
+
+const NewsTeaser = { a: NewsTeaserA, b: NewsTeaserB, c: NewsTeaserC }[Astro.params.variant as "a" | "b" | "c"];
+---
+
+<Layout title={`Homepage preview ${Astro.params.variant?.toUpperCase()}`} description="Homepage preview with news teaser." noindex>
+  <main>
+    <BackgroundAnimation />
+    <Landing />
+    <Events />
+    <NewsTeaser />
+    <Teaser />
+    <AboutUs />
+    <Members />
+    <Partners />
+    <Arrow />
+  </main>
+</Layout>

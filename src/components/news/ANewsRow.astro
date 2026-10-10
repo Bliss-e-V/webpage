@@ -1,0 +1,46 @@
+---
+import { hasPage, newsHref, formatNewsDate, type NewsEntry } from "./news";
+
+interface Props {
+    entry: NewsEntry;
+    // Compact: date inline with the category, summary only on desktop (homepage teaser).
+    compact?: boolean;
+}
+
+const { entry, compact = false } = Astro.props;
+const { title, date, summary, category } = entry.data;
+const external = !hasPage(entry);
+---
+
+<li data-category={category} class="group relative">
+    <div
+        class:list={[
+            "-mx-3 rounded-lg px-3 transition-colors duration-200 group-hover:bg-neutral-900/45 group-focus-within:bg-neutral-900/45",
+            compact ? "py-3" : "grid gap-x-8 gap-y-1 py-5 sm:grid-cols-[10rem_1fr]",
+        ]}
+    >
+        {!compact && <time datetime={date.toISOString()} class="text-sm text-gray-400 sm:pt-0.5">{formatNewsDate(date)}</time>}
+        <div class="min-w-0">
+            <p class="flex flex-wrap items-center gap-x-2 text-xs font-semibold uppercase tracking-[0.18em]">
+                {compact && (
+                    <>
+                        <time datetime={date.toISOString()} class="normal-case tracking-normal font-normal text-gray-400">{formatNewsDate(date)}</time>
+                        <span class="text-tertiary" aria-hidden="true">·</span>
+                    </>
+                )}
+                <span class="text-accent">{category}</span>
+            </p>
+            <h3 class:list={["mt-1 font-semibold leading-snug text-primary", compact ? "text-lg" : "text-lg sm:text-xl"]}>
+                <a
+                    href={newsHref(entry)}
+                    class="focus-visible:outline-none after:absolute after:inset-0 after:content-['']"
+                    {...(external && { target: "_blank", rel: "noopener" })}
+                >
+                    {title}
+                </a>
+                {external && <span class="ml-1 whitespace-nowrap text-xs font-normal text-tertiary">LinkedIn ↗</span>}
+            </h3>
+            <p class:list={["mt-1 font-light text-secondary", compact ? "max-sm:hidden line-clamp-2" : "line-clamp-3"]}>{summary}</p>
+        </div>
+    </div>
+</li>

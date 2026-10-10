@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import type { NewsEntry } from "./news";
+
+interface Props {
+    entry: NewsEntry;
+    sizes: string;
+    eager?: boolean;
+}
+
+const { entry, sizes, eager = false } = Astro.props;
+const { image, imageAlt } = entry.data;
+// Items without image get a dark panel with red glow and the logo.
+---
+
+<div class="relative aspect-video overflow-hidden bg-background-secondary">
+    {
+        image ? (
+            <Image
+                src={image}
+                alt={imageAlt ?? ""}
+                widths={[400, 640, 960, 1280]}
+                sizes={sizes}
+                loading={eager ? "eager" : "lazy"}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+        ) : (
+            <div class="absolute inset-0 transition-transform duration-500 group-hover:scale-105" aria-hidden="true">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_85%_0%,rgba(203,45,62,0.45),transparent_60%),radial-gradient(ellipse_at_0%_100%,rgba(239,71,58,0.18),transparent_55%)]" />
+                <div class="absolute inset-0 opacity-[0.07] bg-[linear-gradient(var(--primary)_1px,transparent_1px),linear-gradient(90deg,var(--primary)_1px,transparent_1px)] bg-[size:32px_32px]" />
+                <img src="/assets/bliss-logo.webp" alt="" class="absolute left-1/2 top-1/2 w-1/5 max-w-28 -translate-x-1/2 -translate-y-1/2 opacity-90" loading="lazy" />
+            </div>
+        )
+    }
+</div>

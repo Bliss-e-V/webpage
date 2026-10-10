@@ -1,0 +1,52 @@
+---
+import { Image, getImage } from "astro:assets";
+import { render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import { getNews, hasPage, formatNewsDate, type NewsEntry } from "@components/news/news";
+
+export async function getStaticPaths() {
+    return (await getNews()).filter(hasPage).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: NewsEntry };
+const { title, date, summary, category, image, imageAlt, linkedin } = entry.data;
+const { Content } = await render(entry);
+const ogImage = image ? (await getImage({ src: image, width: 1200 })).src : undefined;
+
+const articleSchema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: title,
+    description: summary,
+    datePublished: date.toISOString(),
+    ...(ogImage && { image: new URL(ogImage, Astro.site).href }),
+    publisher: { "@id": `${new URL("/", Astro.site).origin}/#organization` },
+});
+---
+
+<Layout title={title} description={summary} ogImage={ogImage}>
+    <script slot="head" type="application/ld+json" set:html={articleSchema} />
+    <Breadcrumb crumbs={[{ name: "News", href: "/news-preview" }, { name: title, href: Astro.url.pathname }]} />
+    <article class="max-w-3xl mx-auto mt-6 sm:mt-8">
+        <a href="/news-preview" class="text-sm !text-tertiary hover:!text-primary transition-colors">← All news</a>
+        <p class="mt-6 text-sm tracking-wider uppercase text-tertiary">
+            <time datetime={date.toISOString()}>{formatNewsDate(date)}</time>
+            <span class="mx-2">·</span>
+            <span class="text-accent">{category}</span>
+        </p>
+        <h1 class="mt-2 font-bold !text-transparent bg-clip-text bg-red-right pb-2">{title}</h1>
+        <p class="!text-primary !text-xl sm:!text-2xl !text-left">{summary}</p>
+        {image && <Image src={image} alt={imageAlt ?? ""} widths={[640, 960, 1280]} sizes="(min-width: 768px) 768px, 100vw" class="w-full !my-8" />}
+        <div class="mt-6 [&_img]:max-h-[36rem] [&_img]:w-auto">
+            <Content />
+        </div>
+        {
+            linkedin && (
+                <p class="!mt-10">
+                    <a href={linkedin} target="_blank" rel="noopener">Discuss this on LinkedIn →</a>
+                </p>
+            )
+        }
+    </article>
+</Layout>
