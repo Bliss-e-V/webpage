@@ -1,6 +1,6 @@
 ---
 title: "Speaker Series Winter 2025/26: a look back"
-date: 2026-02-20
+date: 2026-02-17
 category: Event Recap
 summary: Eight talks, full lecture halls and many good discussions. Thank you to our speakers from Google DeepMind, Cohere, ETH Zurich, King's College London and more.
 image: ./cover.jpeg

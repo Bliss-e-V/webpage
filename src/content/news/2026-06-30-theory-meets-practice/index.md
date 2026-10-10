@@ -1,8 +1,10 @@
 ---
 title: "Theory Meets Practice: five workshops with dida"
-date: 2026-06-25
+date: 2026-06-30
 category: Event Recap
 summary: Together with dida, we ran five hands-on workshops this year – from explainable AI for LLMs to AI for precision medicine.
+image: ./cover.jpg
+imageAlt: Participants with laptops at the fifth Theory Meets Practice workshop
 ---
 
 In our workshop series *Theory Meets Practice*, researchers and engineers from [dida](https://dida.do/) and their partners showed how current AI research is used in real products.
