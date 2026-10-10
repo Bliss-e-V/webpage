@@ -1,10 +1,9 @@
 ---
 title: "Speaker Series Summer 2026: a look back"
-date: 2026-07-20
+date: 2026-07-24
 category: Event Recap
-summary: Seven talks, from scaling LLM training to neural digital twins. Thank you to all speakers and to everyone who joined us this semester.
-image: ./cover.jpeg
-imageAlt: Audience in a lecture hall during a BLISS talk
+summary: Seven talks, from scaling LLM training to neural digital twins. Sophia Sanborn (Stanford University) closed the series. Thank you to all speakers and to everyone who joined us this semester.
+linkedin: https://www.linkedin.com/posts/bliss-berlin_blissberlin-aispeakerseries-machinelearning-activity-7486299195599998976-5Im1
 ---
 
 Our Speaker Series in the summer semester 2026 had seven talks with guests from Hugging Face, Cohere Labs, the University of Oxford, ETH Zürich and Stanford University.
