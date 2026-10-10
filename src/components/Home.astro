@@ -1,0 +1,29 @@
+---
+import BackgroundAnimation from "./BackgroundAnimation.astro";
+import Landing from "./Landing.astro";
+import AboutUs from "./AboutUs.astro";
+import Events from "./EventsSection.astro";
+import Teaser from "./TeaserSection.astro";
+import Arrow from "./Arrow.astro";
+import Partners from "./Partners.astro";
+import Members from "./Members.astro";
+import FeaturedNews from "./news/FeaturedNews.astro";
+import type { NewsEntry, NewsVariant } from "../lib/news";
+interface Props {
+  entries?: NewsEntry[];
+  variant?: NewsVariant;
+  newsHref?: string;
+}
+---
+
+<main>
+  <BackgroundAnimation />
+  <Landing />
+  <Events />
+  <FeaturedNews {...Astro.props} />
+  <Teaser />
+  <AboutUs />
+  <Members />
+  <Partners />
+  <Arrow />
+</main>

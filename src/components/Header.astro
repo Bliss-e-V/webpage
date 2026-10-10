@@ -1,9 +1,10 @@
 ---
 interface Props {
   compact?: boolean;
+  newsHref?: string;
 }
 
-const { compact = false } = Astro.props;
+const { compact = false, newsHref = "/news" } = Astro.props;
 ---
 
 <div
@@ -31,7 +32,7 @@ const { compact = false } = Astro.props;
         </picture>
       </a>
     </div>
-    <div id="menu" class="flex items-center space-x-3 md:space-x-7 pl-2 md:pl-0">
+    <div id="menu" class="flex items-center space-x-2 sm:space-x-3 md:space-x-7 pl-2 md:pl-0">
       <a
         id="speakerSeriesLink"
         href="/speaker-series"
@@ -53,7 +54,9 @@ const { compact = false } = Astro.props;
       >
         <p class="text-center text-xs sm:text-base">Workshops</p>
       </a>
-
+      <a id="newsLink" href={newsHref} class="tracking-wider no-underline text-secondary hover:text-primary transition-colors">
+        <p class="text-center text-xs sm:text-base">News</p>
+      </a>
     </div>
   </div>
 </div>
@@ -87,8 +90,9 @@ const { compact = false } = Astro.props;
   const speakerSeriesLink: HTMLElement = document.getElementById("speakerSeriesLink")!;
   const readingGroupLink: HTMLElement = document.getElementById("readingGroupLink")!;
   const workshopsLink: HTMLElement = document.getElementById("workshopsLink")!;
+  const newsLink: HTMLElement = document.getElementById("newsLink")!;
 
-  const allLinks: HTMLElement[] = [speakerSeriesLink, readingGroupLink, workshopsLink];
+  const allLinks: HTMLElement[] = [speakerSeriesLink, readingGroupLink, workshopsLink, newsLink];
 
   function isEventTimelinePage() {
     return document.documentElement.classList.contains("event-timeline-page");
@@ -120,6 +124,7 @@ const { compact = false } = Astro.props;
       "/speaker-series": speakerSeriesLink,
       "/reading-group": readingGroupLink,
       "/workshops": workshopsLink,
+      "/news": newsLink,
     };
 
     setActiveLink(linkMap[window.location.pathname] ?? null);

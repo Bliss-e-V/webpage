@@ -1,0 +1,97 @@
+---
+import { newsOptions, newsVariants, type NewsVariant } from "../../lib/news";
+interface Props {
+  variant: NewsVariant;
+  home?: boolean;
+}
+const { variant, home = false } = Astro.props;
+---
+
+<aside class="preview-bar" aria-label="Design comparison">
+  <div>
+    <a href="/news-preview">← Compare</a><span class="preview-label"
+      >Design preview</span>
+  </div>
+  <nav aria-label="News design">
+    {
+      newsVariants.map((option) => (
+        <a
+          href={`/news-preview/${option}${home ? "/home#news" : ""}`}
+          aria-current={option === variant ? "page" : undefined}
+        >
+          {newsOptions[option].label} {newsOptions[option].name}
+        </a>
+      ))
+    }
+  </nav>
+  <a
+    class="preview-context"
+    href={`/news-preview/${variant}${home ? "" : "/home#news"}`}
+    >{home ? "View news page ↗" : "View on homepage ↗"}</a
+  >
+  <p>Review only · Sample copy and dates, not approved announcements.</p>
+</aside>
+
+<style>
+  .preview-bar {
+    position: relative;
+    z-index: 2;
+    background: #151518;
+    border: 1px solid #35353a;
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+    font-size: 12px;
+  }
+  .preview-bar > div {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+  .preview-label {
+    color: #a8a8b0;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  nav a {
+    border: 1px solid #393940;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: #aaaab3;
+  }
+  nav a[aria-current] {
+    color: white;
+    border-color: #e15c64;
+    background: #35171c;
+  }
+  .preview-context {
+    margin-left: auto;
+  }
+  p {
+    flex-basis: 100%;
+    color: #b0a5a7;
+    font-size: 11px;
+  }
+  a:focus-visible {
+    outline: 2px solid #f16367;
+    outline-offset: 4px;
+  }
+  @media (max-width: 700px) {
+    .preview-bar {
+      margin-top: 10px;
+      padding: 14px;
+    }
+    .preview-context {
+      margin-left: 0;
+    }
+  }
+</style>

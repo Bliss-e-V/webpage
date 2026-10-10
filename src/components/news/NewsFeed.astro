@@ -1,0 +1,141 @@
+---
+import NewsCard from "./NewsCard.astro";
+import { featuredNews, type NewsEntry, type NewsVariant } from "../../lib/news";
+import "./news.css";
+interface Props {
+  entries: NewsEntry[];
+  variant?: NewsVariant;
+}
+const { entries, variant = "feed" } = Astro.props;
+const lead = featuredNews(entries, 1)[0];
+const ordered =
+  variant === "spotlight" && lead
+    ? [lead, ...entries.filter((entry) => entry.id !== lead.id)]
+    : entries;
+const categories = [
+  ...new Set(entries.map((entry) => entry.data.category)),
+].sort();
+const years = [
+  ...new Set(entries.map((entry) => entry.data.date.getUTCFullYear())),
+].sort((a, b) => b - a);
+---
+
+<section
+  class={`news-surface news-${variant}`}
+  data-news-feed
+  aria-label="News updates"
+>
+  {
+    entries.length > 0 && (
+      <form class="news-tools" role="search" hidden>
+        <label class="news-search">
+          Search updates
+          <input type="search" name="search" placeholder="Search the news…" />
+        </label>
+        <label>
+          Topic
+          <select name="category">
+            <option value="">All topics</option>
+            {categories.map((category) => (
+              <option>{category}</option>
+            ))}
+          </select>
+        </label>
+        {variant === "newsroom" && (
+          <label>
+            Year
+            <select name="year">
+              <option value="">All years</option>
+              {years.map((year) => (
+                <option>{year}</option>
+              ))}
+            </select>
+          </label>
+        )}
+        <button type="reset" class="news-reset">
+          Reset
+        </button>
+      </form>
+    )
+  }
+  <div class="news-result-line">
+    <span
+      >{
+        variant === "spotlight"
+          ? "In the spotlight & latest updates"
+          : "Latest updates"
+      }</span
+    ><span data-news-count role="status" aria-live="polite"
+      >{entries.length} {entries.length === 1 ? "update" : "updates"}</span>
+  </div>
+  <div class="news-entries">
+    {
+      ordered.map((entry) => (
+        <NewsCard entry={entry} expanded={variant === "feed"} />
+      ))
+    }
+  </div>
+  <p class="news-empty" data-news-empty hidden={entries.length > 0}>
+    {
+      entries.length
+        ? "No updates match these filters. Try another topic or reset your search."
+        : "Our next chapter is on its way. Check back soon for news from BLISS."
+    }
+  </p>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-news-feed]").forEach((feed) => {
+    const form = feed.querySelector<HTMLFormElement>("form");
+    const entries = [
+      ...feed.querySelectorAll<HTMLElement>("[data-news-entry]"),
+    ];
+    const search = form?.querySelector<HTMLInputElement>("[name=search]");
+    const category = form?.querySelector<HTMLSelectElement>("[name=category]");
+    const year = form?.querySelector<HTMLSelectElement>("[name=year]");
+    function filter() {
+      let count = 0;
+      const query = search?.value.trim().toLowerCase() ?? "";
+      entries.forEach((entry) => {
+        entry.hidden = !(
+          (!query || entry.dataset.search?.includes(query)) &&
+          (!category?.value || entry.dataset.category === category.value) &&
+          (!year?.value || entry.dataset.year === year.value)
+        );
+        if (!entry.hidden) count++;
+      });
+      feed.querySelector<HTMLElement>("[data-news-count]")!.textContent =
+        `${count} ${count === 1 ? "update" : "updates"}`;
+      feed.querySelector<HTMLElement>("[data-news-empty]")!.hidden = count > 0;
+      feed.classList.toggle(
+        "is-filtered",
+        !!(query || category?.value || year?.value),
+      );
+    }
+    if (form) {
+      form.hidden = false;
+      form.addEventListener("submit", (event) => event.preventDefault());
+      form.addEventListener("input", filter);
+      form.addEventListener("reset", () => setTimeout(filter, 0));
+    }
+    function openLinkedUpdate() {
+      let id: string;
+      try {
+        id = decodeURIComponent(location.hash.slice(1));
+      } catch {
+        return;
+      }
+      const entry = entries.find((entry) => entry.id === id);
+      if (!entry) return;
+      if (entry.hidden) {
+        form?.reset();
+        filter();
+      }
+      const details = entry.querySelector("details");
+      if (details) details.open = true;
+      entry.scrollIntoView({ behavior: "instant", block: "start" });
+    }
+    window.addEventListener("hashchange", openLinkedUpdate);
+    openLinkedUpdate();
+  });
+</script>

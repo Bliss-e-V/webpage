@@ -32,6 +32,37 @@ The project is built with [Astro](https://astro.build) and follows a minimal set
 
 Event content (speakers, workshops, reading-group papers, community events) lives in `src/components/data/` and is rendered into a shared timeline via `src/components/events/`. There is no blog.
 
+## News and design review
+
+Run `yarn dev` and open <http://localhost:4321/news-preview> to compare three working designs: **feed** (short updates), **newsroom** (searchable archive), and **spotlight** (featured story and visual cards). Each includes the same draft content and a preview of the actual homepage with its matching news section. The comparison page also shows all three homepage sections together.
+
+Review pages are available in development only, unless explicitly built with `NEWS_PREVIEW=true yarn build`. They carry `noindex` and are excluded from the sitemap. Do not enable that flag for production. The five supplied entries are illustrative drafts, including dates and proposed wording; review them before publishing.
+
+The public `/news` page currently uses the feed design. The homepage automatically shows up to three updates, prioritizing entries marked `featured`, then filling with the latest entries. With no published entries, the homepage news section is omitted and `/news` shows an empty state. Once a design is chosen, set the same `variant` on `NewsFeed` in `src/pages/news.astro` and `Home` in `src/pages/index.astro`; the options are `feed`, `newsroom`, and `spotlight`.
+
+### Add an update
+
+1. Create a uniquely named `.md` file in `src/content/news/`, using the example below. Contributors can do this with GitHub's **Add file → Create new file** and propose a pull request directly in the browser.
+2. Write a short summary and, optionally, a few paragraphs of Markdown underneath. Images are optional. For an image, add it under `src/images/news/`, set `image` to its relative path from the Markdown file, and provide `imageAlt`. Astro creates optimized images automatically.
+3. Keep `draft: true` until the wording, date and any image permissions have been checked. Set it to `false` in the publishing PR. Multiple contributors can submit updates independently; a reviewer approves and merges them.
+4. Run `yarn build` before merging. Invalid metadata or missing image alt text fails the build. Merging deploys through the existing workflow.
+
+```markdown
+---
+title: "A short announcement title"
+date: 2026-10-10
+category: Community
+summary: "One or two sentences with the actual news."
+featured: false
+draft: true
+# image: ../../images/news/example.jpg
+# imageAlt: "Describe the people or scene in the image"
+---
+Optional extra detail, with a [useful link](https://bliss.berlin/join).
+```
+
+Categories: `Partnerships`, `Community`, `Events`, `Society`. Dates are interpreted in UTC; future-dated entries are excluded until a build on or after that date (the existing daily redeploy refreshes this). File names become stable link anchors, e.g. `/news#jane-street`; do not rename published files without considering incoming links. Updates render as HTML and remain readable without JavaScript; JavaScript only enhances search, filtering and opening linked updates. There is no social-media dependency, CMS subscription, or separate article-writing requirement.
+
 ## Updating team content
 
 - Active members and alumni share `src/components/data/members.ts`; portraits live in `src/images/members/`. Update verified names there to change both the homepage and team page. Keep the German and English board lists in `impressum.astro` and `imprint.astro` in sync.

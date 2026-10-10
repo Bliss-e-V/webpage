@@ -1,0 +1,316 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Home from "../../components/Home.astro";
+import NewsFeed from "../../components/news/NewsFeed.astro";
+import FeaturedNews from "../../components/news/FeaturedNews.astro";
+import PreviewBar from "../../components/news/PreviewBar.astro";
+import {
+  getNews,
+  newsOptions,
+  newsVariants,
+  type NewsVariant,
+} from "../../lib/news";
+
+export function getStaticPaths() {
+  if (!import.meta.env.DEV && process.env.NEWS_PREVIEW !== "true") return [];
+  return [
+    { params: { path: undefined }, props: { variant: undefined, home: false } },
+    ...newsVariants.flatMap((variant) => [
+      { params: { path: variant }, props: { variant, home: false } },
+      { params: { path: `${variant}/home` }, props: { variant, home: true } },
+    ]),
+  ];
+}
+interface Props {
+  variant?: NewsVariant;
+  home: boolean;
+}
+const { variant, home } = Astro.props;
+const entries = await getNews(true);
+const newsHref = `/news-preview/${variant ?? "feed"}`;
+---
+
+<Layout
+  title={variant
+    ? `${newsOptions[variant].name} — design preview`
+    : "Compare news designs"}
+  description="Three directions for news at BLISS. Review previews with illustrative draft content."
+  noindex
+  newsHref={newsHref}
+>
+  {
+    variant ? (
+      <>
+        {!home && <PreviewBar variant={variant} />}
+        {home ? (
+          <>
+            <Home entries={entries} variant={variant} newsHref={newsHref} />
+            <div class="home-preview-bar">
+              <PreviewBar variant={variant} home />
+            </div>
+          </>
+        ) : (
+          <main class="news-surface">
+            <header class="news-intro">
+              <p class="news-eyebrow">The BLISS community</p>
+              <h1>
+                Inside BLISS<span>.</span>
+              </h1>
+              <p>
+                New connections. Shared ideas. Small moments that move our
+                community forward. Here's what we've been up to.
+              </p>
+            </header>
+            <NewsFeed entries={entries} variant={variant} />
+          </main>
+        )}
+      </>
+    ) : (
+      <main class="news-surface comparison">
+        <header class="news-intro">
+          <>
+            <p class="news-eyebrow">BLISS / Design review</p>
+            <h1>
+              One community.
+              <br />
+              Three ways to share<span>.</span>
+            </h1>
+            <p>
+              A home for the things happening at BLISS. Compare three working
+              news pages and their matching homepage sections.
+            </p>
+          </>
+        </header>
+        <div class="review-note">
+          <strong>Same content. Different emphasis.</strong> All options use the
+          same five draft updates. Copy and publication dates are illustrative
+          and need approval before publishing. No social embeds or external
+          services are needed.
+        </div>
+        <div class="option-grid">
+          {newsVariants.map((option) => (
+            <section class="option">
+              <div class="option-top">
+                <span>{newsOptions[option].label}</span>
+                {option === "feed" && (
+                  <span class="recommended">Recommended</span>
+                )}
+              </div>
+              <div class={`mini mini-${option}`} aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </div>
+              <h2>{newsOptions[option].name}</h2>
+              <p class="option-tagline">{newsOptions[option].description}</p>
+              <p>{newsOptions[option].tradeoff}</p>
+              <a class="option-open" href={`/news-preview/${option}`}>
+                Explore news page <span>↗</span>
+              </a>
+              <a class="option-home" href={`/news-preview/${option}/home#news`}>
+                See it on the homepage →
+              </a>
+            </section>
+          ))}
+        </div>
+        <section class="review-guidance">
+          <>
+            <h2>What to compare</h2>
+            <p>
+              Try a short text-only post, the photo recap and the Jane Street
+              announcement. Search for a topic, open an update and follow it
+              from the homepage. Which feels most like BLISS — and easiest to
+              keep up to date?
+            </p>
+          </>
+        </section>
+        {newsVariants.map((option) => (
+          <section class="home-comparison">
+            <div class="comparison-label">
+              {newsOptions[option].label} / {newsOptions[option].name} ·
+              Homepage section
+            </div>
+            <FeaturedNews
+              entries={entries}
+              variant={option}
+              sectionId={`news-${option}`}
+              newsHref={`/news-preview/${option}`}
+            />
+          </section>
+        ))}
+      </main>
+    )
+  }
+</Layout>
+
+<style>
+  .comparison .news-intro {
+    max-width: 1000px;
+  }
+  .comparison .news-intro h1 {
+    font-size: clamp(44px, 6vw, 74px);
+  }
+  .review-note {
+    padding: 20px 24px;
+    background: #151214;
+    border-left: 2px solid #df555f;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #aaa6ac;
+    margin-bottom: 30px;
+  }
+  .review-note strong {
+    color: white;
+    margin-right: 5px;
+  }
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+  .option {
+    border: 1px solid #343036;
+    border-radius: 8px;
+    padding: 26px;
+    background: #101012;
+    display: flex;
+    flex-direction: column;
+  }
+  .option-top {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 12px;
+    align-items: center;
+  }
+  .recommended {
+    color: #f58b92;
+    border: 1px solid #61343c;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+  }
+  .option h2 {
+    font-size: 29px;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    margin-top: 24px;
+  }
+  .option p {
+    color: #a9a6af;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-top: 14px;
+  }
+  .option .option-tagline {
+    color: #eee;
+    margin-top: 7px;
+  }
+  .option-open {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #3b3338;
+    margin-top: auto;
+    padding-top: 30px;
+    font-size: 14px;
+  }
+  .option-open span {
+    color: #f16367;
+  }
+  .option-home {
+    color: #b0aab2;
+    font-size: 12px;
+    margin-top: 16px;
+  }
+  .mini {
+    height: 130px;
+    background: #09090b;
+    padding: 16px;
+    margin-top: 25px;
+    display: grid;
+    gap: 10px;
+    border: 1px solid #262329;
+    border-radius: 5px;
+  }
+  .mini i {
+    display: block;
+    background: repeating-linear-gradient(
+      to bottom,
+      #48404a 0 3px,
+      transparent 3px 10px
+    );
+    opacity: 0.7;
+  }
+  .mini-feed {
+    padding-left: 32px;
+    border-left: 2px solid #b43f50;
+  }
+  .mini-feed i {
+    width: 80%;
+  }
+  .mini-newsroom i {
+    border-bottom: 1px solid #8c3241;
+    background: linear-gradient(
+      to right,
+      #663442 15%,
+      transparent 15% 22%,
+      #343137 22% 90%,
+      transparent 90%
+    );
+  }
+  .mini-spotlight {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mini-spotlight i {
+    background: #333037;
+    border-radius: 2px;
+  }
+  .mini-spotlight i:first-child {
+    grid-column: 1 / -1;
+    background: linear-gradient(120deg, #5b2934, #262027);
+  }
+  .review-guidance {
+    max-width: 740px;
+    padding: 55px 0;
+  }
+  .review-guidance h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .review-guidance p {
+    color: #aaa6af;
+    line-height: 1.8;
+    font-size: 15px;
+  }
+  .home-comparison {
+    border-top: 1px solid #302b31;
+  }
+  .comparison-label {
+    color: #a59ca8;
+    font-size: 12px;
+    padding-top: 25px;
+  }
+  .home-preview-bar {
+    position: fixed;
+    z-index: 45;
+    bottom: 16px;
+    left: 20px;
+    right: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  @media (max-width: 800px) {
+    .option-grid {
+      grid-template-columns: 1fr;
+    }
+    .mini {
+      height: 110px;
+    }
+    .home-preview-bar {
+      position: sticky;
+      bottom: 10px;
+      margin-top: 30px;
+    }
+  }
+</style>

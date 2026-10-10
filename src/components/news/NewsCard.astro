@@ -1,0 +1,69 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import { newsDate, type NewsEntry } from "../../lib/news";
+interface Props {
+  entry: NewsEntry;
+  expanded?: boolean;
+}
+const { entry, expanded = false } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+const hasBody = !!entry.body?.trim();
+---
+
+<article
+  class:list={["news-card", { "has-image": !!data.image }]}
+  id={entry.id}
+  data-news-entry
+  data-category={data.category}
+  data-year={data.date.getUTCFullYear()}
+  data-search={`${data.title} ${data.summary} ${entry.body ?? ""}`.toLowerCase()}
+>
+  {
+    data.image && (
+      <Image
+        class="news-image"
+        src={data.image}
+        alt={data.imageAlt!}
+        widths={[400, 800, 1200]}
+        sizes="(max-width: 700px) 100vw, 50vw"
+        width={1000}
+        loading="lazy"
+      />
+    )
+  }
+  <div class="news-copy">
+    <div class="news-meta">
+      <span>{data.category}</span><span aria-hidden="true">/</span><time
+        datetime={data.date.toISOString()}>{newsDate(data.date)}</time>
+    </div>
+    <h2><a href={`#${entry.id}`}>{data.title}</a></h2>
+    <p class="news-summary">{data.summary}</p>
+    {
+      hasBody &&
+        (expanded ? (
+          <div class="news-body">
+            <Content />
+          </div>
+        ) : (
+          <details>
+            <>
+              <summary>
+                Read update <span aria-hidden="true">↗</span>
+              </summary>
+              <div class="news-body">
+                <Content />
+              </div>
+            </>
+          </details>
+        ))
+    }
+    <a
+      class="news-permalink"
+      href={`#${entry.id}`}
+      aria-label={`Link to ${data.title}`}
+      >Link to update <span aria-hidden="true">↗</span></a
+    >
+  </div>
+</article>

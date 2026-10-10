@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+import {
+  featuredNews,
+  getNews,
+  newsDate,
+  type NewsEntry,
+  type NewsVariant,
+} from "../../lib/news";
+import "./news.css";
+interface Props {
+  entries?: NewsEntry[];
+  variant?: NewsVariant;
+  newsHref?: string;
+  sectionId?: string;
+}
+const {
+  entries = await getNews(),
+  variant = "feed",
+  newsHref = "/news",
+  sectionId = "news",
+} = Astro.props;
+const featured = featuredNews(entries);
+---
+
+{
+  featured.length > 0 && (
+    <section
+      id={sectionId}
+      class={`news-surface news-home news-home-${variant}`}
+      aria-labelledby={`${sectionId}-heading`}
+    >
+      <div class="news-section-heading">
+        <>
+          <div>
+            <>
+              <p class="news-eyebrow">From the community</p>
+              <h2 id={`${sectionId}-heading`}>
+                Latest from BLISS<span>.</span>
+              </h2>
+            </>
+          </div>
+          <a class="news-all" href={newsHref}>
+            All news <span aria-hidden="true">↗</span>
+          </a>
+        </>
+      </div>
+      <div class="news-home-items">
+        {featured.map((entry) => (
+          <a class="news-home-item" href={`${newsHref}#${entry.id}`}>
+            {variant === "spotlight" && entry.data.image && (
+              <Image
+                src={entry.data.image}
+                alt={entry.data.imageAlt!}
+                width={700}
+                loading="lazy"
+              />
+            )}
+            <div class="news-home-copy">
+              <div class="news-meta">
+                <span>{entry.data.category}</span>
+                <time datetime={entry.data.date.toISOString()}>
+                  {newsDate(entry.data.date)}
+                </time>
+              </div>
+              <h3>{entry.data.title}</h3>
+              {variant !== "newsroom" && <p>{entry.data.summary}</p>}
+              <span class="news-read">Read update ↗</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NewsFeed from "../components/news/NewsFeed.astro";
+import { getNews } from "../lib/news";
+const entries = await getNews();
+---
+
+<Layout
+  title="News"
+  description="Updates, partnerships and moments from the BLISS community in Berlin."
+>
+  <main class="news-surface">
+    <header class="news-intro">
+      <p class="news-eyebrow">The BLISS community</p><h1>
+        Inside BLISS<span>.</span>
+      </h1><p>
+        New connections. Shared ideas. Small moments that move our community
+        forward. Here's what we've been up to.
+      </p>
+    </header>
+    <NewsFeed entries={entries} />
+  </main>
+</Layout>

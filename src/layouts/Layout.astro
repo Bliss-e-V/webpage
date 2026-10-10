@@ -4,12 +4,16 @@ interface Props {
   description: string;
   ogImage?: string;
   eventTimelineScroll?: boolean;
+  noindex?: boolean;
+  newsHref?: string;
 }
 const {
   title,
   description,
   ogImage,
   eventTimelineScroll = false,
+  noindex = false,
+  newsHref = "/news",
 }: Props = Astro.props;
 
 import Header from "../components/Header.astro";
@@ -128,6 +132,7 @@ const webpageSchema = JSON.stringify({
     <title>{fullTitle}</title>
     <link rel="canonical" href={canonicalURL} />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
@@ -172,7 +177,7 @@ const webpageSchema = JSON.stringify({
   </head>
 
   <body>
-    <Header compact={eventTimelineScroll} />
+    <Header compact={eventTimelineScroll} newsHref={newsHref} />
     <div
       class:list={[
         "container flex-1",
