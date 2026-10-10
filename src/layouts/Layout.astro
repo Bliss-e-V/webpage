@@ -4,14 +4,12 @@ interface Props {
   description: string;
   ogImage?: string;
   eventTimelineScroll?: boolean;
-  noindex?: boolean;
 }
 const {
   title,
   description,
   ogImage,
   eventTimelineScroll = false,
-  noindex = false,
 }: Props = Astro.props;
 
 import Header from "../components/Header.astro";
@@ -133,7 +131,6 @@ const webpageSchema = JSON.stringify({
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    {noindex && <meta name="robots" content="noindex" />}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />

@@ -27,9 +27,9 @@ const articleSchema = JSON.stringify({
 
 <Layout title={title} description={summary} ogImage={ogImage}>
     <script slot="head" type="application/ld+json" set:html={articleSchema} />
-    <Breadcrumb crumbs={[{ name: "News", href: "/news-preview" }, { name: title, href: Astro.url.pathname }]} />
+    <Breadcrumb crumbs={[{ name: "News", href: "/news" }, { name: title, href: Astro.url.pathname }]} />
     <article class="max-w-3xl mx-auto mt-6 sm:mt-8">
-        <a href="/news-preview" class="text-sm !text-tertiary hover:!text-primary transition-colors">← All news</a>
+        <a href="/news" class="text-sm !text-tertiary hover:!text-primary transition-colors">← All news</a>
         <p class="mt-6 text-sm tracking-wider uppercase text-tertiary">
             <time datetime={date.toISOString()}>{formatNewsDate(date)}</time>
             <span class="mx-2">·</span>

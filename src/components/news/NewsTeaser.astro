@@ -1,6 +1,6 @@
 ---
 import { Headline } from "../Headline";
-import BNewsCard from "./BNewsCard.astro";
+import NewsCard from "./NewsCard.astro";
 import { getNews } from "./news";
 
 const news = await getNews(3);
@@ -14,12 +14,12 @@ const news = await getNews(3);
             <div class="flex w-full max-w-5xl snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 [scrollbar-width:none] md:grid md:grid-cols-3 md:gap-6 md:overflow-visible">
                 {news.map((entry) => (
                     <div class="w-[85%] shrink-0 snap-start md:w-auto">
-                        <BNewsCard entry={entry} />
+                        <NewsCard entry={entry} />
                     </div>
                 ))}
             </div>
             <a
-                href="/news-preview/b"
+                href="/news"
                 class="mt-10 rounded-full border border-border px-6 py-2 font-semibold text-primary no-underline transition hover:border-accent hover:shadow-[0_0_16px_-4px_var(--accent)]"
             >
                 All news →

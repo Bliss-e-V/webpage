@@ -55,7 +55,7 @@ const { compact = false } = Astro.props;
       </a>
       <a
         id="newsLink"
-        href="/news-preview"
+        href="/news"
         class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
       >
         <p class="text-center text-xs sm:text-base">News</p>
@@ -128,10 +128,11 @@ const { compact = false } = Astro.props;
       "/speaker-series": speakerSeriesLink,
       "/reading-group": readingGroupLink,
       "/workshops": workshopsLink,
+      "/news": newsLink,
     };
 
     const path = window.location.pathname;
-    setActiveLink(linkMap[path] ?? (path.startsWith("/news") ? newsLink : null));
+    setActiveLink(linkMap[path] ?? (path.startsWith("/news/") ? newsLink : null));
   }
 
   function handleScroll() {

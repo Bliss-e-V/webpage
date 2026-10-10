@@ -22,7 +22,7 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      filter: (page) => !page.includes('/newsletter') && !page.includes('/404') && !page.includes('/news-preview'),
+      filter: (page) => !page.includes('/newsletter') && !page.includes('/404'),
       changefreq: 'weekly',
       priority: 0.7
     })
