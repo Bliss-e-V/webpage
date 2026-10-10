@@ -17,6 +17,8 @@ const news = defineCollection({
             category: z.enum(["Announcement", "Partnership", "Event Recap", "Community"]),
             image: image().optional(),
             imageAlt: z.string().optional(),
+            // Path of an mp4 in public/, e.g. a semester trailer. `image` is then its poster.
+            video: z.string().optional(),
             linkedin: z.string().url().optional(),
         }),
 });

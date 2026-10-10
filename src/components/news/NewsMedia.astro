@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import type { NewsEntry } from "./news";
 
 interface Props {
@@ -9,13 +9,26 @@ interface Props {
 }
 
 const { entry, sizes, eager = false } = Astro.props;
-const { image, imageAlt } = entry.data;
-// Items without image get a dark panel with red glow and the logo.
+const { image, imageAlt, video } = entry.data;
+const poster = video && image ? (await getImage({ src: image, width: 960 })).src : undefined;
+// Items with video play it muted while visible. Items without image get a dark panel with red glow and the logo.
 ---
 
 <div class="relative aspect-video overflow-hidden bg-background-secondary">
     {
-        image ? (
+        video ? (
+            <video
+                data-news-video
+                src={video}
+                poster={poster}
+                muted
+                loop
+                playsinline
+                preload="none"
+                aria-label={imageAlt}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+        ) : image ? (
             <Image
                 src={image}
                 alt={imageAlt ?? ""}
@@ -33,3 +46,20 @@ const { image, imageAlt } = entry.data;
         )
     }
 </div>
+
+<script>
+    // With reduced motion the poster stays.
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                for (const { target, isIntersecting } of entries) {
+                    const video = target as HTMLVideoElement;
+                    if (isIntersecting) video.play().catch(() => {});
+                    else video.pause();
+                }
+            },
+            { threshold: 0.5 },
+        );
+        document.querySelectorAll("video[data-news-video]").forEach((video) => observer.observe(video));
+    }
+</script>
