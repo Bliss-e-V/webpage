@@ -42,7 +42,7 @@ const articleSchema = JSON.stringify({
             video ? (
                 <video src={video} poster={poster} controls playsinline preload="metadata" aria-label={imageAlt} class="w-full aspect-video !my-8" />
             ) : (
-                image && <Image src={image} alt={imageAlt ?? ""} widths={[640, 960, 1280]} sizes="(min-width: 768px) 768px, 100vw" class="w-full !my-8" />
+                image && <Image src={image} alt={imageAlt ?? ""} widths={[640, 960, 1280]} sizes="(min-width: 768px) 768px, 100vw" loading="eager" class="w-auto max-w-full max-h-[28rem] mx-auto !my-8" />
             )
         }
         <div class="mt-6 [&_img]:max-h-[36rem] [&_img]:w-auto">
