@@ -53,13 +53,6 @@ const { compact = false } = Astro.props;
       >
         <p class="text-center text-xs sm:text-base">Workshops</p>
       </a>
-      <a
-        id="newsLink"
-        href="/news"
-        class="tracking-wider no-underline text-secondary hover:text-primary transition-colors"
-      >
-        <p class="text-center text-xs sm:text-base">News</p>
-      </a>
 
     </div>
   </div>
@@ -94,9 +87,8 @@ const { compact = false } = Astro.props;
   const speakerSeriesLink: HTMLElement = document.getElementById("speakerSeriesLink")!;
   const readingGroupLink: HTMLElement = document.getElementById("readingGroupLink")!;
   const workshopsLink: HTMLElement = document.getElementById("workshopsLink")!;
-  const newsLink: HTMLElement = document.getElementById("newsLink")!;
 
-  const allLinks: HTMLElement[] = [speakerSeriesLink, readingGroupLink, workshopsLink, newsLink];
+  const allLinks: HTMLElement[] = [speakerSeriesLink, readingGroupLink, workshopsLink];
 
   function isEventTimelinePage() {
     return document.documentElement.classList.contains("event-timeline-page");
@@ -128,11 +120,9 @@ const { compact = false } = Astro.props;
       "/speaker-series": speakerSeriesLink,
       "/reading-group": readingGroupLink,
       "/workshops": workshopsLink,
-      "/news": newsLink,
     };
 
-    const path = window.location.pathname;
-    setActiveLink(linkMap[path] ?? (path.startsWith("/news/") ? newsLink : null));
+    setActiveLink(linkMap[window.location.pathname] ?? null);
   }
 
   function handleScroll() {
