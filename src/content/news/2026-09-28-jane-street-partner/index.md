@@ -5,7 +5,7 @@ category: Partnership
 summary: Jane Street is now a sponsor of BLISS! Support like this lets us keep our Speaker Series, workshops and hackathons free and open for everyone in Berlin.
 linkedin: https://www.linkedin.com/posts/bliss-berlin_berlin-ai-blissberlin-activity-7510315331761008640-fTm0
 image: ./cover.jpg
-imageAlt: Graphic welcoming Jane Street as a BLISS supporter
+imageAlt: BLISS and Jane Street logos side by side
 ---
 
 [Jane Street](https://www.janestreet.com/) is a research-driven trading firm with offices in New York, Chicago, London, Amsterdam, Hong Kong and Singapore. Its traders, researchers and engineers use mathematics, statistics, machine learning and a lot of code to work on hard problems in financial markets.
