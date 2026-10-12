@@ -169,6 +169,7 @@ const webpageSchema = JSON.stringify({
 
     <!-- Structured data: WebPage -->
     <script type="application/ld+json" set:html={webpageSchema}></script>
+    <slot name="head" />
   </head>
 
   <body>

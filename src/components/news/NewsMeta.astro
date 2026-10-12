@@ -1,0 +1,11 @@
+---
+import { formatNewsDate, type NewsEntry } from "./news";
+
+const { entry } = Astro.props as { entry: NewsEntry };
+const { category, date } = entry.data;
+---
+
+<p class="text-xs font-semibold uppercase tracking-wide">
+    <span class="whitespace-nowrap"><span class="text-accent">{category}</span><span class="mx-1.5 text-tertiary">·</span></span>
+    <time datetime={date.toISOString()} class="whitespace-nowrap text-tertiary">{formatNewsDate(date)}</time>
+</p>
