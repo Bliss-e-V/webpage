@@ -20,6 +20,7 @@ import ethImg from "../../images/logos/eth-white.png";
 import kingsImg from "../../images/logos/kings_college.png";
 import huggingfaceImg from "../../images/logos/huggingface.svg";
 import stanfordImg from "../../images/logos/stanford.svg";
+import anthropicImg from "../../images/logos/anthropic-white.svg";
 
 export class Speaker {
     constructor(
@@ -615,6 +616,95 @@ export const speakers = [
         stanfordImg,
         "87enX60HTRo",
         [],
+    ),
+
+    // === Winter Semester 2026/27 ===
+    new Speaker(
+        new Date("2026-11-03"),
+        "Human-Like Artificial Intelligence",
+        "Badr AlKhamissi",
+        "Google DeepMind",
+        "https://www.meetup.com/bliss-speaker-series/events/316827513",
+        "",
+        "",
+        googleImg,
+    ),
+
+    new Speaker(
+        new Date("2026-11-10"),
+        "Safety and Security of LLM Reasoning",
+        "Jonas Geiping",
+        "Max Planck Institute for Intelligent Systems",
+        "https://www.meetup.com/bliss-speaker-series/events/316827544",
+        "",
+        "",
+        undefined,
+    ),
+
+    new Speaker(
+        new Date("2026-11-17"),
+        "Understanding Reasoning from Pretraining to Post-Training",
+        "Pavel Izmailov",
+        "Anthropic",
+        "https://www.meetup.com/bliss-speaker-series/events/316827553",
+        "",
+        "",
+        anthropicImg,
+    ),
+
+    new Speaker(
+        new Date("2026-12-01"),
+        "Sovereign AI from a Perspective of Model Building and AI Governance",
+        "Jonathan Richard Schwarz",
+        "Imperial College London",
+        "https://www.meetup.com/bliss-speaker-series/events/316827563",
+        "",
+        "",
+        undefined,
+    ),
+
+    new Speaker(
+        new Date("2026-12-15"),
+        "Algorithmic Geometry of Flexible Cognition in Brains and AI",
+        "Ida Momennejad",
+        "Microsoft",
+        "https://www.meetup.com/bliss-speaker-series/events/316827574",
+        "",
+        "",
+        microsoftImg,
+    ),
+
+    new Speaker(
+        new Date("2027-01-12"),
+        "The Importance of Model Specs and Constitutions for AI Safety",
+        "Robert McCarthy",
+        "University College London",
+        "https://www.meetup.com/bliss-speaker-series/events/316827601",
+        "",
+        "",
+        undefined,
+    ),
+
+    new Speaker(
+        new Date("2027-01-26"),
+        "Agentic Web: Opportunities and Challenges",
+        "Nenad Tomašev",
+        "Google DeepMind",
+        "https://www.meetup.com/bliss-speaker-series/events/316827615",
+        "",
+        "",
+        googleImg,
+    ),
+
+    new Speaker(
+        new Date("2027-02-09"),
+        "From Clean Slates to Many Worlds: Rethinking RL Algorithm Discovery",
+        "Uljad Berdica",
+        "University of Oxford & Google DeepMind",
+        "https://www.meetup.com/bliss-speaker-series/events/316827711",
+        "",
+        "",
+        googleImg,
     ),
 
 ];
