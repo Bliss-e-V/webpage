@@ -1,0 +1,64 @@
+# Fails a PR that adds files larger than MAX_FILE_SIZE_KB, to keep uncompressed
+# images/videos from permanently bloating the git history.
+# Add the `allow-large-files` label to a PR to downgrade the failure to a warning.
+name: Check large files
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+permissions:
+  contents: read
+jobs:
+  check-large-files:
+    runs-on: ubuntu-latest
+    env:
+      MAX_FILE_SIZE_KB: 1024
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      ALLOW_LARGE_FILES: ${{ contains(github.event.pull_request.labels.*.name, 'allow-large-files') }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Check for files above size limit
+        run: |
+          set -euo pipefail
+          limit=$((MAX_FILE_SIZE_KB * 1024))
+          found=0
+          # Every blob introduced by any commit of the PR (not only the final diff),
+          # since intermediate commits end up in history too unless squash-merged.
+          while read -r type size path; do
+            [ "$type" = blob ] && [ "$size" -gt "$limit" ] || continue
+            found=$((found + 1))
+            kb=$((size / 1024))
+            if [ "$ALLOW_LARGE_FILES" = true ]; then
+              echo "::warning file=$path::$path is ${kb} KB (limit ${MAX_FILE_SIZE_KB} KB)"
+            else
+              echo "::error file=$path::$path is ${kb} KB (limit ${MAX_FILE_SIZE_KB} KB)"
+            fi
+            echo "| \`$path\` | ${kb} KB |" >> "$RUNNER_TEMP/rows.md"
+          done < <(git rev-list --objects "$HEAD_SHA" "^$BASE_SHA" \
+                   | git cat-file --batch-check='%(objecttype) %(objectsize) %(rest)')
+
+          if [ "$found" -eq 0 ]; then
+            echo "No files above ${MAX_FILE_SIZE_KB} KB added."
+            exit 0
+          fi
+
+          {
+            echo "### $found file(s) above ${MAX_FILE_SIZE_KB} KB"
+            echo
+            echo "| File | Size |"
+            echo "| --- | --- |"
+            cat "$RUNNER_TEMP/rows.md"
+            echo
+            echo "Please compress these before merging (e.g. resize/convert images to WebP/JPEG, re-encode videos)."
+            echo "If a large file is really needed, add the \`allow-large-files\` label to this PR."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$ALLOW_LARGE_FILES" = true ]; then
+            echo "Large files present, but allowed via the 'allow-large-files' label."
+          else
+            echo "Found $found file(s) above ${MAX_FILE_SIZE_KB} KB. Compress them or add the 'allow-large-files' label."
+            exit 1
+          fi
