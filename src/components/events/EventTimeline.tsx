@@ -590,7 +590,30 @@ export const EventTimeline = ({
                                             )}
 
                                             <div className="mt-2 flex flex-wrap items-center gap-3">
-                                                {showDetailHref && (
+                                                {event.registrationLinks && !event.isCanceled ? (
+                                                    <span
+                                                        className={classNames(
+                                                            "inline-flex items-center gap-2 text-sm font-semibold",
+                                                            isPastDimmed ? "text-gray-500" : "text-gray-300",
+                                                        )}
+                                                    >
+                                                        Register:
+                                                        {event.registrationLinks.map((link) => (
+                                                            <a
+                                                                key={link.href}
+                                                                href={link.href}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={classNames(
+                                                                    "cursor-pointer transition-colors duration-150 ease-out hover:underline",
+                                                                    !isPastDimmed && "hover:text-white",
+                                                                )}
+                                                            >
+                                                                {link.label}
+                                                            </a>
+                                                        ))}
+                                                    </span>
+                                                ) : showDetailHref && (
                                                     <a
                                                         href={detailHref}
                                                         target={eventIsExternal(event) ? "_blank" : "_self"}

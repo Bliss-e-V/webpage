@@ -35,6 +35,7 @@ export class Speaker {
         public videoId: string = "",
         public images: string[] = [],
         public canceled: boolean = false,
+        public lumaUrl: string = "",
     ) { }
 }
 
@@ -626,30 +627,42 @@ export const speakers = [
         "Google DeepMind",
         "https://www.meetup.com/bliss-speaker-series/events/316827513",
         "",
-        "",
+        "Badr AlKhamissi is a Student Researcher at Google DeepMind and a researcher at EPFL in Lausanne, where he works with Martin Schrimpf's NeuroAI lab.",
         googleImg,
+        "",
+        [],
+        false,
+        "https://luma.com/j2k7yyd4",
     ),
 
     new Speaker(
         new Date("2026-11-10"),
-        "Safety and Security of LLM Reasoning",
-        "Jonas Geiping",
-        "Max Planck Institute for Intelligent Systems",
-        "https://www.meetup.com/bliss-speaker-series/events/316827544",
-        "",
-        "",
-        undefined,
-    ),
-
-    new Speaker(
-        new Date("2026-11-17"),
         "Understanding Reasoning from Pretraining to Post-Training",
         "Pavel Izmailov",
         "Anthropic",
         "https://www.meetup.com/bliss-speaker-series/events/316827553",
         "",
-        "",
+        "Pavel Izmailov is a Member of Technical Staff at Anthropic and an Assistant Professor at New York University. His research focuses on reasoning, reinforcement learning and generalization. He was previously a researcher at OpenAI.",
         anthropicImg,
+        "",
+        [],
+        false,
+        "https://luma.com/xg3pn866",
+    ),
+
+    new Speaker(
+        new Date("2026-11-17"),
+        "Safety and Security of LLM Reasoning",
+        "Jonas Geiping",
+        "Max Planck Institute for Intelligent Systems",
+        "https://www.meetup.com/bliss-speaker-series/events/316827544",
+        "",
+        "Jonas Geiping is a Research Group Leader at the Max Planck Institute for Intelligent Systems and the ELLIS Institute Tübingen, where he leads the Safety- & Efficiency-Aligned Learning group. Before moving to Tübingen, he was a postdoctoral researcher at the University of Maryland, College Park. He received his PhD from the University of Siegen.",
+        undefined,
+        "",
+        [],
+        false,
+        "https://luma.com/mvyomo7c",
     ),
 
     new Speaker(
@@ -659,8 +672,12 @@ export const speakers = [
         "Imperial College London",
         "https://www.meetup.com/bliss-speaker-series/events/316827563",
         "",
-        "",
+        "Jonathan Richard Schwarz is a Visiting Professor at Imperial College London. He was previously a Senior Research Scientist at DeepMind, working on topics from continual and meta-learning to sparsity.",
         undefined,
+        "",
+        [],
+        false,
+        "https://luma.com/pday4uph",
     ),
 
     new Speaker(
@@ -670,8 +687,12 @@ export const speakers = [
         "Microsoft Research",
         "https://www.meetup.com/bliss-speaker-series/events/316827574",
         "",
-        "",
+        "Ida Momennejad is a Principal Researcher in Reinforcement Learning at Microsoft Research in New York City. As a cognitive neuroscientist and AI researcher, she studies memory and planning in brains and AI.",
         microsoftImg,
+        "",
+        [],
+        false,
+        "https://luma.com/u9sa8itp",
     ),
 
     new Speaker(
@@ -681,8 +702,12 @@ export const speakers = [
         "University College London",
         "https://www.meetup.com/bliss-speaker-series/events/316827601",
         "",
-        "",
+        "Robert McCarthy is a PhD student in Computer Science at University College London. He is launching AI Character Evaluations, an independent non-profit for AI safety evaluations.",
         undefined,
+        "",
+        [],
+        false,
+        "https://luma.com/u07yyszx",
     ),
 
     new Speaker(
@@ -692,8 +717,12 @@ export const speakers = [
         "Google DeepMind",
         "https://www.meetup.com/bliss-speaker-series/events/316827615",
         "",
-        "",
+        "Nenad Tomašev is a Senior Staff Research Scientist at Google DeepMind. His work spans AI for science and healthcare as well as AI ethics, safety and fairness.",
         googleImg,
+        "",
+        [],
+        false,
+        "https://luma.com/smyd2k1z",
     ),
 
     new Speaker(
@@ -703,8 +732,12 @@ export const speakers = [
         "University of Oxford, Google DeepMind",
         "https://www.meetup.com/bliss-speaker-series/events/316827711",
         "",
-        "",
+        "Uljad Berdica is a PhD candidate at the University of Oxford and a Student Researcher at Google DeepMind. At Oxford, he is a Rhodes Scholar in the AIMS CDT and works with the Soft Robotics Lab and the Foerster Lab for AI Research on open-ended reinforcement learning, sim-to-real transfer and unsupervised environment design.",
         googleImg,
+        "",
+        [],
+        false,
+        "https://luma.com/q85gtef0",
     ),
 
 ];
