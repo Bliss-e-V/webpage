@@ -21,6 +21,9 @@ import kingsImg from "../../images/logos/kings_college.png";
 import huggingfaceImg from "../../images/logos/huggingface.svg";
 import stanfordImg from "../../images/logos/stanford.svg";
 import anthropicImg from "../../images/logos/anthropic-white.svg";
+import maxPlanckImg from "../../images/logos/maxplanck-white.svg";
+import imperialImg from "../../images/logos/imperial-white.svg";
+import uclImg from "../../images/logos/ucl-white.svg";
 
 export class Speaker {
     constructor(
@@ -658,7 +661,7 @@ export const speakers = [
         "https://www.meetup.com/bliss-speaker-series/events/316827544",
         "",
         "Jonas Geiping is a Research Group Leader at the Max Planck Institute for Intelligent Systems and the ELLIS Institute Tübingen, where he leads the Safety- & Efficiency-Aligned Learning group. Before moving to Tübingen, he was a postdoctoral researcher at the University of Maryland, College Park. He received his PhD from the University of Siegen.",
-        undefined,
+        maxPlanckImg,
         "",
         [],
         false,
@@ -673,7 +676,7 @@ export const speakers = [
         "https://www.meetup.com/bliss-speaker-series/events/316827563",
         "",
         "Jonathan Richard Schwarz is a Visiting Professor at Imperial College London. He was previously a Senior Research Scientist at DeepMind, working on topics from continual and meta-learning to sparsity.",
-        undefined,
+        imperialImg,
         "",
         [],
         false,
@@ -703,7 +706,7 @@ export const speakers = [
         "https://www.meetup.com/bliss-speaker-series/events/316827601",
         "",
         "Robert McCarthy is a PhD student in Computer Science at University College London. He is launching AI Character Evaluations, an independent non-profit for AI safety evaluations.",
-        undefined,
+        uclImg,
         "",
         [],
         false,
