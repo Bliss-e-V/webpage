@@ -30,6 +30,8 @@ export type BlissEvent = {
     description?: string;
     href?: string;
     externalHref?: boolean;
+    // Several registration platforms for the same event, shown instead of the single "Register" link.
+    registrationLinks?: { label: string; href: string }[];
     imageSrc?: string;
     imageAlt?: string;
     badge: EventBadge;
@@ -80,6 +82,13 @@ const createSpeakerEvents = (): BlissEvent[] =>
             description: speaker.abstract,
             href: speaker.url || `/speaker-series?id=${seriesNumber}`,
             externalHref: Boolean(speaker.url),
+            registrationLinks:
+                speaker.url && speaker.lumaUrl
+                    ? [
+                          { label: "Meetup", href: speaker.url },
+                          { label: "Luma", href: speaker.lumaUrl },
+                      ]
+                    : undefined,
             imageSrc: imageSrc(speaker.logo),
             imageAlt: speaker.affiliation ? `${speaker.affiliation} logo` : "Speaker logo",
             badge: {
