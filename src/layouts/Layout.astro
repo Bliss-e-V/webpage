@@ -4,12 +4,14 @@ interface Props {
   description: string;
   ogImage?: string;
   eventTimelineScroll?: boolean;
+  lang?: "en" | "de";
 }
 const {
   title,
   description,
   ogImage,
   eventTimelineScroll = false,
+  lang = "en",
 }: Props = Astro.props;
 
 import Header from "../components/Header.astro";
@@ -118,7 +120,7 @@ const webpageSchema = JSON.stringify({
 
 <!doctype html>
 <html
-  lang="en"
+  lang={lang}
   class:list={{
     "event-timeline-scroll-pending": eventTimelineScroll,
     "event-timeline-page": eventTimelineScroll,
@@ -174,14 +176,14 @@ const webpageSchema = JSON.stringify({
 
   <body>
     <Header compact={eventTimelineScroll} />
-    <div
+    <main
       class:list={[
         "container flex-1",
         eventTimelineScroll ? "pt-20" : "pt-40",
       ]}
     >
       <slot />
-    </div>
+    </main>
     <Footer />
   </body>
 </html>

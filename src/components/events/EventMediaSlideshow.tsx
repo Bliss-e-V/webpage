@@ -5,6 +5,7 @@ type Slide =
     | { kind: "image"; src: string };
 
 type EventMediaSlideshowProps = {
+    active: boolean;
     videoId?: string;
     images?: string[];
     title: string;
@@ -14,6 +15,7 @@ const classNames = (...values: Array<string | false | undefined>) =>
     values.filter(Boolean).join(" ");
 
 export const EventMediaSlideshow = ({
+    active,
     videoId,
     images = [],
     title,
@@ -47,7 +49,7 @@ export const EventMediaSlideshow = ({
                     key={slideKey}
                     className="absolute inset-0 flex items-center justify-center"
                 >
-                    {slide.kind === "video" ? (
+                    {slide.kind === "video" ? active && (
                         <iframe
                             className="h-full w-full"
                             src={`https://www.youtube-nocookie.com/embed/${slide.videoId}`}

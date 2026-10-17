@@ -175,12 +175,13 @@ export const EventTimeline = ({
         return groups;
     }, [normalizedEvents, showDividers]);
 
-    // The event to auto-expand and scroll to (URL ?id= override, else the next upcoming).
+    // The event to auto-expand and scroll to (URL ?id= or #anchor, else the next upcoming).
     // Computed once; both effects below react to it. `today` is null until mount, so this
     // only reads `window` on the client.
     const autoScrollTargetId = useMemo(() => {
         if (!autoScrollToNext || !today || normalizedEvents.length === 0) return null;
-        const idParam = new URLSearchParams(window.location.search).get("id");
+        const idParam = new URLSearchParams(window.location.search).get("id") ||
+            window.location.hash.slice(1);
         return resolveEventScrollTargetId(toEventScrollRefs(normalizedEvents), idParam, today);
     }, [autoScrollToNext, normalizedEvents, today]);
 
@@ -649,6 +650,8 @@ export const EventTimeline = ({
                                                     <button
                                                         type="button"
                                                         onClick={() => toggleExpanded(event.id)}
+                                                        aria-expanded={isExpanded}
+                                                        aria-controls={`${event.id}-details`}
                                                         className={classNames(
                                                             "inline-flex cursor-pointer items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
                                                             isPastDimmed
@@ -665,6 +668,7 @@ export const EventTimeline = ({
 
                                     {hasPreview && (
                                         <div
+                                            id={`${event.id}-details`}
                                             data-event-details
                                             data-expanded={isExpanded ? "true" : "false"}
                                             inert={!isExpanded}
@@ -739,7 +743,8 @@ export const EventTimeline = ({
                                                 </div>
                                             )}
 
-                                            {event.details?.papers && !readingGroupSessionInfo && (
+                                            {event.details?.papers &&
+                                                (readingGroupPapers.length > 1 || !readingGroupSessionInfo) && (
                                                 <div className="space-y-4">
                                                     {event.details.papers.map((paper) => (
                                                         <div
@@ -779,6 +784,7 @@ export const EventTimeline = ({
                                                 (event.details?.images &&
                                                     event.details.images.length > 0)) && (
                                                 <EventMediaSlideshow
+                                                    active={isExpanded}
                                                     videoId={event.details?.videoId}
                                                     images={event.details?.images}
                                                     title={event.title}
