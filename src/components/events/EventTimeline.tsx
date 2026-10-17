@@ -410,6 +410,8 @@ export const EventTimeline = ({
                                         <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-black/15 p-2">
                                             <img
                                                 src={event.imageSrc}
+                                                width={event.imageWidth}
+                                                height={event.imageHeight}
                                                 alt={event.imageAlt ?? ""}
                                                 className={classNames(
                                                     "max-h-full max-w-full",
@@ -489,6 +491,8 @@ export const EventTimeline = ({
                                             <div className="flex h-16 w-24 shrink-0 items-center justify-center overflow-hidden rounded bg-black/10 p-1.5 md:hidden">
                                                 <img
                                                     src={event.imageSrc}
+                                                    width={event.imageWidth}
+                                                    height={event.imageHeight}
                                                     alt={event.imageAlt ?? ""}
                                                     className={classNames(
                                                         "max-h-full max-w-full",

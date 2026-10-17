@@ -1,4 +1,5 @@
 import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
 import { formatAuthorList } from "@utils/formatAuthorList";
 import { dayToPapers, getReadingGroupSectionForDate, type Paper } from "./papers";
 import type { ReadingGroupSessionInfo } from "./papers";
@@ -33,6 +34,8 @@ export type BlissEvent = {
     // Several registration platforms for the same event, shown instead of the single "Register" link.
     registrationLinks?: { label: string; href: string }[];
     imageSrc?: string;
+    imageWidth?: number;
+    imageHeight?: number;
     imageAlt?: string;
     badge: EventBadge;
     isCanceled: boolean;
@@ -55,9 +58,18 @@ const currentDate = () => {
     return date;
 };
 
-const imageSrc = (image?: ImageMetadata | string) => {
-    if (!image) return undefined;
-    return typeof image === "string" ? image : image.src;
+const thumbnail = async (image?: ImageMetadata | string) => {
+    if (!image) return {};
+    if (typeof image === "string") return { imageSrc: image };
+
+    // Timeline images fit within 128 × 96 CSS pixels; keep enough detail for 2× displays.
+    const scale = Math.min(1, 256 / image.width, 192 / image.height);
+    const width = Math.max(1, Math.round(image.width * scale));
+    const height = Math.max(1, Math.round(image.height * scale));
+    const src = image.format === "svg"
+        ? image.src
+        : (await getImage({ src: image, width, height, format: "webp" })).src;
+    return { imageSrc: src, imageWidth: width, imageHeight: height };
 };
 
 const slugify = (value: string) =>
@@ -69,8 +81,8 @@ const slugify = (value: string) =>
 const withoutBorderClasses = (className?: string) =>
     className?.replace(/\bborder(?:-[^\s]+)?/g, "").replace(/\s+/g, " ").trim();
 
-const createSpeakerEvents = (): BlissEvent[] =>
-    speakers.map((speaker, index) => {
+const createSpeakerEvents = (): Promise<BlissEvent[]> =>
+    Promise.all(speakers.map(async (speaker, index): Promise<BlissEvent> => {
         const seriesNumber = index + 1;
 
         return {
@@ -89,7 +101,7 @@ const createSpeakerEvents = (): BlissEvent[] =>
                           { label: "Luma", href: speaker.lumaUrl },
                       ]
                     : undefined,
-            imageSrc: imageSrc(speaker.logo),
+            ...await thumbnail(speaker.logo),
             imageAlt: speaker.affiliation ? `${speaker.affiliation} logo` : "Speaker logo",
             badge: {
                 label: `Speaker Series #${seriesNumber}`,
@@ -105,10 +117,10 @@ const createSpeakerEvents = (): BlissEvent[] =>
                 images: speaker.images,
             },
         };
-    });
+    }));
 
-const createWorkshopEvents = (): BlissEvent[] =>
-    workshops.map((workshop) => {
+const createWorkshopEvents = (): Promise<BlissEvent[]> =>
+    Promise.all(workshops.map(async (workshop): Promise<BlissEvent> => {
         const id = `workshop-${workshop.date.toISOString().split("T")[0]}-${slugify(workshop.title)}`;
         return {
         id,
@@ -121,7 +133,7 @@ const createWorkshopEvents = (): BlissEvent[] =>
         description: workshop.description,
         href: workshop.url,
         externalHref: true,
-        imageSrc: imageSrc(workshop.image),
+        ...await thumbnail(workshop.image),
         imageAlt: workshop.affiliation ? `${workshop.affiliation} logo` : "Workshop logo",
         badge: workshop.tag
             ? {
@@ -139,7 +151,7 @@ const createWorkshopEvents = (): BlissEvent[] =>
             videoId: workshop.videoId,
         },
         };
-    });
+    }));
 
 const readingGroupTitle = (papers: Paper[]) => {
     if (papers.length === 1) return papers[0].name;
@@ -167,8 +179,8 @@ const createCommunityEvents = (): BlissEvent[] =>
         };
     });
 
-const createReadingGroupEvents = (): BlissEvent[] =>
-    Object.entries(dayToPapers).map(([dateString, papers]) => {
+const createReadingGroupEvents = (): Promise<BlissEvent[]> =>
+    Promise.all(Object.entries(dayToPapers).map(async ([dateString, papers]): Promise<BlissEvent> => {
         const date = new Date(dateString);
         const primaryPaper = papers[0];
         const firstRegistrationHref = papers.find((paper) => paper.eventLink)?.eventLink;
@@ -191,7 +203,7 @@ const createReadingGroupEvents = (): BlissEvent[] =>
                   : `Discussion of ${papers.length} papers`,
             href: firstRegistrationHref ?? `/reading-group#reading-group-${dateString}`,
             externalHref: Boolean(firstRegistrationHref),
-            imageSrc: imageSrc(primaryPaper?.image),
+            ...await thumbnail(primaryPaper?.image),
             imageAlt: primaryPaper ? `${primaryPaper.name} paper image` : "Reading group paper image",
             badge: {
                 label: "Reading Group",
@@ -209,15 +221,15 @@ const createReadingGroupEvents = (): BlissEvent[] =>
                 sessionInfo,
             },
         };
-    });
+    }));
 
-export const getAllEvents = () =>
-    [
-        ...createSpeakerEvents(),
-        ...createWorkshopEvents(),
-        ...createCommunityEvents(),
-        ...createReadingGroupEvents(),
-    ];
+export const getAllEvents = async (): Promise<BlissEvent[]> =>
+    (await Promise.all([
+        createSpeakerEvents(),
+        createWorkshopEvents(),
+        createCommunityEvents(),
+        createReadingGroupEvents(),
+    ])).flat();
 
 export const sortEventsSoonestFirst = (events: BlissEvent[]) =>
     [...events].sort((a, b) => a.date.getTime() - b.date.getTime());
@@ -227,12 +239,12 @@ export const filterEventsByKind = (
     kind: TimelineKindFilter,
 ) => (kind === "all" ? events : events.filter((event) => event.kind === kind));
 
-export const getTimelineEvents = (kind: TimelineKindFilter = "all") =>
-    sortEventsSoonestFirst(filterEventsByKind(getAllEvents(), kind));
+export const getTimelineEvents = async (kind: TimelineKindFilter = "all") =>
+    sortEventsSoonestFirst(filterEventsByKind(await getAllEvents(), kind));
 
-export const getUpcomingEvents = (limit = 5) =>
+export const getUpcomingEvents = async (limit = 5) =>
     sortEventsSoonestFirst(
-        getAllEvents().filter(
+        (await getAllEvents()).filter(
             (event) => event.date >= currentDate() && !event.isCanceled,
         ),
     ).slice(0, limit);
