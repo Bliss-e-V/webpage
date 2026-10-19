@@ -460,7 +460,7 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
   const gravityStrength = 1;
   const gravityEq = 0.7;
 
-  function rebuildSize() {
+  const rebuildSize = () => {
     windowW = window.innerWidth;
     windowH = window.innerHeight;
     const mob = renderMobile();
@@ -504,7 +504,7 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.viewport(0, 0, px, px);
     gl.clear(gl.COLOR_BUFFER_BIT);
-  }
+  };
 
   function updatePosition() {
     const canvas = o.canvas;
@@ -537,7 +537,7 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
 
   rebuildSize();
 
-  function frameLoop() {
+  const frameLoop = () => {
     const w = o.canvas.width;
     const h = o.canvas.height;
     const px = Math.max(1, Math.floor(w));
@@ -605,7 +605,7 @@ export function initBackgroundWebGL(o: BackgroundWebGLOptions): (() => void) | n
     }
 
     raf = requestAnimationFrame(frameLoop);
-  }
+  };
 
   function onScrollResize() {
     if (!renderMobile()) updatePosition();

@@ -3,7 +3,7 @@ import { Headline } from "./Headline";
 import { EventTimeline } from "./events/EventTimeline";
 import { getUpcomingEvents } from "./data/events";
 
-const filteredEvents = getUpcomingEvents(5);
+const filteredEvents = await getUpcomingEvents(5);
 ---
 
 <div class="relative flex flex-col items-center justify-center py-10 sm:my-10">

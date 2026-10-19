@@ -16,7 +16,7 @@ interface Props {
 }
 
 const { kind, title, heading, description, emptyMessage, currentPath } = Astro.props;
-const events = getTimelineEvents(kind);
+const events = await getTimelineEvents(kind);
 ---
 
 <Layout title={title} description={description} eventTimelineScroll={events.length > 0}>

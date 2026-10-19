@@ -13,5 +13,18 @@
   import { initBackgroundWebGL } from "../lib/background-webgl";
 
   const canvas = document.getElementById("bgWebglCanvas") as HTMLCanvasElement;
-  initBackgroundWebGL({ canvas });
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let cleanup: (() => void) | null = null;
+
+  function syncMotionPreference() {
+    cleanup?.();
+    cleanup = null;
+    canvas.hidden = reducedMotion.matches;
+    if (!reducedMotion.matches) {
+      cleanup = initBackgroundWebGL({ canvas });
+    }
+  }
+
+  syncMotionPreference();
+  reducedMotion.addEventListener("change", syncMotionPreference);
 </script>
