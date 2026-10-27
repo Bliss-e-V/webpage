@@ -12,8 +12,13 @@ import onethousandImg from "../images/logos/onethousand.png";
 import didaImg from "../images/logos/dida.png";
 import gResearchImg from "../images/logos/g-research-dark-bg.svg";
 import janeStreetImg from "../images/logos/jane-street.svg";
+import muensterAiImg from "../images/logos/muenster-ai-white.svg";
 
 const partners = [
+    { src: gResearchImg, alt: "G-Research", url: "https://www.gresearch.com/", wrapperClass: "h-10 md:h-16" },
+];
+
+const supporters = [
     { src: googleImg, alt: "Google", url: "https://www.google.com/" },
     { src: siliconAlleeImg, alt: "Silicon Allee", url: "https://www.siliconallee.com/" },
     { src: kiParkImg, alt: "KI Park", url: "https://kipark.de/" },
@@ -21,7 +26,6 @@ const partners = [
     { src: quantCoImg, alt: "QuantCo", url: "https://www.quantco.com/" },
     { src: onethousandImg, alt: "One Thousand", url: "https://onethousand.ai/" },
     { src: didaImg, alt: "dida", url: "https://dida.do/" },
-    { src: gResearchImg, alt: "G-Research", url: "https://www.gresearch.com/", wrapperClass: "h-10 md:h-16" },
     {
         src: janeStreetImg,
         alt: "Jane Street",
@@ -29,6 +33,16 @@ const partners = [
         wrapperClass: "h-10 md:h-16",
         imageClass: "invert",
     },
+];
+
+const communityPartners = [
+    { src: muensterAiImg, alt: "Münster.AI", wrapperClass: "h-10 md:h-16" },
+];
+
+const tiers = [
+    { title: "Partners", logos: partners },
+    { title: "Supporters", logos: supporters },
+    { title: "Community Partners", logos: communityPartners },
 ];
 ---
 
@@ -47,7 +61,12 @@ const partners = [
         </a>
     </BigButton>
 
-    <div class="mt-6 flex flex-wrap align-center max-w-full md:max-w-[75%]">
-        {partners.map((partner) => <Partner {...partner} />)}
-    </div>
+    {tiers.map(({ title, logos }) => (
+        <div class="mt-10">
+            <Headline level={3}>{title}</Headline>
+            <div class="mt-2 flex flex-wrap items-center max-w-full md:max-w-[75%]">
+                {logos.map((logo) => <Partner {...logo} />)}
+            </div>
+        </div>
+    ))}
 </div>
