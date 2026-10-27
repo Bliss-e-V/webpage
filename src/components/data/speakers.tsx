@@ -24,6 +24,7 @@ import anthropicImg from "../../images/logos/anthropic-white.svg";
 import maxPlanckImg from "../../images/logos/maxplanck-white.svg";
 import imperialImg from "../../images/logos/imperial-white.svg";
 import uclImg from "../../images/logos/ucl-white.svg";
+import epflImg from "../../images/logos/epfl.svg";
 
 export class Speaker {
     constructor(
@@ -627,11 +628,11 @@ export const speakers = [
         new Date("2026-11-03"),
         "Human-Like Artificial Intelligence",
         "Badr AlKhamissi",
-        "Google DeepMind",
+        "EPFL",
         "https://www.meetup.com/bliss-speaker-series/events/316827513",
-        "",
-        "Badr AlKhamissi is a Student Researcher at Google DeepMind and a researcher at EPFL in Lausanne, where he works with Martin Schrimpf's NeuroAI lab.",
-        googleImg,
+        "How closely do AI models resemble the human brain, and what can each teach us about the other? This talk explores brain-inspired language models, their connections to human cognition, and how those connections can help make AI more interpretable.",
+        "Badr AlKhamissi is a PhD candidate at EPFL working on AI and neuroscience. He develops brain-inspired AI models and uses them to study human cognition. His previous research includes work at Google DeepMind, Meta AI and Sony AI.",
+        epflImg,
         "",
         [],
         false,
@@ -639,7 +640,7 @@ export const speakers = [
     ),
 
     new Speaker(
-        new Date("2026-11-10"),
+        new Date("2027-02-02"),
         "Understanding Reasoning from Pretraining to Post-Training",
         "Pavel Izmailov",
         "Anthropic",
