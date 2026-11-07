@@ -8,6 +8,7 @@ import Layout from "../layouts/Layout.astro";
   description="The page you're looking for doesn't exist. Return to the BLISS Berlin homepage to explore our AI events."
   ogImage="/assets/404.svg"
 >
+  <meta slot="head" name="robots" content="noindex" />
   <div class="flex flex-col items-center justify-center h-full">
     <img src="/assets/404.svg" class="w-40 md:w-80" alt="404 Page Not Found Illustration" />
     <h1 class="mt-4 text-4xl font-black text-center">

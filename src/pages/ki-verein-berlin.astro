@@ -17,7 +17,6 @@ const dateFormat = new Intl.DateTimeFormat("de-DE", {
     month: "long",
     year: "numeric",
 });
-const origin = new URL("/", Astro.site).origin;
 ---
 
 <Layout
@@ -25,10 +24,9 @@ const origin = new URL("/", Astro.site).origin;
     title="KI-Verein Berlin: KI-Events, Vorträge und Workshops"
     description="BLISS ist ein KI-Verein in Berlin für Studierende und Berufseinsteiger. Wir organisieren KI-Events: Vorträge an der TU Berlin, Reading Groups und Workshops."
 >
-    <link slot="head" rel="alternate" hreflang="de" href={`${origin}/ki-verein-berlin`} />
-    <link slot="head" rel="alternate" hreflang="en" href={origin} />
-    <link slot="head" rel="alternate" hreflang="x-default" href={origin} />
-    <Breadcrumb crumbs={[{ name: "KI-Verein Berlin", href: "/ki-verein-berlin" }]} />
+    <div class="max-w-3xl mx-auto">
+        <Breadcrumb crumbs={[{ name: "KI-Verein Berlin", href: "/ki-verein-berlin" }]} />
+    </div>
     <article class="max-w-3xl mx-auto mt-6 sm:mt-8">
         <h1 class="font-bold !text-transparent bg-clip-text bg-red-right pb-2">KI-Verein in Berlin: BLISS e.V.</h1>
         <p class="!text-left">

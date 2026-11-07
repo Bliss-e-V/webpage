@@ -41,7 +41,8 @@ Event content (speakers, workshops, reading-group papers, community events) live
 Every speaker in `src/components/data/speakers.tsx` that has an abstract, bio or recording automatically gets its own page at `/speaker-series/YYYY-MM-DD-speaker-name` (see `src/components/data/talks.ts`). Use this URL as the "Details" link on Meetup, Luma and partner sites.
 
 - When a talk moves to another date, its URL changes. Add a redirect from the old URL to the new one in `vercel.json`, because the old link may already be published.
-- When a recording goes online, add its YouTube upload date to `videoUploadDates` in `talks.ts` to get `VideoObject` markup.
+- When a recording goes online, add its YouTube upload date to `talkVideoDates.ts` to get `VideoObject` markup and a sitemap `lastmod`.
+- Room and start time are set per semester in `talkVenue` and `talkStart` in `talks.ts`. Extend them for each new semester.
 
 ## Adding news
 
