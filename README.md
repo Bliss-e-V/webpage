@@ -36,6 +36,13 @@ Event content (speakers, workshops, reading-group papers, community events) live
 
 - Active members and alumni share `src/components/data/members.ts`; portraits live in `src/images/members/`. Update verified names there to change both the homepage and team page. Keep the German and English board lists in `impressum.astro` and `imprint.astro` in sync.
 
+## Talk pages
+
+Every speaker in `src/components/data/speakers.tsx` that has an abstract, bio or recording automatically gets its own page at `/speaker-series/YYYY-MM-DD-speaker-name` (see `src/components/data/talks.ts`). Use this URL as the "Details" link on Meetup, Luma and partner sites.
+
+- When a talk moves to another date, its URL changes. Add a redirect from the old URL to the new one in `vercel.json`, because the old link may already be published.
+- When a recording goes online, add its YouTube upload date to `videoUploadDates` in `talks.ts` to get `VideoObject` markup.
+
 ## Adding news
 
 Each news item is one folder in `src/content/news/`, named `YYYY-MM-DD-short-title` (the URL becomes `/news/short-title`). The homepage shows the three newest items. No local setup is needed; the GitHub web interface is enough:
