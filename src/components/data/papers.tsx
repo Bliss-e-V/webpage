@@ -90,33 +90,20 @@ import sonicboomImage from "../../images/posts/images/20260629_sonicboom.png";
 import dexforceImage from "../../images/posts/images/20260706_dexforce.png";
 import coupledParticleFiltersImage from "../../images/posts/images/20260713_coupled-particle-filters.png";
 import aiControlImage from "../../images/posts/images/20261123_ai-control.png";
+import tbaImage from "../../images/posts/images/tba.png";
 
 export class Paper {
     constructor(
         public name: string,
         public authors: string[],
-        public link: string | undefined,
-        public image: ImageMetadata | undefined,
+        public link: string,
+        public image: ImageMetadata,
         public readingDay: Date,
         public eventLink?: string,
         public canceled: boolean = false,
     ) {
     }
-
-    get isAnnounced() {
-        return Boolean(this.link);
-    }
 }
-
-export const TBA_PAPER_TITLE = "Paper to be announced";
-
-/**
- * A scheduled session whose paper hasn't been picked yet.
- * Pass the Luma link once the event page exists; without one, no registration link is shown.
- * Replace it with a regular `new Paper(...)` once the paper is decided.
- */
-const paperTBA = (readingDay: Date, eventLink?: string) =>
-    new Paper(TBA_PAPER_TITLE, [], undefined, undefined, readingDay, eventLink);
 
 export type ReadingGroupSessionInfo = {
     seasonIntro?: string;
@@ -636,7 +623,8 @@ const papers = [
         "https://luma.com/arud5ref",
     ),
     // Winter Semester 2026/27: papers are picked week by week.
-    // Add upcoming sessions with paperTBA(date, lumaLink?) and swap in the real paper once it's decided.
+    // Until a session's paper is decided, list it as "Paper to be announced" with the BLISS logo,
+    // linking to its Luma page once that exists (otherwise to this page).
     new Paper(
         "AI Control: Improving Safety Despite Intentional Subversion",
         [
@@ -649,9 +637,9 @@ const papers = [
         aiControlImage,
         new Date("2026-11-23"),
     ),
-    paperTBA(new Date("2026-11-30")),
-    paperTBA(new Date("2026-12-07")),
-    paperTBA(new Date("2026-12-14")),
+    new Paper("Paper to be announced", [], "/reading-group", tbaImage, new Date("2026-11-30")),
+    new Paper("Paper to be announced", [], "/reading-group", tbaImage, new Date("2026-12-07")),
+    new Paper("Paper to be announced", [], "/reading-group", tbaImage, new Date("2026-12-14")),
 ];
 
 // --------------------------------------------------

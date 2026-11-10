@@ -634,7 +634,7 @@ export const EventTimeline = ({
                                                     </a>
                                                 )}
 
-                                                {readingGroupPapers.length === 1 && readingGroupPapers[0].paperHref && (
+                                                {readingGroupPapers.length === 1 && (
                                                     <a
                                                         href={readingGroupPapers[0].paperHref}
                                                         target="_blank"
@@ -760,16 +760,14 @@ export const EventTimeline = ({
                                                                 {formatAuthorList(paper.authors)}
                                                             </p>
                                                             <div className="mt-3 flex flex-wrap gap-3 text-sm">
-                                                                {paper.paperHref && (
-                                                                    <a
-                                                                        href={paper.paperHref}
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                        className="text-primary underline hover:text-white"
-                                                                    >
-                                                                        Paper
-                                                                    </a>
-                                                                )}
+                                                                <a
+                                                                    href={paper.paperHref}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="text-primary underline hover:text-white"
+                                                                >
+                                                                    Paper
+                                                                </a>
                                                                 {paper.registrationHref && !event.isCanceled && (
                                                                     <a
                                                                         href={paper.registrationHref}
