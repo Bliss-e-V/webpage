@@ -18,7 +18,7 @@ export type EventBadge = {
 export type ReadingGroupPaperSummary = {
     title: string;
     authors: string[];
-    paperHref: string;
+    paperHref?: string;
     registrationHref?: string;
 };
 
@@ -193,9 +193,11 @@ const createReadingGroupEvents = (): Promise<BlissEvent[]> =>
             date,
             title: readingGroupTitle(papers),
             subtitle:
-                papers.length === 1
-                    ? formatAuthorList(papers[0].authors)
-                    : "Reading group session",
+                papers.length !== 1
+                    ? "Reading group session"
+                    : primaryPaper.isAnnounced
+                      ? formatAuthorList(primaryPaper.authors)
+                      : "The paper for this session will be announced soon",
             description: sessionInfo
                 ? undefined
                 : papers.length === 1
