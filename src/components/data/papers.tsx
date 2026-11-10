@@ -101,9 +101,14 @@ export class Paper {
         public readingDay: Date,
         public eventLink?: string,
         public canceled: boolean = false,
+        // Short session-specific text (what the paper is about, how the session runs).
+        // Shown instead of the general semester description.
+        public description?: string,
     ) {
     }
 }
+
+const blissLumaCalendar = "https://luma.com/calendar/cal-kGR7Hkbz0PCyvKT";
 
 export type ReadingGroupSessionInfo = {
     seasonIntro?: string;
@@ -624,7 +629,7 @@ const papers = [
     ),
     // Winter Semester 2026/27: papers are picked week by week.
     // Until a session's paper is decided, list it as "Paper to be announced" with the BLISS logo,
-    // linking to its Luma page once that exists (otherwise to this page).
+    // linking to its Luma event page once that exists (otherwise to the BLISS Luma calendar).
     new Paper(
         "AI Control: Improving Safety Despite Intentional Subversion",
         [
@@ -636,10 +641,14 @@ const papers = [
         "https://arxiv.org/abs/2312.06942",
         aiControlImage,
         new Date("2026-11-23"),
+        undefined,
+        false,
+        "The paper that started the AI control agenda: instead of making a powerful model trustworthy, it asks how to use it safely even if it deliberately tries to cause harm. In a coding testbed, a red team makes GPT-4 sneak backdoors into its solutions, while protocols using the weaker but trusted GPT-3.5 and limited human review try to catch them.\n\n" +
+            "We start with a short walkthrough of the setup and the main safety protocols, then open the floor for discussion. Reading the abstract, introduction and discussion is enough to join in.",
     ),
-    new Paper("Paper to be announced", [], "/reading-group", tbaImage, new Date("2026-11-30")),
-    new Paper("Paper to be announced", [], "/reading-group", tbaImage, new Date("2026-12-07")),
-    new Paper("Paper to be announced", [], "/reading-group", tbaImage, new Date("2026-12-14")),
+    new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-11-30")),
+    new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-12-07")),
+    new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-12-14")),
 ];
 
 // --------------------------------------------------
