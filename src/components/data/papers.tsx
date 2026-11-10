@@ -89,6 +89,8 @@ import dyslexifyImage from "../../images/posts/images/20260615_dyslexify.png";
 import sonicboomImage from "../../images/posts/images/20260629_sonicboom.png";
 import dexforceImage from "../../images/posts/images/20260706_dexforce.png";
 import coupledParticleFiltersImage from "../../images/posts/images/20260713_coupled-particle-filters.png";
+import aiControlImage from "../../images/posts/images/20261123_ai-control.png";
+import tbaImage from "../../images/posts/images/tba.png";
 
 export class Paper {
     constructor(
@@ -99,9 +101,14 @@ export class Paper {
         public readingDay: Date,
         public eventLink?: string,
         public canceled: boolean = false,
+        // Short session-specific text (what the paper is about, how the session runs).
+        // Shown instead of the general semester description.
+        public description?: string,
     ) {
     }
 }
+
+const blissLumaCalendar = "https://luma.com/calendar/cal-kGR7Hkbz0PCyvKT";
 
 export type ReadingGroupSessionInfo = {
     seasonIntro?: string;
@@ -281,6 +288,19 @@ const sections: Section[] = [
             semesterLabel: "BLISSful AI",
             description: "Various BLISS members will present papers related to their research.",
             location: merantixLocation,
+            schedule: "Every Monday, 6:45pm",
+        },
+    ),
+    new Section(
+        "Winter Semester 2026/27",
+        "Various BLISS members",
+        new Date("2026-11-23"),
+        new Date("2027-02-15"),
+        "A new paper every week, picked by the group.",
+        {
+            description:
+                "This winter semester we pick a new paper every week, so the papers for upcoming sessions are announced on short notice. Check back here for the latest paper.",
+            location: tuMarLocation,
             schedule: "Every Monday, 6:45pm",
         },
     ),
@@ -607,6 +627,28 @@ const papers = [
         new Date("2026-07-13"),
         "https://luma.com/arud5ref",
     ),
+    // Winter Semester 2026/27: papers are picked week by week.
+    // Until a session's paper is decided, list it as "Paper to be announced" with the BLISS logo,
+    // linking to its Luma event page once that exists (otherwise to the BLISS Luma calendar).
+    new Paper(
+        "AI Control: Improving Safety Despite Intentional Subversion",
+        [
+            "Ryan Greenblatt",
+            "Buck Shlegeris",
+            "Kshitij Sachan",
+            "Fabien Roger",
+        ],
+        "https://arxiv.org/abs/2312.06942",
+        aiControlImage,
+        new Date("2026-11-23"),
+        undefined,
+        false,
+        "The paper that started the AI control agenda: instead of making a powerful model trustworthy, it asks how to use it safely even if it deliberately tries to cause harm. In a coding testbed, a red team makes GPT-4 sneak backdoors into its solutions, while protocols using the weaker but trusted GPT-3.5 and limited human review try to catch them.\n\n" +
+            "We start with a short walkthrough of the setup and the main safety protocols, then open the floor for discussion. Reading the abstract, introduction and discussion is enough to join in.",
+    ),
+    new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-11-30")),
+    new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-12-07")),
+    new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-12-14")),
 ];
 
 // --------------------------------------------------

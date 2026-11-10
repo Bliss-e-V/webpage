@@ -382,6 +382,8 @@ export const EventTimeline = ({
                         event.kind === "reading-group" ? event.details?.papers ?? [] : [];
                     const readingGroupSessionInfo =
                         event.kind === "reading-group" ? event.details?.sessionInfo : undefined;
+                    const readingGroupSessionDescription =
+                        readingGroupPapers.length === 1 ? readingGroupPapers[0].description : undefined;
                     const hasPreview = Boolean(
                         event.kind === "reading-group"
                             ? readingGroupPapers.length > 1 || readingGroupSessionInfo
@@ -709,8 +711,10 @@ export const EventTimeline = ({
 
                                             {readingGroupSessionInfo && (
                                                 <div className="mb-4">
-                                                    <p className="text-sm leading-relaxed text-gray-300 sm:text-base">
-                                                        {readingGroupSessionInfo.seasonIntro &&
+                                                    <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-300 sm:text-base">
+                                                        {readingGroupSessionDescription ? (
+                                                            readingGroupSessionDescription
+                                                        ) : readingGroupSessionInfo.seasonIntro &&
                                                         readingGroupSessionInfo.semesterLabel ? (
                                                             <>
                                                                 {readingGroupSessionInfo.seasonIntro}{" "}

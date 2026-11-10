@@ -20,6 +20,7 @@ export type ReadingGroupPaperSummary = {
     authors: string[];
     paperHref: string;
     registrationHref?: string;
+    description?: string;
 };
 
 export type BlissEvent = {
@@ -217,6 +218,7 @@ const createReadingGroupEvents = (): Promise<BlissEvent[]> =>
                     authors: paper.authors,
                     paperHref: paper.link,
                     registrationHref: paper.eventLink,
+                    description: paper.description,
                 })),
                 sessionInfo,
             },
