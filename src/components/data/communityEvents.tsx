@@ -46,6 +46,20 @@ Where: BLISS Discord Server
 
 You can drop your questions in advance in our #❓│ask-me-anything channel or bring them live on the day.`,
     ),
+    new CommunityEvent(
+        new Date("2026-11-18"),
+        "Ask Me Anything @ BLISS",
+        "Guest to be announced",
+        "https://luma.com/fxh2rpxa",
+        `Wanna talk career with a senior professional? Now you can.
+
+The day after the BLISS Speaker Series, our guest joins us for a full hour to answer any questions you might have. How do you land an internship at a big company? How do you get into a top-tier PhD programme?
+
+When: November 18, 2026 at 6:00 PM (CET)
+Where: BLISS Discord Server
+
+Register on Luma. Once we approve your participation, you get an email with further info and an invite to the BLISS Discord.`,
+    ),
 ];
 
 // --------------------------------------------------
