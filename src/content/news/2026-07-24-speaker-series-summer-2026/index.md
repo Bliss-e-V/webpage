@@ -17,12 +17,12 @@ On 14 July, Sophia Sanborn (Stanford University) gave the last talk of the semes
 
 All seven recordings are on our [YouTube channel](https://www.youtube.com/@bliss.ev.berlin):
 
-- **Nouamane Tazi** (Hugging Face): [Scaling LLM Training to Thousands of GPUs](https://www.youtube.com/watch?v=_Ig6_gAgFaQ)
-- **Marzieh Fadaee** (Cohere Labs): [Scaling LLMs Across Languages](https://www.youtube.com/watch?v=wYPbBevUIaM)
-- **Christopher Summerfield** (University of Oxford): [AI and Human Agency](https://www.youtube.com/watch?v=q0ltChkpoYo)
-- **Georgia Channing** (Hugging Face): [When Silicon Meets Carbon: Bringing Synthetic Biology to Life](https://www.youtube.com/watch?v=m4EK4R3IiBU)
-- **Thomas Wimmer** (ETH Zurich): [Beyond Patches: Learning Dense Visual Features](https://www.youtube.com/watch?v=v_XmNHNsYfs)
-- **Fazl Barez** (University of Oxford): [Towards Automated Interpretability for AI Safety](https://www.youtube.com/watch?v=739jopKW5Ug)
-- **Sophia Sanborn** (Stanford University): [Virtual Neuroscience with Neural Digital Twins](https://www.youtube.com/watch?v=87enX60HTRo)
+- **[Nouamane Tazi](/speaker-series/2026-04-21-nouamane-tazi)** (Hugging Face): [Scaling LLM Training to Thousands of GPUs](https://www.youtube.com/watch?v=_Ig6_gAgFaQ)
+- **[Marzieh Fadaee](/speaker-series/2026-05-05-marzieh-fadaee)** (Cohere Labs): [Scaling LLMs Across Languages](https://www.youtube.com/watch?v=wYPbBevUIaM)
+- **[Christopher Summerfield](/speaker-series/2026-05-19-christopher-summerfield)** (University of Oxford): [AI and Human Agency](https://www.youtube.com/watch?v=q0ltChkpoYo)
+- **[Georgia Channing](/speaker-series/2026-06-02-georgia-channing)** (Hugging Face): [When Silicon Meets Carbon: Bringing Synthetic Biology to Life](https://www.youtube.com/watch?v=m4EK4R3IiBU)
+- **[Thomas Wimmer](/speaker-series/2026-06-16-thomas-wimmer)** (ETH Zurich): [Beyond Patches: Learning Dense Visual Features](https://www.youtube.com/watch?v=v_XmNHNsYfs)
+- **[Fazl Barez](/speaker-series/2026-06-30-fazl-barez)** (University of Oxford): [Towards Automated Interpretability for AI Safety](https://www.youtube.com/watch?v=739jopKW5Ug)
+- **[Sophia Sanborn](/speaker-series/2026-07-14-sophia-sanborn)** (Stanford University): [Virtual Neuroscience with Neural Digital Twins](https://www.youtube.com/watch?v=87enX60HTRo)
 
 Thank you to all speakers and to everyone who came along this semester! Abstracts and photos of all past talks are on the [Speaker Series page](/speaker-series).

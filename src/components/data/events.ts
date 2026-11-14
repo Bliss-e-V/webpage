@@ -5,6 +5,7 @@ import { dayToPapers, getReadingGroupSectionForDate, type Paper } from "./papers
 import type { ReadingGroupSessionInfo } from "./papers";
 import { communityEvents } from "./communityEvents";
 import { speakers } from "./speakers";
+import { hasTalkPage, talkPath } from "./talks";
 import { workshops } from "./workshops";
 
 export type BlissEventKind = "speaker" | "workshop" | "reading-group" | "community";
@@ -32,6 +33,8 @@ export type BlissEvent = {
     description?: string;
     href?: string;
     externalHref?: boolean;
+    // Internal page dedicated to this event (speaker talks only).
+    pagePath?: string;
     // Several registration platforms for the same event, shown instead of the single "Register" link.
     registrationLinks?: { label: string; href: string }[];
     imageSrc?: string;
@@ -85,6 +88,8 @@ const withoutBorderClasses = (className?: string) =>
 const createSpeakerEvents = (): Promise<BlissEvent[]> =>
     Promise.all(speakers.map(async (speaker, index): Promise<BlissEvent> => {
         const seriesNumber = index + 1;
+        const pagePath = hasTalkPage(speaker) ? talkPath(speaker) : undefined;
+        const anchor = `/speaker-series#speaker-${seriesNumber}`;
 
         return {
             id: `speaker-${seriesNumber}`,
@@ -93,8 +98,9 @@ const createSpeakerEvents = (): Promise<BlissEvent[]> =>
             title: speaker.title,
             subtitle: `${speaker.name} - ${speaker.affiliation}`,
             description: speaker.abstract,
-            href: speaker.url || `/speaker-series?id=${seriesNumber}`,
+            href: speaker.url || pagePath || anchor,
             externalHref: Boolean(speaker.url),
+            pagePath,
             registrationLinks:
                 speaker.url && speaker.lumaUrl
                     ? [
@@ -107,7 +113,7 @@ const createSpeakerEvents = (): Promise<BlissEvent[]> =>
             badge: {
                 label: `Speaker Series #${seriesNumber}`,
                 className: "bg-emerald-950/70 text-emerald-200",
-                href: `/speaker-series?id=${seriesNumber}`,
+                href: pagePath ?? anchor,
             },
             isCanceled: speaker.canceled,
             seriesNumber,
@@ -140,12 +146,12 @@ const createWorkshopEvents = (): Promise<BlissEvent[]> =>
             ? {
                   ...workshop.tag,
                   className: withoutBorderClasses(workshop.tag.className),
-                  href: `/workshops?id=${encodeURIComponent(id)}`,
+                  href: `/workshops#${id}`,
               }
             : {
                   label: "Workshop",
                   className: "bg-sky-950/70 text-sky-200",
-                  href: `/workshops?id=${encodeURIComponent(id)}`,
+                  href: `/workshops#${id}`,
               },
         isCanceled: workshop.canceled,
         details: {
@@ -209,7 +215,7 @@ const createReadingGroupEvents = (): Promise<BlissEvent[]> =>
             badge: {
                 label: "Reading Group",
                 className: "bg-purple-950/70 text-purple-200",
-                href: `/reading-group?id=reading-group-${dateString}`,
+                href: `/reading-group#reading-group-${dateString}`,
             },
             isCanceled: papers.some((paper) => paper.canceled),
             details: {

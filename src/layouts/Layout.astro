@@ -33,9 +33,6 @@ const ogImageURL = new URL(ogImage ?? "/assets/bliss-banner.png", Astro.site).hr
 const siteTitle = "BLISS Berlin – Berlin Learning & Intelligent Systems Society";
 const fullTitle = title === siteTitle ? title : `${title} | BLISS Berlin`;
 
-// Current date in ISO format for freshness indication
-const currentDate = new Date().toISOString();
-
 // Canonical @id anchors used to link all schemas together
 const orgId = `${origin}/#organization`;
 const siteId = `${origin}/#website`;
@@ -46,7 +43,11 @@ const orgSchema = JSON.stringify({
   "@type": ["Organization", "EducationalOrganization"],
   "@id": orgId,
   "name": "BLISS e.V.",
-  "alternateName": "BLISS Berlin",
+  "alternateName": [
+    "BLISS Berlin",
+    "BLISS",
+    "Berlin Learning & Intelligent Systems Society"
+  ],
   "legalName": "Berlin Learning & Intelligent Systems Society e.V.",
   "url": origin,
   "foundingDate": "2022",
@@ -67,7 +68,7 @@ const orgSchema = JSON.stringify({
     "Reinforcement Learning",
     "AI Safety"
   ],
-  "keywords": "artificial intelligence, machine learning, AI research, deep learning, Berlin AI community, AI speaker series, paper reading group, hackathon",
+  "keywords": "artificial intelligence, machine learning, AI research, deep learning, Berlin AI community, AI speaker series, paper reading group, hackathon, KI-Verein Berlin, KI-Events Berlin, künstliche Intelligenz",
   "areaServed": {
     "@type": "City",
     "name": "Berlin"
@@ -98,7 +99,8 @@ const websiteSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": siteId,
-  "name": "BLISS e.V.",
+  "name": "BLISS Berlin",
+  "alternateName": ["BLISS e.V.", "BLISS"],
   "url": origin,
   "publisher": { "@id": orgId }
 });
@@ -111,7 +113,6 @@ const webpageSchema = JSON.stringify({
   "url": canonicalURL,
   "name": fullTitle,
   "description": description,
-  "dateModified": currentDate,
   "isPartOf": { "@id": siteId },
   "about": { "@id": orgId }
 });
@@ -148,9 +149,6 @@ const webpageSchema = JSON.stringify({
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
-
-    <!-- Keywords -->
-    <meta name="keywords" content="ai, machine learning, artificial intelligence, events, berlin, speaker series, tech community, bliss berlin, data science, deep learning" />
 
     <!-- Theme and icons -->
     <meta name="theme-color" content="#000000" />

@@ -175,7 +175,7 @@ export const EventTimeline = ({
         return groups;
     }, [normalizedEvents, showDividers]);
 
-    // The event to auto-expand and scroll to (URL ?id= or #anchor, else the next upcoming).
+    // The event to auto-expand and scroll to (#anchor or a legacy ?id= link, else the next upcoming).
     // Computed once; both effects below react to it. `today` is null until mount, so this
     // only reads `window` on the client.
     const autoScrollTargetId = useMemo(() => {
@@ -397,6 +397,9 @@ export const EventTimeline = ({
                     const detailHref = getDetailHref(event, currentPath);
                     const showDetailHref =
                         detailHref && !(event.isCanceled && event.externalHref);
+                    // The talk's own page takes the title link, registration stays in the link row.
+                    const titleHref = event.pagePath ?? (showDetailHref ? detailHref : undefined);
+                    const titleIsExternal = !event.pagePath && eventIsExternal(event);
 
                     return (
                             <li
@@ -564,11 +567,11 @@ export const EventTimeline = ({
                                                           : "text-white",
                                                 )}
                                             >
-                                                {showDetailHref ? (
+                                                {titleHref ? (
                                                     <a
-                                                        href={detailHref}
-                                                        target={eventIsExternal(event) ? "_blank" : "_self"}
-                                                        rel={eventIsExternal(event) ? "noopener noreferrer" : undefined}
+                                                        href={titleHref}
+                                                        target={titleIsExternal ? "_blank" : "_self"}
+                                                        rel={titleIsExternal ? "noopener noreferrer" : undefined}
                                                         className={classNames(
                                                             "no-underline transition-colors duration-150 ease-out",
                                                             !isPastDimmed &&
@@ -633,6 +636,20 @@ export const EventTimeline = ({
                                                         )}
                                                     >
                                                         {event.externalHref ? "Register" : "Open Details"}
+                                                    </a>
+                                                )}
+
+                                                {event.pagePath && event.pagePath !== detailHref && (
+                                                    <a
+                                                        href={event.pagePath}
+                                                        className={classNames(
+                                                            "inline-flex cursor-pointer items-center text-sm font-semibold transition-colors duration-150 ease-out hover:underline",
+                                                            isPastDimmed
+                                                                ? "text-gray-500"
+                                                                : "text-gray-300 hover:text-white",
+                                                        )}
+                                                    >
+                                                        Talk page
                                                     </a>
                                                 )}
 

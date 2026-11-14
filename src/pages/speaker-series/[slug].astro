@@ -1,0 +1,213 @@
+---
+export const prerender = true;
+
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import { getTalks, talkStart, talkVenue, type Talk } from "@components/data/talks";
+import { talkVideoDates } from "@components/data/talkVideoDates";
+import { getBerlinStartOfToday } from "@lib/event-scroll";
+
+export function getStaticPaths() {
+    const talks = getTalks();
+    return talks.map((talk, index) => ({
+        params: { slug: talk.slug },
+        props: { talk, previous: talks[index - 1], next: talks[index + 1] },
+    }));
+}
+
+interface Props {
+    talk: Talk;
+    previous?: Talk;
+    next?: Talk;
+}
+
+const { talk, previous, next } = Astro.props;
+const { speaker, seriesNumber } = talk;
+const { title, name, affiliation, abstract, bio, videoId, images, url, lumaUrl, date } = speaker;
+
+const dateLabel = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Europe/Berlin",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+}).format(date);
+const start = talkStart(speaker);
+// The site is redeployed daily, so this flips to "past" on the day after the talk.
+const isUpcoming = date >= getBerlinStartOfToday();
+const venue = talkVenue(speaker);
+
+const clip = (text: string, max = 155) => {
+    const flat = text.replace(/\s+/g, " ").trim();
+    return flat.length <= max ? flat : `${flat.slice(0, max).replace(/\s+\S*$/, "")}…`;
+};
+const description = clip(`${name} (${affiliation}) at the BLISS Speaker Series in Berlin. ${abstract || bio}`);
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const orgId = `${new URL("/", Astro.site).origin}/#organization`;
+const thumbnailUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : undefined;
+const uploadDate = videoId ? talkVideoDates[talk.slug] : undefined;
+
+const eventSchema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: title,
+    description: abstract || bio,
+    url: pageUrl,
+    startDate: start.iso,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+        "@type": "Place",
+        name: venue.room ?? venue.label,
+        address: {
+            "@type": "PostalAddress",
+            ...(venue.streetAddress && { streetAddress: venue.streetAddress }),
+            ...(venue.postalCode && { postalCode: venue.postalCode }),
+            addressLocality: "Berlin",
+            addressCountry: "DE",
+        },
+    },
+    performer: name.split(/\s+and\s+/).map((person) => ({
+        "@type": "Person",
+        name: person,
+        ...(affiliation && { affiliation: { "@type": "Organization", name: affiliation } }),
+    })),
+    organizer: { "@id": orgId },
+    ...(thumbnailUrl && { image: thumbnailUrl }),
+});
+
+const videoSchema =
+    videoId && uploadDate
+        ? JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "VideoObject",
+              name: `${title} – ${name}`,
+              description: abstract || bio || title,
+              thumbnailUrl,
+              uploadDate,
+              embedUrl: `https://www.youtube-nocookie.com/embed/${videoId}`,
+              url: `https://www.youtube.com/watch?v=${videoId}`,
+              publisher: { "@id": orgId },
+          })
+        : undefined;
+---
+
+<Layout title={`${title} – ${name}`} description={description} ogImage={thumbnailUrl}>
+    <script slot="head" type="application/ld+json" set:html={eventSchema} />
+    {videoSchema && <script slot="head" type="application/ld+json" set:html={videoSchema} />}
+    <div class="max-w-3xl mx-auto">
+        <Breadcrumb
+            crumbs={[
+                { name: "Speaker Series", href: "/speaker-series" },
+                { name: title, href: Astro.url.pathname },
+            ]}
+        />
+    </div>
+    <article class="max-w-3xl mx-auto mt-6 sm:mt-8">
+        <p class="!text-sm !text-left tracking-wider uppercase !text-tertiary">
+            <time datetime={start.iso}>{dateLabel}{start.timeLabel && `, ${start.timeLabel}`}</time>
+            <span class="mx-2">·</span>
+            <span>{venue.label}</span>
+            <span class="mx-2">·</span>
+            <span class="text-accent">Speaker Series #{seriesNumber}</span>
+        </p>
+        <h1 class="mt-2 font-bold !text-transparent bg-clip-text bg-red-right pb-2">{title}</h1>
+        <p class="!text-primary !text-xl sm:!text-2xl !text-left">
+            {name}{affiliation && ` · ${affiliation}`}
+        </p>
+
+        {
+            venue.streetAddress && (
+                <p class="!mt-6 !text-left">
+                    {venue.room}, {venue.streetAddress}, {venue.postalCode} Berlin
+                </p>
+            )
+        }
+
+        {
+            isUpcoming && (url || lumaUrl) && (
+                <p class="!mt-6 !text-left">
+                    Register for this talk:{" "}
+                    {url && <a href={url} target="_blank" rel="noopener noreferrer">Meetup</a>}
+                    {url && lumaUrl && " · "}
+                    {lumaUrl && <a href={lumaUrl} target="_blank" rel="noopener noreferrer">Luma</a>}
+                </p>
+            )
+        }
+
+        {
+            videoId && (
+                <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-black !my-8">
+                    <iframe
+                        class="absolute inset-0 h-full w-full"
+                        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                        title={`${title} – recording of the talk by ${name}`}
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                    />
+                </div>
+            )
+        }
+
+        {
+            abstract && (
+                <>
+                    <h2>Abstract</h2>
+                    <p class="whitespace-pre-wrap !text-left">{abstract}</p>
+                </>
+            )
+        }
+
+        {
+            bio && (
+                <>
+                    <h2>About the speaker</h2>
+                    <p class="whitespace-pre-wrap !text-left">{bio}</p>
+                </>
+            )
+        }
+
+        {
+            images.length > 0 && (
+                <>
+                    <h2>Photos</h2>
+                    {images.map((src) => (
+                        <img src={src} alt={`${title} event photo`} loading="lazy" class="max-h-[28rem] w-auto" />
+                    ))}
+                </>
+            )
+        }
+
+        <h2>About the BLISS Speaker Series</h2>
+        <p class="!text-left">
+            During the semester, BLISS invites AI researchers to Berlin every two weeks to present their
+            work in person. Talks are recorded and published on our
+            <a href="https://www.youtube.com/@bliss.ev.berlin" target="_blank" rel="noopener noreferrer">YouTube channel</a>.
+            See <a href="/speaker-series">all talks</a> or read <a href="/">more about BLISS</a>.
+        </p>
+
+        <nav aria-label="More talks" class="mt-10 grid gap-4 sm:grid-cols-2">
+            {
+                previous && (
+                    <a href={previous.path} class="block rounded-lg border border-white/10 p-4 no-underline hover:border-white/30">
+                        <span class="block text-sm text-tertiary">← Previous talk</span>
+                        <span class="block text-primary">{previous.speaker.title}</span>
+                        <span class="block text-sm text-secondary">{previous.speaker.name}</span>
+                    </a>
+                )
+            }
+            {
+                next && (
+                    <a href={next.path} class="block rounded-lg border border-white/10 p-4 no-underline hover:border-white/30 sm:col-start-2">
+                        <span class="block text-sm text-tertiary">Next talk →</span>
+                        <span class="block text-primary">{next.speaker.title}</span>
+                        <span class="block text-sm text-secondary">{next.speaker.name}</span>
+                    </a>
+                )
+            }
+        </nav>
+    </article>
+</Layout>
