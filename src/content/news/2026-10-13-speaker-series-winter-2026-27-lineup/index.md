@@ -8,10 +8,10 @@ linkedin: https://www.linkedin.com/posts/blissberlin-aispeakerseries-machinelear
 
 The lineup is out! This winter, eight researchers from leading AI labs and universities come to Berlin for the BLISS Speaker Series. The topics range from reasoning in LLMs and AI safety to cognition in brains and AI, sovereign AI and the agentic web.
 
-**Updated 27 October:** Pavel Izmailov's talk has moved from 10 November to **2 February 2027**. Jonas Geiping's talk on **17 November** takes place at the **TU Berlin Mathematics Building, Str. des 17. Juni 136**, rather than room C130. Badr AlKhamissi joins us from **EPFL**. The schedule below reflects these updates.
+**Updated 16 November:** Pavel Izmailov's talk has moved from 10 November to **2 February 2027**. Jonas Geiping's talk on **17 November** takes place in **room MA004 at the TU Berlin Mathematics Building, Str. des 17. Juni 136**. Badr AlKhamissi joins us from **EPFL**. The schedule below reflects these updates.
 
 - **When:** Tuesdays at 7 pm, starting 3 November 2026
-- **Where:** TU Berlin, room C130, except 17 November at the Mathematics Building (Str. des 17. Juni 136). Check your event registration page for room details.
+- **Where:** TU Berlin, room C130, except 17 November in room MA004 at the Mathematics Building (Str. des 17. Juni 136). Check your event registration page for room details.
 - **Entry:** free, registration on Meetup or Luma required
 
 As always, the discussion continues afterwards over free drinks and pizza.
