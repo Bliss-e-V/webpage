@@ -135,6 +135,12 @@ const tuMarLocation = {
     url: "https://www.google.de/maps/place/TU+Berlin+-+MAR+Geb%C3%A4ude/@52.5165408,13.3237066,17z",
 };
 
+const tuFranklinLocation = {
+    name: "FR 713, TU Berlin",
+    address: "Franklinstraße 28/29, 10587 Berlin",
+    url: "https://maps.app.goo.gl/PfRevmzGAvCnQt4e6",
+};
+
 export class Section {
     constructor(
         public title: string,
@@ -301,7 +307,7 @@ const sections: Section[] = [
         {
             description:
                 "This winter semester we pick a new paper every week, so the papers for upcoming sessions are announced on short notice. Check back here for the latest paper.",
-            location: tuMarLocation,
+            location: tuFranklinLocation,
             schedule: "Every Monday, 6:45pm",
         },
     ),
@@ -646,11 +652,6 @@ const papers = [
         false,
         "The paper that started the AI control agenda: instead of making a powerful model trustworthy, it asks how to use it safely even if it deliberately tries to cause harm. In a coding testbed, a red team makes GPT-4 sneak backdoors into its solutions, while protocols using the weaker but trusted GPT-3.5 and limited human review try to catch them.\n\n" +
             "Eduard Hübner leads the session. We start with a short walkthrough of the setup and the main safety protocols, then open the floor for discussion. Reading the abstract, introduction and discussion is enough to join in.",
-        {
-            name: "FR 713, TU Berlin",
-            address: "Franklinstraße 28/29, 10587 Berlin",
-            url: "https://maps.app.goo.gl/PfRevmzGAvCnQt4e6",
-        },
     ),
     new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-11-30")),
     new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-12-07")),
