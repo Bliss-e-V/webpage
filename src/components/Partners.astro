@@ -13,36 +13,42 @@ import didaImg from "../images/logos/dida.png";
 import gResearchImg from "../images/logos/g-research-dark-bg.svg";
 import janeStreetImg from "../images/logos/jane-street.svg";
 import muensterAiImg from "../images/logos/muenster-ai-white.svg";
+import modalImg from "../images/logos/modal-white.webp";
 
-const partners = [
-    { src: gResearchImg, alt: "G-Research", url: "https://www.gresearch.com/", wrapperClass: "h-10 md:h-16" },
-];
+// Order and size show how much a sponsor contributes: the main sponsors get their own row with
+// large logos, the remaining sponsors follow in a second row with smaller ones.
+const MAIN = "h-12 md:h-20";
+const OTHER = "h-8 md:h-12";
 
-const supporters = [
-    { src: googleImg, alt: "Google", url: "https://www.google.com/" },
-    { src: siliconAlleeImg, alt: "Silicon Allee", url: "https://www.siliconallee.com/" },
-    { src: kiParkImg, alt: "KI Park", url: "https://kipark.de/" },
-    { src: bifoldImg, alt: "Bifold", url: "https://www.bifold.berlin/" },
-    { src: quantCoImg, alt: "QuantCo", url: "https://www.quantco.com/" },
-    { src: onethousandImg, alt: "One Thousand", url: "https://onethousand.ai/" },
-    { src: didaImg, alt: "dida", url: "https://dida.do/" },
+const mainSponsors = [
+    { src: gResearchImg, alt: "G-Research", url: "https://www.gresearch.com/", wrapperClass: MAIN },
+    { src: modalImg, alt: "Modal", url: "https://modal.com/", wrapperClass: MAIN },
     {
         src: janeStreetImg,
         alt: "Jane Street",
         url: "https://www.janestreet.com/",
-        wrapperClass: "h-10 md:h-16",
+        wrapperClass: MAIN,
         imageClass: "invert",
     },
 ];
 
-const communityPartners = [
-    { src: muensterAiImg, alt: "Münster.AI", url: "https://muensterai.com/", wrapperClass: "h-10 md:h-16" },
+const otherSponsors = [
+    { src: googleImg, alt: "Google", url: "https://www.google.com/", wrapperClass: OTHER },
+    { src: siliconAlleeImg, alt: "Silicon Allee", url: "https://www.siliconallee.com/", wrapperClass: OTHER },
+    { src: kiParkImg, alt: "KI Park", url: "https://kipark.de/", wrapperClass: OTHER },
+    { src: bifoldImg, alt: "Bifold", url: "https://www.bifold.berlin/", wrapperClass: OTHER },
+    { src: quantCoImg, alt: "QuantCo", url: "https://www.quantco.com/", wrapperClass: OTHER },
+    { src: onethousandImg, alt: "One Thousand", url: "https://onethousand.ai/", wrapperClass: OTHER },
+    { src: didaImg, alt: "dida", url: "https://dida.do/", wrapperClass: OTHER },
+];
+
+const community = [
+    { src: muensterAiImg, alt: "Münster.AI", url: "https://muensterai.com/", wrapperClass: OTHER },
 ];
 
 const tiers = [
-    { title: "Partners", logos: partners },
-    { title: "Supporters", logos: supporters },
-    { title: "Community Partners", logos: communityPartners },
+    { title: "Sponsors", rows: [mainSponsors, otherSponsors] },
+    { title: "Community", rows: [community] },
 ];
 ---
 
@@ -61,12 +67,14 @@ const tiers = [
         </a>
     </BigButton>
 
-    {tiers.map(({ title, logos }) => (
+    {tiers.map(({ title, rows }) => (
         <div class="mt-10">
             <Headline level={3}>{title}</Headline>
-            <div class="mt-2 flex flex-wrap items-center max-w-full md:max-w-[75%]">
-                {logos.map((logo) => <Partner {...logo} />)}
-            </div>
+            {rows.map((logos) => (
+                <div class="mt-2 flex flex-wrap items-center max-w-full md:max-w-[75%]">
+                    {logos.map((logo) => <Partner {...logo} />)}
+                </div>
+            ))}
         </div>
     ))}
 </div>
