@@ -104,6 +104,7 @@ export class Paper {
         // Short session-specific text (what the paper is about, how the session runs).
         // Shown instead of the general semester description.
         public description?: string,
+        public location?: ReadingGroupSessionInfo["location"],
     ) {
     }
 }
@@ -645,6 +646,11 @@ const papers = [
         false,
         "The paper that started the AI control agenda: instead of making a powerful model trustworthy, it asks how to use it safely even if it deliberately tries to cause harm. In a coding testbed, a red team makes GPT-4 sneak backdoors into its solutions, while protocols using the weaker but trusted GPT-3.5 and limited human review try to catch them.\n\n" +
             "Eduard Hübner leads the session. We start with a short walkthrough of the setup and the main safety protocols, then open the floor for discussion. Reading the abstract, introduction and discussion is enough to join in.",
+        {
+            name: "FR 713, TU Berlin",
+            address: "Franklinstraße 28/29, 10587 Berlin",
+            url: "https://www.google.com/maps/search/?api=1&query=TU+Berlin+Franklinstra%C3%9Fe+28%2F29%2C+10587+Berlin",
+        },
     ),
     new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-11-30")),
     new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-12-07")),
@@ -670,3 +676,11 @@ const papersToObject = (papers: Paper[]) => {
 }
 
 export const dayToPapers = papersToObject(papers)
+
+export const getReadingGroupSessionInfoForDate = (date: Date): ReadingGroupSessionInfo | undefined => {
+    const sessionInfo = getReadingGroupSectionForDate(date)?.sessionInfo;
+    if (!sessionInfo) return undefined;
+
+    const location = dayToPapers[date.toISOString().split("T")[0]]?.find((paper) => paper.location)?.location;
+    return location ? { ...sessionInfo, location } : sessionInfo;
+};

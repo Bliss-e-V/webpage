@@ -1,7 +1,7 @@
 import type { ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
 import { formatAuthorList } from "@utils/formatAuthorList";
-import { dayToPapers, getReadingGroupSectionForDate, type Paper } from "./papers";
+import { dayToPapers, getReadingGroupSessionInfoForDate, type Paper } from "./papers";
 import type { ReadingGroupSessionInfo } from "./papers";
 import { communityEvents } from "./communityEvents";
 import { speakers } from "./speakers";
@@ -185,8 +185,7 @@ const createReadingGroupEvents = (): Promise<BlissEvent[]> =>
         const date = new Date(dateString);
         const primaryPaper = papers[0];
         const firstRegistrationHref = papers.find((paper) => paper.eventLink)?.eventLink;
-        const section = getReadingGroupSectionForDate(date);
-        const sessionInfo = section?.sessionInfo;
+        const sessionInfo = getReadingGroupSessionInfoForDate(date);
 
         return {
             id: `reading-group-${dateString}`,

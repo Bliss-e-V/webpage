@@ -2,10 +2,15 @@
 export const prerender = true;
 
 import EventPage from "@components/events/EventPage.astro";
-import { getCurrentReadingGroupSection } from "@components/data/papers";
+import { dayToPapers, getCurrentReadingGroupSection, getReadingGroupSessionInfoForDate } from "@components/data/papers";
 
 const currentSection = getCurrentReadingGroupSection();
 const sessionInfo = currentSection?.sessionInfo;
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const nextSessionDate = Object.keys(dayToPapers).sort().find((date) => new Date(date) >= today && !dayToPapers[date].some((paper) => paper.canceled));
+const location = nextSessionDate ? getReadingGroupSessionInfoForDate(new Date(nextSessionDate))?.location : sessionInfo?.location;
+const nextSessionLabel = nextSessionDate && new Date(nextSessionDate).toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "Europe/Berlin" });
 ---
 
 <EventPage
@@ -29,11 +34,11 @@ const sessionInfo = currentSection?.sessionInfo;
                     sessionInfo.description
                 )}
             </div>
-            {sessionInfo.location && (
+            {location && (
                 <div class="mb-4">
-                    <strong>Location:</strong>{" "}
-                    <a href={sessionInfo.location.url} target="_blank" rel="noopener noreferrer">
-                        <strong>{sessionInfo.location.name}</strong> ({sessionInfo.location.address})
+                    <strong>{nextSessionLabel ? `Location for ${nextSessionLabel}:` : "Location:"}</strong>{" "}
+                    <a href={location.url} target="_blank" rel="noopener noreferrer">
+                        <strong>{location.name}</strong> ({location.address})
                     </a>
                 </div>
             )}
