@@ -649,7 +649,7 @@ const papers = [
         {
             name: "FR 713, TU Berlin",
             address: "Franklinstraße 28/29, 10587 Berlin",
-            url: "https://www.google.com/maps/search/?api=1&query=TU+Berlin+Franklinstra%C3%9Fe+28%2F29%2C+10587+Berlin",
+            url: "https://maps.app.goo.gl/PfRevmzGAvCnQt4e6",
         },
     ),
     new Paper("Paper to be announced", [], blissLumaCalendar, tbaImage, new Date("2026-11-30")),
