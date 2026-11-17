@@ -22,16 +22,18 @@ const articleSchema = JSON.stringify({
     description: summary,
     datePublished: date.toISOString(),
     ...(ogImage && { image: new URL(ogImage, Astro.site).href }),
+    author: { "@type": "Organization", name: "BLISS e.V.", url: new URL("/", Astro.site).origin },
     publisher: { "@id": `${new URL("/", Astro.site).origin}/#organization` },
 });
 ---
 
 <Layout title={title} description={summary} ogImage={ogImage}>
     <script slot="head" type="application/ld+json" set:html={articleSchema} />
-    <Breadcrumb crumbs={[{ name: "News", href: "/news" }, { name: title, href: Astro.url.pathname }]} />
+    <div class="max-w-3xl mx-auto">
+        <Breadcrumb crumbs={[{ name: "News", href: "/news" }, { name: title, href: Astro.url.pathname }]} />
+    </div>
     <article class="max-w-3xl mx-auto mt-6 sm:mt-8">
-        <a href="/news" class="text-sm !text-tertiary hover:!text-primary transition-colors">← All news</a>
-        <p class="mt-6 text-sm tracking-wider uppercase text-tertiary">
+        <p class="text-sm tracking-wider uppercase text-tertiary">
             <time datetime={date.toISOString()}>{formatNewsDate(date)}</time>
             <span class="mx-2">·</span>
             <span class="text-accent">{category}</span>

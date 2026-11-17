@@ -1,0 +1,84 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import { getUpcomingEvents } from "@components/data/events";
+import { getCurrentReadingGroupSection } from "@components/data/papers";
+
+const upcomingTalks = (await getUpcomingEvents(100))
+    .filter((event) => event.kind === "speaker" && event.pagePath)
+    .slice(0, 4);
+const readingGroupLocation = getCurrentReadingGroupSection()?.sessionInfo?.location;
+
+const dateFormat = new Intl.DateTimeFormat("de-DE", {
+    timeZone: "Europe/Berlin",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+});
+---
+
+<Layout
+    lang="de"
+    title="KI-Verein Berlin: KI-Events, Vorträge und Workshops"
+    description="BLISS ist ein KI-Verein in Berlin für Studierende und Berufseinsteiger. Wir organisieren KI-Events: Vorträge an der TU Berlin, Reading Groups und Workshops."
+>
+    <div class="max-w-3xl mx-auto">
+        <Breadcrumb crumbs={[{ name: "KI-Verein Berlin", href: "/ki-verein-berlin" }]} />
+    </div>
+    <article class="max-w-3xl mx-auto mt-6 sm:mt-8">
+        <h1 class="font-bold !text-transparent bg-clip-text bg-red-right pb-2">KI-Verein in Berlin: BLISS e.V.</h1>
+        <p class="!text-left">
+            BLISS (Berlin Learning &amp; Intelligent Systems Society) ist ein eingetragener, nicht
+            gewinnorientierter Verein für alle, die sich ernsthaft mit künstlicher Intelligenz und
+            maschinellem Lernen beschäftigen wollen. Studierende haben ihn 2022 gegründet, und bis heute richtet
+            er sich an Studierende und Berufseinsteiger. Der Verein wird ehrenamtlich getragen und ist von
+            Unternehmen und Hochschulen unabhängig.
+        </p>
+
+        <h2>KI-Events in Berlin</h2>
+        <p class="!text-left !my-4">
+            <strong><a href="/speaker-series">Speaker Series:</a></strong> Im Semester stellen alle zwei
+            Wochen Forscher aus Laboren und Universitäten wie Google DeepMind, Anthropic, Oxford oder dem
+            Max-Planck-Institut ihre Arbeit vor. Die Vorträge finden an der TU Berlin statt, der
+            Eintritt ist frei, und danach bleibt bei Pizza und Getränken Zeit für Fragen. Die Aufzeichnungen
+            erscheinen auf unserem
+            <a href="https://www.youtube.com/@bliss.ev.berlin" target="_blank" rel="noopener noreferrer">YouTube-Kanal</a>.
+        </p>
+        <p class="!text-left !my-4">
+            <strong><a href="/reading-group">Reading Group:</a></strong> Montags diskutieren wir aktuelle
+            Forschungsarbeiten aus dem maschinellen Lernen. Jedes Semester hat einen eigenen Schwerpunkt.
+            {readingGroupLocation && ` Treffpunkt ist derzeit: ${readingGroupLocation.name}, ${readingGroupLocation.address}.`}
+        </p>
+        <p class="!text-left !my-4">
+            <strong><a href="/workshops">Workshops:</a></strong> Mit Partnerunternehmen veranstalten wir
+            praktische Workshops zu aktuellen KI-Themen. Dazu kommen Hackathons und Community-Abende.
+        </p>
+
+        {
+            upcomingTalks.length > 0 && (
+                <>
+                    <h2>Die nächsten KI-Vorträge an der TU Berlin</h2>
+                    <ul>
+                        {upcomingTalks.map((talk) => (
+                            <li>
+                                {dateFormat.format(talk.date)}: <a href={talk.pagePath}>{talk.title}</a> ({talk.subtitle})
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            )
+        }
+
+        <h2>Mitmachen</h2>
+        <p class="!text-left">
+            Für die Vorträge meldest du dich über Meetup oder Luma an. Alle weiteren Kanäle findest du unter
+            <a href="/links">Links</a>, darunter Discord und unseren Newsletter. Wenn du den Verein
+            mitgestalten möchtest, schau bei den <a href="/join">offenen Positionen</a> vorbei.
+        </p>
+        <p class="!text-left">
+            <a href="/" lang="en">English version: BLISS, Berlin's AI community</a>
+        </p>
+    </article>
+</Layout>

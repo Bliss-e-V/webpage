@@ -1,0 +1,38 @@
+// YouTube upload date per talk page slug. schema.org VideoObject requires an upload date and the
+// talk date would be wrong, as recordings go online weeks later. It also feeds <lastmod> in the
+// sitemap (astro.config.mjs), so this file must stay free of Astro imports.
+// Add a line for each new recording; a video without an entry is still embedded.
+export const talkVideoDates: Record<string, string> = {
+    "2024-04-16-thomas-unterthiner": "2024-07-23T12:28:39-07:00",
+    "2024-04-30-daniel-zugner": "2024-08-05T00:12:29-07:00",
+    "2024-05-14-malte-ostendorff": "2024-08-20T10:53:14-07:00",
+    "2024-06-11-wolfgang-hoenig": "2024-09-07T10:49:47-07:00",
+    "2024-07-09-cecilia-clementi": "2024-09-25T04:43:05-07:00",
+    "2024-10-22-veronika-solopova": "2024-11-15T00:58:42-08:00",
+    "2024-11-05-robert-lange": "2024-11-15T00:58:59-08:00",
+    "2024-11-19-marc-toussaint": "2024-11-24T00:35:31-08:00",
+    "2025-01-07-katharina-baum": "2025-01-11T01:49:47-08:00",
+    "2025-01-21-sven-wang": "2025-01-31T05:20:53-08:00",
+    "2025-04-22-martin-genzel": "2025-05-09T02:19:42-07:00",
+    "2025-05-06-timothee-darcet": "2025-05-09T02:19:35-07:00",
+    "2025-05-20-yu-xie-and-michael-gastegger": "2025-06-18T02:46:15-07:00",
+    "2025-06-03-pierre-fernandez": "2025-06-11T01:45:07-07:00",
+    "2025-06-17-daniel-duckworth": "2025-07-02T02:03:36-07:00",
+    "2025-07-01-adel-bibi": "2025-09-08T01:05:24-07:00",
+    "2025-07-15-jannik-kossen": "2025-09-22T07:36:11-07:00",
+    "2025-10-21-federico-barbero": "2025-11-02T05:49:36-08:00",
+    "2025-11-04-beyza-ermis": "2025-11-17T04:32:19-08:00",
+    "2025-11-18-ashley-edwards": "2026-01-09T10:27:05-08:00",
+    "2025-12-02-ameya-prabhu": "2025-12-22T08:48:46-08:00",
+    "2025-12-16-dilara-gokay": "2026-01-15T22:00:50-08:00",
+    "2026-01-13-jonas-hubotter": "2026-01-20T08:22:38-08:00",
+    "2026-01-27-david-watson": "2026-03-17T00:00:44-07:00",
+    "2026-02-10-ahmed-salem": "2026-03-27T01:00:00-07:00",
+    "2026-04-21-nouamane-tazi": "2026-05-20T18:36:43-07:00",
+    "2026-05-05-marzieh-fadaee": "2026-05-29T09:36:16-07:00",
+    "2026-05-19-christopher-summerfield": "2026-07-24T08:29:18-07:00",
+    "2026-06-02-georgia-channing": "2026-08-11T17:46:01-07:00",
+    "2026-06-16-thomas-wimmer": "2026-07-14T05:15:57-07:00",
+    "2026-06-30-fazl-barez": "2026-08-23T10:45:19-07:00",
+    "2026-07-14-sophia-sanborn": "2026-09-08T08:59:07-07:00",
+};

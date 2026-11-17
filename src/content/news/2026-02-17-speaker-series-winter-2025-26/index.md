@@ -14,14 +14,14 @@ From October to February, we hosted a talk every two weeks at TU Berlin. On 10 F
 
 Missed a talk? All eight recordings are on our [YouTube channel](https://www.youtube.com/@bliss.ev.berlin):
 
-- **Federico Barbero** (Google DeepMind, University of Oxford): [Why do LLMs struggle with Long Context?](https://www.youtube.com/watch?v=Dsl2bD6akkM)
-- **Beyza Ermiş** (Cohere): [Scaling AI Safety Across Cultures and Languages](https://www.youtube.com/watch?v=ECS0Rez1AeA)
-- **Ashley Edwards** (Google DeepMind): [Generative World Models](https://www.youtube.com/watch?v=e6echhvqxhM)
-- **Ameya Prabhu** (Tübingen AI Center): [What's Next in Continual Learning for Foundation Models?](https://www.youtube.com/watch?v=2Bfvmi4ySBs)
-- **Dilara Gökay** (Google DeepMind): [Insights into Training Video Models](https://www.youtube.com/watch?v=qJVkC47kWnc)
-- **Jonas Hübotter** (ETH Zurich): [Test-Time Training Agents for Deep Exploration](https://www.youtube.com/watch?v=7EsrcXXPBRU)
-- **David Watson** (King's College London): [Can Humans Flourish in the Age of AI?](https://www.youtube.com/watch?v=nwPhpFjQqAE)
-- **Ahmed Salem** (Microsoft Security Response Center): [The Price of Intelligence: Three Risks Inherent in LLMs](https://www.youtube.com/watch?v=FbaaKi1cgWg)
+- **[Federico Barbero](/speaker-series/2025-10-21-federico-barbero)** (Google DeepMind, University of Oxford): [Why do LLMs struggle with Long Context?](https://www.youtube.com/watch?v=Dsl2bD6akkM)
+- **[Beyza Ermiş](/speaker-series/2025-11-04-beyza-ermis)** (Cohere): [Scaling AI Safety Across Cultures and Languages](https://www.youtube.com/watch?v=ECS0Rez1AeA)
+- **[Ashley Edwards](/speaker-series/2025-11-18-ashley-edwards)** (Google DeepMind): [Generative World Models](https://www.youtube.com/watch?v=e6echhvqxhM)
+- **[Ameya Prabhu](/speaker-series/2025-12-02-ameya-prabhu)** (Tübingen AI Center): [What's Next in Continual Learning for Foundation Models?](https://www.youtube.com/watch?v=2Bfvmi4ySBs)
+- **[Dilara Gökay](/speaker-series/2025-12-16-dilara-gokay)** (Google DeepMind): [Insights into Training Video Models](https://www.youtube.com/watch?v=qJVkC47kWnc)
+- **[Jonas Hübotter](/speaker-series/2026-01-13-jonas-hubotter)** (ETH Zurich): [Test-Time Training Agents for Deep Exploration](https://www.youtube.com/watch?v=7EsrcXXPBRU)
+- **[David Watson](/speaker-series/2026-01-27-david-watson)** (King's College London): [Can Humans Flourish in the Age of AI?](https://www.youtube.com/watch?v=nwPhpFjQqAE)
+- **[Ahmed Salem](/speaker-series/2026-02-10-ahmed-salem)** (Microsoft Security Response Center): [The Price of Intelligence: Three Risks Inherent in LLMs](https://www.youtube.com/watch?v=FbaaKi1cgWg)
 
 ![Ashley Edwards (Google DeepMind) during her talk on generative world models](./talk.jpeg)
 

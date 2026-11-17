@@ -15,18 +15,15 @@ const EVENT_PAGE_PATHS: Record<BlissEvent["kind"], string> = {
     community: "/",
 };
 
-export const getEventShareId = (event: Pick<BlissEvent, "id" | "kind" | "seriesNumber">) =>
-    event.kind === "speaker" && event.seriesNumber != null
-        ? String(event.seriesNumber)
-        : event.id;
-
 export const getEventSharePath = (kind: BlissEvent["kind"]) => EVENT_PAGE_PATHS[kind];
 
 export const getEventShareUrl = (
-    event: Pick<BlissEvent, "id" | "kind" | "seriesNumber">,
+    event: Pick<BlissEvent, "id" | "kind" | "pagePath">,
     origin = typeof window !== "undefined" ? window.location.origin : "https://bliss.berlin",
 ) =>
-    `${origin}${getEventSharePath(event.kind)}?id=${encodeURIComponent(getEventShareId(event))}`;
+    event.pagePath
+        ? `${origin}${event.pagePath}`
+        : `${origin}${getEventSharePath(event.kind)}#${event.id}`;
 
 export const toEventScrollRefs = (events: BlissEvent[]): EventScrollRef[] =>
     events.map((event) => ({
