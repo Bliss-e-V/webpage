@@ -21,7 +21,7 @@ import kingsImg from "../../images/logos/kings_college.png";
 import huggingfaceImg from "../../images/logos/huggingface.svg";
 import stanfordImg from "../../images/logos/stanford.svg";
 import anthropicImg from "../../images/logos/anthropic-white.svg";
-import maxPlanckImg from "../../images/logos/maxplanck-white.svg";
+import mpiIsImg from "../../images/logos/mpi-is.webp";
 import imperialImg from "../../images/logos/imperial-white.svg";
 import uclImg from "../../images/logos/ucl-white.svg";
 import epflImg from "../../images/logos/epfl.svg";
@@ -647,7 +647,7 @@ export const speakers = [
         "https://www.meetup.com/bliss-speaker-series/events/316827544",
         "In this talk we will discuss the features of verbalized reasoning, i.e. chain-of-thought in large language models and its uses. We will then discuss security risks (such as the decryption of reasoning traces) as well as safety risks, such as unfaithful CoT, uninterpretable CoT and other concerns regarding the monitoring of chains of thought in frontier models. Finally, we're looking to discuss chain of thought monitorability in principle, and its future.",
         "Jonas Geiping is a Research Group Leader at the Max Planck Institute for Intelligent Systems and the ELLIS Institute Tübingen, where he leads the Safety- & Efficiency-Aligned Learning group. Before moving to Tübingen, he was a postdoctoral researcher at the University of Maryland, College Park. He received his PhD from the University of Siegen.",
-        maxPlanckImg,
+        mpiIsImg,
         "",
         [],
         false,
