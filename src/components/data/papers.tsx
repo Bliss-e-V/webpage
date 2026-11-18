@@ -306,7 +306,7 @@ const sections: Section[] = [
         "Various topics in AI",
         {
             description:
-                "This winter semester we discuss papers from various topics.",
+                "This winter semester we're discussing papers on various topics.",
             location: tuFranklinLocation,
             schedule: "6:45pm",
         },
