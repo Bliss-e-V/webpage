@@ -303,10 +303,10 @@ const sections: Section[] = [
         "Various BLISS members",
         new Date("2026-11-23"),
         new Date("2027-02-01"),
-        "The group picks a paper for each session.",
+        "Various topics in AI",
         {
             description:
-                "This winter semester we meet four times. We pick a paper for each session and announce it here shortly before we meet.",
+                "This winter semester we discuss papers from various topics.",
             location: tuFranklinLocation,
             schedule: "6:45pm",
         },
